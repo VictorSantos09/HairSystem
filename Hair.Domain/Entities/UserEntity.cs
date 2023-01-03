@@ -11,8 +11,9 @@ namespace Hair.Domain.Entities
         public string Password { get; set; }
         public AdressEntity Adress { get; set; }
         public string? CNPJ { get; set; }
+        public HaircutePriceEntity PriceEntity { get; set; }
 
-        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AdressEntity adress, string? cNPJ)
+        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AdressEntity adress, string? cNPJ, HaircutePriceEntity priceEntity)
         {
             Id = Guid.NewGuid();
             SaloonName = saloonName;
@@ -26,6 +27,9 @@ namespace Hair.Domain.Entities
             Adress.City = adress.City;
             Adress.Complement = adress.Complement;
             CNPJ = cNPJ;
+            PriceEntity.Hair = priceEntity.Hair;
+            PriceEntity.Beard = priceEntity.Beard;
+            PriceEntity.Mustache = priceEntity.Mustache;
         }
     }
 }
