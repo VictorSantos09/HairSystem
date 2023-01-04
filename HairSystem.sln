@@ -21,6 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hair.Repository", "Hair.Rep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hair.Domain", "Hair.Domain\Hair.Domain.csproj", "{1BB16F67-5072-48F2-8D69-921E7267BB65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hair.Tests", "Hair.Tests\Hair.Tests.csproj", "{C9F47D69-F689-4A71-9439-3FA20D55FE37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{61AEA57A-4C55-4183-AA97-4ACEC5894B00} = {61AEA57A-4C55-4183-AA97-4ACEC5894B00}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +48,10 @@ Global
 		{1BB16F67-5072-48F2-8D69-921E7267BB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB16F67-5072-48F2-8D69-921E7267BB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB16F67-5072-48F2-8D69-921E7267BB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

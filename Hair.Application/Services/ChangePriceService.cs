@@ -1,16 +1,18 @@
 ﻿using Application.Dto;
 using Hair.Application.Interfaces;
+using Hair.Domain.Entities;
+using Hair.Repository.Interfaces;
 using Repository.Repository;
 
 namespace Hair.Application.Services
 {
     public class ChangePriceService : IChangePriceService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
         private double _newPrice;
         private Guid _saloonId;
 
-        public ChangePriceService(UserRepository userRepository)
+        public ChangePriceService(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -23,7 +25,7 @@ namespace Hair.Application.Services
             _saloonId = saloonId;
             _newPrice = newPrice;
 
-            if (double.IsNormal(newPrice) == false || double.IsNegative(newPrice) == true)
+            if (double.IsNegative(newPrice) == true)
                 return new BaseDto(406, "Valor não permitido");
 
             var saloon = _userRepository.GetById(saloonId);

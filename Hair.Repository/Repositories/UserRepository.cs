@@ -1,12 +1,14 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Repository.Interfaces;
 
 namespace Repository.Repository
 {
-    public class UserRepository : BaseRepository<UserEntity>
+    public class UserRepository : BaseRepository<UserEntity>, IBaseRepository<UserEntity>
     {
-        public UserRepository() : base("User")
+        private readonly IBaseRepository<UserEntity> _baseRepository;
+        public UserRepository(IBaseRepository<UserEntity> baseRepository) : base("User")
         {
-
+            _baseRepository = baseRepository;
         }
         public UserEntity? GetByEmail(string email, string password)
         {

@@ -21,15 +21,9 @@ namespace Hair.Domain.Entities
             PhoneNumber = phoneNumber;
             Email = email;
             Password = password;
-            Adress.Street = adress.Street;
-            Adress.Number = adress.Number;
-            Adress.State = adress.State;
-            Adress.City = adress.City;
-            Adress.Complement = adress.Complement;
+            Adress = adress;
             CNPJ = cNPJ;
-            PriceEntity.Hair = priceEntity.Hair;
-            PriceEntity.Beard = priceEntity.Beard;
-            PriceEntity.Mustache = priceEntity.Mustache;
+            PriceEntity = priceEntity;
         }
     }
 }
