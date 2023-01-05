@@ -1,0 +1,9 @@
+X
+OC:\Users\victo\Desktop\HairSystem\Hair.Repository\Interfaces\IBaseRepository.csutf-8Y
+PC:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\BaseRepository.csutf-8]
+TC:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\HaircuteRepository.csutf-8\
+SC:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\StorageRepository.csutf-8Y
+PC:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\UserRepository.csutf-8o
+dC:\Users\victo\Desktop\HairSystem\Hair.Repository\obj\Debug\net6.0\Hair.Repository.GlobalUsings.g.csutf-8|
+qC:\Users\victo\Desktop\HairSystem\Hair.Repository\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.csutf-8m
+bC:\Users\victo\Desktop\HairSystem\Hair.Repository\obj\Debug\net6.0\Hair.Repository.AssemblyInfo.csutf-8

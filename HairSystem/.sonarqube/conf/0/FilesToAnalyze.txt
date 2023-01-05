@@ -1,0 +1,8 @@
+﻿C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\AdressEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\BarberEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\BaseEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\ClientEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\HaircuteEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\HaircutePriceEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\SaloonItemEntity.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\UserEntity.cs

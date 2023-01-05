@@ -1,18 +1,29 @@
-﻿using Domain.Entities;
+﻿using Hair.Domain.Common;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hair.Domain.Entities
 {
     public class UserEntity : BaseEntity
     {
+        [Required]
         public string SaloonName { get; set; }
+        [Required]
+        [MinLength(5)]
         public string OwnerName { get; set; }
         public string PhoneNumber { get; set; }
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+        [Required]
+        [PasswordPropertyText]
         public string Password { get; set; }
+        [Required]
         public AdressEntity Adress { get; set; }
         public string? CNPJ { get; set; }
+        public HaircutePriceEntity PriceEntity { get; set; }
 
-        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AdressEntity adress, string? cNPJ)
+        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AdressEntity adress, string? cNPJ, HaircutePriceEntity priceEntity)
         {
             Id = Guid.NewGuid();
             SaloonName = saloonName;
@@ -20,12 +31,9 @@ namespace Hair.Domain.Entities
             PhoneNumber = phoneNumber;
             Email = email;
             Password = password;
-            Adress.Street = adress.Street;
-            Adress.Number = adress.Number;
-            Adress.State = adress.State;
-            Adress.City = adress.City;
-            Adress.Complement = adress.Complement;
+            Adress = adress;
             CNPJ = cNPJ;
+            PriceEntity = priceEntity;
         }
     }
 }

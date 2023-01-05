@@ -1,0 +1,9 @@
+J
+AC:\Users\victo\Desktop\HairSystem\Hair.Application\Dto\BaseDto.csutf-8Q
+HC:\Users\victo\Desktop\HairSystem\Hair.Application\Dto\ChangePriceDto.csutf-8M
+DC:\Users\victo\Desktop\HairSystem\Hair.Application\Dto\MessageDto.csutf-8]
+TC:\Users\victo\Desktop\HairSystem\Hair.Application\Interfaces\IChangePriceService.csutf-8Z
+QC:\Users\victo\Desktop\HairSystem\Hair.Application\Services\ChangePriceService.csutf-8q
+fC:\Users\victo\Desktop\HairSystem\Hair.Application\obj\Debug\net6.0\Hair.Application.GlobalUsings.g.csutf-8}
+rC:\Users\victo\Desktop\HairSystem\Hair.Application\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.csutf-8o
+dC:\Users\victo\Desktop\HairSystem\Hair.Application\obj\Debug\net6.0\Hair.Application.AssemblyInfo.csutf-8

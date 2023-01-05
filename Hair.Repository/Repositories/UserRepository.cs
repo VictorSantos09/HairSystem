@@ -1,6 +1,6 @@
 ﻿using Hair.Domain.Entities;
 
-namespace Repository.Repository
+namespace Hair.Repository.Repositories
 {
     public class UserRepository : BaseRepository<UserEntity>
     {
@@ -10,7 +10,7 @@ namespace Repository.Repository
         }
         public UserEntity? GetByEmail(string email, string password)
         {
-            return GetAll().Find(x => x.Email == email && x.Password == password);
+            return GetAll().Find(x => x.Email == email.ToUpper() && x.Password == password);
         }
     }
 }

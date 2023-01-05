@@ -1,15 +1,21 @@
-﻿using Domain.Entities;
+﻿using Hair.Domain.Common;
+using Hair.Repository.Interfaces;
 using System.Text.Json;
 
-namespace Repository.Repository
+namespace Hair.Repository.Repositories
 {
-    public class BaseRepository<T> where T : BaseEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly string _pathFile;
 
         public BaseRepository(string pathFile)
         {
-            _pathFile = $@"{Directory.GetCurrentDirectory()}..\..\Repository\DataBase\{pathFile}.json";
+            _pathFile = $@"{Directory.GetCurrentDirectory()}..\..\Hair.Repository\DataBase\{pathFile}.json";
+        }
+
+        public BaseRepository()
+        {
+
         }
 
         public void Add(T entity)

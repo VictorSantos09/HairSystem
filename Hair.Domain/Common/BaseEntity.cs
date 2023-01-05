@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities
+﻿namespace Hair.Domain.Common
 {
     public class BaseEntity
     {

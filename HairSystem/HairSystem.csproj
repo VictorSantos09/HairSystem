@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hair.Application\Hair.Application.csproj" />
+    <ProjectReference Include="..\Hair.Repository\Hair.Repository.csproj" />
   </ItemGroup>
 
 </Project>
