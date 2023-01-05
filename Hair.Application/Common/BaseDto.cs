@@ -1,5 +1,8 @@
 ﻿namespace Hair.Application.Common
 {
+    /// <summary>
+    /// Entidade base para envio de dados e informações para o front, tais como statusCode, Mensagem e Dados
+    /// </summary>
     public class BaseDto
     {
         public int _StatusCode { get; set; }
