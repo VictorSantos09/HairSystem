@@ -2,6 +2,9 @@
 
 namespace Hair.Repository.Repositories
 {
+    /// <summary>
+    /// Repositorio para acesso de usuarios da entidade <see cref="UserEntity"/>
+    /// </summary>
     public class UserRepository : BaseRepository<UserEntity>
     {
         public UserRepository() : base("User")

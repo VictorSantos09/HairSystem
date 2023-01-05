@@ -24,7 +24,7 @@ namespace Hair.Application.Interfaces
         /// <param name="newPrice"></param>
         /// <param name="saloonId"></param>
         /// <param name="confirmed"></param>
-        /// <returns>Retorna um BaseDto 200, 404 ou 406</returns>
+        /// <returns>Retorna um <see cref="BaseDto"/> 200, 404 ou 406</returns>
         public BaseDto ChangeHaircutePrice(double newPrice, Guid saloonId, bool confirmed, bool hair, bool mustache, bool beard);
     }
 }

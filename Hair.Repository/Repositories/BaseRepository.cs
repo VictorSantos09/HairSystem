@@ -4,6 +4,12 @@ using System.Text.Json;
 
 namespace Hair.Repository.Repositories
 {
+    /// <summary>
+    /// Base Principal dos repositorios onde efetua a ação escolhida, contendo as funções implementadas da interface <see cref="IBaseRepository{T}"/>
+    /// 
+    /// <para>Todos os repositories existente DEVEM herdar dessa classe</para>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly string _pathFile;

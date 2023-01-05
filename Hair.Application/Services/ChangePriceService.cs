@@ -15,7 +15,16 @@ namespace Hair.Application.Services
         {
             _userRepository = userRepository;
         }
-
+        /// <summary>
+        /// Verifica a confirmação e efetua a aplicação da alteração dos valores de cortes de cabelo, barba e bigode
+        /// </summary>
+        /// <param name="newPrice"></param>
+        /// <param name="saloonId"></param>
+        /// <param name="confirmed"></param>
+        /// <param name="hair"></param>
+        /// <param name="mustache"></param>
+        /// <param name="beard"></param>
+        /// <returns>retorna um <see cref="BaseDto"/> com statusCode 404,406 e 200</returns>
         public BaseDto ChangeHaircutePrice(double newPrice, Guid saloonId, bool confirmed, bool hair, bool mustache, bool beard)
         {
             if (!confirmed)
@@ -39,6 +48,13 @@ namespace Hair.Application.Services
 
             return new BaseDto(200, "Alteração Concluída");
         }
+        /// <summary>
+        /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão
+        /// </summary>
+        /// <param name="hair"></param>
+        /// <param name="mustache"></param>
+        /// <param name="beard"></param>
+        /// <returns>Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação</returns>
         private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard)
         {
             if (!beard || !mustache || !beard)
