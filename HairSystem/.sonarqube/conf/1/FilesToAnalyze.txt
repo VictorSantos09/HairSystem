@@ -1,0 +1,8 @@
+﻿C:\Users\victo\Desktop\HairSystem\Hair.Repository\Interfaces\IBaseRepository.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\BaseRepository.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\HaircuteRepository.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\StorageRepository.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\Repositories\UserRepository.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\DataBase\HaircuteTime.json
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\DataBase\StorageItens.json
+C:\Users\victo\Desktop\HairSystem\Hair.Repository\DataBase\User.json

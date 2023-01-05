@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "4.3.0.0",
+        "fileVersion": "4.3.0-3.22415.1 (8301d484)",
+        "semanticVersion": "4.3.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Desreferência de uma referência possivelmente nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/victo/Desktop/HairSystem/Hair.Domain/Entities/BarberEntity.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 13,
+                  "endLine": 21,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Desreferência de uma referência possivelmente nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/victo/Desktop/HairSystem/Hair.Domain/Entities/HaircuteEntity.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 13,
+                  "endLine": 17,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 8 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/victo/Desktop/HairSystem/Hair.Domain/Entities/UserEntity.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 26,
+                  "endLine": 16,
+                  "endColumn": 182
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CS8602": {
+          "id": "CS8602",
+          "shortDescription": "Desreferência de uma referência possivelmente nula.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8602)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S107": {
+          "id": "S107",
+          "shortDescription": "Methods should not have too many parameters",
+          "fullDescription": "A long parameter list can indicate that a new structure should be created to wrap the numerous parameters or that the function is doing too many things.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-107",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

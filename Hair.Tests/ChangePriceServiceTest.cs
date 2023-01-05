@@ -64,7 +64,7 @@ namespace Hair.Tests
 
             var actual = _service.ChangeHaircutePrice(_newPrice, userEntity.Id, true, false, false, false);
 
-            var expected = new BaseDto(406, "Não foi possivel finalizar sua solicitação");
+            var expected = new BaseDto(406, "Escolha algum item");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -78,9 +78,9 @@ namespace Hair.Tests
             _RepositoryMock.Setup(x => x.Add(globalUser));
             _RepositoryMock.Setup(x => x.GetById(globalUser.Id)).Returns(globalUser);
 
-            var actual = _service.ChangeHaircutePrice(_newPrice, globalUser.Id, true, false, true, true);
+            var actual = _service.ChangeHaircutePrice(_newPrice, globalUser.Id, true, true, true, true);
 
-            var expected = new BaseDto(200, $"Valor do corte alterado para {_newPrice}");
+            var expected = new BaseDto(200, "Alteração Concluída");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);

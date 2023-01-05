@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "4.3.0.0",
+        "fileVersion": "4.3.0-3.22415.1 (8301d484)",
+        "semanticVersion": "4.3.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Possível retorno de referência nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/victo/Desktop/HairSystem/Hair.Repository/Repositories/BaseRepository.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 24,
+                  "endLine": 35,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_baseRepository' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/victo/Desktop/HairSystem/Hair.Repository/Repositories/UserRepository.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 54,
+                  "endLine": 8,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CS8603": {
+          "id": "CS8603",
+          "shortDescription": "Possível retorno de referência nula.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8603)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S4487": {
+          "id": "S4487",
+          "shortDescription": "Unread \"private\" fields should be removed",
+          "fullDescription": "Private fields only used to store values without reading them later is a case of dead store. So changing the value of such field is useless and most probably indicates a serious error in the code.",
+          "defaultLevel": "note",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4487",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay",
+              "Unnecessary"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

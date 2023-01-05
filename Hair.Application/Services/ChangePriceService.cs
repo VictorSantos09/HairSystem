@@ -29,62 +29,51 @@ namespace Hair.Application.Services
                 return new BaseDto(406, "Valor não permitido");
 
             var saloon = _userRepository.GetById(saloonId);
-            
+
             if (saloon == null)
                 return new BaseDto(404, "Usuário não encontrado");
 
             var haircutePlace = CheckAndApplyPrice(hair, mustache, beard);
 
             if (!haircutePlace)
-                return new BaseDto(406, "Não foi possivel finalizar sua solicitação");
+                return new BaseDto(406, "Escolha algum item");
 
-            return new BaseDto(200, $"Valor do corte alterado para {newPrice}");
+            return new BaseDto(200, "Alteração Concluída");
         }
         private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard)
         {
-            if (hair)
-                return ApplyHairPrice();
-
-            else if (mustache)
-                return ApplyMustachePrice();
-
-            else if (beard)
-                return ApplyBeardPrice();
-
-            return false;
-        }
-        private bool ApplyHairPrice()
-        {
-            var saloon = _userRepository.GetById(_saloonId);
-
-            if (saloon == null)
+            if (!beard || !mustache || !beard)
                 return false;
-            
-            saloon.PriceEntity.Hair = _newPrice;
 
+            if (hair)
+                ApplyHairPrice();
+
+            if (mustache)
+                ApplyMustachePrice();
+
+
+            if (beard)
+                ApplyBeardPrice();
+            
             return true;
         }
-        private bool ApplyBeardPrice()
+        private void ApplyHairPrice()
         {
             var saloon = _userRepository.GetById(_saloonId);
 
-            if (saloon == null)
-                return false;
+            saloon.PriceEntity.Hair = _newPrice;
+        }
+        private void ApplyBeardPrice()
+        {
+            var saloon = _userRepository.GetById(_saloonId);
 
             saloon.PriceEntity.Beard = _newPrice;
-         
-            return true;
         }
-        private bool ApplyMustachePrice()
+        private void ApplyMustachePrice()
         {
             var saloon = _userRepository.GetById(_saloonId);
 
-            if (saloon == null)
-                return false;
-
             saloon.PriceEntity.Mustache = _newPrice;
-         
-            return true;
         }
     }
 }
