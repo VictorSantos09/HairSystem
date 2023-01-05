@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Dto;
 using Hair.Application.Services;
+using Hair.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
@@ -9,10 +10,12 @@ namespace HairSystem.Controllers
     public class ChangePriceController : ControllerBase
     {
         private readonly ChangePriceService _changePrice;
+        private readonly UserRepository _userRepository;
 
-        public ChangePriceController(ChangePriceService changePrice)
+        public ChangePriceController(UserRepository userRepository)
         {
-            _changePrice = changePrice;
+            _userRepository = userRepository;
+            _changePrice = new ChangePriceService(_userRepository);
         }
 
         [HttpPost]

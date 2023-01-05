@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Hair.Application.Common;
 
 namespace Hair.Application.Interfaces
 {
