@@ -1,12 +1,11 @@
-using Application.Dto;
-using Castle.Components.DictionaryAdapter.Xml;
+using Hair.Application.Common;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
 using static Xunit.Assert;
 
-namespace Hair.Tests
+namespace Hair.Tests.Services
 {
     public class ChangePriceServiceTest
     {

@@ -1,4 +1,4 @@
-﻿namespace Application.Dto
+﻿namespace Hair.Application.Common
 {
     public class BaseDto
     {
