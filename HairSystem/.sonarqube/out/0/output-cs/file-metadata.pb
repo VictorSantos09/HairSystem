@@ -1,0 +1,12 @@
+O
+FC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\AdressEntity.csutf-8O
+FC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\BarberEntity.csutf-8M
+DC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\BaseEntity.csutf-8O
+FC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\ClientEntity.csutf-8Q
+HC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\HaircuteEntity.csutf-8V
+MC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\HaircutePriceEntity.csutf-8S
+JC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\SaloonItemEntity.csutf-8M
+DC:\Users\victo\Desktop\HairSystem\Hair.Domain\Entities\UserEntity.csutf-8g
+\C:\Users\victo\Desktop\HairSystem\Hair.Domain\obj\Debug\net6.0\Hair.Domain.GlobalUsings.g.csutf-8x
+mC:\Users\victo\Desktop\HairSystem\Hair.Domain\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.csutf-8e
+ZC:\Users\victo\Desktop\HairSystem\Hair.Domain\obj\Debug\net6.0\Hair.Domain.AssemblyInfo.csutf-8

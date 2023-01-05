@@ -3,23 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HairSystem", "HairSystem\HairSystem.csproj", "{8E8B6B2E-A971-4D10-B4AE-99190555C854}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HairSystem", "HairSystem\HairSystem.csproj", "{8E8B6B2E-A971-4D10-B4AE-99190555C854}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61AEA57A-4C55-4183-AA97-4ACEC5894B00} = {61AEA57A-4C55-4183-AA97-4ACEC5894B00}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hair.Application", "Hair.Application\Hair.Application.csproj", "{61AEA57A-4C55-4183-AA97-4ACEC5894B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hair.Application", "Hair.Application\Hair.Application.csproj", "{61AEA57A-4C55-4183-AA97-4ACEC5894B00}"
 	ProjectSection(ProjectDependencies) = postProject
 		{136680E0-0C48-45E8-B171-A8E0C5DD21F1} = {136680E0-0C48-45E8-B171-A8E0C5DD21F1}
 		{1BB16F67-5072-48F2-8D69-921E7267BB65} = {1BB16F67-5072-48F2-8D69-921E7267BB65}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hair.Repository", "Hair.Repository\Hair.Repository.csproj", "{136680E0-0C48-45E8-B171-A8E0C5DD21F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hair.Repository", "Hair.Repository\Hair.Repository.csproj", "{136680E0-0C48-45E8-B171-A8E0C5DD21F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1BB16F67-5072-48F2-8D69-921E7267BB65} = {1BB16F67-5072-48F2-8D69-921E7267BB65}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hair.Domain", "Hair.Domain\Hair.Domain.csproj", "{1BB16F67-5072-48F2-8D69-921E7267BB65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hair.Domain", "Hair.Domain\Hair.Domain.csproj", "{1BB16F67-5072-48F2-8D69-921E7267BB65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hair.Tests", "Hair.Tests\Hair.Tests.csproj", "{C9F47D69-F689-4A71-9439-3FA20D55FE37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{61AEA57A-4C55-4183-AA97-4ACEC5894B00} = {61AEA57A-4C55-4183-AA97-4ACEC5894B00}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +48,10 @@ Global
 		{1BB16F67-5072-48F2-8D69-921E7267BB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB16F67-5072-48F2-8D69-921E7267BB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB16F67-5072-48F2-8D69-921E7267BB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9F47D69-F689-4A71-9439-3FA20D55FE37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

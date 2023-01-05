@@ -1,0 +1,9 @@
+﻿C:\Users\victo\Desktop\HairSystem\HairSystem\Controllers\ChangePriceController.cs
+C:\Users\victo\Desktop\HairSystem\HairSystem\Controllers\WeatherForecastController.cs
+C:\Users\victo\Desktop\HairSystem\HairSystem\Program.cs
+C:\Users\victo\Desktop\HairSystem\HairSystem\obj\Debug\net6.0\HairSystem.GlobalUsings.g.cs
+C:\Users\victo\Desktop\HairSystem\HairSystem\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+C:\Users\victo\Desktop\HairSystem\HairSystem\obj\Debug\net6.0\HairSystem.AssemblyInfo.cs
+C:\Users\victo\Desktop\HairSystem\HairSystem\appsettings.Development.json
+C:\Users\victo\Desktop\HairSystem\HairSystem\appsettings.json
+C:\Users\victo\Desktop\HairSystem\HairSystem\Properties\launchSettings.json

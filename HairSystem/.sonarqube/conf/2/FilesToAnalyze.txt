@@ -1,0 +1,5 @@
+﻿C:\Users\victo\Desktop\HairSystem\Hair.Application\Dto\BaseDto.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Application\Dto\ChangePriceDto.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Application\Dto\MessageDto.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Application\Interfaces\IChangePriceService.cs
+C:\Users\victo\Desktop\HairSystem\Hair.Application\Services\ChangePriceService.cs
