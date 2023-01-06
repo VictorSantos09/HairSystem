@@ -1,13 +1,12 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Hair.Repository.Repositories;
-using System.Threading.Tasks.Dataflow;
 
 namespace Hair.Application.Services
 {
-    public class ManagmentWorkerService
+    public class ManagmentWorkerService : IManagmentWorkerService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<BarberEntity> _barberRepository;
@@ -60,6 +59,11 @@ namespace Hair.Application.Services
 
             return new BaseDto(406, "Dados inválidos, solicitação cancelada");
         }
+        /// <summary>
+        /// Efetua a mudança do nome do barbeiro
+        /// </summary>
+        /// <param name="barberNameDto"></param>
+        /// <returns>retorna um <see cref="BaseDto"/> com status code 404, 200 ou 406</returns>
         public BaseDto ChangeBarberName(ChangeBarberNameDto barberNameDto)
         {
             var barber = _barberRepository.GetById(barberNameDto.BarberId);
@@ -80,6 +84,11 @@ namespace Hair.Application.Services
 
             return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
         }
+        /// <summary>
+        /// Efetua a mudança do salario do barbeiro
+        /// </summary>
+        /// <param name="salaryDto"></param>
+        /// <returns>retorna um <see cref="BaseDto"/> com status code 404, 406 e 200</returns>
         public BaseDto ChangeBarberSalary(ChangeBarberSalaryDto salaryDto)
         {
             var barber = _barberRepository.GetById(salaryDto.BarberId);
@@ -100,6 +109,11 @@ namespace Hair.Application.Services
 
             return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
         }
+        /// <summary>
+        /// Efetua a mudança do endereço do barbeiro
+        /// </summary>
+        /// <param name="adressDto"></param>
+        /// <returns>Retorna um <see cref="BaseDto"/> com status code 404, 406 e 200</returns>
         public BaseDto ChangeBarberAdress(ChangeBarberAdressDto adressDto)
         {
             var barber = _barberRepository.GetById(adressDto.BarberId);
