@@ -11,6 +11,8 @@ namespace Hair.Domain.Entities
         [Required]
         [MinLength(5)]
         public string OwnerName { get; set; }
+        [MinLength(9)]
+        [MaxLength(15)]
         public string PhoneNumber { get; set; }
         [Required]
         [EmailAddress]
