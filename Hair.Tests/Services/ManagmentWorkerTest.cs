@@ -243,5 +243,64 @@ namespace Hair.Tests.Services
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
         }
+        [Fact]
+        private void ChangeBarberAddress_ShuldReturn404_WhenBarberNotFound()
+        {
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var adressDto = new ChangeBarberAddressDto(_user.Id, It.IsAny<Guid>(), _barber.Name, It.IsAny<AddressEntity>());
+
+            var actual = _service.ChangeBarberAddress(adressDto);
+
+            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+        [Fact]
+        private void ChangeBarberAddres_ShouldReturn404_WhenUserNotFound()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var adressDto = new ChangeBarberAddressDto(It.IsAny<Guid>(), _barber.Id, _barber.Name, It.IsAny<AddressEntity>());
+
+            var actual = _service.ChangeBarberAddress(adressDto);
+
+            var expected = new BaseDto(404, "Não foi possível encontrar o salão");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+        [Fact]
+        private void ChangeBarberAddress_ShouldReturn406_WhenIncorrectData()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var adressDto = new ChangeBarberAddressDto(_user.Id, _barber.Id, It.IsAny<string>(), It.IsAny<AddressEntity>());
+
+            var actual = _service.ChangeBarberAddress(adressDto);
+
+            var expected = new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+        [Fact]
+        private void ChangeBarberAddress_ShouldReturn200_WhenSucessfulChange()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var adressDto = new ChangeBarberAddressDto(_user.Id, _barber.Id, _barber.Name, It.IsAny<AddressEntity>());
+
+            var actual = _service.ChangeBarberAddress(adressDto);
+
+            var expected = new BaseDto(200, $"Endereço de {_barber.Name} alterado");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
     }
 }

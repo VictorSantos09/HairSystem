@@ -12,14 +12,14 @@ namespace Hair.Domain.Entities
         public string? Email { get; set; }
         [Required]
         public double Salary { get; set; }
-        public AdressEntity Adress { get; set; }
+        public AddressEntity Adress { get; set; }
         [Required]
         public bool Hired { get; set; }
         [Required]
         public Guid JobSaloonId { get; set; }
         public string JobSaloonName { get; set; }
 
-        public BarberEntity(string name, string? phoneNumber, string? email, double salary, AdressEntity adress, bool hired, Guid jobSaloonId, string jobSaloonName)
+        public BarberEntity(string name, string? phoneNumber, string? email, double salary, AddressEntity adress, bool hired, Guid jobSaloonId, string jobSaloonName)
         {
             Id = Guid.NewGuid();
             Name = name;

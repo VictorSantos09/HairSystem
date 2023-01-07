@@ -13,6 +13,6 @@ namespace Hair.Application.Interfaces
         public BaseDto FireBarber(FireBarberDto fireDto);
         public BaseDto ChangeBarberName(ChangeBarberNameDto barberNameDto);
         public BaseDto ChangeBarberSalary(ChangeBarberSalaryDto salaryDto);
-        public BaseDto ChangeBarberAdress(ChangeBarberAdressDto adressDto);
+        public BaseDto ChangeBarberAddress(ChangeBarberAddressDto adressDto);
     }
 }

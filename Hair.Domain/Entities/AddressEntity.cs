@@ -2,7 +2,7 @@
 
 namespace Hair.Domain.Entities
 {
-    public class AdressEntity
+    public class AddressEntity
     {
         [Required]
         public string Street { get; set; }
@@ -13,7 +13,7 @@ namespace Hair.Domain.Entities
         [Required]
         public string State { get; set; }
         public string? Complement { get; set; }
-        public AdressEntity(string street, string number, string city, string state, string? complement)
+        public AddressEntity(string street, string number, string city, string state, string? complement)
         {
             Street = street;
             Number = number;

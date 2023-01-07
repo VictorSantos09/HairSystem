@@ -114,14 +114,14 @@ namespace Hair.Application.Services
         /// </summary>
         /// <param name="adressDto"></param>
         /// <returns>Retorna um <see cref="BaseDto"/> com status code 404, 406 e 200</returns>
-        public BaseDto ChangeBarberAdress(ChangeBarberAdressDto adressDto)
+        public BaseDto ChangeBarberAddress(ChangeBarberAddressDto adressDto)
         {
             var barber = _barberRepository.GetById(adressDto.BarberId);
 
             if (barber == null)
                 return new BaseDto(404, "Não foi possível encontrar o barbeiro");
 
-            var user = _barberRepository.GetById(adressDto.SaloonId);
+            var user = _userRepository.GetById(adressDto.SaloonId);
 
             if (user == null)
                 return new BaseDto(404, "Não foi possível encontrar o salão");

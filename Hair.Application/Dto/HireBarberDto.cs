@@ -15,10 +15,10 @@ namespace Hair.Application.Dto
         public string? Email { get; set; }
         [Required]
         public double Salary { get; set; }
-        public AdressEntity Adress { get; set; }
+        public AddressEntity Adress { get; set; }
         public bool Confirmed { get; set; }
 
-        public HireBarberDto(string name, string? phoneNumber, string? email, double salary, AdressEntity adress, Guid saloonId, bool confirmed)
+        public HireBarberDto(string name, string? phoneNumber, string? email, double salary, AddressEntity adress, Guid saloonId, bool confirmed)
         {
             Name = name;
             PhoneNumber = phoneNumber;

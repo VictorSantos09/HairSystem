@@ -34,9 +34,9 @@ namespace HairSystem.Controllers
         }
         [HttpPost]
         [Route("ChangeBarberAdress")]
-        public IActionResult ChangeAdress(ChangeBarberAdressDto adressDto)
+        public IActionResult ChangeAdress(ChangeBarberAddressDto adressDto)
         {
-            var result = _service.ChangeBarberAdress(adressDto);
+            var result = _service.ChangeBarberAddress(adressDto);
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }

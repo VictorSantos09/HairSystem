@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hair.Application.Dto
 {
-    public class ChangeBarberAdressDto
+    public class ChangeBarberAddressDto
     {
         public Guid SaloonId { get; set; }
         public Guid BarberId { get; set; }
         public string BarberName { get; set; }
-        public AdressEntity NewAdress { get; set; }
+        public AddressEntity NewAdress { get; set; }
 
-        public ChangeBarberAdressDto(Guid saloonId, Guid barberId, string barberName, AdressEntity newAdress)
+        public ChangeBarberAddressDto(Guid saloonId, Guid barberId, string barberName, AddressEntity newAdress)
         {
             SaloonId = saloonId;
             BarberId = barberId;
