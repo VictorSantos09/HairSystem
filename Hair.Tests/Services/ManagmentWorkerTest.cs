@@ -36,15 +36,16 @@ namespace Hair.Tests.Services
             var actual = _service.HireNewbarber(_hireBarberDtoFalse);
 
             var expected = new BaseDto(200, "Solicitação cancelada");
-            
+
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
         }
+
         [Fact]
         private void HireNewBarber_ShouldReturn404_WhenUserNotFound()
         {
             _barberRepository.Setup(x => x.GetById(_user.Id));
-            
+
             var hireDto = new HireBarberDto("Victor", null, null, 2000, _user.Adress, It.IsAny<Guid>(), true);
 
             var actual = _service.HireNewbarber(hireDto);
@@ -54,6 +55,7 @@ namespace Hair.Tests.Services
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
         }
+
         [Fact]
         private void HireNewBarber_ShouldReturn200_WhenSucessfullHire()
         {
@@ -61,12 +63,13 @@ namespace Hair.Tests.Services
             _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
 
             var actual = _service.HireNewbarber(_hireBarberDtoTrue);
-            
+
             var expected = new BaseDto(200, $"{_hireBarberDtoTrue.Name} foi registrado");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
         }
+
         [Fact]
         private void FireBarber_ShouldReturn404_WhenBarberNotFound()
         {
@@ -81,6 +84,7 @@ namespace Hair.Tests.Services
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
         }
+
         [Fact]
         private void FireBarber_ShouldReturn200_WhenCorrectData()
         {
@@ -90,12 +94,13 @@ namespace Hair.Tests.Services
             var fireDto = new FireBarberDto(_user.Id, _barber.Id, _barber.Name, _barber.Email, _user.SaloonName);
 
             var actual = _service.FireBarber(fireDto);
-            
+
             var expected = new BaseDto(200, $"{_barber.Name} foi demitido");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
         }
+
         [Fact]
         private void FireBarber_ShouldReturn406_WhenIncorrectData()
         {
@@ -106,6 +111,134 @@ namespace Hair.Tests.Services
             var actual = _service.FireBarber(fireDto);
 
             var expected = new BaseDto(406, "Dados inválidos, solicitação cancelada");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberName_ShouldReturn404_WhenBarberNotFound()
+        {
+            _barberRepository.Setup(x => x.GetById(It.IsAny<Guid>()));
+
+            var barberNameDto = new ChangeBarberNameDto(It.IsAny<Guid>(), _user.Id, "Armando", _barber.Name);
+
+            var actual = _service.ChangeBarberName(barberNameDto);
+
+            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberName_SouldReturn404_WhenUserNotFound()
+        {
+            _userRepository.Setup(x => x.GetById(It.IsAny<Guid>()));
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var barberNameDto = new ChangeBarberNameDto(_barber.Id, It.IsAny<Guid>(), "Armando", _barber.Name);
+
+            var actual = _service.ChangeBarberName(barberNameDto);
+
+            var expected = new BaseDto(404, "Não foi possível encontrar o salão");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberName_ShouldReturn200_WhenSucessfulChange()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var barberNameDto = new ChangeBarberNameDto(_barber.Id, _user.Id, "Armando", _barber.Name);
+
+            var actual = _service.ChangeBarberName(barberNameDto);
+
+            var expected = new BaseDto(200, $"Nome alterado para {barberNameDto.NewName}");
+
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberName_ShouldReturn406_WhenIncorrectData()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var barberNameDto = new ChangeBarberNameDto(_barber.Id, _user.Id, "Armando", It.IsAny<string>());
+
+            var actual = _service.ChangeBarberName(barberNameDto);
+
+            var expected = new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberSalary_ShouldReturn404_WhenBarberNotFound()
+        {
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var salaryDto = new ChangeBarberSalaryDto(_user.Id, It.IsAny<Guid>(), _barber.Name, 2000);
+
+            var actual = _service.ChangeBarberSalary(salaryDto);
+
+            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberSalary_ShouldReturn404_WhenUserNotFound()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var salaryDto = new ChangeBarberSalaryDto(It.IsAny<Guid>(), _barber.Id, _barber.Name, 2000);
+
+            var actual = _service.ChangeBarberSalary(salaryDto);
+
+            var expected = new BaseDto(404, "Não foi possível encontrar o salão");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberSalary_ShouldReturn200_WhenSucessfulChange()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var salaryDto = new ChangeBarberSalaryDto(_barber.JobSaloonId, _barber.Id, _barber.Name, 2000);
+
+            var actual = _service.ChangeBarberSalary(salaryDto);
+
+            var expected = new BaseDto(200, $"Salário de {_barber.Name} alterado para {salaryDto.NewSalary}");
+
+            Equal(expected._StatusCode, actual._StatusCode);
+            Equal(expected._Message, actual._Message);
+        }
+
+        [Fact]
+        private void ChangeBarberSalary_ShouldReturn406_WhenIncorrectData()
+        {
+            _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
+            _barberRepository.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
+
+            var salaryDto = new ChangeBarberSalaryDto(_barber.JobSaloonId, _barber.Id, It.IsAny<string>(), 2000);
+
+            var actual = _service.ChangeBarberSalary(salaryDto);
+
+            var expected = new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);

@@ -96,7 +96,7 @@ namespace Hair.Application.Services
             if (barber == null)
                 return new BaseDto(404, "Não foi possível encontrar o barbeiro");
 
-            var user = _barberRepository.GetById(salaryDto.SaloonId);
+            var user = _userRepository.GetById(salaryDto.SaloonId);
 
             if (user == null)
                 return new BaseDto(404, "Não foi possível encontrar o salão");
