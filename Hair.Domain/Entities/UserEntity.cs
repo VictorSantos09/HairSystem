@@ -11,6 +11,8 @@ namespace Hair.Domain.Entities
         [Required]
         [MinLength(5)]
         public string OwnerName { get; set; }
+        [MinLength(9)]
+        [MaxLength(15)]
         public string PhoneNumber { get; set; }
         [Required]
         [EmailAddress]
@@ -19,11 +21,11 @@ namespace Hair.Domain.Entities
         [PasswordPropertyText]
         public string Password { get; set; }
         [Required]
-        public AdressEntity Adress { get; set; }
+        public AddressEntity Adress { get; set; }
         public string? CNPJ { get; set; }
         public HaircutePriceEntity PriceEntity { get; set; }
 
-        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AdressEntity adress, string? cNPJ, HaircutePriceEntity priceEntity)
+        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AddressEntity address, string? cNPJ, HaircutePriceEntity priceEntity)
         {
             Id = Guid.NewGuid();
             SaloonName = saloonName;
@@ -31,7 +33,7 @@ namespace Hair.Domain.Entities
             PhoneNumber = phoneNumber;
             Email = email;
             Password = password;
-            Adress = adress;
+            Adress = address;
             CNPJ = cNPJ;
             PriceEntity = priceEntity;
         }
