@@ -10,6 +10,7 @@ namespace Hair.Repository
             services.AddSingleton<UserRepository>();
             services.AddSingleton<StorageRepository>();
             services.AddSingleton<HaircuteRepository>();
+            services.AddSingleton<BarberRepository>();
         }
     }
 }
