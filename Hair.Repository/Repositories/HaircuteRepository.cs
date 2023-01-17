@@ -13,5 +13,20 @@ namespace Hair.Repository.Repositories
         {
 
         }
+
+        public void AddPrice(HaircutePriceEntity haircutepriceEntity)
+        {
+            var saloonItem = new HaircutePriceEntity()
+            {
+                Id = haircutepriceEntity.Id,
+                Hair = haircutepriceEntity.Hair,
+                Beard = haircutepriceEntity.Beard,
+                Mustache = haircutepriceEntity.Mustache,
+
+            };
+            haircutepriceEntity.Create();
+        }
     }
+
+  
 }

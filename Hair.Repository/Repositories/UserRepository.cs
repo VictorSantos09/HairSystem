@@ -10,10 +10,33 @@ namespace Hair.Repository.Repositories
         public UserRepository() : base("User")
         {
 
+           
         }
-        public UserEntity? GetByEmail(string email, string password)
+        //public UserEntity? GetByEmail(string email, string password)
+        //{
+        //    return GetAll().Find(x => x.Email == email.ToUpper() && x.Password == password);
+        //}
+
+
+        public void AddUser(UserEntity userEntity)
         {
-            return GetAll().Find(x => x.Email == email.ToUpper() && x.Password == password);
+            var user = new UserEntity()
+            {
+                Id = userEntity.Id,
+                SaloonName = userEntity.SaloonName,
+                OwnerName = userEntity.OwnerName,
+                PhoneNumber = userEntity.PhoneNumber,
+                Email = userEntity.Email,
+                Password = userEntity.Password,
+                Adress = userEntity.Adress,
+                CNPJ = userEntity.CNPJ,
+                PriceEntity = userEntity.PriceEntity,
+            };
+            user.Create(); // Referência do método de criação no comando transact no UserEntity //
+            return;
         }
+
+
     }
+
 }

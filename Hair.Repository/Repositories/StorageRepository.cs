@@ -10,6 +10,19 @@ namespace Hair.Repository.Repositories
     {
         public StorageRepository() : base("StorageItens")
         {
+
+        }
+
+        public void AddUser(SaloonItemEntity saloonitemEntity)
+        {
+            var saloonItem = new SaloonItemEntity()
+            {
+                Id = saloonitemEntity.Id,
+                Name = saloonitemEntity.Name,   
+                Price = saloonitemEntity.Price,
+                QuantityAvaible = saloonitemEntity.QuantityAvaible,
+            };
+            saloonItem.Create();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Common;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using System.Text.Json;
 

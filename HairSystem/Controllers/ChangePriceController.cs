@@ -1,4 +1,5 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
