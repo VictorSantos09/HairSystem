@@ -20,7 +20,7 @@ namespace HairSystem.Controllers
         [Route("FireBarber")]
         public IActionResult FireBarber(FireBarberDto fireBarberDto)
         {
-           var result = _service.FireBarber(fireBarberDto);
+            var result = _service.FireBarber(fireBarberDto);
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }

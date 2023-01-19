@@ -1,14 +1,11 @@
-﻿using Moq;
-using static Xunit.Assert;
-
-namespace Hair.Tests.Project
+﻿namespace Hair.Tests.Solution
 {
     public class ProjectsReferencesTest
     {
         [Fact]
         private void HairApplication_ShouldReturnTrue_WhenProperRefsAdded()
         {
-            
+
         }
     }
 }

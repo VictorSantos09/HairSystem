@@ -1,5 +1,4 @@
-﻿using Hair.Domain.Common;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Hair.Domain.Entities
