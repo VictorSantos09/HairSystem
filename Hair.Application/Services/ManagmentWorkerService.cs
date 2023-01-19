@@ -7,6 +7,9 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
 {
+    /// <summary>
+    /// Classe para gerenciamento do Funcionário, como contratar, demitir entre outros
+    /// </summary>
     public class ManagmentWorkerService : IManagmentWorkerService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;

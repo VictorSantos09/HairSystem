@@ -6,6 +6,9 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
 {
+    /// <summary>
+    /// Classe para efetuação da mudança de preços do corte de cabelo, barba e bigode
+    /// </summary>
     public class ChangePriceService : IChangePriceService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
