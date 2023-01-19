@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace Hair.Application.Dto
 {

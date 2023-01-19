@@ -1,10 +1,10 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
-using System.Threading;
 using static Xunit.Assert;
 
 namespace Hair.Tests.Services
@@ -35,7 +35,7 @@ namespace Hair.Tests.Services
         {
             var actual = _service.HireNewbarber(_hireBarberDtoFalse);
 
-            var expected = new BaseDto(200, "Solicitação cancelada");
+            var expected = BaseDtoExtension.RequestCanceled();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -50,7 +50,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.HireNewbarber(hireDto);
 
-            var expected = new BaseDto(404, "Não foi possivel encontrar o salão");
+            var expected = SaloonMessageExtension.SaloonNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -79,7 +79,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.FireBarber(fireDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+            var expected = SaloonMessageExtension.BarberNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -95,7 +95,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.FireBarber(fireDto);
 
-            var expected = new BaseDto(200, $"{_barber.Name} foi demitido");
+            var expected = BaseDtoExtension.Create(200, $"{_barber.Name} foi demitido");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -110,7 +110,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.FireBarber(fireDto);
 
-            var expected = new BaseDto(406, "Dados inválidos, solicitação cancelada");
+            var expected = BaseDtoExtension.InvalidData();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -125,7 +125,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberName(barberNameDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+            var expected = SaloonMessageExtension.BarberNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -141,7 +141,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberName(barberNameDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o salão");
+            var expected = SaloonMessageExtension.SaloonNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -157,7 +157,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberName(barberNameDto);
 
-            var expected = new BaseDto(200, $"Nome alterado para {barberNameDto.NewName}");
+            var expected = BaseDtoExtension.Create(200, $"Nome alterado para {barberNameDto.NewName}");
 
 
             Equal(expected._StatusCode, actual._StatusCode);
@@ -174,7 +174,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberName(barberNameDto);
 
-            var expected = new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+            var expected = BaseDtoExtension.InvalidData();
 
 
             Equal(expected._StatusCode, actual._StatusCode);
@@ -190,7 +190,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberSalary(salaryDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+            var expected = SaloonMessageExtension.BarberNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -206,7 +206,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberSalary(salaryDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o salão");
+            var expected = SaloonMessageExtension.SaloonNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -222,7 +222,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberSalary(salaryDto);
 
-            var expected = new BaseDto(200, $"Salário de {_barber.Name} alterado para {salaryDto.NewSalary}");
+            var expected = BaseDtoExtension.Create(200, $"Salário de {_barber.Name} alterado para {salaryDto.NewSalary}");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -238,7 +238,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberSalary(salaryDto);
 
-            var expected = new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+            var expected = BaseDtoExtension.InvalidData();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -252,7 +252,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberAddress(adressDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o barbeiro");
+            var expected = SaloonMessageExtension.BarberNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -267,7 +267,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberAddress(adressDto);
 
-            var expected = new BaseDto(404, "Não foi possível encontrar o salão");
+            var expected = SaloonMessageExtension.SaloonNotFound();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -282,7 +282,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberAddress(adressDto);
 
-            var expected = new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+            var expected = BaseDtoExtension.InvalidData();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -297,7 +297,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberAddress(adressDto);
 
-            var expected = new BaseDto(200, $"Endereço de {_barber.Name} alterado");
+            var expected = BaseDtoExtension.Create(200, $"Endereço de {_barber.Name} alterado");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);

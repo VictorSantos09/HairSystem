@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Extensions;
 using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -25,18 +26,18 @@ namespace Hair.Application.Services
         public BaseDto HireNewbarber(HireBarberDto hireDto)
         {
             if (!hireDto.Confirmed)
-                return new BaseDto(200, "Solicitação cancelada");
+                return BaseDtoExtension.RequestCanceled();
 
             var saloon = _userRepository.GetById(hireDto.SaloonId);
 
             if (saloon == null)
-                return new BaseDto(404, "Não foi possivel encontrar o salão");
+                return SaloonMessageExtension.SaloonNotFound();
 
             var barber = new BarberEntity(hireDto.Name, hireDto.PhoneNumber, hireDto.Email, hireDto.Salary, hireDto.Adress, true, saloon.Id, saloon.SaloonName);
 
             _barberRepository.Add(barber);
 
-            return new BaseDto(200, $"{hireDto.Name} foi registrado");
+            return BaseDtoExtension.Create(200, $"{hireDto.Name} foi registrado");
         }
         /// <summary>
         /// Método para demissão de funcionarios
@@ -48,16 +49,16 @@ namespace Hair.Application.Services
             var barber = _barberRepository.GetById(fireDto.BarberId);
 
             if (barber == null)
-                return new BaseDto(404, "Não foi possível encontrar o barbeiro");
+                return SaloonMessageExtension.BarberNotFound();
 
             if (fireDto.SaloonId == barber.JobSaloonId && fireDto.BarberName == barber.Name && fireDto.SaloonName == barber.JobSaloonName)
             {
                 barber.Hired = false;
                 _barberRepository.Remove(barber.Id);
-                return new BaseDto(200, $"{barber.Name} foi demitido");
+                return BaseDtoExtension.Create(200, $"{barber.Name} foi demitido");
             }
 
-            return new BaseDto(406, "Dados inválidos, solicitação cancelada");
+            return BaseDtoExtension.InvalidData();
         }
         /// <summary>
         /// Efetua a mudança do nome do barbeiro
@@ -69,20 +70,20 @@ namespace Hair.Application.Services
             var barber = _barberRepository.GetById(barberNameDto.BarberId);
 
             if (barber == null)
-                return new BaseDto(404, "Não foi possível encontrar o barbeiro");
+                return SaloonMessageExtension.BarberNotFound();
 
             var user = _userRepository.GetById(barberNameDto.SaloonId);
 
             if (user == null)
-                return new BaseDto(404, "Não foi possível encontrar o salão");
+                return SaloonMessageExtension.SaloonNotFound();
 
             if (barber.JobSaloonId == user.Id && barberNameDto.BarberName == barber.Name)
             {
                 barber.Name = barberNameDto.NewName;
-                return new BaseDto(200, $"Nome alterado para {barberNameDto.NewName}");
+                return BaseDtoExtension.Create(200, $"Nome alterado para {barberNameDto.NewName}");
             }
 
-            return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+            return BaseDtoExtension.InvalidData();
         }
         /// <summary>
         /// Efetua a mudança do salario do barbeiro
@@ -94,20 +95,20 @@ namespace Hair.Application.Services
             var barber = _barberRepository.GetById(salaryDto.BarberId);
 
             if (barber == null)
-                return new BaseDto(404, "Não foi possível encontrar o barbeiro");
+                return SaloonMessageExtension.BarberNotFound();
 
             var user = _userRepository.GetById(salaryDto.SaloonId);
 
             if (user == null)
-                return new BaseDto(404, "Não foi possível encontrar o salão");
+                return SaloonMessageExtension.SaloonNotFound();
 
             if (salaryDto.SaloonId == user.Id && salaryDto.BarberName == barber.Name)
             {
                 barber.Salary = salaryDto.NewSalary;
-                return new BaseDto(200, $"Salário de {barber.Name} alterado para {salaryDto.NewSalary}");
+                return BaseDtoExtension.Create(200, $"Salário de {barber.Name} alterado para {salaryDto.NewSalary}");
             }
 
-            return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+            return BaseDtoExtension.InvalidData();
         }
         /// <summary>
         /// Efetua a mudança do endereço do barbeiro
@@ -119,20 +120,20 @@ namespace Hair.Application.Services
             var barber = _barberRepository.GetById(adressDto.BarberId);
 
             if (barber == null)
-                return new BaseDto(404, "Não foi possível encontrar o barbeiro");
+                return SaloonMessageExtension.BarberNotFound();
 
             var user = _userRepository.GetById(adressDto.SaloonId);
 
             if (user == null)
-                return new BaseDto(404, "Não foi possível encontrar o salão");
+                return SaloonMessageExtension.SaloonNotFound();
 
             if (adressDto.SaloonId == user.Id && adressDto.BarberName == barber.Name)
             {
                 barber.Adress = adressDto.NewAdress;
-                return new BaseDto(200, $"Endereço de {barber.Name} alterado");
+                return BaseDtoExtension.Create(200, $"Endereço de {barber.Name} alterado");
             }
-            
-            return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
+
+            return BaseDtoExtension.InvalidData();
         }
     }
 }

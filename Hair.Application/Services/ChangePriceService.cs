@@ -1,4 +1,5 @@
 ﻿using Hair.Application.Common;
+using Hair.Application.Extensions;
 using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -28,25 +29,25 @@ namespace Hair.Application.Services
         public BaseDto ChangeHaircutePrice(double newPrice, Guid saloonId, bool confirmed, bool hair, bool mustache, bool beard)
         {
             if (!confirmed)
-                return new BaseDto(200, "Solicitação cancelada");
+                return BaseDtoExtension.RequestCanceled();
 
             _saloonId = saloonId;
             _newPrice = newPrice;
 
             if (double.IsNegative(newPrice) == true)
-                return new BaseDto(406, "Valor não permitido");
+                return BaseDtoExtension.ValueNotAllowed();
 
             var saloon = _userRepository.GetById(saloonId);
 
             if (saloon == null)
-                return new BaseDto(404, "Usuário não encontrado");
+                return UserMessageExtension.UserNotFound();
 
             var haircutePlace = CheckAndApplyPrice(hair, mustache, beard);
 
             if (!haircutePlace)
-                return new BaseDto(406, "Escolha algum item");
+                return BaseDtoExtension.Create(406, "Escolha algum item");
 
-            return new BaseDto(200, "Alteração Concluída");
+            return BaseDtoExtension.Sucessfull("Alteração Concluída");
         }
         /// <summary>
         /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão
@@ -69,7 +70,7 @@ namespace Hair.Application.Services
 
             if (beard)
                 ApplyBeardPrice();
-            
+
             return true;
         }
         private void ApplyHairPrice()
