@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
+using Dapper;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Hair.Domain.Entities
 {
