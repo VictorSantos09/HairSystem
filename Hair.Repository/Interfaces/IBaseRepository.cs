@@ -1,4 +1,6 @@
-﻿namespace Hair.Repository.Interfaces
+﻿using Hair.Domain.Entities;
+
+namespace Hair.Repository.Interfaces
 {
     /// <summary>
     /// Contrato básico necessario para todos os repositorios, com as funções de Add, GetAll, GetById, Remove e Update

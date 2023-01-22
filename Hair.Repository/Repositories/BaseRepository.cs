@@ -1,5 +1,9 @@
-﻿using Hair.Domain.Common;
+﻿using Dapper;
+using Hair.Domain.Common;
+using Hair.Domain.Entities;
+using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using System.Data;
 using System.Text.Json;
 
 namespace Hair.Repository.Repositories
@@ -9,7 +13,7 @@ namespace Hair.Repository.Repositories
     /// 
     /// <para>Todos os repositories existente DEVEM herdar dessa classe</para>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name = "T" ></ typeparam >
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly string _pathFile;
@@ -26,6 +30,11 @@ namespace Hair.Repository.Repositories
 
         public void Add(T entity)
         {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(DataAccess.DBConnection))
+            {
+                connection.Query<UserEntity>($"Insert into {entity}'");
+            }
+
             var list = GetAll();
 
             list.Add(entity);
