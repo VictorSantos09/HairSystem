@@ -1,4 +1,9 @@
 ﻿using Hair.Domain.Entities;
+using System.Data.Common;
+using Dapper;
+using System.Data.SqlClient;
+using Hair.Repository.DataBase;
+using static Dapper.SqlMapper;
 
 namespace Hair.Repository.Repositories
 {
