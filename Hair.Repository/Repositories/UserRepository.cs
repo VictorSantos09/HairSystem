@@ -4,6 +4,8 @@ using Dapper;
 using System.Data.SqlClient;
 using Hair.Repository.DataBase;
 using static Dapper.SqlMapper;
+using System.Data;
+using System.Text.Json;
 
 namespace Hair.Repository.Repositories
 {
@@ -14,11 +16,79 @@ namespace Hair.Repository.Repositories
     {
         public UserRepository() : base("User")
         {
-
+            
         }
-        public UserEntity? GetByEmail(string email, string password)
+
+        public void Create(UserEntity user)
         {
-            return GetAll().Find(x => x.Email == email.ToUpper() && x.Password == password);
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = @"INSERT INTO USERS (ID, SALOON_NAME, OWNER_NAME, PHONE_NUMBER, EMAIL, PASSWORD, ADDRESS, CNPJ, HAIRCUT_TIME, HAIRCUT_PRICE) 
+                  VALUES (@Id, @SaloonName, @OwnerName, @PhoneNumber, @Email, @Password, @Address, @CNPJ, @PriceEntity)";
+                var affectedRows = connection.Execute(query, new
+                {
+                    user.Id,
+                    user.SaloonName,
+                    user.OwnerName,
+                    user.PhoneNumber,
+                    user.Email,
+                    user.Password,
+                    user.Adress,
+                    user.CNPJ,
+                    user.PriceEntity
+                });
+            }
+        }
+
+        public UserEntity Read(Guid id)
+        {
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = "SELECT * FROM USERS WHERE ID = @Id";
+                return connection.QueryFirstOrDefault<UserEntity>(query, new { id });
+            }
+        }
+
+        public void Update(UserEntity user)
+        {
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = @"UPDATE Users SET SALOON_NAME = @SaloonName, OWNER_NAME = @OwnerName, PHONE_NUMBER = @PhoneNumber,
+                            EMAIL = @Email, PASSWORD = @Password, ADDRESS = @Address, CNPJ = @CNPJ, HAIRCUT_TIME = @HaircuteTime, HAIRCUT_PRICE = @PriceEntity
+                            WHERE Id = @Id";
+                var affectedRows = connection.Execute(query, new
+                {
+                    user.SaloonName,
+                    user.OwnerName,
+                    user.PhoneNumber,
+                    user.Email,
+                    user.Password,
+                    user.Adress,
+                    user.CNPJ,
+                    user.HaircuteTime,
+                    user.PriceEntity,
+                    user.Id
+                });
+            }
+        }
+
+        public void Delete(Guid id)
+        {
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = "DELETE FROM USERS WHERE ID = @Id";
+                var affectedRows = connection.Execute(query, new { id });
+            }
+        }
+
+        public IEnumerable<UserEntity> GetAll()
+        {
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = "SELECT * FROM USERS";
+                return connection.Query<UserEntity>(query);
+            }
         }
     }
+}
 }
