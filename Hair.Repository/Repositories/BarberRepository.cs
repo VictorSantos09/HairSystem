@@ -3,10 +3,11 @@ using Hair.Repository.DataBase;
 using System.Data.SqlClient;
 using System.Threading;
 using Dapper;
+using Hair.Repository.Interfaces;
 
 namespace Hair.Repository.Repositories
 {
-    public class BarberRepository : BaseRepository<BarberEntity>
+    public class BarberRepository : BaseRepository<BarberEntity>, IBaseRepository<BarberEntity>
     {
         public BarberRepository() : base("BARBERS")
         {

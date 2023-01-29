@@ -26,9 +26,7 @@ namespace Hair.Repository.Repositories
         {
             using (var connection = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"";
-
-                var affectedRows = connection.Execute(query, $"DELETE FROM {_table} WHERE ID = {id}");
+                var affectedRows = connection.Execute($"DELETE FROM {_table} WHERE ID = 'DD64FF8D-FFBA-40DC-A9CA-3127C80C2202'");
             }
         }
 

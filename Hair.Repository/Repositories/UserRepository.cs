@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
+using Hair.Repository.Interfaces;
 using System.Data.SqlClient;
 using static Dapper.SqlMapper;
 
@@ -9,7 +10,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Repositorio para acesso de usuarios da entidade <see cref="UserEntity"/>
     /// </summary>
-    public class UserRepository : BaseRepository<UserEntity>
+    public class UserRepository : BaseRepository<UserEntity>, IBaseRepository<UserEntity>
     {
         public UserRepository() : base("USERS")
         {
