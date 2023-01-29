@@ -17,22 +17,24 @@ namespace Hair.Repository.Repositories
         {
         }
 
+
         public void Create(HaircuteEntity haircute)
         {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"INSERT INTO HAIRCUTS (SALOON_ID = {haircute.Id}, HAIRCUT_TIME = {haircute.HaircuteTime}, AVAILABLE = {haircute.Avaible}, " +
-                    $"CLIENT_NAME = {haircute.Client.Name}, CLIENT_EMAIL = {haircute.Client.Email}, CLIENT_PHONE_NUMBER = {haircute.Client.PhoneNumber})";
-                connection.Execute(query);
+                var query = new SqlCommand($"INSERT INTO HAIRCUTS (SALOON_ID, HAIRCUT_TIME, AVAILABLE) VALUES ('{haircute.SaloonId}', '{haircute.HaircuteTime}', '{haircute.Avaible}')", conn);
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
 
         public void Update(HaircuteEntity haircute)
         {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"UPDATE HAIRCUTS SET SALOON_ID = {haircute.SaloonId}, HAIRCUT_TIME = {haircute.HaircuteTime}, AVAILABLE = {haircute.Avaible}";
-                connection.Execute(query);
+                var query = new SqlCommand($"UPDATE HAIRCUTS SET SALOON_ID = {haircute.SaloonId}, HAIRCUT_TIME = {haircute.HaircuteTime}, AVAILABLE = {haircute.Avaible}");
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
     }

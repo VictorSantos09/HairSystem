@@ -2,6 +2,6 @@
 {
     public class DataAccess
     {
-        public const string DBConnection = @"Data Source=;Initial catalog=;User=;Password=;";
+        public const string DBConnection = (@"Data Source=; Initial catalog=; User=;Password=;");
     }
 }

@@ -15,78 +15,25 @@ namespace Hair.Repository.Repositories
 
         public void Create(BarberEntity barber)
         {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = @"INSERT INTO BARBERS (ID, NAME, PHONENUMBER, EMAIL, SALARY, HIRED, ADDRESS, JOBSALOON_ID, JOBSALOON_NAME) 
-                  VALUES (@Id, @Name, @PhoneNumber, @Email, @Salary, @Street, @Number, @Complement, @City, @State, @Hired, @JobSaloonId, @JobSaloonName)";
-                var affectedRows = connection.Execute(query, new
-                {
-                    barber.Id,
-                    barber.Name,
-                    barber.PhoneNumber,
-                    barber.Email,
-                    barber.Salary,
-                    barber.Adress.Street,
-                    barber.Adress.Number,
-                    barber.Adress.Complement,
-                    barber.Adress.City,
-                    barber.Adress.State,
-                    barber.Hired,
-                    barber.JobSaloonId,
-                    barber.JobSaloonName
-                });
-            }
-        }
-
-        public void Read(Guid id)
-        {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
-            {
-                var query = "SELECT * FROM BARBERS WHERE ID = @Id";
-                var barber = connection.QueryFirstOrDefault<BarberEntity>(query, new { id });
-                var address = new AddressEntity(barber.Adress.Street, barber.Adress.Number, barber.Adress.Complement, barber.Adress.City, barber.Adress.State);
-                barber.Adress = address;
+                var query = new SqlCommand($"INSERT INTO HAIRCUTS (ID, NAME, PHONENUMBER, EMAIL, SALARY, HIRED, ADDRESS, JOBSALOON_ID, JOBSALOON_NAME) VALUES ('{barber.Id}', '{barber.Name}','{barber.PhoneNumber}','{barber.Email}','{barber.Salary}','{barber.Hired}'," +
+                    $"'{barber.Adress}','{barber.JobSaloonId}','{barber.JobSaloonName}',')", conn);
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
 
         public void Update(BarberEntity barber)
         {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = @"UPDATE BARBERS SET NAME = @Name, PHONENUMBER = @PhoneNumber, EMAIL = @Email, SALARY = @Salary,
-                 Street = @Street, Number = @Number, Complement = @Complement, City = @City, State = @State,
-                 HIRED = @Hired, JOBSALOON_ID = @JobSaloonId, JOBSALOON_NAME = @JobSaloonName
-                  WHERE ID = @Id";
-                var affectedRows = connection.Execute(query, new
-                {
-                    barber.Name,
-                    barber.PhoneNumber,
-                    barber.Email,
-                    barber.Salary,
-                    barber.Adress.Street,
-                    barber.Adress.Number,
-                    barber.Adress.Complement,
-                    barber.Adress.City,
-                    barber.Adress.State,
-                    barber.Hired,
-                    barber.JobSaloonId,
-                    barber.JobSaloonName,
-                    barber.Id
-                });
+                var query = new SqlCommand($"UPDATE HAIRCUTS SET ID = {barber.Id}, NAME = {barber.Name}, PHONENUMBER = {barber.PhoneNumber} , EMAIL = {barber.Email} , SALARY = {barber.Salary} , HIRED = {barber.Hired}, ADDRESS = {barber.Adress}, " +
+                    $"JOBSALOON_ID = {barber.JobSaloonId}, JOBSALOON_NAME = {barber.JobSaloonName} ");
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
-
-        public void Delete(Guid id)
-        {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
-            {
-                var query = "DELETE FROM BARBERS WHERE Id = @Id";
-                var affectedRows = connection.Execute(query, new { id });
-            }
-
-        }
-
-
     }
 
 }

@@ -16,64 +16,25 @@ namespace Hair.Repository.Repositories
         {
 
         }
-
         public void Create(UserEntity user)
         {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = @"INSERT INTO USERS (ID, SALOON_NAME, OWNER_NAME, PHONE_NUMBER, EMAIL, PASSWORD, ADDRESS, CNPJ, HAIRCUT_TIME, HAIRCUT_PRICE) 
-                  VALUES (@Id, @SaloonName, @OwnerName, @PhoneNumber, @Email, @Password, @Address, @CNPJ, @PriceEntity)";
-                //var affectedRows = connection.Execute();
-            }
-        }
-
-        public UserEntity Read(Guid id)
-        {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
-            {
-                var query = "SELECT * FROM USERS WHERE ID = @Id";
-                return connection.QueryFirstOrDefault<UserEntity>(query, new { id });
+                var query = new SqlCommand($"INSERT INTO USERS (ID, SALOON_NAME, OWNER_NAME, PHONE_NUMBER, EMAIL, PASSWORD, ADDRESS, CNPJ, HAIRCUT_TIME, HAIRCUT_PRICE) VALUES ('{user.Id}', '{user.SaloonName}','{user.OwnerName}','{user.PhoneNumber}','{user.Email}','{user.Password}'," +
+                    $"'{user.Adress}','{user.CNPJ}','{user.Haircutes}','{user.PriceEntity}')", conn);
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
 
         public void Update(UserEntity user)
         {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = @"UPDATE Users SET SALOON_NAME = @SaloonName, OWNER_NAME = @OwnerName, PHONE_NUMBER = @PhoneNumber,
-                            EMAIL = @Email, PASSWORD = @Password, ADDRESS = @Address, CNPJ = @CNPJ, HAIRCUT_TIME = @HaircuteTime, HAIRCUT_PRICE = @PriceEntity
-                            WHERE Id = @Id";
-                var affectedRows = connection.Execute(query, new
-                {
-                    user.SaloonName,
-                    user.OwnerName,
-                    user.PhoneNumber,
-                    user.Email,
-                    user.Password,
-                    user.Adress,
-                    user.CNPJ,
-                    user.Haircutes, // ERRO, se tornou uma lista e no DB usa uma unica entidade
-                    user.PriceEntity,
-                    user.Id
-                });
-            }
-        }
-
-        public void Delete(Guid id)
-        {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
-            {
-                var query = "DELETE FROM USERS WHERE ID = @Id";
-                var affectedRows = connection.Execute(query, new { id });
-            }
-        }
-
-        public IEnumerable<UserEntity> GetAll()
-        {
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
-            {
-                var query = "SELECT * FROM USERS";
-                return connection.Query<UserEntity>(query);
+                var query = new SqlCommand($"UPDATE USERS SET ID = {user.Id}, SALOON_NAME = {user.SaloonName}, OWNER_NAME = {user.SaloonName}, PHONE_NUMBER = {user.PhoneNumber}, EMAIL = {user.Email}, PASSWORD = {user.Password}," +
+                    $" ADDRESS = {user.Adress}, CNPJ = {user.CNPJ}, HAIRCUT_TIME = {user.Haircutes}, HAIRCUT_PRICE='{user.PriceEntity}'");
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
     }

@@ -21,10 +21,9 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"INSERT INTO SALOON_ITEMS ID = {entity.Id}, NAME = {entity.Name}, " +
-                    $"PRICE = {entity.Price}, QUANTITY_AVAILABLE = {entity.QuantityAvaible}";
-
-                conn.Execute(query);
+                var query = new SqlCommand($"INSERT INTO SALOON_ITEMS (ID, NAME, PRICE, QUANTITY_AVAILABLE) VALUES ('{entity.Id}', '{entity.Name}', '{entity.Price}', '{entity.QuantityAvaible}')", conn);
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
 
@@ -32,10 +31,10 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"UPDATE SALOON_ITEMS SET NAME = {entity.Name}, PRICE = {entity.Price}, " +
-                    $"QUANTITY_AVAILABLE = {entity.QuantityAvaible} WHERE ID = {entity.Id}";
-
-                conn.Execute(query);
+                var query = new SqlCommand($"UPDATE SALOON_ITEMS SET NAME = {entity.Name}, PRICE = {entity.Price}, " +
+                    $"QUANTITY_AVAILABLE = {entity.QuantityAvaible} WHERE ID = {entity.Id}");
+                conn.Open();
+                query.ExecuteNonQuery();
             }
         }
     }
