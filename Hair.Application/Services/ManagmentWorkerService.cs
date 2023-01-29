@@ -38,7 +38,7 @@ namespace Hair.Application.Services
 
             var barber = new BarberEntity(hireDto.Name, hireDto.PhoneNumber, hireDto.Email, hireDto.Salary, hireDto.Adress, true, saloon.Id, saloon.SaloonName);
 
-            _barberRepository.Add(barber);
+            _barberRepository.Create(barber);
 
             return BaseDtoExtension.Create(200, $"{hireDto.Name} foi registrado");
         }

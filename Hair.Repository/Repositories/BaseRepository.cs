@@ -1,6 +1,9 @@
-﻿using Hair.Domain.Common;
+﻿using Dapper;
+using Hair.Domain.Common;
+using Hair.Domain.Entities;
+using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
-using System.Text.Json;
+using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -8,78 +11,40 @@ namespace Hair.Repository.Repositories
     /// Base Principal dos repositorios onde efetua a ação escolhida, contendo as funções implementadas da interface <see cref="IBaseRepository{T}"/>
     /// 
     /// <para>Todos os repositories existente DEVEM herdar dessa classe</para>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+    /// </summary>a
+    /// <typeparam name = "T" ></ typeparam>
+    public class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
     {
-        private readonly string _pathFile;
+        private readonly string _table;
 
-        public BaseRepository(string pathFile)
+        public BaseRepository(string table)
         {
-            _pathFile = $@"{Directory.GetCurrentDirectory()}..\..\Hair.Repository\DataBase\{pathFile}.json";
+            _table = table;
         }
 
-        public BaseRepository()
-        {
-
-        }
-
-        public void Add(T entity)
-        {
-            var list = GetAll();
-
-            list.Add(entity);
-
-            string json = JsonSerializer.Serialize(list);
-            File.WriteAllText(_pathFile, json);
-        }
-        public List<T> GetAll()
-        {
-            using (StreamReader r = new StreamReader(_pathFile))
-            {
-                string json = r.ReadToEnd();
-
-                if (string.IsNullOrWhiteSpace(json))
-                {
-                    return new List<T>();
-                }
-
-                return JsonSerializer.Deserialize<List<T>>(json);
-            }
-        }
-        public T? GetById(Guid id)
-        {
-            return GetAll().Find(x => x.Id == id);
-        }
         public void Remove(Guid id)
         {
-            var list = GetAll();
-
-            var entity = list.Find(x => x.Id == id);
-
-            if (entity == null)
-                return;
-
-            list.Remove(entity);
-
-            string json = JsonSerializer.Serialize(list);
-            File.WriteAllText(_pathFile, json);
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                var affectedRows = connection.Execute($"DELETE FROM {_table} WHERE ID = '{id}'");
+            }
         }
-        public void Update(Guid id, T newEntity)
+
+        public IEnumerable<T> GetAll()
         {
-            var list = GetAll();
 
-            var entity = list.Find(x => x.Id == id);
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                return connection.Query<T>($"SELECT * FROM {_table.ToUpper()}");
+            }
+        }
 
-            if (entity == null)
-                return;
-
-            list.Remove(entity);
-
-            list.Add(newEntity);
-
-            string json = JsonSerializer.Serialize(list);
-            File.WriteAllText(_pathFile, json);
+        public T? GetById(Guid id)
+        {
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                return connection.QueryFirstOrDefault<T>($"SELECT * FROM {_table} WHERE ID = {id}");
+            }
         }
     }
 }
