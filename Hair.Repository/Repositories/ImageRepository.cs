@@ -21,7 +21,7 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO IMAGES (SALOON_IMAGE_ID, SOURCE, IMAGE) VALUES ('{image.SaloonImageId}', '{image.Source}', '{image.Img}')", conn);
+                var query = new SqlCommand($"INSERT INTO IMAGES (SALOON_IMAGE_ID, SOURCE, IMAGE) VALUES ('{image.SaloonId}', '{image.Source}', '{image.Img}')", conn);
                 conn.Open();
                 query.ExecuteNonQuery();
             }
@@ -31,7 +31,7 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE IMAGES SET SALOON_IMAGE_ID = {image.SaloonImageId}, SOURCE = {image.Source}, IMAGE = {image.Img}");
+                var query = new SqlCommand($"UPDATE IMAGES SET SALOON_IMAGE_ID = {image.SaloonId}, SOURCE = {image.Source}, IMAGE = {image.Img}");
                 conn.Open();
                 query.ExecuteNonQuery();
             }

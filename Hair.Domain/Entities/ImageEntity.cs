@@ -10,13 +10,13 @@ namespace Hair.Domain.Entities
 {
     public class ImageEntity : BaseEntity
     {
-       public Guid SaloonImageId { get; set; }
+       public Guid SaloonId { get; set; }
        public string Source { get; set; }
        public object Img { get; set; }
 
        public ImageEntity(Guid saloonimageId, string source, object img)
        {
-           SaloonImageId = saloonimageId;
+           SaloonId = saloonimageId;
            Source = source;
            Img = img;
        }
