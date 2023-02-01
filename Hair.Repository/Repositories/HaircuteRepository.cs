@@ -16,8 +16,6 @@ namespace Hair.Repository.Repositories
         public HaircuteRepository() : base("HAIRCUTS")
         {
         }
-
-
         public void Create(HaircuteEntity haircute)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
