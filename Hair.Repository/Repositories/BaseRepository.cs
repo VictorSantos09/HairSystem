@@ -9,10 +9,11 @@ namespace Hair.Repository.Repositories
 {
     /// <summary>
     /// Base Principal dos repositorios onde efetua a ação escolhida, contendo as funções implementadas da interface <see cref="IBaseRepository{T}"/>
-    /// 
-    /// <para>Todos os repositories existente DEVEM herdar dessa classe</para>
-    /// </summary>a
+    /// Todos os repositories existente DEVEM herdar dessa classe.
     /// <typeparam name = "T" ></ typeparam>
+    ///  _table representa a tabela no banco de dados SQL. 
+    ///  Os métodos realizam a função de CRUD de forma genérica entre os repositórios de entidades, pois utilizam apenas o Id como parâmetro.
+    
     public class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
     {
         private readonly string _table;
