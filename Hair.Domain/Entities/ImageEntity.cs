@@ -14,9 +14,9 @@ namespace Hair.Domain.Entities
        public string Source { get; set; }
        public object Img { get; set; }
 
-       public ImageEntity(Guid saloonimageId, string source, object img)
+       public ImageEntity(Guid saloonId, string source, object img)
        {
-           SaloonId = saloonimageId;
+           SaloonId = saloonId;
            Source = source;
            Img = img;
        }
