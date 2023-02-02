@@ -10,10 +10,13 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Base Principal dos repositorios onde efetua a ação escolhida, contendo as funções implementadas da interface <see cref="IBaseRepository{T}"/>
     /// Todos os repositories existente DEVEM herdar dessa classe.
-    /// <typeparam name = "T" ></ typeparam>
-    ///  _table representa a tabela no banco de dados SQL. 
-    ///  Os métodos realizam a função de CRUD de forma genérica entre os repositórios de entidades, pois utilizam apenas o Id como parâmetro.
-    
+    /// table: parâmetro de tabela passado no construtor que é usado como o nome da tabela no banco de dados com a qual interagir.
+    /// Os métodos Remove, GetAll e GetById interagem com um banco de dados usando o DBConnection da classe DataAccess. 
+    /// O método Remove executa uma instrução DELETE para remover uma entidade com um Id especificado.
+    /// O método GetAll executa uma instrução SELECT para recuperar todas as entidades da tabela.
+    /// O método GetById executa uma instrução SELECT para recuperar uma única entidade com um Id especificado. 
+
+
     public class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
     {
         private readonly string _table;
