@@ -3,7 +3,7 @@
 namespace Hair.Repository.Interfaces
 {
     /// <summary>
-    /// Representa a interface IUpdate, que define um método para atualizar uma entidade do tipo T.
+    /// Representa a interface que define um método para atualizar uma entidade do tipo fornecido.
     /// </summary>
     /// <typeparam name="T">O tipo da entidade a ser atualizada.</typeparam>
     public interface IUpdate<T>

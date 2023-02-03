@@ -10,11 +10,7 @@ namespace Hair.Repository.Repositories
     /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircuteEntity"/>.
     /// </summary>
     public class HaircuteRepository : BaseRepository<HaircuteEntity>, ICreateUpdate<HaircuteEntity>
-    {
-        /// <summary>
-        /// Construtor da classe.
-        /// Chama o construtor da classe base passando o nome da tabela "HAIRCUTS".
-        /// </summary>
+    { 
         public HaircuteRepository() : base("HAIRCUTS")
         {
         }

@@ -1,7 +1,7 @@
 ﻿namespace Hair.Repository.Interfaces
 {
     /// <summary>
-    /// Representa a interface IRemove, que define um método para remover uma entidade pelo seu Id.
+    /// Representa a interface que define um método para remover uma entidade pelo seu Id.
     /// </summary>
     public interface IRemove
     {

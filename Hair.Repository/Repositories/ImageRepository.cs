@@ -16,10 +16,6 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class ImageRepository : BaseRepository<ImageEntity>, ICreateUpdate<ImageEntity>
     {
-        /// <summary>
-        /// Construtor da classe.
-        /// Chama o construtor da classe base passando o nome da tabela "IMAGES".
-        /// </summary>
         public ImageRepository() : base("IMAGES")
         {
         }

@@ -11,10 +11,6 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class StorageRepository : BaseRepository<SaloonItemEntity>, ICreateUpdate<SaloonItemEntity>
     {
-        /// <summary>
-        /// Construtor da classe.
-        /// Chama o construtor da classe base passando o nome da tabela "SALOON_ITEMS".
-        /// </summary>
         public StorageRepository() : base("SALOON_ITEMS")
         {
 

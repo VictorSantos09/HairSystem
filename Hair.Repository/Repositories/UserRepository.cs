@@ -12,10 +12,6 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class UserRepository : BaseRepository<UserEntity>, IBaseRepository<UserEntity>
     {
-        /// <summary>
-        /// Construtor da classe.
-        /// Chama o construtor da classe base passando o nome da tabela "USERS".
-        /// </summary>
         public UserRepository() : base("USERS")
         {
 
