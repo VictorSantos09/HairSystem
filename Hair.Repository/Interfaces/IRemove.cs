@@ -1,9 +1,14 @@
 ﻿namespace Hair.Repository.Interfaces
 {
-    /// Essa interface define um contrato para remover uma entidade do repositório por seu Id. Qualquer classe que o implemente
-    /// deve fornecer um método Remove que recebe um Id do tipo Guid como parâmetro e remove a entidade com esse Id do repositório.
+    /// <summary>
+    /// Representa a interface IRemove, que define um método para remover uma entidade pelo seu Id.
+    /// </summary>
     public interface IRemove
     {
-        public void Remove(Guid id);
+        /// <summary>
+        /// Remove a entidade com o Id especificado.
+        /// </summary>
+        /// <param name="id">O Id da entidade a ser removida.</param>
+        void Remove(Guid id);
     }
 }

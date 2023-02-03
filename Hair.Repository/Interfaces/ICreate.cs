@@ -1,11 +1,15 @@
 ﻿namespace Hair.Repository.Interfaces
 {
-    /// Essa interface define um contrato para a criação de entidades. Qualquer classe que o implemente deve
-    /// fornecer um método Create que recebe uma entidade do tipo T como parâmetro e cria uma nova instância 
-    /// dessa entidade no repositório.
-    
+    /// <summary>
+    /// Representa a interface ICreate, que permite a criação de uma entidade no banco de dados.
+    /// </summary>
+    /// <typeparam name="T">O tipo da entidade a ser criada.</typeparam>
     public interface ICreate<T>
     {
+        /// <summary>
+        /// Cria uma entidade no banco de dados.
+        /// </summary>
+        /// <param name="entity">A entidade a ser criada.</param>
         void Create(T entity);
     }
 }

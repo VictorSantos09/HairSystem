@@ -3,11 +3,11 @@
 namespace Hair.Repository.Interfaces
 {
 
-    /// Essa interface define um contrato para um repositório básico, especificando que qualquer classe que o implemente 
-    /// deve fornecer métodos para criar, remover, recuperar e atualizar entidades do tipo T com as funções de Add, GetAll,
-    /// GetById, Remove e Update.
+    /// <summary>
+    /// Representa a interface IBaseRepository, que herda as interfaces ICreate<T>, IRemove, IGetAll<T>, IGetById<T> e IUpdate<T>.
+    /// </summary>
+    /// <typeparam name="T">O tipo de entidade a ser retornado pelo repositório, deve ser derivado de alguma classe.</typeparam>
     public interface IBaseRepository<T> : ICreate<T>, IRemove, IGetAll<T>, IGetById<T>, IUpdate<T>
     {
-
     }
 }

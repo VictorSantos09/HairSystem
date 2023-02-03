@@ -11,12 +11,22 @@ using System.Threading.Tasks;
 
 namespace Hair.Repository.Repositories
 {
+    /// <summary>
+    /// Classe responsável por implementar as operações de Create e Update de imagens no banco de dados contidas na <see cref="ImageEntity"/>.
+    /// </summary>
     public class ImageRepository : BaseRepository<ImageEntity>, ICreateUpdate<ImageEntity>
     {
+        /// <summary>
+        /// Construtor da classe.
+        /// Chama o construtor da classe base passando o nome da tabela "IMAGES".
+        /// </summary>
         public ImageRepository() : base("IMAGES")
         {
         }
-
+        /// <summary>
+        /// Método responsável por adicionar uma nova imagem na base de dados.
+        /// </summary>
+        /// <param name="image">Entidade ImageEntity com os dados da imagem a ser adicionda.</param>
         public void Create(ImageEntity image)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -26,7 +36,10 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-
+        /// <summary>
+        /// Método responsável por atualizar os dados de uma imagem na base de dados.
+        /// </summary>
+        /// <param name="image">Entidade ImageEntity com os dados atualizados da imagem.</param>
         public void Update(ImageEntity image)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))

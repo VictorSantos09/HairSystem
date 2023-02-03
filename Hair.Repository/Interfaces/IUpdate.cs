@@ -2,11 +2,16 @@
 
 namespace Hair.Repository.Interfaces
 {
-    ///Essa interface define um contrato para atualizar uma entidade no repositório. 
-    ///Qualquer classe que o implemente deve fornecer um método Update que recebe uma
-    ///entidade do tipo T como parâmetro e atualiza a entidade correspondente no repositório.
+    /// <summary>
+    /// Representa a interface IUpdate, que define um método para atualizar uma entidade do tipo T.
+    /// </summary>
+    /// <typeparam name="T">O tipo da entidade a ser atualizada.</typeparam>
     public interface IUpdate<T>
     {
+        /// <summary>
+        /// Atualiza a entidade especificada.
+        /// </summary>
+        /// <param name="entity">A entidade a ser atualizada.</param>
         void Update(T entity);
     }
 }
