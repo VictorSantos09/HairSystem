@@ -7,17 +7,17 @@ using Hair.Repository.Interfaces;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Repositório para acessar dados referentes aos cortes de cabelo
-    /// 
-    /// <para>Tais como horarios, cliente e se disponivel da entidade <see cref="HaircuteEntity"/> </para>
+    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircuteEntity"/>.
     /// </summary>
     public class HaircuteRepository : BaseRepository<HaircuteEntity>, ICreateUpdate<HaircuteEntity>
-    {
+    { 
         public HaircuteRepository() : base("HAIRCUTS")
         {
         }
-
-
+        /// <summary>
+        /// Método responsável por criar um novo salão na base de dados.
+        /// </summary>
+        /// <param name="haircute">Entidade HaircuteEntity com os dados do salão a ser criado.</param>
         public void Create(HaircuteEntity haircute)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -27,7 +27,10 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-
+        /// <summary>
+        /// Método responsável por atualizar os dados de um salão na base de dados.
+        /// </summary>
+        /// <param name="haircute">Entidade HaircuteEntity com os dados atualizados do salão.</param>
         public void Update(HaircuteEntity haircute)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))

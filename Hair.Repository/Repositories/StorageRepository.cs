@@ -7,8 +7,7 @@ using Hair.Repository.Interfaces;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Repositorio para acesso dos itens do salão
-    /// <para>Como quantidades de navalhas, maquinas entre outros da entidade <see cref="SaloonItemEntity"/></para>
+    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="SaloonItemEntity"/>.
     /// </summary>
     public class StorageRepository : BaseRepository<SaloonItemEntity>, ICreateUpdate<SaloonItemEntity>
     {
@@ -16,7 +15,10 @@ namespace Hair.Repository.Repositories
         {
 
         }
-
+        /// <summary>
+        /// Método responsável por adicionar um novo item na base de dados.
+        /// </summary>
+        /// <param name="entity">Entidade SaloonItemEntity com os dados do item a ser adicionado.</param>
         public void Create(SaloonItemEntity entity)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -26,7 +28,10 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-
+        /// <summary>
+        /// Método responsável por atualizar os dados de uma item na base de dados.
+        /// </summary>
+        /// <param name="entity">Entidade SaloonItemEntity com os dados atualizados do item.</param>
         public void Update(SaloonItemEntity entity)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
