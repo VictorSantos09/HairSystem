@@ -59,7 +59,7 @@ namespace Hair.Tests.Services
         [Fact]
         private void HireNewBarber_ShouldReturn200_WhenSucessfullHire()
         {
-            _barberRepository.Setup(x => x.Add(_barber));
+            _barberRepository.Setup(x => x.Create(_barber));
             _userRepository.Setup(x => x.GetById(_user.Id)).Returns(_user);
 
             var actual = _service.HireNewbarber(_hireBarberDtoTrue);

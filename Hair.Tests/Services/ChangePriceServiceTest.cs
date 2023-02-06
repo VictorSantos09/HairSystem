@@ -58,7 +58,7 @@ namespace Hair.Tests.Services
         {
             var userEntity = _globalUser.GetGlobalUser();
 
-            _RepositoryMock.Setup(x => x.Add(userEntity));
+            _RepositoryMock.Setup(x => x.Create(userEntity));
             _RepositoryMock.Setup(x => x.GetById(userEntity.Id)).Returns(_globalUser.GetGlobalUser());
 
             var actual = _service.ChangeHaircutePrice(_newPrice, userEntity.Id, true, false, false, false);
@@ -74,7 +74,7 @@ namespace Hair.Tests.Services
         {
             var globalUser = _globalUser.GetGlobalUser();
 
-            _RepositoryMock.Setup(x => x.Add(globalUser));
+            _RepositoryMock.Setup(x => x.Create(globalUser));
             _RepositoryMock.Setup(x => x.GetById(globalUser.Id)).Returns(globalUser);
 
             var actual = _service.ChangeHaircutePrice(_newPrice, globalUser.Id, true, true, true, true);
