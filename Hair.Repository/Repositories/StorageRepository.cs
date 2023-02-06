@@ -15,10 +15,7 @@ namespace Hair.Repository.Repositories
         {
 
         }
-        /// <summary>
-        /// Método responsável por adicionar um novo item na base de dados.
-        /// </summary>
-        /// <param name="entity">Entidade SaloonItemEntity com os dados do item a ser adicionado.</param>
+        
         public void Create(SaloonItemEntity entity)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -28,10 +25,6 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-        /// <summary>
-        /// Método responsável por atualizar os dados de uma item na base de dados.
-        /// </summary>
-        /// <param name="entity">Entidade SaloonItemEntity com os dados atualizados do item.</param>
         public void Update(SaloonItemEntity entity)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))

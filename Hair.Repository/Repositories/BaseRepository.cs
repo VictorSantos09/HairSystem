@@ -21,10 +21,6 @@ namespace Hair.Repository.Repositories
         {
             _table = table;
         }
-        /// <summary>
-        /// Remove a entidade com o id especificado do banco de dados.
-        /// </summary>
-        /// <param name="id">O id da entidade a ser removida.</param>
         public void Remove(Guid id)
         {
             using (var connection = new SqlConnection(DataAccess.DBConnection))
@@ -32,10 +28,6 @@ namespace Hair.Repository.Repositories
                 var affectedRows = connection.Execute($"DELETE FROM {_table} WHERE ID = '{id}'");
             }
         }
-        /// <summary>
-        /// Obtém todas as entidades do banco de dados como uma lista de objetos do tipo T.
-        /// </summary>
-        /// <returns>Uma lista de objetos do tipo T representando todas as entidades do banco de dados.</returns>
         public IEnumerable<T> GetAll()
         {
 
@@ -44,7 +36,6 @@ namespace Hair.Repository.Repositories
                 return connection.Query<T>($"SELECT * FROM {_table.ToUpper()}");
             }
         }
-
         public T? GetById(Guid id)
         {
             using (var connection = new SqlConnection(DataAccess.DBConnection))

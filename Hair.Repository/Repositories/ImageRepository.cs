@@ -19,10 +19,6 @@ namespace Hair.Repository.Repositories
         public ImageRepository() : base("IMAGES")
         {
         }
-        /// <summary>
-        /// Método responsável por adicionar uma nova imagem na base de dados.
-        /// </summary>
-        /// <param name="image">Entidade ImageEntity com os dados da imagem a ser adicionda.</param>
         public void Create(ImageEntity image)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -32,10 +28,6 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-        /// <summary>
-        /// Método responsável por atualizar os dados de uma imagem na base de dados.
-        /// </summary>
-        /// <param name="image">Entidade ImageEntity com os dados atualizados da imagem.</param>
         public void Update(ImageEntity image)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
