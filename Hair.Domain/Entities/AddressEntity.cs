@@ -19,7 +19,7 @@ namespace Hair.Domain.Entities
             Number = number;
             City = city;
             State = state;
-            Complement = complement;
+            Complement = complement == null ? complement : complement.ToUpper();
         }
     }
 }
