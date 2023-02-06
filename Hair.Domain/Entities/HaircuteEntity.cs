@@ -1,5 +1,4 @@
-﻿using Hair.Domain.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Hair.Domain.Entities
 {
@@ -18,9 +17,7 @@ namespace Hair.Domain.Entities
             SaloonId = saloonId;
             HaircuteTime = haircuteTime;
             Avaible = avaible;
-            Client.Name = client.Name;
-            Client.Email = client.Email;
-            Client.PhoneNumber = client.PhoneNumber;
+            Client = client;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿
 using Hair.Application.Services;
 using Hair.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +11,12 @@ namespace HairSystem.Controllers
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
+        private readonly UserRepository _userRepository;
 
-        public LoginController(LoginService loginService)
+        public LoginController(UserRepository userRepository)
         {
-            _loginService = loginService;
+            _userRepository = userRepository;
+            _loginService = new LoginService(_userRepository);
         }
 
         [Route("Login")]
