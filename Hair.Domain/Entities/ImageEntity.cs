@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;  
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     public class ImageEntity : BaseEntity
     {
