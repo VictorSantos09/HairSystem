@@ -16,10 +16,6 @@ namespace Hair.Repository.Repositories
         {
 
         }
-        /// <summary>
-        /// Método responsável por adicionar um novo usuário na base de dados.
-        /// </summary>
-        /// <param name="user">Entidade UserEntity com os dados do usuário a ser adiciondo.</param>
         public void Create(UserEntity user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -30,10 +26,7 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-        /// <summary>
-        /// Método responsável por atualizar os dados de um usuário na base de dados.
-        /// </summary>
-        /// <param name="user">Entidade UserEntity com os dados atualizados do usuário.</param>
+        
         public void Update(UserEntity user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))

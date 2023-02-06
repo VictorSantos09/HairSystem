@@ -15,10 +15,6 @@ namespace Hair.Repository.Repositories
         public BarberRepository() : base("BARBERS")
         {
         }
-        /// <summary>
-        /// Método responsável por criar um novo barbeiro na base de dados.
-        /// </summary>
-        /// <param name="barber">Entidade BarberEntity com os dados do barbeiro a ser criado.</param>
         public void Create(BarberEntity barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -29,10 +25,6 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-        /// <summary>
-        /// Método responsável por atualizar os dados de um barbeiro na base de dados.
-        /// </summary>
-        /// <param name="barber">Entidade BarberEntity com os dados atualizados do barbeiro.</param>
         public void Update(BarberEntity barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))

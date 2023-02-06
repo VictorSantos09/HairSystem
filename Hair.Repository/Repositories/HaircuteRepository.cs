@@ -14,10 +14,6 @@ namespace Hair.Repository.Repositories
         public HaircuteRepository() : base("HAIRCUTS")
         {
         }
-        /// <summary>
-        /// Método responsável por criar um novo salão na base de dados.
-        /// </summary>
-        /// <param name="haircute">Entidade HaircuteEntity com os dados do salão a ser criado.</param>
         public void Create(HaircuteEntity haircute)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -27,10 +23,6 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-        /// <summary>
-        /// Método responsável por atualizar os dados de um salão na base de dados.
-        /// </summary>
-        /// <param name="haircute">Entidade HaircuteEntity com os dados atualizados do salão.</param>
         public void Update(HaircuteEntity haircute)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
