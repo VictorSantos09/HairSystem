@@ -1,4 +1,4 @@
-using Hair.Application.Common;
+using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -24,7 +24,7 @@ namespace Hair.Tests.Services
         private void ChangePrice_ShouldReturn200_WhenConfirmedFalse()
         {
             var actual = _service.ChangeHaircutePrice(_newPrice, It.IsAny<Guid>(), false, true, false, false);
-            var expected = new BaseDto(200, "Solicitação cancelada");
+            var expected = BaseDtoExtension.RequestCanceled();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -34,7 +34,7 @@ namespace Hair.Tests.Services
         private void ChangePrice_ShouldReturn406_WhenValueNegative()
         {
             var newPrice = -25;
-            var expected = new BaseDto(406, "Valor não permitido");
+            var expected = BaseDtoExtension.ValueNotAllowed();
 
             var actual = _service.ChangeHaircutePrice(newPrice, It.IsAny<Guid>(), true, true, false, false);
 
@@ -45,7 +45,7 @@ namespace Hair.Tests.Services
         [Fact]
         private void ChangePrice_ShouldReturn404_WhenUserNotFounded()
         {
-            var expected = new BaseDto(404, "Usuário não encontrado");
+            var expected = UserMessageExtension.UserNotFound();
 
             var actual = _service.ChangeHaircutePrice(_newPrice, It.IsAny<Guid>(), true, true, false, false);
 
@@ -58,12 +58,12 @@ namespace Hair.Tests.Services
         {
             var userEntity = _globalUser.GetGlobalUser();
 
-            _RepositoryMock.Setup(x => x.Add(userEntity));
+            _RepositoryMock.Setup(x => x.Create(userEntity));
             _RepositoryMock.Setup(x => x.GetById(userEntity.Id)).Returns(_globalUser.GetGlobalUser());
 
             var actual = _service.ChangeHaircutePrice(_newPrice, userEntity.Id, true, false, false, false);
 
-            var expected = new BaseDto(406, "Escolha algum item");
+            var expected = BaseDtoExtension.Create(406, "Escolha algum item");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -74,12 +74,12 @@ namespace Hair.Tests.Services
         {
             var globalUser = _globalUser.GetGlobalUser();
 
-            _RepositoryMock.Setup(x => x.Add(globalUser));
+            _RepositoryMock.Setup(x => x.Create(globalUser));
             _RepositoryMock.Setup(x => x.GetById(globalUser.Id)).Returns(globalUser);
 
             var actual = _service.ChangeHaircutePrice(_newPrice, globalUser.Id, true, true, true, true);
 
-            var expected = new BaseDto(200, "Alteração Concluída");
+            var expected = BaseDtoExtension.Sucessfull("Alteração Concluída");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);

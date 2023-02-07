@@ -1,85 +1,47 @@
-﻿using Hair.Domain.Common;
+﻿using Dapper;
+using Hair.Domain.Common;
+using Hair.Domain.Entities;
+using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
-using System.Text.Json;
+using System.Data.SqlClient;
+using System.Reflection.Emit;
 
 namespace Hair.Repository.Repositories
 {
     /// <summary>
     /// Base Principal dos repositorios onde efetua a ação escolhida, contendo as funções implementadas da interface <see cref="IBaseRepository{T}"/>
-    /// 
-    /// <para>Todos os repositories existente DEVEM herdar dessa classe</para>
+    /// Todos os repositories existente DEVEM herdar dessa classe.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+    
+    public class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
     {
-        private readonly string _pathFile;
-
-        public BaseRepository(string pathFile)
+        private readonly string _table;
+        /// <param name="table">O nome da tabela do banco de dados ao qual o repositório está associado.</param>
+        public BaseRepository(string table)
         {
-            _pathFile = $@"{Directory.GetCurrentDirectory()}..\..\Hair.Repository\DataBase\{pathFile}.json";
+            _table = table;
         }
-
-        public BaseRepository()
+        public void Remove(Guid id)
         {
-
-        }
-
-        public void Add(T entity)
-        {
-            var list = GetAll();
-
-            list.Add(entity);
-
-            string json = JsonSerializer.Serialize(list);
-            File.WriteAllText(_pathFile, json);
-        }
-        public List<T> GetAll()
-        {
-            using (StreamReader r = new StreamReader(_pathFile))
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
             {
-                string json = r.ReadToEnd();
+                var affectedRows = connection.Execute($"DELETE FROM {_table} WHERE ID = '{id}'");
+            }
+        }
+        public IEnumerable<T> GetAll()
+        {
 
-                if (string.IsNullOrWhiteSpace(json))
-                {
-                    return new List<T>();
-                }
-
-                return JsonSerializer.Deserialize<List<T>>(json);
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                return connection.Query<T>($"SELECT * FROM {_table.ToUpper()}");
             }
         }
         public T? GetById(Guid id)
         {
-            return GetAll().Find(x => x.Id == id);
-        }
-        public void Remove(Guid id)
-        {
-            var list = GetAll();
-
-            var entity = list.Find(x => x.Id == id);
-
-            if (entity == null)
-                return;
-
-            list.Remove(entity);
-
-            string json = JsonSerializer.Serialize(list);
-            File.WriteAllText(_pathFile, json);
-        }
-        public void Update(Guid id, T newEntity)
-        {
-            var list = GetAll();
-
-            var entity = list.Find(x => x.Id == id);
-
-            if (entity == null)
-                return;
-
-            list.Remove(entity);
-
-            list.Add(newEntity);
-
-            string json = JsonSerializer.Serialize(list);
-            File.WriteAllText(_pathFile, json);
+            using (var connection = new SqlConnection(DataAccess.DBConnection))
+            {
+                return connection.QueryFirstOrDefault<T>($"SELECT * FROM {_table} WHERE ID = {id}");
+            }
         }
     }
 }
