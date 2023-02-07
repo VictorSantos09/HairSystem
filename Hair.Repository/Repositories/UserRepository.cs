@@ -10,7 +10,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : BaseRepository<UserEntity>, IBaseRepository<UserEntity>
+    public class UserRepository : BaseRepository<UserEntity>, IBaseRepository<UserEntity>, IGetByEmail
     {
         public UserRepository() : base("USERS")
         {
@@ -26,7 +26,12 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQuery();
             }
         }
-        
+
+        public UserEntity GetByEmail(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(UserEntity user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
