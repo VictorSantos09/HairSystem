@@ -10,7 +10,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="SaloonItemEntity"/>.
     /// </summary>
-    public class StorageRepository : BaseRepository<SaloonItemEntity>, ICreateUpdate<SaloonItemEntity>
+    public class StorageRepository : BaseRepository<SaloonItemEntity>, ICreateUpdate<SaloonItemEntity>, IBaseRepository<SaloonItemEntity>
     {
         public static string TableName { get; set; } = "SALOON_ITEMS";
         public StorageRepository() : base(TableName)

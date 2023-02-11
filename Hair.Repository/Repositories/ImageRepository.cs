@@ -14,7 +14,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de imagens no banco de dados contidas na <see cref="ImageEntity"/>.
     /// </summary>
-    public class ImageRepository : BaseRepository<ImageEntity>, ICreateUpdate<ImageEntity>
+    public class ImageRepository : BaseRepository<ImageEntity>, ICreateUpdate<ImageEntity>, IBaseRepository<ImageEntity>
     {
         public ImageRepository() : base("IMAGES")
         {

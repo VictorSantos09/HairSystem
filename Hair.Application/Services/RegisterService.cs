@@ -35,6 +35,9 @@ namespace Hair.Application.Services
             if (dto.PhoneNumber == null)
                 return BaseDtoExtension.NotNull("Telefone");
 
+            if (dto.Name == null)
+                return BaseDtoExtension.NotNull("Nome");
+
             var newUser = new UserEntity(dto.SaloonName, dto.OwnerName, dto.PhoneNumber, dto.Email, dto.Password, dto.Address, dto.CNPJ, dto.HaircutePrice);
 
             _userRepository.Create(newUser);
