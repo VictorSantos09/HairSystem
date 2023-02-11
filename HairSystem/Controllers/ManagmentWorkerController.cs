@@ -15,14 +15,16 @@ namespace HairSystem.Controllers
         private readonly IBaseRepository<BarberEntity> _barberRepository;
         private readonly IBaseRepository<UserEntity> _userRepository;
 
-        public ManagmentWorkerController()
+        public ManagmentWorkerController(IBaseRepository<BarberEntity> barberRepository, IBaseRepository<UserEntity> userRepository)
         {
-            _service = new ManagmentWorkerService(_userRepository, _barberRepository);
+            _barberRepository = barberRepository;
+            _userRepository = userRepository;
+            _service = new(_userRepository,_barberRepository);
         }
 
         [HttpPost]
         [Route("FireBarber")]
-        public IActionResult FireBarber(FireBarberDto fireBarberDto)
+        public IActionResult FireBarber([FromBody]FireBarberDto fireBarberDto)
         {
             var result = _service.FireBarber(fireBarberDto);
 
@@ -31,7 +33,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("HireBarber")]
-        public IActionResult HireBarber(HireBarberDto hireBarberDto)
+        public IActionResult HireBarber([FromBody]HireBarberDto hireBarberDto)
         {
             var result = _service.HireNewbarber(hireBarberDto);
 
@@ -40,7 +42,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("ChangeBarberAdress")]
-        public IActionResult ChangeAdress(ChangeBarberAddressDto adressDto)
+        public IActionResult ChangeAdress([FromBody] ChangeBarberAddressDto adressDto)
         {
             var result = _service.ChangeBarberAddress(adressDto);
 
@@ -49,7 +51,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("ChangeBarberName")]
-        public IActionResult ChangeName(ChangeBarberNameDto nameDto)
+        public IActionResult ChangeName([FromBody] ChangeBarberNameDto nameDto)
         {
             var result = _service.ChangeBarberName(nameDto);
 
@@ -58,7 +60,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("ChangeBarberSalary")]
-        public IActionResult ChangeSalary(ChangeBarberSalaryDto salaryDto)
+        public IActionResult ChangeSalary([FromBody] ChangeBarberSalaryDto salaryDto)
         {
             var result = _service.ChangeBarberSalary(salaryDto);
 

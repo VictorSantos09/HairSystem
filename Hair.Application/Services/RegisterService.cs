@@ -17,6 +17,24 @@ namespace Hair.Application.Services
 
         public BaseDto Execute(RegisterDto dto)
         {
+            if (dto.Email == null)
+                return BaseDtoExtension.NotNull("Email");
+
+            if (dto.OwnerName == null)
+                return BaseDtoExtension.NotNull("Nome do dono");
+
+            if (dto.SaloonName == null)
+                return BaseDtoExtension.NotNull("Nome do salão");
+
+            if (dto.Password == null)
+                return BaseDtoExtension.NotNull("Senha");
+
+            if (dto.Address.City == null || dto.Address.Street == null)
+                return BaseDtoExtension.NotNull("Endereço");
+
+            if (dto.PhoneNumber == null)
+                return BaseDtoExtension.NotNull("Telefone");
+
             var newUser = new UserEntity(dto.SaloonName, dto.OwnerName, dto.PhoneNumber, dto.Email, dto.Password, dto.Address, dto.CNPJ, dto.HaircutePrice);
 
             _userRepository.Create(newUser);

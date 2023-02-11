@@ -10,6 +10,7 @@ namespace Hair.Repository
         public static void InjectRepository(IServiceCollection services)
         {
             services.AddTransient<IBaseRepository<UserEntity>,UserRepository>();
+            services.AddTransient<IBaseRepository<BarberEntity>,BarberRepository>();
         }
     }
 }

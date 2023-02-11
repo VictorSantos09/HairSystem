@@ -14,7 +14,6 @@ namespace Hair.Repository.Repositories
     public class UserRepository : BaseRepository<UserEntity>, IGetByEmail, IBaseRepository<UserEntity>
     {
         private static string TableName { get; } = "USERS";
-        private List<UserEntity> _users { get; set; } = new();
 
         public UserRepository() : base(TableName)
         {
@@ -24,10 +23,8 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO USERS (ID, SALOON_NAME, OWNER_NAME, PHONE_NUMBER, EMAIL, PASSWORD, CNPJ, HAIRCUT_TIME, HAIRCUT_PRICE) VALUES ('{user.Id}', '{user.SaloonName}','{user.OwnerName}','{user.PhoneNumber}','{user.Email}','{user.Password}', '{user.CNPJ}', 02/02/2004 ,'{user.Prices.Hair}')", conn);
+                var query = new SqlCommand($"INSERT INTO {TableName} (ID, SALOON_NAME, OWNER_NAME, PHONE_NUMBER, EMAIL, PASSWORD, CNPJ, HAIRCUT_TIME, HAIRCUT_PRICE) VALUES ('{user.Id}', '{user.SaloonName}','{user.OwnerName}','{user.PhoneNumber}','{user.Email}','{user.Password}', '{user.CNPJ}', 02/02/2004 ,'{user.Prices.Hair}')", conn);
                 conn.Open();
-                query.ExecuteNonQuery();
-
             }
         }
 
@@ -35,8 +32,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var output = conn.Query<UserEntity>($"SELECT * FROM {TableName} WHERE EMAIL = '{email}' AND PASSWORD = '{password}'").ToList().First();
-
+                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email}'").ToList().First();
                 return output;
             }
         }

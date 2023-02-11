@@ -5,15 +5,10 @@ namespace Hair.Application.Dto
 {
     public class HireBarberDto
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public Guid SaloonId { get; set; }
-        [MinLength(9)]
-        [MaxLength(15)]
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
-        [Required]
         public double Salary { get; set; }
         public AddressEntity Adress { get; set; }
         public bool Confirmed { get; set; }
