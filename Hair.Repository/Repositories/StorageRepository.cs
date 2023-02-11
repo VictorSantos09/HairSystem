@@ -12,7 +12,7 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class StorageRepository : BaseRepository<SaloonItemEntity>, ICreateUpdate<SaloonItemEntity>, IBaseRepository<SaloonItemEntity>
     {
-        public static string TableName { get; set; } = "SALOON_ITEMS";
+        private readonly static string TableName = "SALOON_ITEMS";
         public StorageRepository() : base(TableName)
         {
 

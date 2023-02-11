@@ -13,7 +13,7 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class UserRepository : BaseRepository<UserEntity>, IGetByEmail, IBaseRepository<UserEntity>
     {
-        private static string TableName { get; } = "USERS";
+        private readonly static string TableName = "USERS";
 
         public UserRepository() : base(TableName)
         {
@@ -32,7 +32,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email}'").ToList().First();
+                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email}' AND PASSWORD = '{password}'").ToList().First();
                 return output;
             }
         }
