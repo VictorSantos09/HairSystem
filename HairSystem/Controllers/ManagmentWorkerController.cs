@@ -3,7 +3,6 @@ using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Hair.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
@@ -13,11 +12,14 @@ namespace HairSystem.Controllers
     public class ManagmentWorkerController : ControllerBase
     {
         private readonly ManagmentWorkerService _service;
+        private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
 
-        public ManagmentWorkerController(BarberRepository barberRepository, UserRepository userRepository)
+        public ManagmentWorkerController()
         {
-            _service = new ManagmentWorkerService(userRepository, barberRepository);
+            _service = new ManagmentWorkerService(_userRepository, _barberRepository);
         }
+
         [HttpPost]
         [Route("FireBarber")]
         public IActionResult FireBarber(FireBarberDto fireBarberDto)
@@ -26,6 +28,7 @@ namespace HairSystem.Controllers
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }
+
         [HttpPost]
         [Route("HireBarber")]
         public IActionResult HireBarber(HireBarberDto hireBarberDto)
@@ -34,6 +37,7 @@ namespace HairSystem.Controllers
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }
+
         [HttpPost]
         [Route("ChangeBarberAdress")]
         public IActionResult ChangeAdress(ChangeBarberAddressDto adressDto)
@@ -42,6 +46,7 @@ namespace HairSystem.Controllers
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }
+
         [HttpPost]
         [Route("ChangeBarberName")]
         public IActionResult ChangeName(ChangeBarberNameDto nameDto)
@@ -50,6 +55,7 @@ namespace HairSystem.Controllers
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }
+
         [HttpPost]
         [Route("ChangeBarberSalary")]
         public IActionResult ChangeSalary(ChangeBarberSalaryDto salaryDto)

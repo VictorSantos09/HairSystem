@@ -3,8 +3,11 @@
     /// <summary>
     /// Fornece acesso à string de conexão com o banco de dados.
     /// </summary>
-    public class DataAccess
+    public static class DataAccess
     {
-        public const string DBConnection = (@"Data Source=; Initial catalog=; User=;Password=;");
+        /// <summary>
+        /// string de conexão para o SQL Server
+        /// </summary>
+        public static string DBConnection = "Server=.;Database=HairSystem_DB;Trusted_Connection=True;";
     }
 }

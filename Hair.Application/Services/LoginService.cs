@@ -16,7 +16,7 @@ namespace Hair.Application.Services
             if (email == null)
                 return new BaseDto(406, "Email ou senha inválidos");
 
-            var user = _userRepository.GetAll().Find(x => x.Email == email && x.Password == password);
+            var user = _userRepository.GetByEmail(email, password);
 
             if (user != null)
                 return new BaseDto(200, "Login realizado com sucesso!", user.Id);

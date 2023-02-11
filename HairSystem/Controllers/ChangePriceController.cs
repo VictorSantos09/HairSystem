@@ -3,7 +3,6 @@ using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Hair.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
@@ -15,7 +14,7 @@ namespace HairSystem.Controllers
         private readonly ChangePriceService _changePrice;
         private readonly IBaseRepository<UserEntity> _userRepository;
 
-        public ChangePriceController(UserRepository userRepository)
+        public ChangePriceController(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
             _changePrice = new ChangePriceService(_userRepository);

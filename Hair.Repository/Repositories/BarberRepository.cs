@@ -12,6 +12,8 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class BarberRepository : BaseRepository<BarberEntity>, IBaseRepository<BarberEntity>
     {
+
+
         public BarberRepository() : base("BARBERS")
         {
         }

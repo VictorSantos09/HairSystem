@@ -11,7 +11,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-ConfigureRepositories.AddRepositoriesToCollection(builder.Services);
+Setup.InjectRepository(builder.Services);
 
 var app = builder.Build();
 
