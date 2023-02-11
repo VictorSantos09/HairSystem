@@ -80,19 +80,19 @@ namespace Hair.Application.Services
         {
             var saloon = _userRepository.GetById(_saloonId);
 
-            saloon.PriceEntity.Hair = _newPrice;
+            saloon.Prices.Hair = _newPrice;
         }
         private void ApplyBeardPrice()
         {
             var saloon = _userRepository.GetById(_saloonId);
 
-            saloon.PriceEntity.Beard = _newPrice;
+            saloon.Prices.Beard = _newPrice;
         }
         private void ApplyMustachePrice()
         {
             var saloon = _userRepository.GetById(_saloonId);
 
-            saloon.PriceEntity.Mustache = _newPrice;
+            saloon.Prices.Mustache = _newPrice;
         }
     }
 }
