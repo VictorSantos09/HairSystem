@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Domain.Common;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data.SqlClient;
