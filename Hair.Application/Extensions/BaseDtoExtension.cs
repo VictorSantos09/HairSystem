@@ -8,65 +8,45 @@ namespace Hair.Application.Extensions
     public class BaseDtoExtension
     {
         /// <summary>
-        /// Método para envio de mensagem caso a solicitação seja cancelada
+        /// Cria uma <see cref="BaseDto"/> genérica para itens inválidos
         /// </summary>
-        /// <returns><see cref="BaseDto"/> StatusCode 200 e Message "Solicitação ancelada"</returns>
-        public static BaseDto RequestCanceled()
-        {
-            return new BaseDto(200, "Solicitação Cancelada");
-        }
+        /// <param name="itemMissing"></param>
+        /// <returns>Retorna <see cref="BaseDto"/> com StatusCode 406 e mensagem sendo <paramref name="message"/></returns>
+        public static BaseDto Invalid(string message = "Valor inválido") => new BaseDto(406, message);
 
         /// <summary>
-        /// Envio de mensagem caso valor não permitido
+        /// Cria uma <see cref="BaseDto"/>
         /// </summary>
-        /// <returns><see cref="BaseDto"/> StatusCode 406 e Message "Valor Não Permitido"</returns>
-        public static BaseDto ValueNotAllowed()
-        {
-            return new BaseDto(406, "Valor Não Permitido");
-        }
+        /// <param name="itemMissing"></param>
+        /// <returns>Retorna <see cref="BaseDto"/> com os dados fornecidos no parâmetro, e <paramref name="data"/> 
+        /// se não inserido valor recebe <see langword="null"/></returns>
+        public static BaseDto Create(int statusCode, string message, object? data = null) => new BaseDto(statusCode, message, data);
 
         /// <summary>
-        /// Envio de Mensagem em caso de sucesso
+        /// Cria uma <see cref="BaseDto"/> genérica para itens não encontrados
         /// </summary>
-        /// <param name="sucessMessage"></param>
-        /// <returns><see cref="BaseDto"/> StatusCode 200 e Message "Solicitação Efetuada" caso não alterado no parâmetro</returns>
-        public static BaseDto Sucessfull(string sucessMessage = "Solicitação Efetuada")
-        {
-            return new BaseDto(200, sucessMessage);
-        }
+        /// <param name="itemMissing"></param>
+        /// <returns>Retorna <see cref="BaseDto"/> com StatusCode 404 e mensagem sendo "<paramref name="itemMissing"/> não encontrado"</returns>
+        public static BaseDto NotFound(string itemMissing = "Usuário") => new BaseDto(404, $"{itemMissing} não encontrado");
 
         /// <summary>
-        /// Método para criação de novo BaseDto
+        /// Cria uma <see cref="BaseDto"/> genérica para situações de sucesso
         /// </summary>
-        /// <param name="statusCode"></param>
-        /// <param name="message"></param>
-        /// <returns><see cref="BaseDto"/> com o StatusCode e Message fornecidos no parâmetros</returns>
-        public static BaseDto Create(int statusCode, string message)
-        {
-            return new BaseDto(statusCode, message);
-        }
+        /// <param name="itemMissing"></param>
+        /// <returns>Retorna <see cref="BaseDto"/> com StatusCode 200 e mensagem sendo <paramref name="message"/> caso não alterado</returns>
+        public static BaseDto Sucess(string message = "Operação conclúida") => new BaseDto(200, message);
 
         /// <summary>
-        /// Método para criação de <see cref="BaseDto"/> em caso de dados inválidos
+        /// Cria uma <see cref="BaseDto"/> genérica para itens nulos
         /// </summary>
-        /// <returns><see cref="BaseDto"/> com statusCode 406 e message "Não foi possivel efetuar a solicitação, dados inválidos" </returns>
-        public static BaseDto InvalidData()
-        {
-            return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
-        }
+        /// <param name="itemMissing"></param>
+        /// <returns>Retorna <see cref="BaseDto"/> com StatusCode 406 e mensagem sendo "<paramref name="message"/> não pode ser nulo"</returns>
+        public static BaseDto NotNull(string message = "Valor") => new(406, $"{message} não pode ser nulo");
 
         /// <summary>
-        /// 
-        /// Executa a criação de <see cref="BaseDto"/> para caso de nulo
-        /// 
+        /// Efetua a criação de <see cref="BaseDto"/> em caso de solicitação cancelada
         /// </summary>
-        /// <param name="content"></param>
-        /// 
-        /// <returns>
-        /// 
-        /// Retorna <see cref="BaseDto"/> com statusCode 406 e message "<paramref name="content"/> não pode ser vazio" se <paramref name="content"/> alterado
-        /// 
-        /// </returns>
-        public static BaseDto NotNull(string content = "Usuario") => new(406, $"{content} não pode ser vazio");
+        /// <returns>Retorna <see cref="BaseDto"/> com status code 200 e mensagem "Solicitação cancelada"</returns>
+        public static BaseDto RequestCanceled() => new(200, "Solicitação cancelada");
     }
 }

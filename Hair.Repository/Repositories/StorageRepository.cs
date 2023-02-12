@@ -3,6 +3,7 @@ using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
+using Hair.Domain.Common;
 using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories

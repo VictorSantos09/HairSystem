@@ -1,4 +1,6 @@
-﻿namespace Hair.Domain.Entities
+﻿using Hair.Domain.Common;
+
+namespace Hair.Domain.Entities
 {
     public class HaircuteEntity : BaseEntity
     {

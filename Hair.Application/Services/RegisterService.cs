@@ -42,7 +42,7 @@ namespace Hair.Application.Services
 
             _userRepository.Create(newUser);
 
-            return BaseDtoExtension.Sucessfull("Conta Criada com sucesso");
+            return BaseDtoExtension.Sucess("Conta Criada com sucesso");
         }
     }
 }

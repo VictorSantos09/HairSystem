@@ -34,7 +34,7 @@ namespace Hair.Tests.Services
         private void ChangePrice_ShouldReturn406_WhenValueNegative()
         {
             var newPrice = -25;
-            var expected = BaseDtoExtension.ValueNotAllowed();
+            var expected = BaseDtoExtension.Invalid();
 
             var actual = _service.ChangeHaircutePrice(newPrice, It.IsAny<Guid>(), true, true, false, false);
 
@@ -79,7 +79,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeHaircutePrice(_newPrice, globalUser.Id, true, true, true, true);
 
-            var expected = BaseDtoExtension.Sucessfull("Alteração Concluída");
+            var expected = BaseDtoExtension.Sucess("Alteração Concluída");
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
