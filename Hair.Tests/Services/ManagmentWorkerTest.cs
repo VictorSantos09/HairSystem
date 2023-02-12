@@ -110,7 +110,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.FireBarber(fireDto);
 
-            var expected = BaseDtoExtension.InvalidData();
+            var expected = BaseDtoExtension.Invalid();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -174,7 +174,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberName(barberNameDto);
 
-            var expected = BaseDtoExtension.InvalidData();
+            var expected = BaseDtoExtension.Invalid();
 
 
             Equal(expected._StatusCode, actual._StatusCode);
@@ -238,7 +238,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberSalary(salaryDto);
 
-            var expected = BaseDtoExtension.InvalidData();
+            var expected = BaseDtoExtension.Invalid();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);
@@ -282,7 +282,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.ChangeBarberAddress(adressDto);
 
-            var expected = BaseDtoExtension.InvalidData();
+            var expected = BaseDtoExtension.Invalid();
 
             Equal(expected._StatusCode, actual._StatusCode);
             Equal(expected._Message, actual._Message);

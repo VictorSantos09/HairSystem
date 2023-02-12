@@ -1,8 +1,9 @@
-﻿using Hair.Domain.Entities;
+﻿using Hair.Domain.Common;
+using Hair.Domain.Entities;
 
 namespace Hair.Tests
 {
-    public class GlobalUser
+    public class GlobalUser : BaseEntity
     {
         private static AddressEntity Adress;
         private static HaircutePriceEntity HaircutePrice;

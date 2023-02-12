@@ -61,7 +61,7 @@ namespace Hair.Application.Services
                 return BaseDtoExtension.Create(200, $"{barber.Name} foi demitido");
             }
 
-            return BaseDtoExtension.InvalidData();
+            return BaseDtoExtension.Invalid();
         }
         /// <summary>
         /// Efetua a mudança do nome do barbeiro
@@ -86,7 +86,7 @@ namespace Hair.Application.Services
                 return BaseDtoExtension.Create(200, $"Nome alterado para {barberNameDto.NewName}");
             }
 
-            return BaseDtoExtension.InvalidData();
+            return BaseDtoExtension.Invalid();
         }
         /// <summary>
         /// Efetua a mudança do salario do barbeiro
@@ -111,7 +111,7 @@ namespace Hair.Application.Services
                 return BaseDtoExtension.Create(200, $"Salário de {barber.Name} alterado para {salaryDto.NewSalary}");
             }
 
-            return BaseDtoExtension.InvalidData();
+            return BaseDtoExtension.Invalid();
         }
         /// <summary>
         /// Efetua a mudança do endereço do barbeiro
@@ -136,7 +136,7 @@ namespace Hair.Application.Services
                 return BaseDtoExtension.Create(200, $"Endereço de {barber.Name} alterado");
             }
 
-            return BaseDtoExtension.InvalidData();
+            return BaseDtoExtension.Invalid();
         }
     }
 }

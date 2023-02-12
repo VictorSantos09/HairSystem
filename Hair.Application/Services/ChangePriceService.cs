@@ -38,7 +38,7 @@ namespace Hair.Application.Services
             _newPrice = newPrice;
 
             if (double.IsNegative(newPrice) == true)
-                return BaseDtoExtension.ValueNotAllowed();
+                return BaseDtoExtension.Invalid();
 
             var saloon = _userRepository.GetById(saloonId);
 
@@ -50,7 +50,7 @@ namespace Hair.Application.Services
             if (!haircutePlace)
                 return BaseDtoExtension.Create(406, "Escolha algum item");
 
-            return BaseDtoExtension.Sucessfull("Alteração Concluída");
+            return BaseDtoExtension.Sucess("Alteração Concluída");
         }
         /// <summary>
         /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão
