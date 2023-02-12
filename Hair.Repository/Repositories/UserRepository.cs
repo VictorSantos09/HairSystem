@@ -2,6 +2,7 @@
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using System.Data;
 using System.Data.SqlClient;
 using static Dapper.SqlMapper;
 
@@ -10,9 +11,11 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : BaseRepository<UserEntity>, IBaseRepository<UserEntity>
+    public class UserRepository : BaseRepository<UserEntity>, IGetByEmail, IBaseRepository<UserEntity>
     {
-        public UserRepository() : base("USERS")
+        private readonly static string TableName = "USERS";
+
+        public UserRepository() : base(TableName)
         {
 
         }
@@ -20,21 +23,39 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO USERS (ID, SALOON_NAME, OWNER_NAME, PHONE_NUMBER, EMAIL, PASSWORD, ADDRESS, CNPJ, HAIRCUT_TIME, HAIRCUT_PRICE) VALUES ('{user.Id}', '{user.SaloonName}','{user.OwnerName}','{user.PhoneNumber}','{user.Email}','{user.Password}'," +
-                    $"'{user.Adress}','{user.CNPJ}','{user.Haircutes}','{user.PriceEntity}')", conn);
+                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL," +
+                    $" @PASSWORD, @CNPJ, @HAIRCUT_TIME, @HAIRCUT_PRICE)", conn);
+
                 conn.Open();
-                query.ExecuteNonQuery();
+
+                query.Parameters.AddWithValue("@ID", user.Id);
+                query.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
+                query.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
+                query.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
+                query.Parameters.AddWithValue("@EMAIL", user.Email);
+                query.Parameters.AddWithValue("@PASSWORD", user.Password);
+                query.Parameters.AddWithValue("@CNPJ", user.CNPJ);
+                query.Parameters.AddWithValue("@HAIRCUT_TIME", "02/04/2004"); // colocar como datetime ou string tanto no C# quanto SQL
+                query.Parameters.AddWithValue("@HAIRCUT_PRICE", user.Prices.Hair); // Resolver questao de ser necessario dizer a propriedade. Ex: Prices.Hair, deve ser apenas user.Prices
+
+                query.ExecuteNonQueryAsync();
             }
         }
-        
+
+        public UserEntity? GetByEmail(string email, string password)
+        {
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email}' AND PASSWORD = '{password}'").ToList().First();
+                return output;
+            }
+        }
+
         public void Update(UserEntity user)
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE USERS SET ID = {user.Id}, SALOON_NAME = {user.SaloonName}, OWNER_NAME = {user.SaloonName}, PHONE_NUMBER = {user.PhoneNumber}, EMAIL = {user.Email}, PASSWORD = {user.Password}," +
-                    $" ADDRESS = {user.Adress}, CNPJ = {user.CNPJ}, HAIRCUT_TIME = {user.Haircutes}, HAIRCUT_PRICE='{user.PriceEntity}'");
-                conn.Open();
-                query.ExecuteNonQuery();
+                conn.Execute($"UPDATE {TableName}", user);
             }
         }
     }

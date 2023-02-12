@@ -1,8 +1,6 @@
-﻿using Hair.Domain.Entities;
-
-namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces
 {
-   
+
     /// <summary>
     /// Representa a interface que define um método para obter todas as entidades do tipo fornecido.
     /// </summary>
@@ -13,6 +11,6 @@ namespace Hair.Repository.Interfaces
         /// Obtém todas as entidades como uma lista de objetos do tipo fornecido.
         /// </summary>
         /// <returns>Uma lista de objetos do tipo fornecido representando todas as entidades.</returns>
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
     }
 }

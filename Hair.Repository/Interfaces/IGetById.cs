@@ -1,6 +1,4 @@
-﻿using Hair.Domain.Entities;
-
-namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces
 {
     /// <summary>
     /// Representa a interface que fornece um método para recuperar uma entidade com um id especificado.

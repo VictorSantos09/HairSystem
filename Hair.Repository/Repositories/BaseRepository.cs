@@ -1,10 +1,9 @@
 ﻿using Dapper;
 using Hair.Domain.Common;
-using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using System.Data;
 using System.Data.SqlClient;
-using System.Reflection.Emit;
 
 namespace Hair.Repository.Repositories
 {
@@ -12,15 +11,15 @@ namespace Hair.Repository.Repositories
     /// Base Principal dos repositorios onde efetua a ação escolhida, contendo as funções implementadas da interface <see cref="IBaseRepository{T}"/>
     /// Todos os repositories existente DEVEM herdar dessa classe.
     /// </summary>
-    
-    public class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
+
+    public abstract class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
     {
         private readonly string _table;
-        /// <param name="table">O nome da tabela do banco de dados ao qual o repositório está associado.</param>
         public BaseRepository(string table)
         {
             _table = table;
         }
+
         public void Remove(Guid id)
         {
             using (var connection = new SqlConnection(DataAccess.DBConnection))
@@ -28,19 +27,22 @@ namespace Hair.Repository.Repositories
                 var affectedRows = connection.Execute($"DELETE FROM {_table} WHERE ID = '{id}'");
             }
         }
-        public IEnumerable<T> GetAll()
-        {
 
-            using (var connection = new SqlConnection(DataAccess.DBConnection))
+        public List<T> GetAll()
+        {
+            using (IDbConnection connection = new SqlConnection(DataAccess.DBConnection))
             {
-                return connection.Query<T>($"SELECT * FROM {_table.ToUpper()}");
+                var output = connection.Query<T>($"SELECT * FROM {_table}").ToList();
+                return output;
             }
         }
+
         public T? GetById(Guid id)
         {
             using (var connection = new SqlConnection(DataAccess.DBConnection))
             {
-                return connection.QueryFirstOrDefault<T>($"SELECT * FROM {_table} WHERE ID = {id}");
+                var output = connection.QueryFirstOrDefault<T>($"SELECT * FROM {_table} WHERE ID = '{id}'");
+                return output;
             }
         }
     }

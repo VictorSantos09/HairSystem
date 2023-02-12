@@ -54,5 +54,19 @@ namespace Hair.Application.Extensions
         {
             return new BaseDto(406, "Não foi possivel efetuar a solicitação, dados inválidos");
         }
+
+        /// <summary>
+        /// 
+        /// Executa a criação de <see cref="BaseDto"/> para caso de nulo
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// 
+        /// <returns>
+        /// 
+        /// Retorna <see cref="BaseDto"/> com statusCode 406 e message "<paramref name="content"/> não pode ser vazio" se <paramref name="content"/> alterado
+        /// 
+        /// </returns>
+        public static BaseDto NotNull(string content = "Usuario") => new(406, $"{content} não pode ser vazio");
     }
 }
