@@ -8,12 +8,12 @@ namespace Hair.Application.Dto
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public AddressEntity Address { get; set; }
-        public HaircutePriceEntity HaircutePrice{ get; set; }
+        public HaircutePriceEntity HaircutePrice { get; set; }
         public string CNPJ { get; set; }
         public string OwnerName { get; set; }
         public string Password { get; set; }
         public string SaloonName { get; set; }
 
-     
+
     }
 }

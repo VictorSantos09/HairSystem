@@ -1,8 +1,8 @@
 ﻿
+using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Hair.Application.Dto;
 
 namespace HairSystem.Controllers
 {

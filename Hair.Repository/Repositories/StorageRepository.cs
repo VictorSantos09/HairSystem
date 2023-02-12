@@ -17,13 +17,13 @@ namespace Hair.Repository.Repositories
         {
 
         }
-        
+
         public void Create(SaloonItemEntity entity)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
                 conn.Execute($"INSERT INTO {TableName}", entity);
-            
+
             }
         }
 

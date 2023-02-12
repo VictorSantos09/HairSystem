@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     public class ClientEntity
     {

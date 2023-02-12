@@ -19,12 +19,12 @@ namespace HairSystem.Controllers
         {
             _barberRepository = barberRepository;
             _userRepository = userRepository;
-            _service = new(_userRepository,_barberRepository);
+            _service = new(_userRepository, _barberRepository);
         }
 
         [HttpPost]
         [Route("FireBarber")]
-        public IActionResult FireBarber([FromBody]FireBarberDto fireBarberDto)
+        public IActionResult FireBarber([FromBody] FireBarberDto fireBarberDto)
         {
             var result = _service.FireBarber(fireBarberDto);
 
@@ -33,7 +33,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("HireBarber")]
-        public IActionResult HireBarber([FromBody]HireBarberDto hireBarberDto)
+        public IActionResult HireBarber([FromBody] HireBarberDto hireBarberDto)
         {
             var result = _service.HireNewbarber(hireBarberDto);
 

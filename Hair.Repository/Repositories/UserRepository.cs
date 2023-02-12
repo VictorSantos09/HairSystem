@@ -25,7 +25,7 @@ namespace Hair.Repository.Repositories
             {
                 var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL," +
                     $" @PASSWORD, @CNPJ, @HAIRCUT_TIME, @HAIRCUT_PRICE)", conn);
-                
+
                 conn.Open();
 
                 query.Parameters.AddWithValue("@ID", user.Id);
