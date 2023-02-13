@@ -14,7 +14,6 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
-
     <title>Encontre um salão</title>
 </head>
 
@@ -25,6 +24,45 @@
     <div id="nav-placeholder">
 
     </div>
+
+    <!--Modal para quando clicar na imagem-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Informações</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Endereço: Rua Lorem, ipsum dolor, 450</p>
+                    <p>Atendimento: 08:00 - 18:00</p>
+                    <p>Corte de Cabelo: $25</p>
+                    <p>Corte de Bigode: $15</p>
+                    <p>Corte de Barba: $10</p>
+
+                    <button class="btn btn-primary">Ver horarios</button>
+
+                    <div class="mapa-conteudo py-3">
+                        <iframe width="100%"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.441464102397!2d-46.63462888471365!3d-23.588495384669326!2m3!1f0!2f0!3f0!3m2!
+                        1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5ba6816fe839%3A0xda8627521b8e4b90!2sAlura!5e0!3m2!1spt-PT!2sbr!4v1675813702770!5m2!1spt-PT!2sbr"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <section class="container mt-5">
         <div class="d-flex justify-content-center my-5 py-2">
@@ -74,17 +112,24 @@
         </div>
 
         <div class="row">
+
             <div class="col-xxl col-md-4 col-sm-12">
                 <div class="py-3">
                     <div class="text-white bg-color-1 rounded-3">
                         <div class="p-3">
-                            <img class="img-fluid pb-3" width="350"
-                                src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt="">
+                            <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+
+                                <img class="img-fluid pb-3" width="350"
+                                    src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    alt="">
+                            </button>
+
                             <h3>Alberto's BarberShop</h3>
                             <h5>Rua Lorem, ipsum dolor, 450</h5>
                             <h5>07:30 - 17:30</h5>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -93,13 +138,19 @@
                 <div class="py-3">
                     <div class="text-white bg-color-1 rounded-3">
                         <div class="p-3">
-                            <img class="img-fluid pb-3" width="350"
-                                src="https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                                alt="">
+                            <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+
+                                <img class="img-fluid pb-3" width="350"
+                                    src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    alt="">
+                            </button>
+
                             <h3>Alberto's BarberShop</h3>
                             <h5>Rua Lorem, ipsum dolor, 450</h5>
                             <h5>07:30 - 17:30</h5>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -108,66 +159,22 @@
                 <div class="py-3">
                     <div class="text-white bg-color-1 rounded-3">
                         <div class="p-3">
-                            <img class="img-fluid pb-3" width="350"
-                                src="https://images.pexels.com/photos/897263/pexels-photo-897263.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                                alt="">
+                            <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+
+                                <img class="img-fluid pb-3" width="350"
+                                    src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    alt="">
+                            </button>
+
                             <h3>Alberto's BarberShop</h3>
                             <h5>Rua Lorem, ipsum dolor, 450</h5>
                             <h5>07:30 - 17:30</h5>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-xxl col-md-4 col-sm-12">
-                <div class="py-3">
-                    <div class="text-white bg-color-1 rounded-3">
-                        <div class="p-3">
-                            <img class="img-fluid pb-3" width="350"
-                                src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt="">
-                            <h3>Alberto's BarberShop</h3>
-                            <h5>Rua Lorem, ipsum dolor, 450</h5>
-                            <h5>07:30 - 17:30</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xxl col-md-4 col-sm-12">
-                <div class="py-3">
-                    <div class="text-white bg-color-1 rounded-3">
-                        <div class="p-3">
-                            <img class="img-fluid pb-3" width="350"
-                                src="https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                                alt="">
-                            <h3>Alberto's BarberShop</h3>
-                            <h5>Rua Lorem, ipsum dolor, 450</h5>
-                            <h5>07:30 - 17:30</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xxl col-md-4 col-sm-12">
-                <div class="py-3">
-                    <div class="text-white bg-color-1 rounded-3">
-                        <div class="p-3">
-                            <img class="img-fluid pb-3" width="350"
-                                src="https://images.pexels.com/photos/897263/pexels-photo-897263.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                                alt="">
-                            <h3>Alberto's BarberShop</h3>
-                            <h5>Rua Lorem, ipsum dolor, 450</h5>
-                            <h5>07:30 - 17:30</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
 
         </div>
     </section>
