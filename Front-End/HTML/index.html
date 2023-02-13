@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/CSS/colors.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <title>Encontre um salão</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/JS/LoadNavAndFooter.js"></script>
+
+    <div id="nav-placeholder">
+
+    </div>
+
+    <!--Modal para quando clicar na imagem-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Informações</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Endereço: Rua Lorem, ipsum dolor, 450</p>
+                    <p>Atendimento: 08:00 - 18:00</p>
+                    <p>Corte de Cabelo: $25</p>
+                    <p>Corte de Bigode: $15</p>
+                    <p>Corte de Barba: $10</p>
+
+                    <button class="btn btn-primary">Ver horarios</button>
+
+                    <div class="mapa-conteudo py-3">
+                        <iframe width="100%"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.441464102397!2d-46.63462888471365!3d-23.588495384669326!2m3!1f0!2f0!3f0!3m2!
+                        1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5ba6816fe839%3A0xda8627521b8e4b90!2sAlura!5e0!3m2!1spt-PT!2sbr!4v1675813702770!5m2!1spt-PT!2sbr"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="container mt-5">
+        <div class="d-flex justify-content-center my-5 py-2">
+
+            <div class="bg-color-1 rounded-3 p-3">
+
+                <div class="input-group pb-3">
+                    <input type="text" class="form-control fs-5" placeholder="Encontre um salão" name="" id="">
+                </div>
+
+                <button class="btn btn-primary" type="button">
+                    Buscar
+                </button>
+
+                <button class="btn bg-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Filtrar
+                </button>
+
+                <div class="form-check text-white">
+                    <input class="form-check-input" type="checkbox" value="" checked id="apenasSaloesAbertos">
+                    <label class="form-check-label">
+                        Apenas abertos
+                    </label>
+                </div>
+
+                <button class="btn btn-primary mt-3">
+                    Ver todos resultados
+                </button>
+
+                <ul class="dropdown-menu p-3">
+                    <div class="input-group pb-2">
+                        <span class="input-group-text">Cidade</span>
+                        <input type="text" class="form-control" placeholder="Digite o nome da cidade">
+                    </div>
+
+                    <div class="input-group pb-2">
+                        <span class="input-group-text">Rua</span>
+                        <input type="text" class="form-control" placeholder="Digite o nome da rua">
+                    </div>
+
+                    <div class="input-group pb-2">
+                        <input type="button" class="btn btn-primary" value="Enviar">
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xxl col-md-4 col-sm-12">
+                <div class="py-3">
+                    <div class="text-white bg-color-1 rounded-3">
+                        <div class="p-3">
+                            <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+
+                                <img class="img-fluid pb-3" width="350"
+                                    src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    alt="">
+                            </button>
+
+                            <h3>Alberto's BarberShop</h3>
+                            <h5>Rua Lorem, ipsum dolor, 450</h5>
+                            <h5>07:30 - 17:30</h5>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl col-md-4 col-sm-12">
+                <div class="py-3">
+                    <div class="text-white bg-color-1 rounded-3">
+                        <div class="p-3">
+                            <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+
+                                <img class="img-fluid pb-3" width="350"
+                                    src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    alt="">
+                            </button>
+
+                            <h3>Alberto's BarberShop</h3>
+                            <h5>Rua Lorem, ipsum dolor, 450</h5>
+                            <h5>07:30 - 17:30</h5>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl col-md-4 col-sm-12">
+                <div class="py-3">
+                    <div class="text-white bg-color-1 rounded-3">
+                        <div class="p-3">
+                            <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+
+                                <img class="img-fluid pb-3" width="350"
+                                    src="https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    alt="">
+                            </button>
+
+                            <h3>Alberto's BarberShop</h3>
+                            <h5>Rua Lorem, ipsum dolor, 450</h5>
+                            <h5>07:30 - 17:30</h5>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-placeholder">
+
+    </div>
+
+</body>
+
+</html>
