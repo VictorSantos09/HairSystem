@@ -8,9 +8,6 @@
 
     <link rel="stylesheet" href="/CSS/colors.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -23,6 +20,14 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
     <title>HairSystem</title>
 </head>
 
@@ -30,64 +35,151 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/JS/LoadNavAndFooter.js"></script>
 
-    <div id="nav-placeholder">
+    <nav class="navbar navbar-expand-lg bg-color-3">
+        <div class="container-fluid m-2">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="https://play-lh.googleusercontent.com/uGqP7F-E_eaEwTb3hMz63MWf0YKRSK6n9INBwibBSOrGDg6B3sd-ACuqNrR312ohdQ"
+                        alt="C# Icon" width="80" class="rounded-5">
+                </a>
+            </div>
 
-    </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <section class="mt-5">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <div class="d-flex align-items-baseline">
+                        <li class="nav-item px-3">
 
-        <div id="functionsBarbershop">
-            <div class="card">
+                            <button class="btn btn-lg d-flex btn-primary nav-item" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#menuManagment">
+                                <span class="navbar-toggler"></span>
+                                Menu
+                            </button>
+                        </li>
 
-                <button class="text-start btn fw-bold text-capitalize" data-toggle="collapse" data-target="#ManagmentBarber"
-                    aria-expanded="true">
+                        <li class="nav-item px-3">
+                            <img style="height: 4rem; width: 4rem;" class="nav-item rounded-circle img-fluid"
+                                src="/rick-morty-ultimos-episodios1-scaled-e1667923673907.jpg" alt="Imagem do usuario">
 
-                    <div class="card-header" id="headingOne">
-                        <h4> Gerenciamento Barbeiros</h4>
+                        </li>
                     </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-                </button>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
 
-                <div id="ManagmentBarber" class="collapse show" aria-labelledby="headingOne"
-                    data-parent="#functionsBarbershop">
-                    <div class="card-body">
+            <div class="offcanvas offcanvas-start" id="offcanvasNavbar">
 
-                        <div class="container-fluid">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
 
-                            <button class="btn btn-dark m-2">
-                                Contratar
-                            </button>
+                <div class="offcanvas-body">
 
-                            <button class="btn btn-dark m-2">
-                                Demitir
-                            </button>
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
 
-                            <button class="btn btn-dark m-2">
-                                Visualizar
-                            </button>
-
-                            <button class="btn btn-dark m-2">
-                                Atualizar
-                            </button>
-
-                            <button class="btn btn-dark m-2">
-                                Atualizar nome
-                            </button>
-
-                            <button class="btn btn-dark m-2">
-                                Atualizar endereço
-                            </button>
-
-                            <button class="btn btn-dark m-2">
-                                Atualizar salário
-                            </button>
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" data-bs-scroll="true" id="menuManagment">
+
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Serviços</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <section class="container">
+
+                <div id="functionsBarbershop">
+                    <div class="card">
+
+                        <button class="text-start btn fw-bold text-capitalize" data-toggle="collapse"
+                            data-target="#ManagmentBarber" aria-expanded="true">
+
+                            <div class="card-header" id="headingOne">
+                                <h4> Gerenciamento Barbeiros</h4>
+                            </div>
+
+                        </button>
+
+                        <div id="ManagmentBarber" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#functionsBarbershop">
+                            <div class="card-body">
+
+                                <div class="container-fluid">
+
+                                    <button class="btn btn-dark m-2">
+                                        Contratar
+                                    </button>
+
+                                    <button class="btn btn-dark m-2">
+                                        Demitir
+                                    </button>
+
+                                    <button class="btn btn-dark m-2">
+                                        Visualizar
+                                    </button>
+
+                                    <button class="btn btn-dark m-2">
+                                        Atualizar
+                                    </button>
+
+                                    <button class="btn btn-dark m-2">
+                                        Atualizar nome
+                                    </button>
+
+                                    <button class="btn btn-dark m-2">
+                                        Atualizar endereço
+                                    </button>
+
+                                    <button class="btn btn-dark m-2">
+                                        Atualizar salário
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
 
     <div id="footer-placeholder">
 
