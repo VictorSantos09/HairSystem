@@ -1,6 +1,7 @@
 ﻿using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
@@ -18,15 +19,22 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} (SALOON_ID, HAIRCUT_TIME, AVAILABLE) VALUES ('{haircute.SaloonId}', '{haircute.HaircuteTime}', '{haircute.Avaible}')", conn);
+                var query = new SqlCommand($"INSERT INTO {TableName}  VALUES (@SALOON_ID, @HAIRCUT_TIME, @AVAILABLE)");
+
                 conn.Open();
+
+                query.Parameters.AddWithValue("@SALOON_ID", haircute.SaloonId);
+                query.Parameters.AddWithValue("@SALOON_ID", haircute.HaircuteTime);
+                query.Parameters.AddWithValue("@SALOON_ID", haircute.Avaible);
+
+                query.ExecuteNonQueryAsync();
             }
         }
         public void Update(HaircuteEntity haircute)
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET SALOON_ID = {haircute.SaloonId}, HAIRCUT_TIME = {haircute.HaircuteTime}, AVAILABLE = {haircute.Avaible}");
+                var query = new SqlCommand($"UPDATE {TableName} SET HAIRCUT_TIME = {haircute.HaircuteTime}, AVAILABLE = {haircute.Avaible} WHERE SALOON_ID = {haircute.SaloonId}");
                 conn.Open();
             }
         }
