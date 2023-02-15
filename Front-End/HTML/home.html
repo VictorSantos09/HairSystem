@@ -44,70 +44,39 @@
                 </a>
             </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#NavbarHome">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="NavbarHome">
                 <ul class="navbar-nav">
-                    <div class="d-flex align-items-baseline">
-                        <li class="nav-item px-3">
+                    <div class="d-flex align-items-center">
 
-                            <button class="btn btn-lg d-flex btn-primary nav-item" type="button"
-                                data-bs-toggle="offcanvas" data-bs-target="#menuManagment">
+                        <li class="nav-item px-3">
+                            <button class="btn btn-lg d-flex btn-primary" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#menuManagment">
                                 <span class="navbar-toggler"></span>
                                 Menu
                             </button>
                         </li>
 
                         <li class="nav-item px-3">
-                            <img style="height: 4rem; width: 4rem;" class="nav-item rounded-circle img-fluid"
-                                src="/rick-morty-ultimos-episodios1-scaled-e1667923673907.jpg" alt="Imagem do usuario">
+                            <button class="dropdown btn rounded-circle" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="height: 4rem; width: 4rem; background-image: url(/rick-morty-ultimos-episodios1-scaled-e1667923673907.jpg);"
+                                type="button">
 
+                                <div class="dropdown-menu">
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-item-action">Perfil</li>
+                                        <li class="list-group-item list-group-item-action">Configurações</li>
+                                        <li class="list-group-item list-group-item-action">Sair</li>
+                                    </ul>
+                                </div>
+
+                            </button>
                         </li>
                     </div>
                 </ul>
-            </div>
-        </div>
-    </nav>
-
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-
-            <div class="offcanvas offcanvas-start" id="offcanvasNavbar">
-
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-
-                <div class="offcanvas-body">
-
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                </div>
             </div>
         </div>
     </nav>
