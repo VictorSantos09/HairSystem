@@ -38,8 +38,15 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET SOURCE = {image.Source}, IMAGE = {image.Img} WHERE SALOON_IMAGE_ID = {image.SaloonId}");
+                var query = new SqlCommand($"UPDATE {TableName} SET SOURCE = @Source, IMAGE = @Img WHERE SALOON_IMAGE_ID = @SaloonId");
+
                 conn.Open();
+
+                query.Parameters.AddWithValue("@SOURCE", image.Source);
+                query.Parameters.AddWithValue("@IMAGE", image.Img);
+                query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
+
+                query.ExecuteNonQueryAsync();
             }
         }
     }

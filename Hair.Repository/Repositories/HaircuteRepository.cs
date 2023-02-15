@@ -24,8 +24,8 @@ namespace Hair.Repository.Repositories
                 conn.Open();
 
                 query.Parameters.AddWithValue("@SALOON_ID", haircute.SaloonId);
-                query.Parameters.AddWithValue("@SALOON_ID", haircute.HaircuteTime);
-                query.Parameters.AddWithValue("@SALOON_ID", haircute.Avaible);
+                query.Parameters.AddWithValue("@HAIRCUT_TIME", haircute.HaircuteTime);
+                query.Parameters.AddWithValue("@AVAILABLE", haircute.Avaible);
 
                 query.ExecuteNonQueryAsync();
             }
@@ -34,8 +34,15 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET HAIRCUT_TIME = {haircute.HaircuteTime}, AVAILABLE = {haircute.Avaible} WHERE SALOON_ID = {haircute.SaloonId}");
+                var query = new SqlCommand($"UPDATE {TableName} SET HAIRCUT_TIME = @HaircuteTime, AVAILABLE = @Avaible WHERE SALOON_ID = @SaloonId");
+
                 conn.Open();
+
+                query.Parameters.AddWithValue("@HAIRCUT_TIME", haircute.HaircuteTime);
+                query.Parameters.AddWithValue("@AVAILABLE", haircute.Avaible);
+                query.Parameters.AddWithValue("@SALOON_ID", haircute.SaloonId);
+
+                query.ExecuteNonQueryAsync();
             }
         }
     }

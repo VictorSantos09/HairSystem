@@ -40,9 +40,22 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET NAME = {barber.Name}, PHONENUMBER = {barber.PhoneNumber} , EMAIL = {barber.Email} , SALARY = {barber.Salary} , HIRED = {barber.Hired}, ADDRESS = {barber.Adress}, " +
-                    $"JOBSALOON_ID = {barber.JobSaloonId}, JOBSALOON_NAME = {barber.JobSaloonName} WHERE ID = {barber.Id} ");
+                var query = new SqlCommand($"UPDATE {TableName} SET NAME = @Name, PHONENUMBER = @PhoneNumber, EMAIL = @Email, SALARY = @Salary, HIRED = @Hired, ADDRESS = @Adress, " +
+                    $"JOBSALOON_ID = @JobSaloonId, JOBSALOON_NAME = @JobSaloonName WHERE ID = @Id");
+
                 conn.Open();
+
+                query.Parameters.AddWithValue("@NAME", barber.Name);
+                query.Parameters.AddWithValue("@PHONENUMBER", barber.PhoneNumber);
+                query.Parameters.AddWithValue("@EMAIL", barber.Email);
+                query.Parameters.AddWithValue("@SALARY", barber.Salary);
+                query.Parameters.AddWithValue("@HIRED", barber.Hired);
+                query.Parameters.AddWithValue("ADDRESS", barber.Adress);
+                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.JobSaloonId);
+                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.JobSaloonName);
+                query.Parameters.AddWithValue("@ID", barber.Id);
+
+                query.ExecuteNonQueryAsync();
             }
         }
     }

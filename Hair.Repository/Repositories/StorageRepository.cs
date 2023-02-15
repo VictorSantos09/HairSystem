@@ -41,7 +41,16 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Execute($"UPDATE {TableName} SET NAME = {entity.Name}, PRICE = {entity.Price}, QUANTITY_AVAILABLE = {entity.QuantityAvaible} WHERE ID = {entity.Id}");
+               var query = new SqlCommand ($"UPDATE {TableName} SET NAME = @Name, PRICE = @Price, QUANTITY_AVAILABLE = @QuantityAvailable WHERE ID = @Id");
+
+                conn.Open();
+
+                query.Parameters.AddWithValue("@NAME", entity.Name);
+                query.Parameters.AddWithValue("@PRICE", entity.Price);
+                query.Parameters.AddWithValue("@QUANTITY_AVAILABLE", entity.QuantityAvaible);
+                query.Parameters.AddWithValue("@ID", entity.Id);
+
+                query.ExecuteNonQueryAsync();
             }
         }
     }
