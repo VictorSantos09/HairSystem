@@ -44,7 +44,7 @@ namespace Hair.Repository.Repositories
 
         public UserEntity? GetByEmail(string email, string password)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
                 var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email}' AND PASSWORD = '{password}'").ToList().First();
                 return output;
