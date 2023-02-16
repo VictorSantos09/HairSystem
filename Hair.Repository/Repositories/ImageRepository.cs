@@ -1,7 +1,9 @@
 ﻿using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using System.Data;
 using System.Data.SqlClient;
+using static Dapper.SqlMapper;
 
 
 namespace Hair.Repository.Repositories
@@ -20,17 +22,31 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} (SALOON_IMAGE_ID, SOURCE, IMAGE) VALUES ('{image.SaloonId}', '{image.Source}', '{image.Img}')", conn);
+                var query = new SqlCommand($"INSERT INTO {TableName} (@SALOON_IMAGE_ID, @SOURCE, @IMAGE)");
+
                 conn.Open();
+          
+                query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
+                query.Parameters.AddWithValue("@SOURCE", image.Source);
+                query.Parameters.AddWithValue("@IMAGE", image.Img); 
+
+                query.ExecuteNonQueryAsync();
             }
         }
 
         public void Update(ImageEntity image)
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET SALOON_IMAGE_ID = {image.SaloonId}, SOURCE = {image.Source}, IMAGE = {image.Img}");
+                var query = new SqlCommand($"UPDATE {TableName} SET SOURCE = @Source, IMAGE = @Img WHERE SALOON_IMAGE_ID = @SaloonId");
+
                 conn.Open();
+
+                query.Parameters.AddWithValue("@SOURCE", image.Source);
+                query.Parameters.AddWithValue("@IMAGE", image.Img);
+                query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
+
+                query.ExecuteNonQueryAsync();
             }
         }
     }
