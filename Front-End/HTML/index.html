@@ -15,6 +15,25 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
     <title>Encontre um salão</title>
 </head>
 
@@ -25,6 +44,91 @@
     <div id="nav-placeholder">
 
     </div>
+
+    <!-- Slide Imagens e Busca -->
+    <section class="mt-5">
+
+        <div class="d-flex justify-content-evenly">
+
+            <div id="carouselExampleAutoplaying" class="carousel slide" style="width: 50rem;" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <img src="https://images.pexels.com/photos/7697315/pexels-photo-7697315.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                            class="d-block w-100 rounded-2" alt="...">
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="https://images.pexels.com/photos/1570807/pexels-photo-1570807.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                            class="d-block w-100 rounded-2" alt="...">
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="https://images.pexels.com/photos/7697394/pexels-photo-7697394.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                            class="d-block w-100 rounded-2" alt="...">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="my-5">
+
+                <div class="bg-color-2 rounded-3 p-3 my-5">
+
+                    <div class="input-group pb-3">
+                        <input type="text" class="form-control fs-5" placeholder="Encontre um salão" name="" id="">
+                    </div>
+
+                    <button class="btn btn-primary" type="button">
+                        Buscar
+                    </button>
+
+                    <button class="btn bg-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Filtrar
+                    </button>
+
+                    <div class="form-check text-white">
+                        <input class="form-check-input" type="checkbox" checked id="apenasSaloesAbertos">
+                        <label class="form-check-label">
+                            Apenas abertos
+                        </label>
+                    </div>
+
+                    <button class="btn btn-primary mt-3">
+                        Ver todos resultados
+                    </button>
+
+                    <ul class="dropdown-menu p-3">
+                        <div class="input-group pb-2">
+                            <span class="input-group-text">Cidade</span>
+                            <input type="text" class="form-control" placeholder="Digite o nome da cidade">
+                        </div>
+
+                        <div class="input-group pb-2">
+                            <span class="input-group-text">Rua</span>
+                            <input type="text" class="form-control" placeholder="Digite o nome da rua">
+                        </div>
+
+                        <div class="input-group pb-2">
+                            <input type="button" class="btn btn-primary" value="Enviar">
+                        </div>
+                    </ul>
+
+                </div>
+            </div>
+    </section>
 
     <!--Modal para quando clicar na imagem-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,59 +168,14 @@
         </div>
     </div>
 
-
+    <!-- Salões -->
     <section class="container mt-5">
-        <div class="d-flex justify-content-center my-5 py-2">
-
-            <div class="bg-color-2 rounded-3 p-3">
-
-                <div class="input-group pb-3">
-                    <input type="text" class="form-control fs-5" placeholder="Encontre um salão" name="" id="">
-                </div>
-
-                <button class="btn btn-primary" type="button">
-                    Buscar
-                </button>
-
-                <button class="btn bg-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Filtrar
-                </button>
-
-                <div class="form-check text-white">
-                    <input class="form-check-input" type="checkbox" checked id="apenasSaloesAbertos">
-                    <label class="form-check-label">
-                        Apenas abertos
-                    </label>
-                </div>
-
-                <button class="btn btn-primary mt-3">
-                    Ver todos resultados
-                </button>
-
-                <ul class="dropdown-menu p-3">
-                    <div class="input-group pb-2">
-                        <span class="input-group-text">Cidade</span>
-                        <input type="text" class="form-control" placeholder="Digite o nome da cidade">
-                    </div>
-
-                    <div class="input-group pb-2">
-                        <span class="input-group-text">Rua</span>
-                        <input type="text" class="form-control" placeholder="Digite o nome da rua">
-                    </div>
-
-                    <div class="input-group pb-2">
-                        <input type="button" class="btn btn-primary" value="Enviar">
-                    </div>
-                </ul>
-            </div>
-        </div>
 
         <div class="row">
 
             <div class="col-xxl col-md-4 col-sm-12">
                 <div class="py-3">
-                    <div class="text-white bg-color-1 rounded-3">
+                    <div class="text-white bg-color-2 rounded-3">
                         <div class="p-3">
                             <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
@@ -137,7 +196,7 @@
 
             <div class="col-xxl col-md-4 col-sm-12">
                 <div class="py-3">
-                    <div class="text-white bg-color-1 rounded-3">
+                    <div class="text-white bg-color-2 rounded-3">
                         <div class="p-3">
                             <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
@@ -158,7 +217,7 @@
 
             <div class="col-xxl col-md-4 col-sm-12">
                 <div class="py-3">
-                    <div class="text-white bg-color-1 rounded-3">
+                    <div class="text-white bg-color-2 rounded-3">
                         <div class="p-3">
                             <button type="button" class="btn text-decoration-none" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
