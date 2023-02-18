@@ -35,9 +35,6 @@ namespace Hair.Application.Services
             if (dto.Password == null || dto.Password.Length < 5)
                 return BaseDtoExtension.Invalid("Senha muito curta");
 
-            if (dto.CNPJ.Length < 14)
-                return BaseDtoExtension.Invalid("CNPJ inválido");
-
             if (dto.HaircutePrice.Hair <= 0)
                 return BaseDtoExtension.Invalid("Valor do corte de cabelo inválido");
 

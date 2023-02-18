@@ -11,9 +11,9 @@ namespace Hair.Domain.Entities
         public string? CNPJ { get; set; }
         public string Password { get; set; }
         public AddressEntity Adress { get; set; }
-        public HaircutePriceEntity Prices { get; set; }
-        public List<HaircuteEntity> Haircutes { get; set; } = new();
-        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AddressEntity address, string? cNPJ, HaircutePriceEntity priceEntity)
+        public HaircutPriceEntity Prices { get; set; }
+        public List<HaircutEntity> Haircutes { get; set; } = new();
+        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity)
         {
             Id = Guid.NewGuid();
             SaloonName = saloonName;

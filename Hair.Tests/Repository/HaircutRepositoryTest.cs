@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Hair.Tests.Repository
 {
-    public class HaircuteRepositoryTest
+    public class HaircutRepositoryTest
     {
-        private readonly Mock<IBaseRepository<HaircuteEntity>> _mock = new Mock<IBaseRepository<HaircuteEntity>>();
+        private readonly Mock<IBaseRepository<HaircutEntity>> _mock = new Mock<IBaseRepository<HaircutEntity>>();
 
         [Fact]
         public void Create_ShouldCreateHaircute_WhenCalled()
         {
-            var entity = new HaircuteEntity(Guid.NewGuid(), new DateTime(), true, null);
+            var entity = new HaircutEntity(Guid.NewGuid(), null, true, null);
 
             _mock.Setup(x => x.Create(entity)).Verifiable();
 
@@ -28,9 +28,9 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Update_ShouldUpdateHaircute_WhenValid()
         {
-            var entity = new HaircuteEntity(Guid.NewGuid(), new DateTime(), true, null);
+            var entity = new HaircutEntity(Guid.NewGuid(), null, true, null);
 
-            _mock.Setup(x => x.Update(It.IsAny<HaircuteEntity>())).Callback((HaircuteEntity entity) =>
+            _mock.Setup(x => x.Update(It.IsAny<HaircutEntity>())).Callback((HaircutEntity entity) =>
             {
                 entity.Avaible = false;
             });

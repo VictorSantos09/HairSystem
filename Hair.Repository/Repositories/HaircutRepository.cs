@@ -7,15 +7,15 @@ using System.Data.SqlClient;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircuteEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircutEntity"/>.
     /// </summary>
-    public class HaircuteRepository : BaseRepository<HaircuteEntity>, ICreateUpdate<HaircuteEntity>, IBaseRepository<HaircuteEntity>
+    public class HaircutRepository : BaseRepository<HaircutEntity>, ICreateUpdate<HaircutEntity>, IBaseRepository<HaircutEntity>
     {
         private readonly static string TableName = "HAIRCUTS";
-        public HaircuteRepository() : base(TableName)
+        public HaircutRepository() : base(TableName)
         {
         }
-        public void Create(HaircuteEntity haircute)
+        public void Create(HaircutEntity haircute)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -30,7 +30,7 @@ namespace Hair.Repository.Repositories
                 query.ExecuteNonQueryAsync();
             }
         }
-        public void Update(HaircuteEntity haircute)
+        public void Update(HaircutEntity haircute)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {

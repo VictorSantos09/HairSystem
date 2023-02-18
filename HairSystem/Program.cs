@@ -1,4 +1,4 @@
-using Hair.Repository;
+using Hair.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 

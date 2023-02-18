@@ -14,7 +14,7 @@ namespace Hair.Tests.Services
         private RegisterService _service;
 
         private readonly AddressEntity _address = new("664", "3", "Blumenau", "SC", null);
-        private readonly HaircutePriceEntity _haircutePrice = new(20, 20, 20);
+        private readonly HaircutPriceEntity _haircutePrice = new(20, 20, 20);
         private readonly string _cNPJ = "55555555555555";
         private readonly string _email = "Pedro@gmail.com";
         private readonly string _phone = "47954782631";
@@ -84,19 +84,6 @@ namespace Hair.Tests.Services
             var actual = _service.Execute(dto);
 
             var expected = BaseDtoExtension.Invalid("Senha muito curta");
-
-            Equal(expected._Message, actual._Message);
-            Equal(expected._StatusCode, actual._StatusCode);
-        }
-
-        [Fact]
-        public void Execute_ShouldntRegister_WhenInvalidCNPJ()
-        {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, "555555555", _name, _password, _saloonName);
-
-            var actual = _service.Execute(dto);
-
-            var expected = BaseDtoExtension.Invalid("CNPJ inválido");
 
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);

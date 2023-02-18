@@ -5,7 +5,7 @@ using Hair.Repository.Interfaces;
 using Hair.Repository.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hair.Repository
+namespace Hair.Application
 {
     public static class Setup
     {
@@ -15,8 +15,8 @@ namespace Hair.Repository
             services.AddTransient<IBaseRepository<BarberEntity>, BarberRepository>();
             services.AddTransient<IBaseRepository<SaloonItemEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
-            services.AddTransient<IBaseRepository<HaircuteEntity>, HaircuteRepository>();
-            
+            services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
+
             services.AddTransient<IGetByEmail, UserRepository>();
 
             InjectServices(services);
