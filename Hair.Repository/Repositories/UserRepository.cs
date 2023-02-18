@@ -11,7 +11,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : BaseRepository<UserEntity>, IGetByEmail, IBaseRepository<UserEntity>
+    public class UserRepository : BaseRepository<UserEntity>, IGetByEmail
     {
         private readonly static string TableName = "USERS";
 
@@ -46,7 +46,7 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email}' AND PASSWORD = '{password}'").ToList().First();
+                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email.ToUpper()}' AND PASSWORD = '{password}'").ToList().First();
                 return output;
             }
         }
@@ -55,7 +55,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand ($"UPDATE {TableName} SET SALOON_NAME = @SaloonName, OWNER_NAME = @OwnerName, PHONE_NUMBER = @PhoneNumber, EMAIL = @Email, " +
+                var query = new SqlCommand($"UPDATE {TableName} SET SALOON_NAME = @SaloonName, OWNER_NAME = @OwnerName, PHONE_NUMBER = @PhoneNumber, EMAIL = @Email, " +
                     $"PASSWORD = @Password, CNPJ = @CNPJ, HAIRCUT_TIME = @HaircuteTime, HAIRCUT_PRICE = @Prices WHERE @ID = Id)");
 
                 conn.Open();
@@ -67,7 +67,7 @@ namespace Hair.Repository.Repositories
                 query.Parameters.AddWithValue("@PASSWORD", user.Password);
                 query.Parameters.AddWithValue("@CNPJ", user.CNPJ);
                 query.Parameters.AddWithValue("@HAIRCUT_TIME", "02/04/2004");
-                query.Parameters.AddWithValue("@HAIRCUT_PRICE", user.Prices.Hair); 
+                query.Parameters.AddWithValue("@HAIRCUT_PRICE", user.Prices.Hair);
                 query.Parameters.AddWithValue("@ID", user.Id);
 
                 query.ExecuteNonQueryAsync();
