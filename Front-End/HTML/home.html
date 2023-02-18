@@ -71,11 +71,16 @@
                                 type="button">
 
                                 <div class="dropdown-menu p-3">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item list-group-item-action">Perfil</li>
-                                        <li class="list-group-item list-group-item-action">Configurações</li>
-                                        <li class="list-group-item list-group-item-action">Sair</li>
-                                    </ul>
+                                    <div class="list-group list-group-flush">
+
+                                        <input class="btn list-group-item list-group-item-action"
+                                            data-bs-target="#Configuration" data-bs-toggle="modal" type="button"
+                                            value="Configurações">
+
+                                        <input class="list-group-item list-group-item-action" type="button"
+                                            value="Sair">
+
+                                    </div>
                                 </div>
 
                             </button>
@@ -116,9 +121,11 @@
 
                                 <div class="container-fluid">
 
-                                    <button class="btn btn-dark m-2">
-                                        Contratar
-                                    </button>
+                                    <a href="Gerenciamento Funcionario/Hire.html">
+                                        <button class="btn btn-dark m-2">
+                                            Contratar
+                                        </button>
+                                    </a>
 
                                     <button class="btn btn-dark m-2">
                                         Demitir
@@ -212,15 +219,38 @@
     <!--Modal Cancelamento Corte-->
     <div class="modal fade" id="comfirmCancelHaircute">
         <div class="modal-dialog">
+
             <div class="modal-content text-black">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Tem certeza que deseja cancelar o corte?</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
                     <button type="button" class="btn btn-danger">Confirmar</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Perfil-->
+    <div class="modal fade" data-bs-backdrop="static" id="Configuration">
+        <div class="modal-dialog">
+
+            <div class="modal-content text-black">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Configurações</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <button type="button" class="btn btn-dark">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+                </div>
+
             </div>
         </div>
     </div>

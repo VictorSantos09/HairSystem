@@ -1,38 +1,38 @@
-.example {
+.responsive {
     width: 50rem;
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    .example {
+    .responsive {
         width: fit-content;
     }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    .example {
+    .responsive {
         width: fit-content;
     }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .example {
+    .responsive {
         width: fit-content;
     }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .example {
+    .responsive {
         width: 50rem;
     }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    .example {
+    .responsive {
         width: 50rem;
     }
 }
