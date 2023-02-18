@@ -22,6 +22,8 @@ namespace Hair.Application.Services
             var haircute = new HaircutEntity(dto.UserID, dto.HaircuteTime, dto.Confirmed, dto.Client);
 
             user.Haircutes.Add(haircute);
+
+            
         }
     }
 }
