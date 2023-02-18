@@ -14,7 +14,7 @@ namespace Hair.Tests.Services
         private RegisterService _service;
 
         private readonly AddressEntity _address = new("664", "3", "Blumenau", "SC", null);
-        private readonly HaircutePriceEntity _haircutePrice = new(20, 20, 20);
+        private readonly HaircutPriceEntity _haircutePrice = new(20, 20, 20);
         private readonly string _cNPJ = "55555555555555";
         private readonly string _email = "Pedro@gmail.com";
         private readonly string _phone = "47954782631";

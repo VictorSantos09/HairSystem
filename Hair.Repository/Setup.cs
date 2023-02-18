@@ -13,7 +13,7 @@ namespace Hair.Repository
             services.AddTransient<IBaseRepository<BarberEntity>, BarberRepository>();
             services.AddTransient<IBaseRepository<SaloonItemEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
-            services.AddTransient<IBaseRepository<HaircuteEntity>, HaircuteRepository>();
+            services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
         }
     }
 }

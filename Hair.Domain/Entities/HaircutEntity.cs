@@ -2,14 +2,14 @@
 
 namespace Hair.Domain.Entities
 {
-    public class HaircuteEntity : BaseEntity
+    public class HaircutEntity : BaseEntity
     {
         public Guid SaloonId { get; set; }
         public string HaircuteTime { get; set; }
         public bool Avaible { get; set; }
         public ClientEntity Client { get; set; }
 
-        public HaircuteEntity(Guid saloonId, string haircuteTime, bool avaible, ClientEntity client)
+        public HaircutEntity(Guid saloonId, string haircuteTime, bool avaible, ClientEntity client)
         {
             SaloonId = saloonId;
             HaircuteTime = haircuteTime;
