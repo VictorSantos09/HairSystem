@@ -18,7 +18,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("DeleteAccount")]
-        public IActionResult Delete(DeleteAccountDto dto)
+        public IActionResult Delete([FromBody] DeleteAccountDto dto)
         {
             var result = _service.Delete(dto);
 
