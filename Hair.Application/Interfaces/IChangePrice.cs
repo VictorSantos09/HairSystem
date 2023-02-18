@@ -2,7 +2,7 @@
 
 namespace Hair.Application.Interfaces
 {
-    public interface IChangePriceService
+    public interface IChangePrice
     {
         /// <summary>
         /// identifica o tipo de corte de cabelo e alterar o valor para o escolhido
