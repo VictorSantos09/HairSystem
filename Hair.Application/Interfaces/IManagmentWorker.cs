@@ -7,7 +7,7 @@ namespace Hair.Application.Interfaces
     /// <summary>
     /// Interface para informar os metodos da service <see cref="ManagmentWorkerService"/>
     /// </summary>
-    public interface IManagmentWorkerService
+    public interface IManagmentWorker
     {
         public BaseDto HireNewbarber(HireBarberDto hireDto);
         public BaseDto FireBarber(FireBarberDto fireDto);
