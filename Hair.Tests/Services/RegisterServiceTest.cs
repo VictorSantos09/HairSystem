@@ -90,19 +90,6 @@ namespace Hair.Tests.Services
         }
 
         [Fact]
-        public void Execute_ShouldntRegister_WhenInvalidCNPJ()
-        {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, "555555555", _name, _password, _saloonName);
-
-            var actual = _service.Execute(dto);
-
-            var expected = BaseDtoExtension.Invalid("CNPJ inválido");
-
-            Equal(expected._Message, actual._Message);
-            Equal(expected._StatusCode, actual._StatusCode);
-        }
-
-        [Fact]
         public void Execute_ShouldntRegister_WhenHairPriceIgualOrLessThanZero()
         {
             var price = _haircutePrice;

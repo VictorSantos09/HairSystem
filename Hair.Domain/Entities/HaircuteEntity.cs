@@ -9,10 +9,10 @@ namespace Hair.Domain.Entities
         public bool Avaible { get; set; }
         public ClientEntity Client { get; set; }
 
-        public HaircuteEntity(Guid saloonId, DateTime haircuteTime, bool avaible, ClientEntity client)
+        public HaircuteEntity(Guid saloonId, string haircuteTime, bool avaible, ClientEntity client)
         {
             SaloonId = saloonId;
-            HaircuteTime = haircuteTime.ToString();
+            HaircuteTime = haircuteTime;
             Avaible = avaible;
             Client = client;
         }

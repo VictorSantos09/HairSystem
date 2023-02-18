@@ -16,7 +16,7 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Create_ShouldCreateHaircute_WhenCalled()
         {
-            var entity = new HaircuteEntity(Guid.NewGuid(), new DateTime(), true, null);
+            var entity = new HaircuteEntity(Guid.NewGuid(), null, true, null);
 
             _mock.Setup(x => x.Create(entity)).Verifiable();
 
@@ -28,7 +28,7 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Update_ShouldUpdateHaircute_WhenValid()
         {
-            var entity = new HaircuteEntity(Guid.NewGuid(), new DateTime(), true, null);
+            var entity = new HaircuteEntity(Guid.NewGuid(), null, true, null);
 
             _mock.Setup(x => x.Update(It.IsAny<HaircuteEntity>())).Callback((HaircuteEntity entity) =>
             {
