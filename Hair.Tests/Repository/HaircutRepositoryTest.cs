@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hair.Tests.Repository
 {
-    public class HaircuteRepositoryTest
+    public class HaircutRepositoryTest
     {
         private readonly Mock<IBaseRepository<HaircutEntity>> _mock = new Mock<IBaseRepository<HaircutEntity>>();
 
