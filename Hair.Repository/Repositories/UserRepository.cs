@@ -23,7 +23,7 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO USERS VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL, @PASSWORD, @CNPJ, @HAIRCUT_TIME, @HAIRCUT_PRICE)", conn); 
+                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL, @PASSWORD, @CNPJ, @HAIRCUT_TIME, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE)", conn); 
                 
                 conn.Open();
 
@@ -34,8 +34,10 @@ namespace Hair.Repository.Repositories
                 query.Parameters.AddWithValue("@EMAIL", user.Email);
                 query.Parameters.AddWithValue("@PASSWORD", user.Password);
                 query.Parameters.AddWithValue("@CNPJ", user.CNPJ);
-                query.Parameters.AddWithValue("@HAIRCUT_TIME", "02/04/2004"); // colocar como datetime ou string tanto no C# quanto SQL
-                query.Parameters.AddWithValue("@HAIRCUT_PRICE", user.Prices.Hair); // Resolver questao de ser necessario dizer a propriedade. Ex: Prices.Hair, deve ser apenas user.Prices
+                query.Parameters.AddWithValue("@HAIRCUT_TIME", "02/04/2004"); // remover e fazer salvar o haircute time na tabela de haircute e sempre popular a lista do usuario
+                query.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
+                query.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
+                query.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
 
                 query.ExecuteNonQuery();
             }
