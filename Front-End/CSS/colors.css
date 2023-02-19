@@ -17,3 +17,8 @@
 .bg-color-5 {
     background-color: #808080;
 }
+
+.btn-color-1 {
+    background-color: rgb(255, 255, 255);
+    color: whitesmoke;
+}
