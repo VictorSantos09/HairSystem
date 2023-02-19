@@ -16,10 +16,10 @@ namespace Hair.Domain.Entities
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity)
         {
             Id = Guid.NewGuid();
-            SaloonName = saloonName;
-            OwnerName = ownerName;
+            SaloonName = saloonName.ToUpper();
+            OwnerName = ownerName.ToUpper();
             PhoneNumber = phoneNumber;
-            Email = email;
+            Email = email.ToUpper();
             Password = password;
             Adress = address;
             CNPJ = cNPJ;

@@ -9,10 +9,10 @@
         public string? Complement { get; set; }
         public AddressEntity(string street, string number, string city, string state, string? complement)
         {
-            Street = street;
-            Number = number;
-            City = city;
-            State = state;
+            Street = street.ToUpper();
+            Number = number.ToUpper();
+            City = city.ToUpper();
+            State = state.ToUpper();
             Complement = complement == null ? complement : complement.ToUpper();
         }
     }
