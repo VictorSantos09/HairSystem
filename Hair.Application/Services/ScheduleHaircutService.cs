@@ -15,13 +15,13 @@ namespace Hair.Application.Services
             _userRepository = userRepository;
         }
 
-        public BaseDto Schedule(ScheduleHaircutDto dto)
-        {
-            var user = _userRepository.GetById(dto.UserID);
+        //public BaseDto Schedule(ScheduleHaircutDto dto)
+        //{
+        //    var user = _userRepository.GetById(dto.UserID);
 
-            var haircute = new HaircutEntity(dto.UserID, dto.HaircuteTime, dto.Confirmed, dto.Client);
+        //    var haircute = new HaircutEntity(dto.UserID, dto.HaircuteTime, dto.Confirmed, dto.Client);
 
-            user.Haircutes.Add(haircute);
-        }
+        //    user.Haircutes.Add(haircute);
+        //}
     }
 }
