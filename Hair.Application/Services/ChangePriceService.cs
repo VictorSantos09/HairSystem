@@ -9,7 +9,7 @@ namespace Hair.Application.Services
     /// <summary>
     /// Classe para efetuação da mudança de preços do corte de cabelo, barba e bigode
     /// </summary>
-    public class ChangePriceService : IChangePriceService
+    public class ChangePriceService : IChangePrice
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private double _newPrice;

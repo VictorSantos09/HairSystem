@@ -10,7 +10,7 @@ namespace Hair.Application.Services
     /// <summary>
     /// Classe para gerenciamento do Funcionário, como contratar, demitir entre outros
     /// </summary>
-    public class ManagmentWorkerService : IManagmentWorkerService
+    public class ManagmentWorkerService : IManagmentWorker
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<BarberEntity> _barberRepository;

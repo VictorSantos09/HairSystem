@@ -1,4 +1,4 @@
-using Hair.Repository;
+using Hair.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-Setup.InjectRepository(builder.Services);
+Setup.Inject(builder.Services);
 
 var app = builder.Build();
 

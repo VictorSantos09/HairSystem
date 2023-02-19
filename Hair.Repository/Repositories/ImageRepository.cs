@@ -22,12 +22,11 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} (@SALOON_IMAGE_ID, @SOURCE, @IMAGE)");
+                var query = new SqlCommand($"INSERT INTO {TableName} (@SALOON_IMAGE_ID, @IMAGE)");
 
                 conn.Open();
           
                 query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
-                query.Parameters.AddWithValue("@SOURCE", image.Source);
                 query.Parameters.AddWithValue("@IMAGE", image.Img); 
 
                 query.ExecuteNonQueryAsync();
@@ -38,11 +37,10 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET SOURCE = @Source, IMAGE = @Img WHERE SALOON_IMAGE_ID = @SaloonId");
+                var query = new SqlCommand($"UPDATE {TableName} SET IMAGE = @Img WHERE SALOON_IMAGE_ID = @SaloonId");
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@SOURCE", image.Source);
                 query.Parameters.AddWithValue("@IMAGE", image.Img);
                 query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
 
