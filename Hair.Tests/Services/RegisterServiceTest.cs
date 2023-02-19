@@ -30,7 +30,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldBeSucess_WhenDatasValid()
         {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, _cNPJ, _name, _password, _saloonName);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, _name, _password, _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -40,12 +41,13 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenInvalidEmail()
         {
-            var dto = new RegisterDto(_phone, "pedro@.com", null, null, null, null, null, null);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, "pedro@.com", _cNPJ, _name, _password, _saloonName);
 
             var expected = BaseDtoExtension.Invalid("Email inválido");
 
             var actual = _service.Execute(dto);
-            
+
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -53,7 +55,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenInvalidSaloonName()
         {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, _cNPJ, _name, _password, null);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, _name, _password, null);
 
             var actual = _service.Execute(dto);
 
@@ -66,7 +69,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenInvalidPassword()
         {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, _cNPJ, _name, "", _saloonName);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, _name, "", _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -79,7 +83,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenShortPassword()
         {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, _cNPJ, _name, "Uva", _saloonName);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, _name, "uva", _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -92,11 +97,10 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenHairPriceIgualOrLessThanZero()
         {
-            var price = _haircutePrice;
+            var price = -90;
 
-            price.Hair = -90;
-
-            var dto = new RegisterDto(_phone, _email, _address, price, _cNPJ, _name, _password, _saloonName);
+            var dto = new RegisterDto(price, price, price, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, _name, _password, _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -114,7 +118,8 @@ namespace Hair.Tests.Services
             address.Street = " ";
             address.City = null;
 
-            var dto = new RegisterDto(_phone, _email, address, _haircutePrice, _cNPJ, _name, _password, _saloonName);
+            var dto = new RegisterDto(20, 20, 20, address.Street, _address.Number, address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, _name, _password, _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -127,7 +132,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenInvalidPhoneNumber()
         {
-            var dto = new RegisterDto(" ", _email, _address, _haircutePrice, _cNPJ, _name, _password, _saloonName);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, " ", _email, _cNPJ, _name, _password, _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -140,7 +146,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenShortName()
         {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, _cNPJ, "Ana", _password, _saloonName);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, "Ana", _password, _saloonName);
 
             var actual = _service.Execute(dto);
 
@@ -153,7 +160,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_ShouldntRegister_WhenNullName()
         {
-            var dto = new RegisterDto(_phone, _email, _address, _haircutePrice, _cNPJ, " ", _password, _saloonName);
+            var dto = new RegisterDto(20, 20, 20, _address.Street, _address.Number, _address.City,
+                _address.State, _address.Complement, _phone, _email, _cNPJ, null, _password, _saloonName);
 
             var actual = _service.Execute(dto);
 

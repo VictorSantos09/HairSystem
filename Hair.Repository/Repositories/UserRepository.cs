@@ -47,8 +47,10 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email.ToUpper()}' AND PASSWORD = '{password}'").ToList().First();
-                return output;
+                var output = conn.Query<UserEntity>($" SELECT * FROM {TableName} WHERE EMAIL = '{email.ToUpper()}' AND PASSWORD = '{password}'").ToList();
+
+
+                return output.Count == 0 ? null : output.FirstOrDefault();
             }
         }
 
