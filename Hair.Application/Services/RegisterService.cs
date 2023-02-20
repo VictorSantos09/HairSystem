@@ -3,7 +3,6 @@ using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Microsoft.SqlServer.Server;
 
 namespace Hair.Application.Services
 {

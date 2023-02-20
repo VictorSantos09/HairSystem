@@ -12,13 +12,14 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IGetByEmail> _repository = new Mock<IGetByEmail>();
         private readonly DeleteAccountService _service;
-        private DeleteAccountDto _dto = new("Victor", "victor@gmail.com", "victor", "55555555555555", true);
+        private DeleteAccountDto _dto;
         private UserEntity _user;
 
         public DeleteAccountServiceTest()
         {
-            _user = new(null, null, null, _dto.Email, _dto.Password, null, _dto.CNPJ, null);
             _service = new(_repository.Object);
+            _dto = new("Victor", "victor@gmail.com", "victor", "55555555555555", true);
+            _user = new("Victor's", "Victor", "047552456897", _dto.Email, _dto.Password, null, _dto.CNPJ, null);
         }
 
         [Fact]
@@ -37,7 +38,7 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldntProcess_WhenConfirmedFalse()
         {
-            _repository.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns(_user);
+            _repository.Setup(x => x.GetByEmail(_user.Email, _user.Password)).Returns(_user);
 
             _dto.Confirmed = false;
 
@@ -83,7 +84,7 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldProcess_WhenAllCorrect()
         {
-            _repository.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns(_user);
+            _repository.Setup(x => x.GetByEmail(_dto.Email, _dto.Password)).Returns(_user);
 
             var actual = _service.Delete(_dto);
 

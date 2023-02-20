@@ -24,7 +24,7 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            if(dto.Image == null)
+            if (dto.Image == null)
                 return BaseDtoExtension.NotNull("Imagem");
 
             byte[] imageByte = Convert.FromHexString(dto.Image.ToString());

@@ -1,6 +1,4 @@
-﻿using Hair.Application.Common;
-using Hair.Application.Dto;
-using Hair.Domain.Entities;
+﻿using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services

@@ -10,8 +10,8 @@
 
         public DeleteAccountDto(string userName, string email, string password, string? cNPJ, bool confirmed)
         {
-            UserName = userName;
-            Email = email;
+            UserName = userName.ToUpper();
+            Email = email.ToUpper();
             Password = password;
             CNPJ = cNPJ;
             Confirmed = confirmed;
