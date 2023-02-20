@@ -3,7 +3,6 @@ using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
-using static Dapper.SqlMapper;
 
 
 namespace Hair.Repository.Repositories
@@ -25,9 +24,9 @@ namespace Hair.Repository.Repositories
                 var query = new SqlCommand($"INSERT INTO {TableName} (@SALOON_IMAGE_ID, @IMAGE)");
 
                 conn.Open();
-          
+
                 query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
-                query.Parameters.AddWithValue("@IMAGE", image.Img); 
+                query.Parameters.AddWithValue("@IMAGE", image.Img);
 
                 query.ExecuteNonQueryAsync();
             }

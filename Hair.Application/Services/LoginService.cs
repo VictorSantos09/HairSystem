@@ -1,19 +1,19 @@
 ﻿using Hair.Application.Common;
-using Hair.Repository.Repositories;
+using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
 {
     public class LoginService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IGetByEmail _userRepository;
 
-        public LoginService(UserRepository userRepository)
+        public LoginService(IGetByEmail userRepository)
         {
             _userRepository = userRepository;
         }
         public BaseDto CheckLogin(string email, string password)
         {
-            if (email == null)
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return new BaseDto(406, "Email ou senha inválidos");
 
             var user = _userRepository.GetByEmail(email, password);

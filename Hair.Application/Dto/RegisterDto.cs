@@ -1,6 +1,4 @@
-﻿using Hair.Domain.Entities;
-
-namespace Hair.Application.Dto
+﻿namespace Hair.Application.Dto
 {
     public class RegisterDto
     {
@@ -19,7 +17,7 @@ namespace Hair.Application.Dto
         public string Password { get; set; }
         public string SaloonName { get; set; }
 
-        public RegisterDto(double hair, double? beard, double? mustache, string street, string number, string city, string state, 
+        public RegisterDto(double hair, double? beard, double? mustache, string street, string number, string city, string state,
             string? complement, string phoneNumber, string email, string? cNPJ, string name, string password, string saloonName)
         {
             HairPrice = hair;

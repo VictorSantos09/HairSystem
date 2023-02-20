@@ -23,8 +23,8 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL, @PASSWORD, @CNPJ, @HAIRCUT_TIME, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE)", conn); 
-                
+                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL, @PASSWORD, @CNPJ, @HAIRCUT_TIME, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE)", conn);
+
                 conn.Open();
 
                 query.Parameters.AddWithValue("@ID", user.Id);
