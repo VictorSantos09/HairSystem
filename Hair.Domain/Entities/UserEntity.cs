@@ -12,7 +12,7 @@ namespace Hair.Domain.Entities
         public string Password { get; set; }
         public AddressEntity Adress { get; set; }
         public HaircutPriceEntity Prices { get; set; }
-        public List<HaircutEntity> Haircutes { get; set; } = new();
+        public List<HaircutEntity> Haircuts { get; set; } = new();
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity)
         {
             Id = Guid.NewGuid();
