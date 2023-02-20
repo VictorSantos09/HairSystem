@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/CSS/colors.css">
+    <link rel="stylesheet" href="/CSS/footer.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -37,182 +38,198 @@
 
     <!-- NavBar, Menu e Opções Perfil -->
     <nav class="navbar navbar-expand-lg bg-color-1">
-
         <div class="container-fluid m-2">
 
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="https://play-lh.googleusercontent.com/uGqP7F-E_eaEwTb3hMz63MWf0YKRSK6n9INBwibBSOrGDg6B3sd-ACuqNrR312ohdQ"
-                        alt="C# Icon" width="80" class="rounded-5">
+                <a class="navbar-brand text-white fs-1 fw-bold" href="index.html">
+                    HairSystem
                 </a>
             </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#NavbarHome">
+            <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="NavbarHome">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav d-flex ">
 
-                <ul class="navbar-nav">
+                    <li class="nav-item px-3">
+                        <button class="dropdown btn rounded-circle d-lg-block d-none" data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="height: 4rem; width: 4rem; background-image: url(/unnamed.png);" type="button">
 
-                    <div class="d-flex align-items-center">
+                            <!-- <button class="btn btn-primary text-black d-lg-none d-md-block" data-bs-toggle="dropdown"
+                                aria-expanded="false">Perfil</button> -->
 
-                        <li class="nav-item px-3">
-                            <button class="btn btn-lg d-flex btn-primary" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#menuManagment">
-                                <span class="navbar-toggler"></span>
-                                Menu
-                            </button>
-                        </li>
+                            <div class="dropdown-menu">
 
-                        <li class="nav-item px-3">
-                            <button class="dropdown btn rounded-circle" data-bs-toggle="dropdown" aria-expanded="false"
-                                style="height: 4rem; width: 4rem; background-image: url(/rick-morty-ultimos-episodios1-scaled-e1667923673907.jpg);"
-                                type="button">
+                                <a role="button" class="dropdown-item" data-bs-target="#Configuration"
+                                    data-bs-toggle="modal" href="#">Configurações</a>
 
-                                <div class="dropdown-menu p-3">
-                                    <div class="list-group list-group-flush">
+                                <a role="button" class="dropdown-item" href="">Sair</a>
 
-                                        <input class="btn list-group-item list-group-item-action"
-                                            data-bs-target="#Configuration" data-bs-toggle="modal" type="button"
-                                            value="Configurações">
+                            </div>
+                        </button>
+                    </li>
 
-                                        <input class="list-group-item list-group-item-action" type="button"
-                                            value="Sair">
-
-                                    </div>
-                                </div>
-
-                            </button>
-                        </li>
-                    </div>
+                    <li class="nav-item px-3">
+                        <button class="btn bg-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#menuManagment">
+                            <span class="navbar-toggler-icon"></span>
+                            Menu
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Menu -->
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" data-bs-scroll="true" id="menuManagment">
+    <section class="container-fluid">
+        <nav class="navbar bg-body-tertiary ">
+            <div class="container-fluid">
 
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Serviços</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-        </div>
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="static"
+                    id="menuManagment">
 
-        <div class="offcanvas-body">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title fs-3 fw-bold">Serviços</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
 
-            <section class="container">
+                    <div class="offcanvas-body">
 
-                <div id="functionsBarbershop">
-                    <div class="card">
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item dropdown">
 
-                        <button class="text-start btn fw-bold text-capitalize" data-toggle="collapse"
-                            data-target="#ManagmentBarber" aria-expanded="true">
+                                <a class="nav-link dropdown-toggle fs-4 fw-bold" role="button"
+                                    data-bs-toggle="dropdown">
+                                    Gerenciamento Barbeiros
+                                </a>
 
-                            <div class="card-header" id="headingOne">
-                                <h4> Gerenciamento Barbeiros</h4>
-                            </div>
+                                <ul class="dropdown-menu">
+                                    <button class="dropdown-item">Contratar Funcionário</button>
+                                    <button class="dropdown-item">Demitir Funcionário</button>
+                                    <button class="dropdown-item">Atualizar Funcionário</button>
+                                    <button class="dropdown-item">Relatório de Funcionários</button>
+                                </ul>
 
-                        </button>
+                                <a class="nav-link dropdown-toggle fs-4 fw-bold" role="button"
+                                    data-bs-toggle="dropdown">
+                                    Gerenciamento Estoque
+                                </a>
 
-                        <div id="ManagmentBarber" class="collapse show" aria-labelledby="headingOne"
-                            data-parent="#functionsBarbershop">
-                            <div class="card-body">
+                                <ul class="dropdown-menu">
+                                    <button class="dropdown-item">Adicionar Item</button>
+                                    <button class="dropdown-item">Remover Item</button>
+                                    <button class="dropdown-item">Relatório de Itens</button>
+                                </ul>
 
-                                <div class="container-fluid">
+                                <a class="nav-link dropdown-toggle fs-4 fw-bold" role="button"
+                                    data-bs-toggle="dropdown">
+                                    Gerenciamento Imagens
+                                </a>
 
-                                    <a href="Gerenciamento Funcionario/Hire.html">
-                                        <button class="btn btn-dark m-2">
-                                            Contratar
-                                        </button>
-                                    </a>
+                                <ul class="dropdown-menu">
+                                    <button class="dropdown-item">Postar Imagem</button>
+                                    <button class="dropdown-item">Remover Imagem</button>
+                                    <button class="dropdown-item">Ver Imagens</button>
+                                </ul>
+                            </li>
+                        </ul>
 
-                                    <button class="btn btn-dark m-2">
-                                        Demitir
-                                    </button>
-
-                                    <button class="btn btn-dark m-2">
-                                        Visualizar
-                                    </button>
-
-                                    <button class="btn btn-dark m-2">
-                                        Atualizar
-                                    </button>
-
-                                    <button class="btn btn-dark m-2">
-                                        Atualizar nome
-                                    </button>
-
-                                    <button class="btn btn-dark m-2">
-                                        Atualizar endereço
-                                    </button>
-
-                                    <button class="btn btn-dark m-2">
-                                        Atualizar salário
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </section>
-        </div>
-    </div>
+            </div>
+        </nav>
+    </section>
 
     <!-- Visualização dos cortes marcados -->
-    <section class="mt-5">
+    <section class="mt-5 container">
 
-        <div class="container">
+        <div class="row bg-primary">
 
-            <div class="d-flex justify-content-center text-white bg-color-2 p-3 rounded-3">
+            <div class="d-flex mb-3 justify-content-center text-white bg-color-2 p-3">
                 <h3>Cortes Marcados</h3>
             </div>
 
-            <div class="pt-3">
+            <div class="col d-flex d-md-block justify-content-center pb-3">
+                <div class="card bg-light text-black" style="width: 18rem;">
+                    <div class="card-body">
 
-                <div class="d-flex bg-color-3 text-white p-3 rounded-3">
+                        <span class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-close" data-bs-toggle="modal"
+                                data-bs-target="#comfirmCancelHaircute"></button>
+                        </span>
 
-                    <div class="row">
-
-                        <div class="col">
-                            <div class="card bg-light text-black" style="width: 18rem;">
-                                <div class="card-body">
-
-                                    <span class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-close" data-bs-toggle="modal"
-                                            data-bs-target="#comfirmCancelHaircute"></button>
-                                    </span>
-
-                                    <h5 class="card-title">Carlos Alberto</h5>
-                                    <h6 class="card-subtitle mb-2">Horario: 18:00</h6>
-                                    <p class="card-text">Corte: Cabelo</p>
-                                    <p class="card-text">Email: Carlos@gmail.com</p>
-                                    <p class="card-text">Telefone: 47 991458762</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card bg-light text-black" style="width: 18rem;">
-                                <div class="card-body">
-
-                                    <span class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-close" data-bs-toggle="modal"
-                                            data-bs-target="#comfirmCancelHaircute"></button>
-                                    </span>
-
-                                    <h5 class="card-title">Carlos Alberto</h5>
-                                    <h6 class="card-subtitle mb-2">Horario: 18:00</h6>
-                                    <p class="card-text">Corte: Cabelo</p>
-                                    <p class="card-text">Email: Carlos@gmail.com</p>
-                                    <p class="card-text">Telefone: 47 991458762</p>
-                                </div>
-                            </div>
-                        </div>
+                        <h5 class="card-title">Carlos Alberto</h5>
+                        <h6 class="card-subtitle mb-2">Horario: 18:00</h6>
+                        <p class="card-text">Corte: Cabelo</p>
+                        <p class="card-text">Email: Carlos@gmail.com</p>
+                        <p class="card-text">Telefone: 47 991458762</p>
                     </div>
                 </div>
             </div>
+
+            <div class="col d-flex d-md-block justify-content-center pb-3">
+                <div class="card bg-light text-black" style="width: 18rem;">
+                    <div class="card-body">
+
+                        <span class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-close" data-bs-toggle="modal"
+                                data-bs-target="#comfirmCancelHaircute"></button>
+                        </span>
+
+                        <h5 class="card-title">Carlos Alberto</h5>
+                        <h6 class="card-subtitle mb-2">Horario: 18:00</h6>
+                        <p class="card-text">Corte: Cabelo</p>
+                        <p class="card-text">Email: Carlos@gmail.com</p>
+                        <p class="card-text">Telefone: 47 991458762</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col d-flex d-md-block justify-content-center pb-3">
+                <div class="card bg-light text-black" style="width: 18rem;">
+                    <div class="card-body">
+
+                        <span class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-close" data-bs-toggle="modal"
+                                data-bs-target="#comfirmCancelHaircute"></button>
+                        </span>
+
+                        <h5 class="card-title">Carlos Alberto</h5>
+                        <h6 class="card-subtitle mb-2">Horario: 18:00</h6>
+                        <p class="card-text">Corte: Cabelo</p>
+                        <p class="card-text">Email: Carlos@gmail.com</p>
+                        <p class="card-text">Telefone: 47 991458762</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col d-flex d-md-block justify-content-center pb-3">
+                <div class="card bg-light text-black" style="width: 18rem;">
+                    <div class="card-body">
+
+                        <span class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-close" data-bs-toggle="modal"
+                                data-bs-target="#comfirmCancelHaircute"></button>
+                        </span>
+
+                        <h5 class="card-title">Carlos Alberto</h5>
+                        <h6 class="card-subtitle mb-2">Horario: 18:00</h6>
+                        <p class="card-text">Corte: Cabelo</p>
+                        <p class="card-text">Email: Carlos@gmail.com</p>
+                        <p class="card-text">Telefone: 47 991458762</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button class="btn btn-primary btn-lg mt-3">Ver todos</button>
         </div>
     </section>
 

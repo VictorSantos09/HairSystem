@@ -1,9 +1,6 @@
-﻿using Dapper;
-using Hair.Domain.Entities;
+﻿using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Hair.Repository.Repositories;
 using Moq;
-using System.Data;
 
 namespace Hair.Tests.Repository
 {
@@ -41,7 +38,7 @@ namespace Hair.Tests.Repository
 
         [Fact]
         public void GetByEmail_ShouldReturnUser_WhenExists()
-        { 
+        {
             var mock = new Mock<IGetByEmail>();
             var expectedOutput = new UserEntity { Email = "email@example.com", Password = "password" };
 
@@ -68,7 +65,7 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Update_ShouldUpdateUser_WhenValid()
         {
-            var user = new UserEntity("CarlosHair", "Carlin", null, null, null, null, null, null);
+            var user = new UserEntity("CarlosHair", "Carlin", null, "carlos@gmail.com", null, null, null, null);
 
             _mock.Setup(x => x.Update(It.IsAny<UserEntity>())).Callback((UserEntity userEntity) =>
             {
@@ -88,7 +85,7 @@ namespace Hair.Tests.Repository
         {
             var users = new List<UserEntity>();
 
-            var user = new UserEntity("CarlosTeste", "CarlinTeste", null, null, null, null, null, null);
+            var user = new UserEntity("CarlosTeste", "CarlinTeste", null, "carlos@gmail.com", null, null, null, null);
 
             users.Add(user);
 
@@ -99,6 +96,5 @@ namespace Hair.Tests.Repository
 
             Assert.Equal(0, users.Count);
         }
-        
     }
 }

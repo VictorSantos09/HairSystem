@@ -1,7 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -17,6 +16,9 @@ namespace Hair.Application.Services
 
         public BaseDto Delete(DeleteAccountDto dto)
         {
+            if (!dto.Confirmed)
+                return BaseDtoExtension.RequestCanceled();
+
             var user = _userRepository.GetByEmail(dto.Email, dto.Password);
 
             if (user == null)
@@ -25,8 +27,6 @@ namespace Hair.Application.Services
             if (user.Email != dto.Email || user.Password != dto.Password || user.CNPJ != dto.CNPJ)
                 return BaseDtoExtension.Invalid("Um dado ou mais inválidos");
 
-            if (!dto.Confirmed)
-                return BaseDtoExtension.RequestCanceled();
 
             _userRepository.Remove(user.Id);
 

@@ -1,0 +1,15 @@
+.footer {
+    position: relative;
+    bottom: 0;
+    width: fit-content;
+}
+
+
+/* Extra large devices (large laptops and desktops, 1500px and up) */
+@media only screen and (min-width: 1500px) {
+    .footer {
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+    }
+}
