@@ -27,7 +27,7 @@ namespace HairSystem.Controllers
         {
             var result = _service.GetEmployeeData(dataDto.Email, dataDto.Password);
 
-            return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message): result._Data);
+            return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
         }
     }
 }

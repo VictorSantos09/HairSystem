@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hair.Application.Dto
+﻿namespace Hair.Application.Dto
 {
     public class VisualizeEmployeeDataDto
     {
