@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSystem.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/controller")]
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
@@ -20,8 +20,8 @@ namespace HairSystem.Controllers
             _loginService = new LoginService(_userRepository);
         }
 
-        [Route("Login")]
         [HttpPost]
+        [Route("Login")]
         public IActionResult Login([FromBody] LoginDto dto)
         {
             var result = _loginService.CheckLogin(dto);

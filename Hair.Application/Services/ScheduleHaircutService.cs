@@ -20,8 +20,6 @@ namespace Hair.Application.Services
             _haircutRepository = haircutRepository;
         }
 
-
-
         /// <summary>
         /// 
         /// 
@@ -32,7 +30,6 @@ namespace Hair.Application.Services
         /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha</returns>
         public BaseDto Schedule(ScheduleHaircutDto dto)
         {
-
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
 
