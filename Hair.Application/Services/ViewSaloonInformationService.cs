@@ -31,7 +31,7 @@ namespace Hair.Application.Services
                 user.Prices.Hair,
                 user.Prices.Beard,
                 user.Prices.Mustache,
-                user.CNPJ
+                user.CNPJ,
             };
 
             return BaseDtoExtension.Create(200, $"Informações do salão {user.SaloonName}", saloonInformation);
