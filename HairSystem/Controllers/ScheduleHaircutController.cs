@@ -12,11 +12,13 @@ namespace HairSystem.Controllers
     {
         private ScheduleHaircutService _service;
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
 
-        public ScheduleHaircutController(IBaseRepository<UserEntity> userRepository)
+        public ScheduleHaircutController(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository)
         {
             _userRepository = userRepository;
-            _service = new(_userRepository);
+            _haircutRepository = haircutRepository;
+            _service = new(_userRepository,_haircutRepository);
         }
 
         [HttpPost]
