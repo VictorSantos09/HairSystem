@@ -3,7 +3,7 @@ const _password = document.getElementById("inputPasswordLogin")
 
 const Login = async function () {
 
-    const req = await fetch("https://localhost:7220/Login/Login",
+    const req = await fetch("https://localhost:7220/api/controller/Login",
         {
             headers: {
                 'Accept': 'application/json',

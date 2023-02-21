@@ -11,6 +11,7 @@ namespace Hair.Domain.Entities
 
         public HaircutEntity(Guid saloonId, string haircuteTime, bool avaible, ClientEntity client)
         {
+            Id = Guid.NewGuid();
             SaloonId = saloonId;
             HaircuteTime = haircuteTime;
             Avaible = avaible;

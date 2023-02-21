@@ -22,7 +22,7 @@ namespace Hair.Application.Services
             if (user != null)
                 return new BaseDto(200, "Login realizado com sucesso!", new { Successful = true, UserId = user.Id });
 
-            return new BaseDto(404, "Usuario não encontrado", new { Successful = false });
+            return new BaseDto(404, "Usuario não encontrado", new { Successful = false, Message = "Usuario não encontrado" });
         }
     }
 }

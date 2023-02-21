@@ -1,7 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
@@ -10,7 +9,7 @@ namespace Hair.Application.Services
     /// <summary>
     /// Classe para gerenciamento do Funcionário, como contratar, demitir entre outros
     /// </summary>
-    public class ManagmentWorkerService : IManagmentWorker
+    public class ManagmentWorkerService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<BarberEntity> _barberRepository;
