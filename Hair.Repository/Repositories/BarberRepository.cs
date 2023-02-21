@@ -29,9 +29,9 @@ namespace Hair.Repository.Repositories
                 query.Parameters.AddWithValue("@EMAIL", barber.Email);
                 query.Parameters.AddWithValue("@SALARY", barber.Salary);
                 query.Parameters.AddWithValue("@HIRED", barber.Hired);
-                query.Parameters.AddWithValue("ADDRESS", barber.Adress);
-                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.JobSaloonId);
-                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.JobSaloonName);
+                query.Parameters.AddWithValue("ADDRESS", barber.Address);
+                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.SaloonId);
+                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.SaloonName);
 
                 query.ExecuteNonQueryAsync();
             }
@@ -50,9 +50,9 @@ namespace Hair.Repository.Repositories
                 query.Parameters.AddWithValue("@EMAIL", barber.Email);
                 query.Parameters.AddWithValue("@SALARY", barber.Salary);
                 query.Parameters.AddWithValue("@HIRED", barber.Hired);
-                query.Parameters.AddWithValue("ADDRESS", barber.Adress);
-                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.JobSaloonId);
-                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.JobSaloonName);
+                query.Parameters.AddWithValue("ADDRESS", barber.Address);
+                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.SaloonId);
+                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.SaloonName);
                 query.Parameters.AddWithValue("@ID", barber.Id);
 
                 query.ExecuteNonQueryAsync();

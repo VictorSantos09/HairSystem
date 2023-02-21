@@ -53,7 +53,7 @@ namespace Hair.Application.Services
             if (barber == null)
                 return BaseDtoExtension.NotFound("Barbeiro");
 
-            if (dto.SaloonId == barber.JobSaloonId && dto.BarberName == barber.Name && dto.SaloonName == barber.JobSaloonName)
+            if (dto.SaloonId == barber.SaloonId && dto.BarberName == barber.Name && dto.SaloonName == barber.SaloonName)
             {
                 barber.Hired = false;
 
@@ -81,7 +81,7 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            if (barber.JobSaloonId == user.Id && dto.BarberName == barber.Name)
+            if (barber.SaloonId == user.Id && dto.BarberName == barber.Name)
             {
                 barber.Name = dto.NewName;
                 return BaseDtoExtension.Create(200, $"Nome alterado para {dto.NewName}");
@@ -133,7 +133,7 @@ namespace Hair.Application.Services
 
             if (adressDto.SaloonId == user.Id && adressDto.BarberName == barber.Name)
             {
-                barber.Adress = adressDto.NewAdress;
+                barber.Address = adressDto.NewAdress;
                 return BaseDtoExtension.Create(200, $"Endereço de {barber.Name} alterado");
             }
 

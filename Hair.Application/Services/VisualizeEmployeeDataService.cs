@@ -44,7 +44,7 @@ namespace Hair.Application.Services
 
             var employees = _employeeRepository.GetAll();
 
-            employees.FindAll(e => e.JobSaloonId == user.Id);
+            employees.FindAll(e => e.SaloonId == user.Id);
 
             if (employees.Count == 0)
                 return BaseDtoExtension.Sucess("Barbeiros não encontrados.");

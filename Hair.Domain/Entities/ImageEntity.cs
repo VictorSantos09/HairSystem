@@ -2,6 +2,9 @@
 
 namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração da imagem
+    /// </summary>
     public class ImageEntity : BaseEntity
     {
         public Guid SaloonId { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração dos tipos de corte de cabelo
+    /// </summary>
     public class HaircutPriceEntity
     {
         public double Hair { get; set; }
@@ -10,6 +13,11 @@
             Hair = hair;
             Beard = beard;
             Mustache = mustache;
+        }
+
+        public HaircutPriceEntity()
+        {
+
         }
     }
 }
