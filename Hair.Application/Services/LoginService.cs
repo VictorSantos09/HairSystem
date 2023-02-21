@@ -4,6 +4,9 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
 {
+    /// <summary>
+    /// Define as funções para efetuar o login
+    /// </summary>
     public class LoginService
     {
         private readonly IGetByEmail _userRepository;
@@ -12,6 +15,15 @@ namespace Hair.Application.Services
         {
             _userRepository = userRepository;
         }
+
+        /// <summary>
+        /// 
+        /// Efetua o processo de login através do <paramref name="dto"/> fornecido
+        /// </summary>
+        /// 
+        /// <param name="dto"></param>
+        /// 
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
         public BaseDto CheckLogin(LoginDto dto)
         {
             if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))

@@ -5,6 +5,9 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
 {
+    /// <summary>
+    /// Define o método de buscar informações dos funcionários
+    /// </summary>
     public class VisualizeEmployeeDataService
     {
         private readonly IBaseRepository<BarberEntity> _employeeRepository;
@@ -16,6 +19,16 @@ namespace Hair.Application.Services
             _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// 
+        /// Efetua a busca dos funcionários do usuário quando paramêtros fornecidos validos
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// 
+        /// <returns>Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e messagem</returns>
         public BaseDto GetEmployeeData(string email, string password)
         {
             if (string.IsNullOrEmpty(email))
