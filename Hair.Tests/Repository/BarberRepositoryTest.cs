@@ -30,13 +30,13 @@ namespace Hair.Tests.Repository
             _mock.Setup(x => x.Update(It.IsAny<BarberEntity>())).Callback((BarberEntity entity) =>
             {
                 entity.Salary = 1200;
-                entity.JobSaloonName = "CarlinHair";
+                entity.SaloonName = "CarlinHair";
             });
 
             _mock.Object.Update(entity);
 
             Assert.Equal(1200, entity.Salary);
-            Assert.Equal("CarlinHair", entity.JobSaloonName);
+            Assert.Equal("CarlinHair", entity.SaloonName);
         }
     }
 }

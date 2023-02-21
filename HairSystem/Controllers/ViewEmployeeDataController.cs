@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSystem.Controllers
 {
     [ApiController]
+    [Route("api/controller")]
     public class ViewEmployeeDataController : ControllerBase
     {
         private readonly VisualizeEmployeeDataService _service;

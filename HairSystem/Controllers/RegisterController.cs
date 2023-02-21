@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSystem.Controllers
 {
     [ApiController]
-    [Route("api/controler")]
+    [Route("api/controller")]
     public class RegisterController : ControllerBase
     {
         private readonly IBaseRepository<UserEntity> _userRepository;

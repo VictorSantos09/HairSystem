@@ -1,5 +1,8 @@
 ﻿namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração do endereço
+    /// </summary>
     public class AddressEntity
     {
         public string Street { get; set; }
@@ -14,6 +17,11 @@
             City = city.ToUpper();
             State = state.ToUpper();
             Complement = complement == null ? complement : complement.ToUpper();
+        }
+
+        public AddressEntity()
+        {
+
         }
     }
 }

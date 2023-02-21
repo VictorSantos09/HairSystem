@@ -22,11 +22,12 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// 
         /// Efetua o agendamento do corte
         /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
+        /// 
         /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha</returns>
         public BaseDto Schedule(ScheduleHaircutDto dto)
         {

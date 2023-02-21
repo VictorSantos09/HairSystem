@@ -5,8 +5,17 @@
     /// </summary>
     public class BaseDto
     {
+        /// <summary>
+        /// Status Code HTTP
+        /// </summary>
         public int _StatusCode { get; set; }
+        /// <summary>
+        /// Mensagem a ser enviada
+        /// </summary>
         public string _Message { get; set; }
+        /// <summary>
+        /// Dado a ser enviado
+        /// </summary>
         public object _Data { get; set; }
 
         public BaseDto(int statusCode, object data)

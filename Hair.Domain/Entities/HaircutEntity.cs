@@ -2,6 +2,9 @@
 
 namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração do corte
+    /// </summary>
     public class HaircutEntity : BaseEntity
     {
         public Guid SaloonId { get; set; }
@@ -16,6 +19,11 @@ namespace Hair.Domain.Entities
             HaircuteTime = haircuteTime;
             Avaible = avaible;
             Client = client;
+        }
+
+        public HaircutEntity()
+        {
+
         }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração do usuário
+    /// </summary>
     public class UserEntity : BaseEntity
     {
         public string SaloonName { get; set; }

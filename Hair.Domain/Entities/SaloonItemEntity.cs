@@ -2,6 +2,9 @@
 
 namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração dos itens do salão
+    /// </summary>
     public class SaloonItemEntity : BaseEntity
     {
         public string Name { get; set; }
@@ -13,6 +16,11 @@ namespace Hair.Domain.Entities
             Name = name;
             Price = price;
             QuantityAvaible = quantityAvaible;
+        }
+
+        public SaloonItemEntity()
+        {
+
         }
     }
 }

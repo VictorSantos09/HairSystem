@@ -1,5 +1,8 @@
 ﻿namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração do cliente do salão
+    /// </summary>
     public class ClientEntity
     {
         public string Name { get; set; }
@@ -11,6 +14,11 @@
             Name = name.ToUpper();
             Email = email.ToUpper();
             PhoneNumber = phoneNumber;
+        }
+
+        public ClientEntity()
+        {
+
         }
     }
 }

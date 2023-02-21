@@ -7,34 +7,33 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Classe para efetuação da mudança de preços do corte de cabelo, barba e bigode
+    /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode
     /// </summary>
     public class ChangePriceService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private double _newPrice;
-        private Guid _saloonId;
+        private Guid _userId;
 
         public ChangePriceService(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }
         /// <summary>
-        /// Verifica a confirmação e efetua a aplicação da alteração dos valores de cortes de cabelo, barba e bigode
+        /// 
+        /// Verifica a confirmação e efetua a alteração dos valores de cortes de cabelo, barba e bigode
+        /// 
         /// </summary>
-        /// <param name="newPrice"></param>
-        /// <param name="saloonId"></param>
-        /// <param name="confirmed"></param>
-        /// <param name="hair"></param>
-        /// <param name="mustache"></param>
-        /// <param name="beard"></param>
-        /// <returns>retorna um <see cref="BaseDto"/> com statusCode 404,406 e 200</returns>
+        /// 
+        /// <param name="dto"></param>
+        /// 
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
         public BaseDto ChangeHaircutePrice(ChangePriceDto dto)
         {
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
 
-            _saloonId = dto.SaloonId;
+            _userId = dto.SaloonId;
             _newPrice = dto.NewPrice;
 
             if (double.IsNegative(dto.NewPrice) == true)
@@ -53,11 +52,15 @@ namespace Hair.Application.Services
             return BaseDtoExtension.Sucess("Alteração Concluída");
         }
         /// <summary>
+        /// 
         /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão
+        /// 
         /// </summary>
+        /// 
         /// <param name="hair"></param>
         /// <param name="mustache"></param>
         /// <param name="beard"></param>
+        /// 
         /// <returns>Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação</returns>
         private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard)
         {
@@ -78,21 +81,21 @@ namespace Hair.Application.Services
         }
         private void ApplyHairPrice()
         {
-            var saloon = _userRepository.GetById(_saloonId);
+            var user = _userRepository.GetById(_userId);
 
-            saloon.Prices.Hair = _newPrice;
+            user.Prices.Hair = _newPrice;
         }
         private void ApplyBeardPrice()
         {
-            var saloon = _userRepository.GetById(_saloonId);
+            var user = _userRepository.GetById(_userId);
 
-            saloon.Prices.Beard = _newPrice;
+            user.Prices.Beard = _newPrice;
         }
         private void ApplyMustachePrice()
         {
-            var saloon = _userRepository.GetById(_saloonId);
+            var user = _userRepository.GetById(_userId);
 
-            saloon.Prices.Mustache = _newPrice;
+            user.Prices.Mustache = _newPrice;
         }
     }
 }
