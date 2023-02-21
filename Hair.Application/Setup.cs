@@ -1,5 +1,4 @@
-﻿using Hair.Application.Interfaces;
-using Hair.Application.Services;
+﻿using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Repositories;
@@ -18,13 +17,6 @@ namespace Hair.Application
             services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
 
             services.AddTransient<IGetByEmail, UserRepository>();
-
-            InjectServices(services);
-        }
-
-        private static void InjectServices(IServiceCollection services)
-        {
-            services.AddTransient<IManagmentWorker, ManagmentWorkerService>();
         }
     }
 }

@@ -66,7 +66,7 @@
                             <div class="dropdown-menu">
 
                                 <a role="button" class="dropdown-item" data-bs-target="#Configuration"
-                                    data-bs-toggle="modal" href="#">Configurações</a>
+                                    data-bs-toggle="modal" href="deleteAccount.html">Configurações</a>
 
                                 <a role="button" class="dropdown-item" href="">Sair</a>
 
@@ -252,7 +252,6 @@
         </div>
     </div>
 
-    <!--Modal Perfil-->
     <div class="modal fade" data-bs-backdrop="static" id="Configuration">
         <div class="modal-dialog">
 
@@ -264,7 +263,53 @@
                 </div>
 
                 <div class="modal-body">
-                    <button type="button" class="btn btn-dark">Cancelar</button>
+
+                    <button class="btn btn-danger" type="button" data-toggle="collapse"
+                        data-target="#accountCancelation">
+                        Cancelar Conta
+                    </button>
+                    </p>
+
+                    <div class="collapse" id="accountCancelation">
+
+                        <div class="card card-body">
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Email</span>
+                                <input type="email" class="form-control" placeholder="Digite seu email" id="inputEmailDelete">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Senha</span>
+                                <input type="password" class="form-control" placeholder="Digite sua senha" id="inputPasswordDelete">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Nome</span>
+                                <input type="text" class="form-control" placeholder="Digite seu nome" id="inputNameDelete">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">CNPJ</span>
+                                <input type="number" class="form-control" placeholder="Digite seu CNPJ (opcional)" id="inputCnpjDelete">
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="accountCancelationConfirm">
+                                <label class="form-check-label">
+                                    Deseja confirmar?
+                                </label>
+
+                            </div>
+
+                            <div class="container">
+                                <button class="btn btn-outline-danger" id="deleteAccountButton">Apagar</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary">Cancelar</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
                 </div>
 
@@ -276,6 +321,7 @@
 
     </div>
 
+    <script src="/JS/DeleteAccount.js"></script>
 </body>
 
 </html>

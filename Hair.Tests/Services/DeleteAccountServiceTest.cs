@@ -60,7 +60,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.Delete(_dto);
 
-            var expected = BaseDtoExtension.Invalid("Um dado ou mais inválidos");
+            var expected = BaseDtoExtension.Invalid("Email ou senha inválidos");
 
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
@@ -75,7 +75,7 @@ namespace Hair.Tests.Services
 
             var actual = _service.Delete(_dto);
 
-            var expected = BaseDtoExtension.Invalid("Um dado ou mais inválidos");
+            var expected = BaseDtoExtension.Invalid("Email ou senha inválidos");
 
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
