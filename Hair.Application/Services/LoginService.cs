@@ -1,4 +1,5 @@
 ﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -11,17 +12,17 @@ namespace Hair.Application.Services
         {
             _userRepository = userRepository;
         }
-        public BaseDto CheckLogin(string email, string password)
+        public BaseDto CheckLogin(LoginDto dto)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))
                 return new BaseDto(406, "Email ou senha inválidos");
 
-            var user = _userRepository.GetByEmail(email, password);
+            var user = _userRepository.GetByEmail(dto.Email, dto.Password);
 
             if (user != null)
-                return new BaseDto(200, "Login realizado com sucesso!", user.Id);
+                return new BaseDto(200, "Login realizado com sucesso!", new { Successful = true, UserId = user.Id });
 
-            return new BaseDto(404, "Usuario não encontrado");
+            return new BaseDto(404, "Usuario não encontrado", new { Successful = false });
         }
     }
 }

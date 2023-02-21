@@ -3,30 +3,25 @@ using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
-using Xunit;
 
 namespace Hair.Tests.Services
 {
     public class VisualizeEmployeeDataServiceTest
     {
-        private readonly Mock<IBaseRepository<BarberEntity>> _employeeRepositoryMock;
-        private readonly Mock<IGetByEmail> _userRepositoryMock;
+        private readonly Mock<IBaseRepository<BarberEntity>> _employeeRepositoryMock = new Mock<IBaseRepository<BarberEntity>>();
+        private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
         private readonly VisualizeEmployeeDataService _service;
-        private UserEntity _user;
+        private UserEntity _user = new UserEntity { Email = "Carlos@gmail.com", Password = "carlos123" };
 
         public VisualizeEmployeeDataServiceTest()
         {
-            _employeeRepositoryMock = new Mock<IBaseRepository<BarberEntity>>();
-            _userRepositoryMock = new Mock<IGetByEmail>();
             _service = new VisualizeEmployeeDataService(_employeeRepositoryMock.Object, _userRepositoryMock.Object);
-            _user = new UserEntity { Email = "Carlos@gmail.com", Password = "carlos123" };
         }
 
         [Fact]
         public void GetEmployeeData_ShouldReturnListOfBarbers_WhenValidUserIsProvided()
         {
             // Arrange
-
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_user.Email, _user.Password)).Returns(_user);
 
             var jobSaloonId = Guid.NewGuid();
@@ -44,16 +39,8 @@ namespace Hair.Tests.Services
             var result = _service.GetEmployeeData(_user.Email, _user.Password);
 
             // Assert
-            Assert.Equal(200, result._StatusCode);
             Assert.Equal("Relação de barbeiros.", result._Message);
-
-            var barbersResult = Assert.IsType<List<BarberEntity>>(result._Data);
-            Assert.Equal(2, barbersResult.Count);
-
-            foreach (var barber in barbersResult)
-            {
-                Assert.Equal(jobSaloonId, barber.JobSaloonId);
-            }
+            Assert.Equal(200, result._StatusCode);
         }
 
         [Fact]

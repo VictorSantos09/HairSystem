@@ -18,7 +18,7 @@ namespace HairSystem.Controllers
         {
             _userRepository = userRepository;
             _haircutRepository = haircutRepository;
-            _service = new(_userRepository,_haircutRepository);
+            _service = new(_userRepository, _haircutRepository);
         }
 
         [HttpPost]

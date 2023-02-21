@@ -10,7 +10,7 @@ namespace Hair.Domain.Entities
         public string Email { get; set; }
         public string? CNPJ { get; set; }
         public string Password { get; set; }
-        public AddressEntity Adress { get; set; }
+        public AddressEntity Address { get; set; }
         public HaircutPriceEntity Prices { get; set; }
         public List<HaircutEntity> Haircuts { get; set; } = new();
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password, AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity)
@@ -21,7 +21,7 @@ namespace Hair.Domain.Entities
             PhoneNumber = phoneNumber;
             Email = email.ToUpper();
             Password = password;
-            Adress = address;
+            Address = address;
             CNPJ = cNPJ;
             Prices = priceEntity;
         }

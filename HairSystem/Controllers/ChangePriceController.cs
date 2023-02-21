@@ -22,9 +22,9 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("ChangeHaircutePrice")]
-        public IActionResult ChangePrice(ChangePriceDto priceDto)
+        public IActionResult ChangePrice(ChangePriceDto dto)
         {
-            var result = _changePrice.ChangeHaircutePrice(priceDto.NewPrice, priceDto.SaloonId, priceDto.Confirmed, priceDto.Hair, priceDto.Mustache, priceDto.Beard);
+            var result = _changePrice.ChangeHaircutePrice(dto);
 
             return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }

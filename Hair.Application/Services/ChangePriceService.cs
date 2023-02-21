@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
@@ -9,7 +9,7 @@ namespace Hair.Application.Services
     /// <summary>
     /// Classe para efetuação da mudança de preços do corte de cabelo, barba e bigode
     /// </summary>
-    public class ChangePriceService : IChangePrice
+    public class ChangePriceService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private double _newPrice;
@@ -29,25 +29,25 @@ namespace Hair.Application.Services
         /// <param name="mustache"></param>
         /// <param name="beard"></param>
         /// <returns>retorna um <see cref="BaseDto"/> com statusCode 404,406 e 200</returns>
-        public BaseDto ChangeHaircutePrice(double newPrice, Guid saloonId, bool confirmed, bool hair, bool mustache, bool beard)
+        public BaseDto ChangeHaircutePrice(ChangePriceDto dto)
         {
-            if (!confirmed)
+            if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
 
-            _saloonId = saloonId;
-            _newPrice = newPrice;
+            _saloonId = dto.SaloonId;
+            _newPrice = dto.NewPrice;
 
-            if (double.IsNegative(newPrice) == true)
+            if (double.IsNegative(dto.NewPrice) == true)
                 return BaseDtoExtension.Invalid();
 
-            var saloon = _userRepository.GetById(saloonId);
+            var user = _userRepository.GetById(dto.SaloonId);
 
-            if (saloon == null)
-                return UserMessageExtension.UserNotFound();
+            if (user == null)
+                return BaseDtoExtension.NotFound();
 
-            var haircutePlace = CheckAndApplyPrice(hair, mustache, beard);
+            var haircutPlace = CheckAndApplyPrice(dto.Hair, dto.Mustache, dto.Beard);
 
-            if (!haircutePlace)
+            if (!haircutPlace)
                 return BaseDtoExtension.Create(406, "Escolha algum item");
 
             return BaseDtoExtension.Sucess("Alteração Concluída");
