@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSystem.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/controller")]
     public class ChangePriceController : ControllerBase
     {
         private readonly ChangePriceService _changePrice;

@@ -18,7 +18,7 @@ const _cloosingTime = document.getElementById("inputCloosingTimeRegister")
 
 const Register = async function () {
 
-    const req = await fetch("https://localhost:7220/api/controler/Register",
+    const req = await fetch("https://localhost:7220/api/controller/Register",
         {
             headers: {
                 'Accept': 'application/json',
