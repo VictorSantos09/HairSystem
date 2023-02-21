@@ -1,11 +1,8 @@
-﻿using Dapper;
-using Hair.Domain.Entities;
+﻿using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection.PortableExecutable;
-using System.Xml.Linq;
 
 namespace Hair.Repository.Repositories
 {
@@ -24,15 +21,15 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand ($"INSERT INTO {TableName} VALUES (@ID, @NAME, @PRICE, @QUANTITY_AVAILABLE)");
+                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @NAME, @PRICE, @QUANTITY_AVAILABLE)");
 
-                conn.Open();    
+                conn.Open();
 
                 query.Parameters.AddWithValue("@ID", entity.Id);
                 query.Parameters.AddWithValue("@NAME", entity.Name);
-                query.Parameters.AddWithValue("@PRICE", entity.Price);  
+                query.Parameters.AddWithValue("@PRICE", entity.Price);
                 query.Parameters.AddWithValue("@QUANTITY_AVAILABLE", entity.QuantityAvaible);
-     
+
                 query.ExecuteNonQueryAsync();
             }
         }
@@ -41,7 +38,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-               var query = new SqlCommand ($"UPDATE {TableName} SET NAME = @Name, PRICE = @Price, QUANTITY_AVAILABLE = @QuantityAvailable WHERE ID = @Id");
+                var query = new SqlCommand($"UPDATE {TableName} SET NAME = @Name, PRICE = @Price, QUANTITY_AVAILABLE = @QuantityAvailable WHERE ID = @Id");
 
                 conn.Open();
 

@@ -8,8 +8,8 @@
 
         public ClientEntity(string name, string? email, string phoneNumber)
         {
-            Name = name;
-            Email = email;
+            Name = name.ToUpper();
+            Email = email.ToUpper();
             PhoneNumber = phoneNumber;
         }
     }

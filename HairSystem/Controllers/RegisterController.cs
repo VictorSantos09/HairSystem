@@ -25,7 +25,7 @@ namespace HairSystem.Controllers
         {
             var result = _service.Execute(dto);
 
-            return StatusCode(result._StatusCode, result._Message);
+            return StatusCode(result._StatusCode, new { Message = result._Message });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Common;
-using System.IO;
 
 namespace Hair.Domain.Entities
 {
