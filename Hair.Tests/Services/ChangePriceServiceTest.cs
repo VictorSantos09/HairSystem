@@ -50,7 +50,7 @@ namespace Hair.Tests.Services
         {
             var actual = _service.ChangeHaircutePrice(_dto);
 
-            var expected = UserMessageExtension.UserNotFound();
+            var expected = BaseDtoExtension.NotFound();
 
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);

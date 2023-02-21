@@ -43,11 +43,11 @@ namespace Hair.Application.Services
             var user = _userRepository.GetById(dto.SaloonId);
 
             if (user == null)
-                return UserMessageExtension.UserNotFound();
+                return BaseDtoExtension.NotFound();
 
-            var haircutePlace = CheckAndApplyPrice(dto.Hair, dto.Mustache, dto.Beard);
+            var haircutPlace = CheckAndApplyPrice(dto.Hair, dto.Mustache, dto.Beard);
 
-            if (!haircutePlace)
+            if (!haircutPlace)
                 return BaseDtoExtension.Create(406, "Escolha algum item");
 
             return BaseDtoExtension.Sucess("Alteração Concluída");
