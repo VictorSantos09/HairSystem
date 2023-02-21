@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0006: Arquivo de origem "C:\Users\claud\source\repos\HairSystemAPI\Hair.Application\obj\Debug\net6.0\ref\Hair.Application.dll" não pode ser encontrado
+dotnet_diagnostic.CS0006.severity = silent

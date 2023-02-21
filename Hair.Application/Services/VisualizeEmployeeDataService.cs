@@ -4,23 +4,21 @@ using Hair.Application.Extensions;
 using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Hair.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hair.Application.Services
 {
-    public class VisualizeEmployeeDataService 
+    public class VisualizeEmployeeDataService
     {
-        private readonly IBaseRepository<BarberEntity> _employeeData;
+        private readonly IBaseRepository<BarberEntity> _employeeRepository;
         private readonly IGetByEmail _userRepository;
 
-        public VisualizeEmployeeDataService(IBaseRepository<BarberEntity> employeeData)
+        public VisualizeEmployeeDataService(IBaseRepository<BarberEntity> employeeRepository, IGetByEmail userRepository)
         {
-            _employeeData = employeeData;
+            _employeeRepository = employeeRepository;
+            _userRepository = userRepository;
         }
 
         public BaseDto GetEmployeeData(string email, string password)
@@ -34,15 +32,14 @@ namespace Hair.Application.Services
             var user = _userRepository.GetByEmail(email, password);
 
             if (user == null)
-                return BaseDtoExtension.NotFound("Usuários não encontrados.");
+                return BaseDtoExtension.NotFound("Usuário não encontrado.");
 
-            var employees = _employeeData.GetAll().FindAll(e => e.JobSaloonId == user.Id);
+            var employees = _employeeRepository.GetAll().Where(e => e.JobSaloonId == user.Id).ToList();
 
-            if (employees.Count <= 0)
+            if (!employees.Any())
                 return BaseDtoExtension.Sucess("Barbeiros não encontrados.");
 
             return BaseDtoExtension.Create(200, "Relação de barbeiros.", employees);
         }
     }
 }
-    
