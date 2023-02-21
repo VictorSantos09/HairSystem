@@ -1,4 +1,5 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace HairSystem.Controllers
         {
             var result = _service.Delete(dto);
 
-            return StatusCode(result._StatusCode, result._Message);
+            return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }
     }
 }

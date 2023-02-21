@@ -1,4 +1,5 @@
 ﻿
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Repository.Repositories;
@@ -21,14 +22,11 @@ namespace HairSystem.Controllers
 
         [Route("Login")]
         [HttpPost]
-        public IActionResult Login([FromBody] LoginDto loginDto)
+        public IActionResult Login([FromBody] LoginDto dto)
         {
-            var result = _loginService.CheckLogin(loginDto.Email, loginDto.Password);
+            var result = _loginService.CheckLogin(dto);
 
-            if (result._StatusCode == 200)
-                return StatusCode(result._StatusCode, result._Data == null ? new { Message = result._Message } : new { Successful = true, Id = result._Data });
-
-            return StatusCode(result._StatusCode, new { Message = result._Message, Successful = false });
+            return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
         }
     }
 }

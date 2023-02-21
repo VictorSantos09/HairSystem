@@ -26,8 +26,8 @@ namespace Hair.Tests.Services
             _service = new ManagmentWorkerService(_userRepository.Object, _barberRepository.Object);
             _user = _globalUser.GetGlobalUser();
             _barber = _globalUser.GetBarber();
-            _hireBarberDtoTrue = new HireBarberDto("Victor", null, null, 2000, _user.Adress, _user.Id, true);
-            _hireBarberDtoFalse = new HireBarberDto("Victor", null, null, 2000, _user.Adress, _user.Id, false);
+            _hireBarberDtoTrue = new HireBarberDto("Victor", null, null, 2000, _user.Address, _user.Id, true);
+            _hireBarberDtoFalse = new HireBarberDto("Victor", null, null, 2000, _user.Address, _user.Id, false);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace Hair.Tests.Services
         {
             _barberRepository.Setup(x => x.GetById(_user.Id));
 
-            var hireDto = new HireBarberDto("Victor", null, null, 2000, _user.Adress, It.IsAny<Guid>(), true);
+            var hireDto = new HireBarberDto("Victor", null, null, 2000, _user.Address, It.IsAny<Guid>(), true);
 
             var actual = _service.HireNewbarber(hireDto);
 

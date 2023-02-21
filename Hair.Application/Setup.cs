@@ -24,7 +24,6 @@ namespace Hair.Application
 
         private static void InjectServices(IServiceCollection services)
         {
-            services.AddTransient<IChangePrice, ChangePriceService>();
             services.AddTransient<IManagmentWorker, ManagmentWorkerService>();
         }
     }

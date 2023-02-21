@@ -24,7 +24,7 @@ namespace Hair.Application.Services
 
             object saloonInformation = new
             {
-                user.Adress,
+                user.Address,
                 user.PhoneNumber,
                 user.Email,
                 user.SaloonName,

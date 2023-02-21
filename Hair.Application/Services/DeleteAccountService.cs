@@ -27,7 +27,6 @@ namespace Hair.Application.Services
             if (user.Email != dto.Email || user.Password != dto.Password || user.CNPJ != dto.CNPJ)
                 return BaseDtoExtension.Invalid("Um dado ou mais inválidos");
 
-
             _userRepository.Remove(user.Id);
 
             return BaseDtoExtension.Sucess("Conta deletada com sucesso");
