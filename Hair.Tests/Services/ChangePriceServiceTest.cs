@@ -25,65 +25,79 @@ namespace Hair.Tests.Services
         [Fact]
         private void ChangePrice_ShouldReturn200_WhenConfirmedFalse()
         {
+            // Arrange
             _dto.Confirmed = false;
 
+            // Act
             var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.RequestCanceled();
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn406_WhenValueNegative()
         {
+            // Arrange
             _dto.NewPrice = -25;
 
+            // Act
             var actual = _service.ChangeHaircutePrice(_dto);
-
             var expected = BaseDtoExtension.Invalid();
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn404_WhenUserNotFounded()
         {
-            var actual = _service.ChangeHaircutePrice(_dto);
+            // Arrange
+            _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
 
+            // Act
+            var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.NotFound();
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn406_WhenAnyHaircutTrue()
         {
+            // Arrange
             var user = _globalUser.GetGlobalUser();
-
             _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(user);
-
             _dto.Mustache = false;
             _dto.Beard = false;
             _dto.Hair = false;
 
+            // Act
             var actual = _service.ChangeHaircutePrice(_dto);
-
             var expected = BaseDtoExtension.Create(406, "Escolha algum item");
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn200_WhenDataIsCorrect_And_ApplyChange()
         {
+            // Arrange
             var user = _globalUser.GetGlobalUser();
-
             _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(user);
 
+            // Act
             var actual = _service.ChangeHaircutePrice(_dto);
-
             var expected = BaseDtoExtension.Sucess("Alteração Concluída");
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }

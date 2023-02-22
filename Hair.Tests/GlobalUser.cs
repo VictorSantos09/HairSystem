@@ -14,7 +14,7 @@ namespace Hair.Tests
         {
             Adress = new AddressEntity("Av Brasil", "240", "Blumenau", "SC", null);
             HaircutePrice = new HaircutPriceEntity(20, 15, 12);
-            User = new UserEntity("Victor's", "Victor", "13991256286", "victor@gmail.com", "victors123", Adress, "123456789", HaircutePrice);
+            User = new UserEntity("Victor's", "Victor", "047991454545", "victor@gmail.com", "victors123", Adress, "123456789", HaircutePrice);
             Barber = new BarberEntity("Jonas", "13991256286", "jonas@gmail.com", 2000, Adress, true, User.Id, User.SaloonName);
         }
 

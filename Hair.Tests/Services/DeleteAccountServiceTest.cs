@@ -25,12 +25,15 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldntProcess_WhenUserNull()
         {
+            // Arrange
             _repository.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>()));
 
+            // Act
             var actual = _service.Delete(_dto);
-
             var expected = BaseDtoExtension.NotFound();
 
+
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -38,15 +41,16 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldntProcess_WhenConfirmedFalse()
         {
+            // Arrange
             _repository.Setup(x => x.GetByEmail(_user.Email, _user.Password)).Returns(_user);
-
             _dto.Confirmed = false;
 
+            // Act
             var actual = _service.Delete(_dto);
-
-
             var expected = BaseDtoExtension.RequestCanceled();
 
+
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -54,14 +58,15 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldntProcess_WhenInvalidEmail()
         {
+            // Arrange
             _repository.Setup(x => x.GetByEmail(It.IsAny<string>(), _dto.Password)).Returns(_user);
-
             _user.Email = "victor@hotmail.com";
 
+            // Act
             var actual = _service.Delete(_dto);
-
             var expected = BaseDtoExtension.Invalid("Email ou senha inválidos");
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -69,14 +74,15 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldntProcess_WhenInvalidPassword()
         {
+            // Arrange
             _repository.Setup(x => x.GetByEmail(_dto.Email, It.IsAny<string>())).Returns(_user);
-
             _user.Password = "victor123";
 
+            // Act
             var actual = _service.Delete(_dto);
-
             var expected = BaseDtoExtension.Invalid("Email ou senha inválidos");
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -84,12 +90,14 @@ namespace Hair.Tests.Services
         [Fact]
         public void Delete_ShouldProcess_WhenAllCorrect()
         {
+            // Arrange
             _repository.Setup(x => x.GetByEmail(_dto.Email, _dto.Password)).Returns(_user);
 
+            // Act
             var actual = _service.Delete(_dto);
-
             var expected = BaseDtoExtension.Sucess("Conta deletada com sucesso");
 
+            // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
         }

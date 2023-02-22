@@ -38,7 +38,7 @@ namespace Hair.Application.Services
             if (user.Email != dto.Email || user.Password != dto.Password)
                 return BaseDtoExtension.Invalid("Email ou senha inválidos");
 
-            if(dto.CNPJ != null && dto.CNPJ != user.CNPJ)
+            if (dto.CNPJ != null && dto.CNPJ != user.CNPJ)
                 return BaseDtoExtension.Invalid("CNPJ incorreto");
 
             _userRepository.Remove(user.Id);

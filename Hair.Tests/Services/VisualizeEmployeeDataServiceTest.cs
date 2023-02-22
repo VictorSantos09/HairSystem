@@ -46,10 +46,14 @@ namespace Hair.Tests.Services
         [Fact]
         public void GetEmployeeData_ShouldntNotProceed_WhenNullEmail()
         {
-            var actual = _service.GetEmployeeData(null, "carlos");
+            // Arrange
+            var email = "";
 
+            // Act
+            var actual = _service.GetEmployeeData(email, "carlos");
             var expected = BaseDtoExtension.Invalid("Email não informado.");
 
+            // Assert
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -57,10 +61,14 @@ namespace Hair.Tests.Services
         [Fact]
         public void GetEmployeeData_ShouldntNotProceed_WhenNullName()
         {
-            var actual = _service.GetEmployeeData("carlos@gmail.com", null);
+            // Arrange
+            var name = "";
 
+            // Act
+            var actual = _service.GetEmployeeData("carlos@gmail.com", name);
             var expected = BaseDtoExtension.Invalid("Senha não informada.");
 
+            // Assert
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -68,12 +76,14 @@ namespace Hair.Tests.Services
         [Fact]
         public void GetEmployeeData_ShoudntProceed_WhenUserNotFound()
         {
+            // Arrange
             _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(_user);
 
+            // Act
             var actual = _service.GetEmployeeData(_user.Email, _user.Password);
-
             var expected = BaseDtoExtension.NotFound();
 
+            // Assert
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
@@ -81,13 +91,15 @@ namespace Hair.Tests.Services
         [Fact]
         public void GetEmployeeData_ShouldBeSucess_WhenNoEmployee()
         {
+            // Arrange
             _userRepositoryMock.Setup(x => x.GetByEmail(_user.Email, _user.Password)).Returns(_user);
             _employeeRepositoryMock.Setup(x => x.GetAll()).Returns(new List<BarberEntity>());
 
+            // Act
             var actual = _service.GetEmployeeData(_user.Email, _user.Password);
-
             var expected = BaseDtoExtension.Sucess("Barbeiros não encontrados.");
 
+            // Assert
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
