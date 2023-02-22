@@ -4,7 +4,6 @@ using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
-using System.Threading;
 using static Xunit.Assert;
 
 namespace Hair.Tests.Services
@@ -21,7 +20,7 @@ namespace Hair.Tests.Services
         public FireBarberTest()
         {
             _service = new(_barberRepositoryMock.Object);
-             _user = _globalUser.GetGlobalUser();
+            _user = _globalUser.GetGlobalUser();
             _barber = _globalUser.GetBarber();
             _dto = new(_user.Id, _barber.Id, _barber.Name, _barber.Email, _barber.SaloonName);
         }

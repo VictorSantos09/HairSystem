@@ -1,5 +1,4 @@
-﻿using Hair.Application.Common;
-using Hair.Application.Dto;
+﻿using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
@@ -18,7 +17,7 @@ namespace Hair.Tests.Services
         private HireBarberDto _dto;
         public HireWorkerServiceTest()
         {
-            _service = new(_userRepositoryMock.Object,_barberRepositoryMock.Object);    
+            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
             _dto = new HireBarberDto("Carlos", "047991547878", "carlos@gmail.com", 2000, _user.GetAdress(), _user.Id, true);
         }
 

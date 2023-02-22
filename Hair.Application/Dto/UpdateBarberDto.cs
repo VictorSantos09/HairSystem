@@ -15,7 +15,7 @@ namespace Hair.Application.Dto
         public string NewName { get; set; }
         public double NewSalary { get; set; }
 
-        public UpdateBarberDto(Guid userId, string barberName, string? barberEmail, string? barberPhoneNumber, double barberSalary, 
+        public UpdateBarberDto(Guid userId, string barberName, string? barberEmail, string? barberPhoneNumber, double barberSalary,
             AddressEntity newAddress, string? newEmail, string? newPhoneNumber, string newName, double newSalary)
         {
             UserId = userId;
