@@ -30,7 +30,7 @@ namespace Hair.Application.Services
             if (barber == null)
                 return BaseDtoExtension.NotFound("Barbeiro");
 
-            if (dto.SaloonId == barber.SaloonId && dto.BarberName == barber.Name && dto.SaloonName == barber.SaloonName)
+            if (dto.SaloonId == barber.SaloonId && dto.BarberName == barber.Name)
             {
                 barber.Hired = false;
 
@@ -39,7 +39,7 @@ namespace Hair.Application.Services
                 return BaseDtoExtension.Sucess($"{barber.Name} foi demitido");
             }
 
-            return BaseDtoExtension.Create(406, "Não foi possivel efetuar a demissão");
+            return BaseDtoExtension.Create(406, "Não foi possivel encontrar o barbeiro no salão");
         }
     }
 }
