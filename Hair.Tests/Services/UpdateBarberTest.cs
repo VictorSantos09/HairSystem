@@ -65,6 +65,7 @@ namespace Hair.Tests.Services
 
             var barbers = new List<BarberEntity>();
             _barber.Name = "Jose";
+            _barber.PhoneNumber = "047994565856";
             _dto.BarberName = "Maria";
             barbers.Add(_barber);
 
@@ -73,6 +74,25 @@ namespace Hair.Tests.Services
             // Act
             var actual = _service.Update(_dto);
             var expected = BaseDtoExtension.NotFound("Barbeiro para atualizar");
+
+            // Assert
+            Equal(expected._Message, actual._Message);
+            Equal(expected._StatusCode, actual._StatusCode);
+        }
+
+        [Fact]
+        public void Update_ShouldBeSucess_WhenAllOk()
+        {
+            // Arrange
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
+            var barbers = new List<BarberEntity>();
+            barbers.Add(_barber);
+
+            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(barbers);
+
+            // Act
+            var actual = _service.Update(_dto);
+            var expected = BaseDtoExtension.Sucess($"Dados de {_dto.NewName} atualizados");
 
             // Assert
             Equal(expected._Message, actual._Message);
