@@ -29,7 +29,6 @@ namespace Hair.Tests.Services
             var actual = _service.CheckLogin(_dto);
             var expected = new BaseDto(404, "Usuario não encontrado");
 
-
             // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);

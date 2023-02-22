@@ -92,11 +92,10 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _repository.Setup(x => x.GetByEmail(_dto.Email, _dto.Password)).Returns(_user);
-            var actual = _service.Delete(_dto);
-            var expected = BaseDtoExtension.Sucess("Conta deletada com sucesso");
 
             // Act
-
+            var actual = _service.Delete(_dto);
+            var expected = BaseDtoExtension.Sucess("Conta deletada com sucesso");
 
             // Assert
             Equal(expected._Message, actual._Message);

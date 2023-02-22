@@ -28,7 +28,6 @@ namespace Hair.Tests.Services
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
 
-
             // Act
             var actual = _service.HireNewbarber(_dto);
             var expected = BaseDtoExtension.NotFound();

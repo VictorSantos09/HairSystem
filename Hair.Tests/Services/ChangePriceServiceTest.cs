@@ -28,11 +28,9 @@ namespace Hair.Tests.Services
             // Arrange
             _dto.Confirmed = false;
 
-
             // Act
             var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.RequestCanceled();
-
 
             // Assert
             Equal(expected._Message, actual._Message);
@@ -45,11 +43,9 @@ namespace Hair.Tests.Services
             // Arrange
             _dto.NewPrice = -25;
 
-
             // Act
             var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.Invalid();
-
 
             // Assert
             Equal(expected._Message, actual._Message);
@@ -66,7 +62,6 @@ namespace Hair.Tests.Services
             var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.NotFound();
 
-
             // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
@@ -82,11 +77,9 @@ namespace Hair.Tests.Services
             _dto.Beard = false;
             _dto.Hair = false;
 
-
             // Act
             var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.Create(406, "Escolha algum item");
-
 
             // Assert
             Equal(expected._Message, actual._Message);
@@ -100,11 +93,9 @@ namespace Hair.Tests.Services
             var user = _globalUser.GetGlobalUser();
             _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(user);
 
-
             // Act
             var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.Sucess("Alteração Concluída");
-
 
             // Assert
             Equal(expected._Message, actual._Message);

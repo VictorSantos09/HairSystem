@@ -32,11 +32,9 @@ namespace Hair.Tests.Services
             // Arrange
             _barberRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
 
-
             // Act
             var actual = _service.FireBarber(_dto);
             var expected = BaseDtoExtension.NotFound("Barbeiro");
-
 
             // Assert
             Equal(expected._Message, actual._Message);
@@ -55,7 +53,6 @@ namespace Hair.Tests.Services
             var actual = _service.FireBarber(_dto);
             var expected = BaseDtoExtension.Create(406, "Não foi possivel encontrar o barbeiro no salão");
 
-
             // Assert
             Equal(expected._Message, actual._Message);
             Equal(expected._StatusCode, actual._StatusCode);
@@ -68,11 +65,9 @@ namespace Hair.Tests.Services
             _barberRepositoryMock.Setup(x => x.GetById(_barber.Id)).Returns(_barber);
             _barberRepositoryMock.Setup(x => x.Remove(_barber.Id));
 
-
             // Act
             var actual = _service.FireBarber(_dto);
             var expected = BaseDtoExtension.Sucess($"{_barber.Name} foi demitido");
-
 
             // Assert
             Equal(expected._Message, actual._Message);

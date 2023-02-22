@@ -41,7 +41,7 @@ namespace Hair.Application.Services
             if (allBarbers.Count == 0)
                 return BaseDtoExtension.Create(404, "Nenhum barbeiro foi encontrado");
 
-            var barberToUpdate = allBarbers.Find(x => x.Name == dto.BarberName || x.Email == dto.BarberEmail || x.PhoneNumber == dto.BarberPhoneNumber || x.Salary == dto.BarberSalary);
+            var barberToUpdate = allBarbers.Find(x => x.Name == dto.BarberName || x.PhoneNumber == dto.BarberPhoneNumber);
 
             if (barberToUpdate == null)
                 return BaseDtoExtension.NotFound("Barbeiro para atualizar");
