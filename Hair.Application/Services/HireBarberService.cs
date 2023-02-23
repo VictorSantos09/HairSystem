@@ -35,7 +35,8 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var barber = new BarberEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, dto.Adress, true, user.Id, user.SaloonName);
+            var address = new AddressEntity(dto.BarberStreet, dto.BarberHouseNumber, dto.BarberCity, dto.BarberState, dto.BarberHouseComplement);
+            var barber = new BarberEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, address, true, user.Id, user.SaloonName);
 
             _barberRepository.Create(barber);
 

@@ -46,7 +46,9 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"UPDATE {TableName} SET SALOON_NAME= @SALOON_NAME, OWNER_NAME= @OWNER_NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL, PASSWORD= @PASSWORD, CNPJ= @CNPJ, HAIRCUT_HAIR= @HAIRCUT_HAIR, HAIRCUT_MUSTACHE= @HAIRCUT_MUSTACHE, HAIRCUT_BEARD= @HAIRCUT_BEARD WHERE ID= @ID)";
+                var query = $"UPDATE {TableName} SET SALOON_NAME= @SALOON_NAME, OWNER_NAME= @OWNER_NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL," +
+                    $" PASSWORD= @PASSWORD, CNPJ= @CNPJ, HAIRCUT_HAIR= @HAIRCUT_HAIR, HAIRCUT_MUSTACHE= @HAIRCUT_MUSTACHE, HAIRCUT_BEARD= @HAIRCUT_BEARD WHERE ID= @ID)";
+
                 var cmd = new SqlCommand(query, conn);
 
                 conn.Open();
@@ -189,6 +191,7 @@ namespace Hair.Repository.Repositories
             PopulateHaircut(user);
             return user;
         }
+
         private void PopulateHaircut(UserEntity user)
         {
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
