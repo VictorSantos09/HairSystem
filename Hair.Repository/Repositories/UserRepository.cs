@@ -1,26 +1,20 @@
-﻿using Dapper;
-using Hair.Domain.Entities;
+﻿using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-using System.Reflection;
-using System.Security.Principal;
-using System.Xml.Linq;
-using static Dapper.SqlMapper;
 
 namespace Hair.Repository.Repositories
 {
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : BaseRepository<UserEntity>, IGetByEmail
+    public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
     {
         private readonly static string TableName = "USERS";
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository) : base(TableName)
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
         {
             _haircutRepository = haircutRepository;
         }
@@ -136,7 +130,36 @@ namespace Hair.Repository.Repositories
                         users.Add(user);
                     }
                 }
+
                 return users;
+            }
+        }
+
+        public bool Remove(Guid id)
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"DELETE FROM {TableName} WHERE ID= @ID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@ID", id);
+
+                conn.Open();
+
+                var user = GetById(id);
+
+               var affectRows = cmd.ExecuteNonQuery();
+
+                if (affectRows == 0)
+                    return false;
+
+                foreach (var haircut in user.Haircuts)
+                {
+                    _haircutRepository.Remove(haircut.Id);
+                }
+
+                return true;
             }
         }
 
@@ -158,7 +181,6 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-
                 }
             }
 

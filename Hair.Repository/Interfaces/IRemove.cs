@@ -9,6 +9,6 @@
         /// Remove a entidade com o Id especificado.
         /// </summary>
         /// <param name="id">O Id da entidade a ser removida.</param>
-        void Remove(Guid id);
+        bool Remove(Guid id);
     }
 }

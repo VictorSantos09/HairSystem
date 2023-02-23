@@ -13,10 +13,12 @@ namespace HairSystem.Controllers
     {
         private readonly LoginService _loginService;
         private readonly UserRepository _userRepository;
+        private readonly HaircutRepository _haircutRepository;
 
         public LoginController()
         {
-            _userRepository = new();
+            _haircutRepository = new();
+            _userRepository = new(_haircutRepository);
             _loginService = new LoginService(_userRepository);
         }
 
