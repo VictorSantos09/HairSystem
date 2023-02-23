@@ -37,15 +37,12 @@ namespace Hair.Application.Services
             var user = _userRepository.GetById(dto.UserID);
 
             if (user == null)
-                return BaseDtoExtension.NotNull("Usuário");
+                return BaseDtoExtension.NotFound("Usuário");
 
-            if (dto.HaircuteTime == null)
-                return BaseDtoExtension.NotNull("Horário");
-
-            if (dto.Client.Name == null)
+            if (string.IsNullOrEmpty(dto.ClientName))
                 return BaseDtoExtension.NotNull("Nome do cliente");
 
-            if (dto.Client.PhoneNumber == null)
+            if (string.IsNullOrEmpty(dto.ClientPhoneNumber))
                 return BaseDtoExtension.NotNull("Telefone");
 
             foreach (var haircut in user.Haircuts)
@@ -54,20 +51,12 @@ namespace Hair.Application.Services
                     return BaseDtoExtension.Create(200, "Horário indisponível");
             }
 
-            var haircuts = _haircutRepository.GetAll();
-
-            foreach (var haircut in haircuts)
-            {
-                if (haircut.Client.Name == dto.Client.Name || haircut.Client.PhoneNumber == dto.Client.PhoneNumber)
-                    return BaseDtoExtension.Create(406, $"Cliente {haircut.Client.Name} já agendado");
-            }
-
-            var newHaircut = new HaircutEntity(dto.UserID, dto.HaircuteTime, true, dto.Client);
+            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber);
+            var newHaircut = new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client);
 
             user.Haircuts.Add(newHaircut);
+            
             _haircutRepository.Create(newHaircut);
-
-            _userRepository.Update(user);
 
             return BaseDtoExtension.Sucess();
         }

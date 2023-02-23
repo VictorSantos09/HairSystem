@@ -20,11 +20,12 @@ namespace Hair.Repository.Repositories
             _table = table;
         }
 
-        public void Remove(Guid id)
+        public bool Remove(Guid id)
         {
             using (var connection = new SqlConnection(DataAccess.DBConnection))
             {
                 var affectedRows = connection.Execute($"DELETE FROM {_table} WHERE ID = '{id}'");
+                return true;
             }
         }
 
