@@ -9,15 +9,11 @@ namespace Hair.Application.Dto
 {
     public class ViewHaircutTimeDto
     {
-        public Guid HaircutId { get; set; }
-        public string HaircutTime { get; set; }
-        public ClientEntity Client { get; set; }
+        public Guid UserID { get; set; }
 
-        public ViewHaircutTimeDto(Guid haircutId, string haircutTime, ClientEntity client)
+        public ViewHaircutTimeDto(Guid userID)
         {
-            HaircutId = haircutId;
-            HaircutTime = haircutTime;
-            Client = client;
+            UserID = userID;
         }
     }
 }

@@ -19,10 +19,10 @@ namespace HairSystem.Controllers
         }
 
         [HttpPost]
-        [Route("GetHaircutTime")]
-        public IActionResult GetHaircutTime([FromBody] ViewHaircutTimeDto dto)
+        [Route("GetScheduledHaircuts")]
+        public IActionResult GetScheduledHaircuts([FromBody] ViewHaircutTimeDto dto)
         {
-            var result = _service.GetHaircutTime(dto);
+            var result = _service.GetScheduledHaircuts(dto);
 
             return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
         }
