@@ -9,40 +9,129 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircutEntity"/>.
     /// </summary>
-    public class HaircutRepository : BaseRepository<HaircutEntity>, ICreateUpdate<HaircutEntity>, IBaseRepository<HaircutEntity>
+    public class HaircutRepository : IBaseRepository<HaircutEntity>
     {
         private readonly static string TableName = "HAIRCUTS";
-        public HaircutRepository() : base(TableName)
+        public HaircutRepository()
         {
         }
-        public void Create(HaircutEntity haircute)
+        public void Create(HaircutEntity haircut)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName}  VALUES (@SALOON_ID, @HAIRCUT_TIME, @AVAILABLE)");
+                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@SALOON_ID, @HAIRCUT_TIME, @AVAILABLE, @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER, @ID)",conn);
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@SALOON_ID", haircute.SaloonId);
-                query.Parameters.AddWithValue("@HAIRCUT_TIME", haircute.HaircuteTime);
-                query.Parameters.AddWithValue("@AVAILABLE", haircute.Avaible);
+                cmd.Parameters.AddWithValue("@SALOON_ID", haircut.SaloonId);
+                cmd.Parameters.AddWithValue("@HAIRCUT_TIME", haircut.HaircuteTime);
+                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Avaible);
+                cmd.Parameters.AddWithValue("@CLIENT_NAME", haircut.Client.Name);
+                cmd.Parameters.AddWithValue("@CLIENT_EMAIL", haircut.Client.Email);
+                cmd.Parameters.AddWithValue("@CLIENT_PHONE_NUMBER", haircut.Client.PhoneNumber);
+                cmd.Parameters.AddWithValue("@ID", haircut.Id);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
             }
         }
-        public void Update(HaircutEntity haircute)
+        public void Update(HaircutEntity haircut) // QUEBRANDO
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET HAIRCUT_TIME = @HaircuteTime, AVAILABLE = @Avaible WHERE SALOON_ID = @SaloonId");
+                var cmd = new SqlCommand($"UPDATE {TableName} SET HAIRCUT_TIME= @HAIRCUTE_TIME, AVAILABLE= @AVAILABLE, SALOON_ID= @SALOON_ID, " +
+                    $"CLIENT_NAME= @CLIENT_NAME, CLIENT_EMAIL= @CLIENT_EMAIL, CLIENT_PHONE_NUMBER= @CLIENT_PHONE_NUMBER, ID= @ID WHERE SALOON_ID = @SaloonId");
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@HAIRCUT_TIME", haircute.HaircuteTime);
-                query.Parameters.AddWithValue("@AVAILABLE", haircute.Avaible);
-                query.Parameters.AddWithValue("@SALOON_ID", haircute.SaloonId);
+                cmd.Parameters.AddWithValue("@HAIRCUT_TIME", haircut.HaircuteTime);
+                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Avaible);
+                cmd.Parameters.AddWithValue("@SALOON_ID", haircut.SaloonId);
+                cmd.Parameters.AddWithValue("@CLIENT_NAME", haircut.Client.Name);
+                cmd.Parameters.AddWithValue("@CLIENT_EMAIL", haircut.Client.Email);
+                cmd.Parameters.AddWithValue("@CLIENT_PHONE_NUMBER", haircut.Client.PhoneNumber);
+                cmd.Parameters.AddWithValue("@ID", haircut.Id);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public bool Remove(Guid id)
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"DELETE FROM {TableName} WHERE ID= @ID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@ID", id);
+
+                conn.Open();
+
+                var affectRows = cmd.ExecuteNonQuery();
+
+                if (affectRows == 0)
+                    return false;
+
+                return true;
+            }
+        }
+        public List<HaircutEntity> GetAll()
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"SELECT * FROM {TableName}";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                var haircuts = new List<HaircutEntity>();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var haircut = new HaircutEntity();
+
+                        haircut.Id = reader.GetGuid("ID");
+                        haircut.SaloonId = reader.GetGuid("SALOON_ID");
+                        haircut.Avaible = reader.GetBoolean("AVAILABLE");
+                        haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
+                        haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
+                        haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
+                        haircut.Client.Name = reader.GetString("CLIENT_NAME");
+
+                        haircuts.Add(haircut);
+                    }
+                }
+
+                return haircuts;
+            }
+        }
+        public HaircutEntity? GetById(Guid id)
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"SELECT * FROM {TableName} WHERE Id= @Id";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    var haircut = new HaircutEntity();
+
+                    haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
+                    haircut.Avaible = reader.GetBoolean("AVAILABLE");
+                    haircut.Id = reader.GetGuid("ID");
+                    haircut.SaloonId = reader.GetGuid("ID");
+                    haircut.Client.Name = reader.GetString("CLIENT_NAME");
+                    haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
+                    haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
+
+                    return haircut;
+                }
             }
         }
     }

@@ -23,44 +23,46 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL," +
+                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL," +
                     $" @PASSWORD, @CNPJ, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE)", conn);
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@ID", user.Id);
-                query.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
-                query.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
-                query.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
-                query.Parameters.AddWithValue("@EMAIL", user.Email);
-                query.Parameters.AddWithValue("@PASSWORD", user.Password);
-                query.Parameters.AddWithValue("@CNPJ", user.CNPJ);
-                query.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
-                query.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
-                query.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
+                cmd.Parameters.AddWithValue("@ID", user.Id);
+                cmd.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
+                cmd.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
+                cmd.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
+                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
+                cmd.Parameters.AddWithValue("@PASSWORD", user.Password);
+                cmd.Parameters.AddWithValue("@CNPJ", user.CNPJ);
+                cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
+                cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
+                cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
 
-                query.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
             }
         }
         public void Update(UserEntity user)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET SALOON_NAME = @SaloonName, OWNER_NAME = @OwnerName, PHONE_NUMBER = @PhoneNumber, EMAIL = @Email, " +
-                    $"PASSWORD = @Password, CNPJ = @CNPJ, HAIRCUT_PRICE = @Prices WHERE @ID = Id)");
+                var query = $"UPDATE {TableName} SET SALOON_NAME= @SALOON_NAME, OWNER_NAME= @OWNER_NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL, PASSWORD= @PASSWORD, CNPJ= @CNPJ, HAIRCUT_HAIR= @HAIRCUT_HAIR, HAIRCUT_MUSTACHE= @HAIRCUT_MUSTACHE, HAIRCUT_BEARD= @HAIRCUT_BEARD WHERE ID= @ID)";
+                var cmd = new SqlCommand(query, conn);
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
-                query.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
-                query.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
-                query.Parameters.AddWithValue("@EMAIL", user.Email);
-                query.Parameters.AddWithValue("@PASSWORD", user.Password);
-                query.Parameters.AddWithValue("@CNPJ", user.CNPJ);
-                query.Parameters.AddWithValue("@HAIRCUT_PRICE", user.Prices.Hair);
-                query.Parameters.AddWithValue("@ID", user.Id);
+                cmd.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
+                cmd.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
+                cmd.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
+                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
+                cmd.Parameters.AddWithValue("@PASSWORD", user.Password);
+                cmd.Parameters.AddWithValue("@CNPJ", user.CNPJ);
+                cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
+                cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
+                cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
+                cmd.Parameters.AddWithValue("@ID", user.Id);
 
-                query.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -149,7 +151,7 @@ namespace Hair.Repository.Repositories
 
                 var user = GetById(id);
 
-               var affectRows = cmd.ExecuteNonQuery();
+                var affectRows = cmd.ExecuteNonQuery();
 
                 if (affectRows == 0)
                     return false;
