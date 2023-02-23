@@ -87,58 +87,58 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        //public UserEntity? GetById(Guid id)
-        //{
-        //    using (var conn = new SqlConnection(DataAccess.DBConnection))
-        //    {
-        //        var query = $"SELECT * FROM {TableName} WHERE Id= @Id";
+        public UserEntity? GetById(Guid id)
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"SELECT * FROM {TableName} WHERE Id= @Id";
 
-        //        SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(query, conn);
 
-        //        cmd.Parameters.AddWithValue("@Id", id);
+                cmd.Parameters.AddWithValue("@Id", id);
 
-        //        conn.Open();
+                conn.Open();
 
-        //        return BuildEntity(cmd);
-        //    }
-        //}
+                return BuildEntity(cmd);
+            }
+        }
 
-        //public List<UserEntity> GetAll()
-        //{
-        //    using (var conn = new SqlConnection(DataAccess.DBConnection))
-        //    {
-        //        var query = $"SELECT * FROM {TableName}";
-        //        SqlCommand cmd = new SqlCommand(query, conn);
+        public List<UserEntity> GetAll()
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"SELECT * FROM {TableName}";
+                SqlCommand cmd = new SqlCommand(query, conn);
 
-        //        conn.Open();
+                conn.Open();
 
-        //        var users = new List<UserEntity>();
+                var users = new List<UserEntity>();
 
-        //        using (SqlDataReader reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var user = new UserEntity();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var user = new UserEntity();
 
-        //                user.Id = reader.GetGuid("ID");
-        //                user.Password = reader.GetString("PASSWORD");
-        //                user.CNPJ = reader.GetString("CNPJ");
-        //                user.Email = reader.GetString("EMAIL");
-        //                user.OwnerName = reader.GetString("OWNER_NAME");
-        //                user.PhoneNumber = reader.GetString("PHONE_NUMBER");
-        //                user.SaloonName = reader.GetString("SALOON_NAME");
-        //                user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
-        //                user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
-        //                user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
+                        user.Id = reader.GetGuid("ID");
+                        user.Password = reader.GetString("PASSWORD");
+                        user.CNPJ = reader.GetString("CNPJ");
+                        user.Email = reader.GetString("EMAIL");
+                        user.OwnerName = reader.GetString("OWNER_NAME");
+                        user.PhoneNumber = reader.GetString("PHONE_NUMBER");
+                        user.SaloonName = reader.GetString("SALOON_NAME");
+                        user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
+                        user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
+                        user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
 
-        //                PopulateHaircut(user);
+                        PopulateHaircut(user);
 
-        //                users.Add(user);
-        //            }
-        //        }
-        //        return users;
-        //    }
-        //}
+                        users.Add(user);
+                    }
+                }
+                return users;
+            }
+        }
 
         private UserEntity? BuildEntity(SqlCommand cmd)
         {
