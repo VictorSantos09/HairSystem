@@ -12,10 +12,12 @@ namespace Hair.Application.Services
     public class CancelHaircutService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
 
-        public CancelHaircutService(IBaseRepository<UserEntity> userRepository)
+        public CancelHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository)
         {
             _userRepository = userRepository;
+            _haircutRepository = haircutRepository;
         }
 
         /// <summary>
@@ -44,9 +46,7 @@ namespace Hair.Application.Services
             if (haircut == null)
                 return BaseDtoExtension.NotFound("Corte");
 
-            user.Haircuts.Remove(haircut);
-
-            _userRepository.Update(user);
+            _haircutRepository.Remove(haircut.Id);
 
             return BaseDtoExtension.Sucess("Corte Cancelado com Sucesso");
         }

@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hair.Domain.Entities
 {
@@ -19,14 +20,14 @@ namespace Hair.Domain.Entities
         public BarberEntity(string name, string? phoneNumber, string? email, double salary, AddressEntity adress, bool hired, Guid jobSaloonId, string jobSaloonName)
         {
             Id = Guid.NewGuid();
-            Name = name;
+            Name = name.ToUpper();
             PhoneNumber = phoneNumber;
-            Email = email;
+            Email = email.ToUpper();
             Salary = salary;
             Address = adress;
             Hired = hired;
             SaloonId = jobSaloonId;
-            SaloonName = jobSaloonName;
+            SaloonName = jobSaloonName.ToUpper();
         }
 
         public BarberEntity()

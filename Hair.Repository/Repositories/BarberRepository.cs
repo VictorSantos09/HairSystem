@@ -9,53 +9,96 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Repositório responsável por gerenciar as operações de Create e Update para a entidade Barber contida em <see cref="BarberEntity"/>.
     /// </summary>
-    public class BarberRepository : BaseRepository<BarberEntity>, IBaseRepository<BarberEntity>
+    public class BarberRepository : IBaseRepository<BarberEntity>
     {
         public static readonly string TableName = "BARBERS";
-        public BarberRepository() : base(TableName)
-        {
-        }
         public void Create(BarberEntity barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} (@ID, @NAME, @PHONENUMBER, @EMAIL, @SALARY, @HIRED, @ADDRESS, @JOBSALOON_ID, @JOBSALOON_NAME)");
+                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @NAME, @PHONE_NUMBER, @EMAIL, @SALARY, @HIRED, " +
+                    $"@STREET, @STATE, @CITY, @COMPLEMENT, @NUMBER, @FULL_ADDRESS, @SALOON_ID, @SALOON_NAME)", conn);
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@ID", barber.Id);
-                query.Parameters.AddWithValue("@NAME", barber.Name);
-                query.Parameters.AddWithValue("@PHONENUMBER", barber.PhoneNumber);
-                query.Parameters.AddWithValue("@EMAIL", barber.Email);
-                query.Parameters.AddWithValue("@SALARY", barber.Salary);
-                query.Parameters.AddWithValue("@HIRED", barber.Hired);
-                query.Parameters.AddWithValue("ADDRESS", barber.Address);
-                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.SaloonId);
-                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.SaloonName);
+                cmd.Parameters.AddWithValue("@ID", barber.Id);
+                cmd.Parameters.AddWithValue("@NAME", barber.Name);
+                cmd.Parameters.AddWithValue("@PHONE_NUMBER", barber.PhoneNumber);
+                cmd.Parameters.AddWithValue("@EMAIL", barber.Email);
+                cmd.Parameters.AddWithValue("@SALARY", barber.Salary);
+                cmd.Parameters.AddWithValue("@HIRED", barber.Hired);
+                cmd.Parameters.AddWithValue("@STREET", barber.Address.Street);
+                cmd.Parameters.AddWithValue("@STATE", barber.Address.State);
+                cmd.Parameters.AddWithValue("@CITY", barber.Address.City);
+                cmd.Parameters.AddWithValue("@COMPLEMENT", barber.Address.Complement);
+                cmd.Parameters.AddWithValue("@NUMBER", barber.Address.Number);
+                cmd.Parameters.AddWithValue("@FULL_ADDRESS", barber.Address.FullAddress);
+                cmd.Parameters.AddWithValue("@SALOON_ID", barber.SaloonId);
+                cmd.Parameters.AddWithValue("@SALOON_NAME", barber.SaloonName);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
             }
         }
-        public void Update(BarberEntity barber)
+
+        public List<BarberEntity> GetAll()
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            throw new NotImplementedException();
+        }
+
+        public BarberEntity? GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(Guid id)
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET NAME = @Name, PHONENUMBER = @PhoneNumber, EMAIL = @Email, SALARY = @Salary, HIRED = @Hired, ADDRESS = @Adress, " +
-                    $"JOBSALOON_ID = @JobSaloonId, JOBSALOON_NAME = @JobSaloonName WHERE ID = @Id");
+                var query = $"DELETE FROM {TableName} WHERE ID= @ID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@ID", id);
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@NAME", barber.Name);
-                query.Parameters.AddWithValue("@PHONENUMBER", barber.PhoneNumber);
-                query.Parameters.AddWithValue("@EMAIL", barber.Email);
-                query.Parameters.AddWithValue("@SALARY", barber.Salary);
-                query.Parameters.AddWithValue("@HIRED", barber.Hired);
-                query.Parameters.AddWithValue("ADDRESS", barber.Address);
-                query.Parameters.AddWithValue("@JOBSALOON_ID", barber.SaloonId);
-                query.Parameters.AddWithValue("@JOBSALOON_NAME", barber.SaloonName);
-                query.Parameters.AddWithValue("@ID", barber.Id);
+                var affectRows = cmd.ExecuteNonQuery();
 
-                query.ExecuteNonQueryAsync();
+                if (affectRows == 0)
+                    return false;
+
+                return true;
+            }
+        }
+
+        public void Update(BarberEntity barber)
+        {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"UPDATE {TableName} SET NAME= @NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL, SALARY= @SALARY, " +
+                    $"HIRED= @HIRED, JOB_SALOON_ID= @JOB_SALOON_ID, JOB_SALOON_NAME= @JOB_SALOON_NAME, " +
+                    $"STREET= @STREET, STATE= @STATE, CITY= @CITY, COMPLEMENT= @COMPLEMENT, NUMBER= @NUMBER, FULL_ADDRESS= @FULL_ADDRESS WHERE ID= @ID";
+
+                var cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@NAME", barber.Name);
+                cmd.Parameters.AddWithValue("@PHONE_NUMBER", barber.PhoneNumber);
+                cmd.Parameters.AddWithValue("@EMAIL", barber.Email);
+                cmd.Parameters.AddWithValue("@SALARY", barber.Salary);
+                cmd.Parameters.AddWithValue("@HIRED", barber.Hired);
+                cmd.Parameters.AddWithValue("@JOB_SALOON_ID", barber.SaloonId);
+                cmd.Parameters.AddWithValue("@JOB_SALOON_NAME", barber.SaloonName);
+                cmd.Parameters.AddWithValue("@ID", barber.Id);
+                cmd.Parameters.AddWithValue("@STREET", barber.Address.Street);
+                cmd.Parameters.AddWithValue("@STATE", barber.Address.State);
+                cmd.Parameters.AddWithValue("@COMPLEMENT", barber.Address.Complement);
+                cmd.Parameters.AddWithValue("@CITY", barber.Address.City);
+                cmd.Parameters.AddWithValue("@NUMBER", barber.Address.Number);
+                cmd.Parameters.AddWithValue("@FULL_ADDRESS", barber.Address.FullAddress);
+
+                cmd.ExecuteNonQueryAsync();
             }
         }
     }

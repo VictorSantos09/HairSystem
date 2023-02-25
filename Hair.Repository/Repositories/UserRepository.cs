@@ -46,7 +46,9 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $"UPDATE {TableName} SET SALOON_NAME= @SALOON_NAME, OWNER_NAME= @OWNER_NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL, PASSWORD= @PASSWORD, CNPJ= @CNPJ, HAIRCUT_HAIR= @HAIRCUT_HAIR, HAIRCUT_MUSTACHE= @HAIRCUT_MUSTACHE, HAIRCUT_BEARD= @HAIRCUT_BEARD WHERE ID= @ID)";
+                var query = $"UPDATE {TableName} SET SALOON_NAME= @SALOON_NAME, OWNER_NAME= @OWNER_NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL," +
+                    $" PASSWORD= @PASSWORD, CNPJ= @CNPJ, HAIRCUT_HAIR= @HAIRCUT_HAIR, HAIRCUT_MUSTACHE= @HAIRCUT_MUSTACHE, HAIRCUT_BEARD= @HAIRCUT_BEARD WHERE ID= @ID)";
+
                 var cmd = new SqlCommand(query, conn);
 
                 conn.Open();
@@ -167,10 +169,10 @@ namespace Hair.Repository.Repositories
 
         private UserEntity? BuildEntity(SqlCommand cmd)
         {
-            var user = new UserEntity();
-
+            UserEntity? user = new UserEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
+
                 while (reader.Read())
                 {
                     user.Id = reader.GetGuid("ID");
@@ -183,12 +185,13 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                }
-            }
 
-            PopulateHaircut(user);
-            return user;
+                }
+                PopulateHaircut(user);
+            }
+            return user.Id == Guid.Empty ? null : user;
         }
+
         private void PopulateHaircut(UserEntity user)
         {
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);

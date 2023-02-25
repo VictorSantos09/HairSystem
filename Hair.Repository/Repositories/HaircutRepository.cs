@@ -118,10 +118,17 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    var haircut = new HaircutEntity();
+                return BuildEntity(cmd);
+            }
+        }
 
+        private HaircutEntity? BuildEntity(SqlCommand cmd)
+        {
+            HaircutEntity? haircut = new HaircutEntity();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
                     haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
                     haircut.Avaible = reader.GetBoolean("AVAILABLE");
                     haircut.Id = reader.GetGuid("ID");
@@ -130,9 +137,9 @@ namespace Hair.Repository.Repositories
                     haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
                     haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
 
-                    return haircut;
                 }
             }
+            return haircut.Id == Guid.Empty ? null : haircut;
         }
     }
 }

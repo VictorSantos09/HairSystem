@@ -13,8 +13,8 @@
         {
             UserID = userID;
             Confirmed = confirmed;
-            ClientName = clientName;
-            ClientEmail = clientEmail;
+            ClientName = clientName.ToUpper();
+            ClientEmail = clientEmail == null ? null : clientEmail.ToUpper();
             ClientPhoneNumber = clientPhoneNumber;
             HaircutTime = haircutTime;
         }

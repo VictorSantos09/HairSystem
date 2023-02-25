@@ -12,9 +12,9 @@ namespace HairSystem.Controllers
     {
         private readonly CancelHaircutService _service;
 
-        public CancelHaircutController(IBaseRepository<UserEntity> baseRepository)
+        public CancelHaircutController(IBaseRepository<UserEntity> baseRepository, IBaseRepository<HaircutEntity> haircutRepository)
         {
-            _service = new(baseRepository);
+            _service = new(baseRepository, haircutRepository);
         }
 
         [HttpPost]

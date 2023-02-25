@@ -9,45 +9,60 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="SaloonItemEntity"/>.
     /// </summary>
-    public class StorageRepository : BaseRepository<SaloonItemEntity>, IBaseRepository<SaloonItemEntity>
+    public class StorageRepository : IBaseRepository<SaloonItemEntity>
     {
         private readonly static string TableName = "SALOON_ITEMS";
-        public StorageRepository() : base(TableName)
-        {
 
-        }
-
-        public void Create(SaloonItemEntity entity)
+        public void Create(SaloonItemEntity item)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @NAME, @PRICE, @QUANTITY_AVAILABLE)");
+                var query = $"INSERT INTO {TableName} VALUES (@ID, @NAME, @PRICE, @QUANTITY_AVAILABLE, @SALOON_ID)";
+
+                var cmd = new SqlCommand(query, conn);
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@ID", entity.Id);
-                query.Parameters.AddWithValue("@NAME", entity.Name);
-                query.Parameters.AddWithValue("@PRICE", entity.Price);
-                query.Parameters.AddWithValue("@QUANTITY_AVAILABLE", entity.QuantityAvaible);
+                cmd.Parameters.AddWithValue("@ID", item.Id);
+                cmd.Parameters.AddWithValue("@NAME", item.Name);
+                cmd.Parameters.AddWithValue("@PRICE", item.Price);
+                cmd.Parameters.AddWithValue("@QUANTITY_AVAILABLE", item.QuantityAvaible);
+                cmd.Parameters.AddWithValue("@SALOON_ID", item.SaloonId);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
             }
         }
 
-        public void Update(SaloonItemEntity entity)
+        public List<SaloonItemEntity> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public SaloonItemEntity? GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(SaloonItemEntity item)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET NAME = @Name, PRICE = @Price, QUANTITY_AVAILABLE = @QuantityAvailable WHERE ID = @Id");
+                var cmd = new SqlCommand($"UPDATE {TableName} SET NAME = @NAME, PRICE = @PRICE, QUANTITY_AVAILABLE = @QUANTITY_AVAILABLE, SALOON_ID = @SALOON_ID WHERE ID = @ID");
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@NAME", entity.Name);
-                query.Parameters.AddWithValue("@PRICE", entity.Price);
-                query.Parameters.AddWithValue("@QUANTITY_AVAILABLE", entity.QuantityAvaible);
-                query.Parameters.AddWithValue("@ID", entity.Id);
+                cmd.Parameters.AddWithValue("@NAME", item.Name);
+                cmd.Parameters.AddWithValue("@PRICE", item.Price);
+                cmd.Parameters.AddWithValue("@QUANTITY_AVAILABLE", item.QuantityAvaible);
+                cmd.Parameters.AddWithValue("@ID", item.Id);
+                cmd.Parameters.AddWithValue("@SALOON_ID", item.SaloonId);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
             }
         }
     }
