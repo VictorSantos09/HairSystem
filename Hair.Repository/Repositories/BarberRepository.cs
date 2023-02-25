@@ -16,8 +16,8 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var cmd = new SqlCommand($"INSERT INTO [{TableName}] VALUES (@ID, @NAME, @PHONE_NUMBER, @EMAIL, @SALARY, @HIRED, " +
-                    $"@STREET, @STATE, @CITY, @COMPLEMENT, @NUMBER, @FULL_ADDRESS, @JOB_SALOON_ID, @JOB_SALOON_NAME)", conn);
+                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @NAME, @PHONE_NUMBER, @EMAIL, @SALARY, @HIRED, " +
+                    $"@STREET, @STATE, @CITY, @COMPLEMENT, @NUMBER, @FULL_ADDRESS, @SALOON_ID, @SALOON_NAME)", conn);
 
                 conn.Open();
 
@@ -33,8 +33,8 @@ namespace Hair.Repository.Repositories
                 cmd.Parameters.AddWithValue("@COMPLEMENT", barber.Address.Complement);
                 cmd.Parameters.AddWithValue("@NUMBER", barber.Address.Number);
                 cmd.Parameters.AddWithValue("@FULL_ADDRESS", barber.Address.FullAddress);
-                cmd.Parameters.AddWithValue("@JOB_SALOON_ID", barber.SaloonId);
-                cmd.Parameters.AddWithValue("@JOB_SALOON_NAME", barber.SaloonName);
+                cmd.Parameters.AddWithValue("@SALOON_ID", barber.SaloonId);
+                cmd.Parameters.AddWithValue("@SALOON_NAME", barber.SaloonName);
 
                 cmd.ExecuteNonQuery();
             }
