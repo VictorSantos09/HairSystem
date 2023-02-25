@@ -7,6 +7,7 @@ namespace Hair.Domain.Entities
     /// </summary>
     public class ImageEntity : BaseEntity
     {
+
         public Guid SaloonId { get; set; }
         public byte[] Img { get; set; }
 
