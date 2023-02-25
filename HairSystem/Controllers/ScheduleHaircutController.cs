@@ -1,4 +1,5 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -27,7 +28,7 @@ namespace HairSystem.Controllers
         {
             var result = _service.Schedule(dto);
 
-            return StatusCode(result._StatusCode, result._Message);
+            return StatusCode(result._StatusCode, new MessageDto(result._Message));
         }
     }
 }
