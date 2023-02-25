@@ -1,4 +1,5 @@
-﻿using Hair.Domain.Entities;
+﻿using Hair.Application.Exeception;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ namespace Hair.Application
             services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
 
             services.AddTransient<IGetByEmail, UserRepository>();
+            services.AddTransient<IExeception, ExeceptionHelper>();
         }
     }
 }
