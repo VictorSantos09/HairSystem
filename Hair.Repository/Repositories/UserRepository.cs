@@ -169,10 +169,10 @@ namespace Hair.Repository.Repositories
 
         private UserEntity? BuildEntity(SqlCommand cmd)
         {
-            var user = new UserEntity();
-
+            UserEntity? user = new UserEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
+
                 while (reader.Read())
                 {
                     user.Id = reader.GetGuid("ID");
@@ -185,11 +185,11 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                }
-            }
 
-            PopulateHaircut(user);
-            return user;
+                }
+                PopulateHaircut(user);
+            }
+            return user.Id == Guid.Empty ? null : user;
         }
 
         private void PopulateHaircut(UserEntity user)

@@ -21,14 +21,15 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"INSERT INTO {TableName} (@SALOON_IMAGE_ID, @IMAGE)");
+                var cmd = new SqlCommand($"INSERT INTO {TableName} (@SALOON_ID, @IMAGE, @ID)");
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
-                query.Parameters.AddWithValue("@IMAGE", image.Img);
+                cmd.Parameters.AddWithValue("@SALOON_ID", image.SaloonId);
+                cmd.Parameters.AddWithValue("@IMAGE", image.Img);
+                cmd.Parameters.AddWithValue("@ID", image.Id);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -36,14 +37,14 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = new SqlCommand($"UPDATE {TableName} SET IMAGE = @Img WHERE SALOON_IMAGE_ID = @SaloonId");
+                var cmd = new SqlCommand($"UPDATE {TableName} SET IMAGE = @IMAGE WHERE SALOON_ID = @SaloonId");
 
                 conn.Open();
 
-                query.Parameters.AddWithValue("@IMAGE", image.Img);
-                query.Parameters.AddWithValue("@SALOON_IMAGE_ID", image.SaloonId);
+                cmd.Parameters.AddWithValue("@IMAGE", image.Img);
+                cmd.Parameters.AddWithValue("@SALOON_ID", image.SaloonId);
 
-                query.ExecuteNonQueryAsync();
+                cmd.ExecuteNonQuery();
             }
         }
     }

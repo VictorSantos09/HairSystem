@@ -52,7 +52,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var cmd = new SqlCommand($"UPDATE {TableName} SET NAME = @Name, PRICE = @Price, QUANTITY_AVAILABLE = @QuantityAvailable, SALOON_ID= @Saloon_Id WHERE ID = @Id");
+                var cmd = new SqlCommand($"UPDATE {TableName} SET NAME = @NAME, PRICE = @PRICE, QUANTITY_AVAILABLE = @QUANTITY_AVAILABLE, SALOON_ID = @SALOON_ID WHERE ID = @ID");
 
                 conn.Open();
 
