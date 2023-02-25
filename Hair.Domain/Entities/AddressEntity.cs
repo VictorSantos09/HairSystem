@@ -18,7 +18,7 @@
             City = city.ToUpper();
             State = state.ToUpper();
             Complement = complement == null ? complement : complement.ToUpper();
-            FullAddress = $"{street},{number}. {city} - {state}. {complement}";
+            FullAddress = $"{Street},{Number}. {City} - {State}. {Complement}";
         }
 
         public AddressEntity()

@@ -1,13 +1,8 @@
-﻿using Xunit;
-using Moq;
+﻿using Hair.Application.Dto;
 using Hair.Application.Services;
-using Hair.Application.Dto;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Hair.Application.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Moq;
 
 namespace Hair.Tests.UnitTests.Application.Services
 {
@@ -24,7 +19,7 @@ namespace Hair.Tests.UnitTests.Application.Services
         [Fact]
         public void GetScheduledHaircuts_WithValidUserId_Returns_BaseDtoWithHaircutsList()
         {
-            
+            // Arrange
             var userId = Guid.NewGuid();
             var expectedHaircuts = new List<HaircutEntity>
             {
@@ -35,10 +30,10 @@ namespace Hair.Tests.UnitTests.Application.Services
             var dto = new ViewHaircutTimeDto(userId);
             _repositoryMock.Setup(x => x.GetAll()).Returns(expectedHaircuts);
 
-           
+            // Act
             var result = _service.GetScheduledHaircuts(dto);
 
-            
+            // Assert
             Assert.NotNull(result);
             Assert.Equal(200, result._StatusCode);
             Assert.Equal("Lista de cortes agendados encontrados.", result._Message);
@@ -48,7 +43,7 @@ namespace Hair.Tests.UnitTests.Application.Services
         [Fact]
         public void GetScheduledHaircuts_WithInvalidUserId_Returns_BaseDtoWithErrorMessage()
         {
-    
+            // Arrange
             var userId = Guid.NewGuid();
             var expectedHaircuts = new List<HaircutEntity>
             {
@@ -58,10 +53,11 @@ namespace Hair.Tests.UnitTests.Application.Services
             var dto = new ViewHaircutTimeDto(userId);
             _repositoryMock.Setup(x => x.GetAll()).Returns(expectedHaircuts);
 
-          
+            // Act
             var result = _service.GetScheduledHaircuts(dto);
 
-           
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal(200, result._StatusCode);
             Assert.Equal("Não foram encontrados cortes agendados para este usuário.", result._Message);
@@ -69,7 +65,3 @@ namespace Hair.Tests.UnitTests.Application.Services
         }
     }
 }
-
-
-
-

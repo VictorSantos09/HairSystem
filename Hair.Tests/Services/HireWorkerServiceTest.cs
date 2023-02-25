@@ -18,7 +18,7 @@ namespace Hair.Tests.Services
         public HireWorkerServiceTest()
         {
             _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
-            _dto = new HireBarberDto("Carlos", "047991547878", "carlos@gmail.com", 2000, _user.GetAdress(), _user.Id, true);
+            _dto = new HireBarberDto("Carlos", _user.Id, "047335478456", "carlos@gmail.com", 2000, "Rua Maria Alberta", "54", "", "Blumenau", "SC", true);
         }
 
         [Fact]
