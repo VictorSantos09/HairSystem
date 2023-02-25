@@ -157,5 +157,38 @@ namespace Hair.Tests.Application.Services
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
 
+        [Fact]
+        public void Schedule_WhenHaircutCanBeScheduled_ReturnsSuccess()
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var haircutTime = "02/04/2004";
+            var clientDto = new ClientEntity("Bruno", "elefante@outlook.com", "40028922");
+            var dto = new ScheduleHaircutDto(userId, haircutTime, true, clientDto);
+
+            var user = new UserEntity { Id = userId };
+
+            _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
+
+            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<HaircutEntity>());
+
+            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<HaircutEntity>())).Callback<HaircutEntity>(haircut =>
+            {
+                user.Haircuts.Add(haircut);
+            });
+
+            _mockUserRepository.Setup(repo => repo.Update(It.IsAny<UserEntity>())).Callback<UserEntity>(updatedUser =>
+            {
+                user = updatedUser;
+            });
+
+            // Act
+            var actual = _scheduleHaircutService.Schedule(dto);
+            var expected = BaseDtoExtension.Sucess();
+
+            // Assert
+            Assert.Equal(expected._Message, actual._Message);
+            Assert.Equal(expected._StatusCode, actual._StatusCode);
+        }
     }
 }
