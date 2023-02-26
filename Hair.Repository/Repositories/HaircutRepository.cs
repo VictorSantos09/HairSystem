@@ -102,26 +102,24 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
-        private HaircutEntity? BuildEntity(SqlCommand cmd)
+        private HaircutEntity? BuildEntity(SqlDataReader reader)
         {
             HaircutEntity? haircut = new HaircutEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
-                    haircut.Avaible = reader.GetBoolean("AVAILABLE");
-                    haircut.Id = reader.GetGuid("ID");
-                    haircut.SaloonId = reader.GetGuid("ID");
-                    haircut.Client.Name = reader.GetString("CLIENT_NAME");
-                    haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
-                    haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
-                }
+                haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
+                haircut.Avaible = reader.GetBoolean("AVAILABLE");
+                haircut.Id = reader.GetGuid("ID");
+                haircut.SaloonId = reader.GetGuid("ID");
+                haircut.Client.Name = reader.GetString("CLIENT_NAME");
+                haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
+                haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
             }
+
             return haircut.Id == Guid.Empty ? null : haircut;
         }
     }

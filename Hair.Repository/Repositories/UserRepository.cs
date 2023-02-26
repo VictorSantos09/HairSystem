@@ -63,7 +63,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
@@ -79,7 +79,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
@@ -96,25 +96,9 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        var user = new UserEntity();
+                    var user = BuildEntity(reader);
 
-                        user.Id = reader.GetGuid("ID");
-                        user.Password = reader.GetString("PASSWORD");
-                        user.CNPJ = reader.GetString("CNPJ");
-                        user.Email = reader.GetString("EMAIL");
-                        user.OwnerName = reader.GetString("OWNER_NAME");
-                        user.PhoneNumber = reader.GetString("PHONE_NUMBER");
-                        user.SaloonName = reader.GetString("SALOON_NAME");
-                        user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
-                        user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
-                        user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-
-                        PopulateHaircut(user);
-
-                        users.Add(user);
-                    }
+                    users.Add(user);
                 }
 
                 return users;
@@ -149,29 +133,27 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private UserEntity? BuildEntity(SqlCommand cmd)
+        private UserEntity? BuildEntity(SqlDataReader reader)
         {
             UserEntity? user = new UserEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    user.Id = reader.GetGuid("ID");
-                    user.Password = reader.GetString("PASSWORD");
-                    user.CNPJ = reader.GetString("CNPJ");
-                    user.Email = reader.GetString("EMAIL");
-                    user.OwnerName = reader.GetString("OWNER_NAME");
-                    user.PhoneNumber = reader.GetString("PHONE_NUMBER");
-                    user.SaloonName = reader.GetString("SALOON_NAME");
-                    user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
-                    user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
-                    user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                    user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
-                    user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
-                }
-
-                PopulateHaircut(user);
+                user.Id = reader.GetGuid("ID");
+                user.Password = reader.GetString("PASSWORD");
+                user.CNPJ = reader.GetString("CNPJ");
+                user.Email = reader.GetString("EMAIL");
+                user.OwnerName = reader.GetString("OWNER_NAME");
+                user.PhoneNumber = reader.GetString("PHONE_NUMBER");
+                user.SaloonName = reader.GetString("SALOON_NAME");
+                user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
+                user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
+                user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
+                user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
+                user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
             }
+
+            PopulateHaircut(user);
+
             return user.Id == Guid.Empty ? null : user;
         }
 

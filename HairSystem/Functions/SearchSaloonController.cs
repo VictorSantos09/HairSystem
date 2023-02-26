@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSystem.Functions
 {
     [ApiController]
-    [Route("api/SearchSaloon")]
+    [Route("api/controller")]
     public class SearchSaloonController : ControllerBase
     {
         private readonly SearchSaloonFunction _function;

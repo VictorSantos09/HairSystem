@@ -35,7 +35,9 @@ namespace Hair.Application.Functions
             if (saloonsMatch.Count == 0)
                 return BaseDtoExtension.Sucess("Nenhum salão encontrado");
 
-            return BaseDtoExtension.Create(200, $"Salões com nome {dto.SaloonName} encontrados", saloonsMatch);
+            var saloons = BuildInformation(saloonsMatch);
+
+            return BaseDtoExtension.Create(200, $"Salões com nome {dto.SaloonName} encontrados", saloons);
         }
 
         /// <summary>
@@ -67,7 +69,9 @@ namespace Hair.Application.Functions
             if (saloonsMatch.Count == 0)
                 return BaseDtoExtension.Sucess("Nehum salão encontrado");
 
-            return BaseDtoExtension.Create(200, "Salões encontrados", saloonsMatch);
+            var saloons = BuildInformation(saloonsMatch);
+
+            return BaseDtoExtension.Create(200, "Salões encontrados", saloons);
         }
         private BaseDto FilterCloseds(SearchSaloonFilterDto dto)
         {
@@ -78,7 +82,38 @@ namespace Hair.Application.Functions
             if (saloonsMatch.Count == 0)
                 return BaseDtoExtension.Sucess("Nehum salão encontrado");
 
-            return BaseDtoExtension.Create(200, "Salões encontrados", saloonsMatch);
+            var saloons = BuildInformation(saloonsMatch);
+
+            return BaseDtoExtension.Create(200, "Salões encontrados", saloons);
+        }
+
+        private object? BuildInformation(UserEntity user)
+        {
+            return new
+            {
+                user.Address.Number,
+                user.Address.City,
+                user.Address.State,
+                user.Address.Complement,
+                user.OpenTime,
+                user.CloseTime,
+                user.Email,
+                user.PhoneNumber,
+                user.CNPJ,
+                user.SaloonName,
+            };
+        }
+
+        private List<object>? BuildInformation(List<UserEntity> users)
+        {
+            var usersOutput = new List<object>();
+
+            foreach (var user in users)
+            {
+                usersOutput.Add(BuildInformation(user));
+            }
+
+            return usersOutput;
         }
     }
 }

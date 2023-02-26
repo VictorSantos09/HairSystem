@@ -42,16 +42,8 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        ImageEntity image = new ImageEntity();
-
-                        image.Id = reader.GetGuid("ID");
-                        image.SaloonId = reader.GetGuid("SALOON_ID");
-                        //image.Img = reader.GetString("IMAGE");
-
-                        images.Add(image);
-                    }
+                    var image = BuildEntity(reader);
+                    images.Add(image);
                 }
 
                 return images;
@@ -70,7 +62,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
@@ -102,18 +94,15 @@ namespace Hair.Repository.Repositories
 
         }
 
-        private ImageEntity? BuildEntity(SqlCommand cmd)
+        private ImageEntity? BuildEntity(SqlDataReader reader)
         {
             ImageEntity? image = new ImageEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
 
-                while (reader.Read())
-                {
-                    image.Id = reader.GetGuid("ID");
-                    image.SaloonId = reader.GetGuid("SALOON_ID");
-                    //image.Img = reader.GetByte("IMAGE"); corrigir
-                }
+            while (reader.Read())
+            {
+                image.Id = reader.GetGuid("ID");
+                image.SaloonId = reader.GetGuid("SALOON_ID");
+                //image.Img = reader.GetByte("IMAGE"); corrigir
             }
             return image.Id == Guid.Empty ? null : image;
         }
