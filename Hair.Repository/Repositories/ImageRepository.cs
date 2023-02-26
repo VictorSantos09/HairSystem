@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -10,7 +11,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de imagens no banco de dados contidas na <see cref="ImageEntity"/>.
     /// </summary>
-    public class ImageRepository : BaseRepository<ImageEntity>, IBaseRepository<ImageEntity>
+    public class ImageRepository : BaseRepository<IImage>, IBaseRepository<IImage>
     {
         private readonly static string TableName = "IMAGES";
         public ImageRepository() : base(TableName)
@@ -33,6 +34,16 @@ namespace Hair.Repository.Repositories
             }
         }
 
+        public void Create(IUser entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(IImage entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(ImageEntity image)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
@@ -46,6 +57,16 @@ namespace Hair.Repository.Repositories
 
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public void Update(IUser entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(IImage entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

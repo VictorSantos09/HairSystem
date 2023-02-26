@@ -1,6 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -10,10 +11,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class VisualizeEmployeeDataService
     {
-        private readonly IBaseRepository<BarberEntity> _employeeRepository;
+        private readonly IBaseRepository<IBarber> _employeeRepository;
         private readonly IGetByEmail _userRepository;
 
-        public VisualizeEmployeeDataService(IBaseRepository<BarberEntity> employeeRepository, IGetByEmail userRepository)
+        public VisualizeEmployeeDataService(IBaseRepository<IBarber> employeeRepository, IGetByEmail userRepository)
         {
             _employeeRepository = employeeRepository;
             _userRepository = userRepository;

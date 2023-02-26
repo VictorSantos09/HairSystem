@@ -1,23 +1,23 @@
 ﻿using Hair.Domain.Common;
-using System.ComponentModel.DataAnnotations.Schema;
+using Hair.Domain.Interfaces;
 
 namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do barbeiro
     /// </summary>
-    public class BarberEntity : BaseEntity
+    public class BarberEntity : BaseEntity, IBarber
     {
         public string Name { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         public double Salary { get; set; }
-        public AddressEntity Address { get; set; }
+        public IAddress Address { get; set; } = new AddressEntity();
         public bool Hired { get; set; }
         public Guid SaloonId { get; set; }
         public string SaloonName { get; set; }
 
-        public BarberEntity(string name, string? phoneNumber, string? email, double salary, AddressEntity adress, bool hired, Guid jobSaloonId, string jobSaloonName)
+        public BarberEntity(string name, string? phoneNumber, string? email, double salary, IAddress adress, bool hired, Guid jobSaloonId, string jobSaloonName)
         {
             Id = Guid.NewGuid();
             Name = name.ToUpper();

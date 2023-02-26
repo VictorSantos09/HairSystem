@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
 
@@ -6,7 +7,7 @@ namespace Hair.Tests.Repository
 {
     public class BarberRepositoryTest
     {
-        private readonly Mock<IBaseRepository<BarberEntity>> _mock = new Mock<IBaseRepository<BarberEntity>>();
+        private readonly Mock<IBaseRepository<IBarber>> _mock = new Mock<IBaseRepository<IBarber>>();
 
         [Fact]
         public void Create_ShouldCreateBarber_WhenCalled()

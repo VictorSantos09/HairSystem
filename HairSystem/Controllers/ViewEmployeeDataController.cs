@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,10 @@ namespace HairSystem.Controllers
     public class ViewEmployeeDataController : ControllerBase
     {
         private readonly VisualizeEmployeeDataService _service;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IBaseRepository<IBarber> _barberRepository;
         private readonly IGetByEmail _userRepository;
 
-        public ViewEmployeeDataController(IBaseRepository<BarberEntity> barberRepository, IGetByEmail userRepository)
+        public ViewEmployeeDataController(IBaseRepository<IBarber> barberRepository, IGetByEmail userRepository)
         {
             _barberRepository = barberRepository;
             _userRepository = userRepository;

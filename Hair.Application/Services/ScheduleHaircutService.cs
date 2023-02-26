@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -11,10 +12,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class ScheduleHaircutService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<IHaircut> _haircutRepository;
 
-        public ScheduleHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository)
+        public ScheduleHaircutService(IBaseRepository<IUser> userRepository, IBaseRepository<IHaircut> haircutRepository)
         {
             _userRepository = userRepository;
             _haircutRepository = haircutRepository;
@@ -55,7 +56,7 @@ namespace Hair.Application.Services
             var newHaircut = new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client);
 
             user.Haircuts.Add(newHaircut);
-            
+
             _haircutRepository.Create(newHaircut);
 
             return BaseDtoExtension.Sucess();

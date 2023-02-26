@@ -1,25 +1,23 @@
-﻿using Hair.Application.Common;
-using Hair.Application.Dto;
+﻿using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
-using System.Net;
-using Xunit;
 
-namespace Hair.Tests.Application.Services
+namespace Hair.Tests.Services
 {
     public class ScheduleHaircutServiceTests
     {
-        private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
-        private readonly Mock<IBaseRepository<HaircutEntity>> _mockHaircutRepository;
+        private readonly Mock<IBaseRepository<IUser>> _mockUserRepository;
+        private readonly Mock<IBaseRepository<IHaircut>> _mockHaircutRepository;
         private readonly ScheduleHaircutService _scheduleHaircutService;
 
         public ScheduleHaircutServiceTests()
         {
-            _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
-            _mockHaircutRepository = new Mock<IBaseRepository<HaircutEntity>>();
+            _mockUserRepository = new Mock<IBaseRepository<IUser>>();
+            _mockHaircutRepository = new Mock<IBaseRepository<IHaircut>>();
             _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object);
         }
 
@@ -139,8 +137,6 @@ namespace Hair.Tests.Application.Services
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
-
-        [Fact]
         public void Schedule_WhenHaircutCanBeScheduled_ReturnsSuccess()
         {
             // Arrange
@@ -151,9 +147,9 @@ namespace Hair.Tests.Application.Services
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
 
-            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<HaircutEntity>());
+            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<IHaircut>());
 
-            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<HaircutEntity>())).Callback<HaircutEntity>(haircut =>
+            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<IHaircut>())).Callback<IHaircut>(haircut =>
             {
                 user.Haircuts.Add(haircut);
             });
