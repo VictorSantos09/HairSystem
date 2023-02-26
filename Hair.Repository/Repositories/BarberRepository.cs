@@ -1,7 +1,7 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
@@ -9,10 +9,10 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Repositório responsável por gerenciar as operações de Create e Update para a entidade Barber contida em <see cref="BarberEntity"/>.
     /// </summary>
-    public class BarberRepository : IBaseRepository<BarberEntity>
+    public class BarberRepository : IBaseRepository<IBarber>
     {
         public static readonly string TableName = "BARBERS";
-        public void Create(BarberEntity barber)
+        public void Create(IBarber barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -40,12 +40,12 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<BarberEntity> GetAll()
+        public List<IBarber> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public BarberEntity? GetById(Guid id)
+        public IBarber? GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -71,7 +71,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public void Update(BarberEntity barber)
+        public void Update(IBarber barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {

@@ -1,6 +1,4 @@
-﻿using Hair.Domain.Entities;
-
-namespace Hair.Application.Dto
+﻿namespace Hair.Application.Dto
 {
     public class ScheduleHaircutDto
     {

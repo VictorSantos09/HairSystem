@@ -2,6 +2,7 @@
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
 using static Xunit.Assert;
@@ -10,7 +11,7 @@ namespace Hair.Tests.Services
 {
     public class FireBarberTest
     {
-        private readonly Mock<IBaseRepository<BarberEntity>> _barberRepositoryMock = new Mock<IBaseRepository<BarberEntity>>();
+        private readonly Mock<IBaseRepository<IBarber>> _barberRepositoryMock = new Mock<IBaseRepository<IBarber>>();
         private readonly FireBarberService _service;
         private GlobalUser _globalUser = new();
         private FireBarberDto _dto;

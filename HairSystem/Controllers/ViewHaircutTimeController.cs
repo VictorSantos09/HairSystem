@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Services;
-using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +13,7 @@ namespace HairSystem.Controllers
     {
         private readonly ViewHaircutTimeService _service;
 
-        public ViewHaircutTimeController(IBaseRepository<HaircutEntity> haircutRepository)
+        public ViewHaircutTimeController(IBaseRepository<IHaircut> haircutRepository)
         {
             _service = new ViewHaircutTimeService(haircutRepository);
         }

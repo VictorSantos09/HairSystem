@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Dto;
 using Hair.Application.Services;
-using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +10,10 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class RegisterController : ControllerBase
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
         private readonly RegisterService _service;
 
-        public RegisterController(IBaseRepository<UserEntity> userRepository)
+        public RegisterController(IBaseRepository<IUser> userRepository)
         {
             _userRepository = userRepository;
             _service = new(_userRepository);

@@ -1,25 +1,23 @@
-﻿using System;
-using Hair.Application.Common;
-using Hair.Application.Dto;
+﻿using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
-using Xunit;
 
-namespace Hair.Tests.Application.Services
+namespace Hair.Tests.Services
 {
     public class PostImageServiceTests
     {
-        private readonly Mock<IBaseRepository<ImageEntity>> _mockImageRepository;
-        private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
+        private readonly Mock<IBaseRepository<IImage>> _mockImageRepository;
+        private readonly Mock<IBaseRepository<IUser>> _mockUserRepository;
         private readonly PostImageService _postImageService;
 
         public PostImageServiceTests()
         {
-            _mockImageRepository = new Mock<IBaseRepository<ImageEntity>>();
-            _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
+            _mockImageRepository = new Mock<IBaseRepository<IImage>>();
+            _mockUserRepository = new Mock<IBaseRepository<IUser>>();
             _postImageService = new PostImageService(_mockImageRepository.Object, _mockUserRepository.Object);
         }
 

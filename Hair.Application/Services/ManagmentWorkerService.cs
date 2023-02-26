@@ -1,6 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -10,13 +11,13 @@ namespace Hair.Application.Services
     /// </summary>
     public class ManagmentWorkerService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<IBarber> _barberRepository;
         private readonly UpdateBarberService _update;
         private readonly HireBarberService _hire;
         private readonly FireBarberService _fire;
 
-        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository)
+        public ManagmentWorkerService(IBaseRepository<IUser> userRepository, IBaseRepository<IBarber> barberRepository)
         {
             _userRepository = userRepository;
             _barberRepository = barberRepository;

@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -7,19 +8,19 @@ using System.Data.SqlClient;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircutEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="IHaircut"/>.
     /// </summary>
-    public class HaircutRepository : IBaseRepository<HaircutEntity>
+    public class HaircutRepository : IBaseRepository<IHaircut>
     {
         private readonly static string TableName = "HAIRCUTS";
         public HaircutRepository()
         {
         }
-        public void Create(HaircutEntity haircut)
+        public void Create(IHaircut haircut)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@SALOON_ID, @HAIRCUT_TIME, @AVAILABLE, @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER, @ID)",conn);
+                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@SALOON_ID, @HAIRCUT_TIME, @AVAILABLE, @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER, @ID)", conn);
 
                 conn.Open();
 
@@ -34,7 +35,7 @@ namespace Hair.Repository.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
-        public void Update(HaircutEntity haircut) // QUEBRANDO
+        public void Update(IHaircut haircut) // QUEBRANDO
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -74,7 +75,7 @@ namespace Hair.Repository.Repositories
                 return true;
             }
         }
-        public List<HaircutEntity> GetAll()
+        public List<IHaircut> GetAll()
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -83,13 +84,13 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                var haircuts = new List<HaircutEntity>();
+                var haircuts = new List<IHaircut>();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var haircut = new HaircutEntity();
+                        IHaircut haircut = new HaircutEntity();
 
                         haircut.Id = reader.GetGuid("ID");
                         haircut.SaloonId = reader.GetGuid("SALOON_ID");
@@ -106,7 +107,7 @@ namespace Hair.Repository.Repositories
                 return haircuts;
             }
         }
-        public HaircutEntity? GetById(Guid id)
+        public IHaircut? GetById(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -122,7 +123,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private HaircutEntity? BuildEntity(SqlCommand cmd)
+        private IHaircut? BuildEntity(SqlCommand cmd)
         {
             HaircutEntity? haircut = new HaircutEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())

@@ -1,9 +1,11 @@
-﻿namespace Hair.Domain.Entities
+﻿using Hair.Domain.Interfaces;
+
+namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do endereço
     /// </summary>
-    public class AddressEntity
+    public class AddressEntity : IAddress
     {
         public string Street { get; set; }
         public string Number { get; set; }

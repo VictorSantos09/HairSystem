@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -11,10 +12,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class PostImageService
     {
-        private readonly IBaseRepository<ImageEntity> _imageRepository;
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<IImage> _imageRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
 
-        public PostImageService(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository)
+        public PostImageService(IBaseRepository<IImage> imageRepository, IBaseRepository<IUser> userRepository)
         {
             _imageRepository = imageRepository;
             _userRepository = userRepository;

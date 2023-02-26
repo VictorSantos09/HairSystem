@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -7,19 +8,19 @@ using System.Data.SqlClient;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="IUser"/>.
     /// </summary>
-    public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
+    public class UserRepository : IBaseRepository<IUser>, IGetByEmail
     {
         private readonly static string TableName = "USERS";
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<IHaircut> _haircutRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
+        public UserRepository(IBaseRepository<IHaircut> haircutRepository)
         {
             _haircutRepository = haircutRepository;
         }
 
-        public void Create(UserEntity user)
+        public void Create(IUser user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -38,14 +39,14 @@ namespace Hair.Repository.Repositories
                 cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
                 cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
                 cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
-                cmd.Parameters.AddWithValue("@OPEN_TIME",  user.OpenTime);
+                cmd.Parameters.AddWithValue("@OPEN_TIME", user.OpenTime);
                 cmd.Parameters.AddWithValue("@GOOGLE_MAPS_SOURCE", user.GoogleMapsSource);
                 cmd.Parameters.AddWithValue("@CLOSE_TIME", user.CloseTime);
 
                 cmd.ExecuteNonQuery();
             }
         }
-        public void Update(UserEntity user)
+        public void Update(IUser user) // quebrado
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -69,9 +70,9 @@ namespace Hair.Repository.Repositories
 
                 cmd.ExecuteNonQuery();
             }
-        } // quebrado
+        }
 
-        public UserEntity? GetByEmail(string email, string password)
+        public IUser? GetByEmail(string email, string password)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -88,7 +89,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public UserEntity? GetById(Guid id)
+        public IUser? GetById(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -104,7 +105,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<UserEntity> GetAll()
+        public List<IUser> GetAll()
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -113,7 +114,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                var users = new List<UserEntity>();
+                var users = new List<IUser>();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -170,7 +171,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private UserEntity? BuildEntity(SqlCommand cmd)
+        private IUser? BuildEntity(SqlCommand cmd)
         {
             UserEntity? user = new UserEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -188,15 +189,16 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                    user.OpenTime = Convert.ToDateTime(reader.GetString("OPEN_TIME"));
-                    user.CloseTime = Convert.ToDateTime(reader.GetString("CLOSE_TIME"));
+                    //user.OpenTime = Convert.ToDateTime(reader.GetValue("OPEN_TIME"));
+                    //user.CloseTime = Convert.ToDateTime(reader.GetValue("CLOSE_TIME"));
                 }
+
                 PopulateHaircut(user);
             }
             return user.Id == Guid.Empty ? null : user;
         }
 
-        private void PopulateHaircut(UserEntity user)
+        private void PopulateHaircut(IUser user)
         {
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
 
