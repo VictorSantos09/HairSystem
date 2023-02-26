@@ -32,7 +32,7 @@ namespace Hair.Application
             services.AddTransient<IBaseRepository<IImage>, ImageRepository>();
 
             services.AddTransient<IGetByEmail, UserRepository>();
-            services.AddTransient<IExeception, ExeceptionHelper>();
+            services.AddTransient<IException, ExceptionHelper>();
         }
     }
 }

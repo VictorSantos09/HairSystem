@@ -13,7 +13,6 @@ namespace Hair.Application.Services
     {
         private readonly IBaseRepository<IUser> _userRepository;
         private double _newPrice;
-        private Guid _userId;
 
         public ChangePriceService(IBaseRepository<IUser> userRepository)
         {
@@ -33,18 +32,17 @@ namespace Hair.Application.Services
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
 
-            _userId = dto.SaloonId;
-            _newPrice = dto.NewPrice;
-
             if (double.IsNegative(dto.NewPrice) == true)
                 return BaseDtoExtension.Invalid();
+
+            _newPrice = dto.NewPrice;
 
             var user = _userRepository.GetById(dto.SaloonId);
 
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var haircutPlace = CheckAndApplyPrice(dto.Hair, dto.Mustache, dto.Beard);
+            var haircutPlace = CheckAndApplyPrice(dto.Hair, dto.Mustache, dto.Beard, user);
 
             if (!haircutPlace)
                 return BaseDtoExtension.Create(406, "Escolha algum item");
@@ -62,40 +60,40 @@ namespace Hair.Application.Services
         /// <param name="beard"></param>
         /// 
         /// <returns>Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação</returns>
-        private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard)
+        private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard, IUser user)
         {
             if (!beard || !mustache || !beard)
                 return false;
 
             if (hair)
-                ApplyHairPrice();
+                ApplyHairPrice(user);
 
             if (mustache)
-                ApplyMustachePrice();
+                ApplyMustachePrice(user);
 
 
             if (beard)
-                ApplyBeardPrice();
+                ApplyBeardPrice(user);
 
             return true;
         }
-        private void ApplyHairPrice()
+        private void ApplyHairPrice(IUser user)
         {
-            var user = _userRepository.GetById(_userId);
-
             user.Prices.Hair = _newPrice;
-        }
-        private void ApplyBeardPrice()
-        {
-            var user = _userRepository.GetById(_userId);
 
+            _userRepository.Update(user);
+        }
+        private void ApplyBeardPrice(IUser user)
+        {
             user.Prices.Beard = _newPrice;
-        }
-        private void ApplyMustachePrice()
-        {
-            var user = _userRepository.GetById(_userId);
 
+            _userRepository.Update(user);
+        }
+        private void ApplyMustachePrice(IUser user)
+        {
             user.Prices.Mustache = _newPrice;
+
+            _userRepository.Update(user);
         }
     }
 }
