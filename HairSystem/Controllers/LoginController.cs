@@ -2,7 +2,7 @@
 using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Services;
-using Hair.Repository.Repositories;
+using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
@@ -12,14 +12,10 @@ namespace HairSystem.Controllers
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
-        private readonly UserRepository _userRepository;
-        private readonly HaircutRepository _haircutRepository;
 
-        public LoginController()
+        public LoginController(IGetByEmail getByEmail)
         {
-            _haircutRepository = new();
-            _userRepository = new(_haircutRepository);
-            _loginService = new LoginService(_userRepository);
+            _loginService = new(getByEmail);
         }
 
         [HttpPost]

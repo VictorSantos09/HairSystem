@@ -1,11 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
-using Hair.Repository.Repositories;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Hair.Application.Services
 {
@@ -14,12 +11,12 @@ namespace Hair.Application.Services
     /// </summary>
     public class ViewHaircutTimeService
     {
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<IHaircut> _haircutRepository;
 
         /// <summary>
         /// <param name="haircutRepository">Repositório de cortes de cabelo.</param>
         /// </summary>
-        public ViewHaircutTimeService(IBaseRepository<HaircutEntity> haircutRepository)
+        public ViewHaircutTimeService(IBaseRepository<IHaircut> haircutRepository)
         {
             _haircutRepository = haircutRepository;
         }

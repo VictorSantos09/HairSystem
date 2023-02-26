@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -7,13 +8,13 @@ using System.Data.SqlClient;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="SaloonItemEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ISaloonItem"/>.
     /// </summary>
-    public class StorageRepository : IBaseRepository<SaloonItemEntity>
+    public class StorageRepository : IBaseRepository<ISaloonItem>
     {
         private readonly static string TableName = "SALOON_ITEMS";
 
-        public void Create(SaloonItemEntity item)
+        public void Create(ISaloonItem item)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -33,12 +34,12 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<SaloonItemEntity> GetAll()
+        public List<ISaloonItem> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public SaloonItemEntity? GetById(Guid id)
+        public ISaloonItem? GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +49,7 @@ namespace Hair.Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(SaloonItemEntity item)
+        public void Update(ISaloonItem item)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {

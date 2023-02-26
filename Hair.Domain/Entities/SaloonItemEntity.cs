@@ -1,12 +1,14 @@
 ﻿using Hair.Domain.Common;
+using Hair.Domain.Interfaces;
 
 namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração dos itens do salão
     /// </summary>
-    public class SaloonItemEntity : BaseEntity
+    public class SaloonItemEntity : ISaloonItem
     {
+        public Guid Id { get; set; }
         public Guid SaloonId { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }

@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Hair.Domain.Common;
+using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -12,7 +12,7 @@ namespace Hair.Repository.Repositories
     /// Todos os repositories existente DEVEM herdar dessa classe.
     /// </summary>
 
-    public abstract class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : BaseEntity
+    public abstract class BaseRepository<T> : IRemove, IGetAll<T>, IGetById<T> where T : IBase
     {
         private readonly string _table;
         public BaseRepository(string table)

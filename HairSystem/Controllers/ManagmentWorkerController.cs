@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,10 @@ namespace HairSystem.Controllers
     public class ManagmentWorkerController : ControllerBase
     {
         private readonly ManagmentWorkerService _service;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<IBarber> _barberRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
 
-        public ManagmentWorkerController(IBaseRepository<BarberEntity> barberRepository, IBaseRepository<UserEntity> userRepository)
+        public ManagmentWorkerController(IBaseRepository<IBarber> barberRepository, IBaseRepository<IUser> userRepository)
         {
             _barberRepository = barberRepository;
             _userRepository = userRepository;

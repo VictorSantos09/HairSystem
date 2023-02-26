@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,10 @@ namespace HairSystem.Controllers
     public class PostImageController : ControllerBase
     {
         private readonly PostImageService _service;
-        private readonly IBaseRepository<ImageEntity> _imageRepository;
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<IImage> _imageRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
 
-        public PostImageController(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository)
+        public PostImageController(IBaseRepository<IImage> imageRepository, IBaseRepository<IUser> userRepository)
         {
             _imageRepository = imageRepository;
             _userRepository = userRepository;

@@ -1,4 +1,5 @@
 ﻿using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
 
@@ -6,14 +7,14 @@ namespace Hair.Tests.Repository
 {
     public class BaseRepositoryTest
     {
-        private readonly Mock<IBaseRepository<UserEntity>> _mock = new Mock<IBaseRepository<UserEntity>>();
+        private readonly Mock<IBaseRepository<IUser>> _mock = new Mock<IBaseRepository<IUser>>();
 
         [Fact]
         public void GetAll_ShouldShowUsers_WhenExists()
         {
-            var users = new List<UserEntity>();
+            var users = new List<IUser>();
 
-            users.Add(It.IsAny<UserEntity>());
+            users.Add(It.IsAny<IUser>());
 
             _mock.Setup(x => x.GetAll()).Returns(users);
 
@@ -67,10 +68,10 @@ namespace Hair.Tests.Repository
         {
             var user = new UserEntity("CarlosHair", "Carlin", null, "carlos@gmail.com", null, null, null, null);
 
-            _mock.Setup(x => x.Update(It.IsAny<UserEntity>())).Callback((UserEntity userEntity) =>
+            _mock.Setup(x => x.Update(It.IsAny<IUser>())).Callback((IUser IUser) =>
             {
-                userEntity.SaloonName = "CarlosHair";
-                userEntity.OwnerName = "Carlin";
+                IUser.SaloonName = "CarlosHair";
+                IUser.OwnerName = "Carlin";
             });
 
             _mock.Object.Update(user);
@@ -83,7 +84,7 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Delete_ShouldRemoveUser_WhenExists()
         {
-            var users = new List<UserEntity>();
+            var users = new List<IUser>();
 
             var user = new UserEntity("CarlosTeste", "CarlinTeste", null, "carlos@gmail.com", null, null, null, null);
 

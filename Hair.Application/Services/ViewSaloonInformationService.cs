@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -11,9 +12,9 @@ namespace Hair.Application.Services
     /// </summary>
     public class ViewSaloonInformationService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
 
-        public ViewSaloonInformationService(IBaseRepository<UserEntity> userRepository)
+        public ViewSaloonInformationService(IBaseRepository<IUser> userRepository)
         {
             _userRepository = userRepository;
         }

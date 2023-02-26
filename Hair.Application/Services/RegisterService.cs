@@ -2,6 +2,7 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -11,9 +12,9 @@ namespace Hair.Application.Services
     /// </summary>
     public class RegisterService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<IUser> _userRepository;
 
-        public RegisterService(IBaseRepository<UserEntity> userRepository)
+        public RegisterService(IBaseRepository<IUser> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -46,11 +47,19 @@ namespace Hair.Application.Services
             if (string.IsNullOrEmpty(dto.Name) || string.IsNullOrWhiteSpace(dto.Name) || dto.Name.Length < 5)
                 return BaseDtoExtension.Invalid("Nome muito curto");
 
+            DateTime openTime;
+            if (!DateTime.TryParse(dto.OpenTime.ToString(), out openTime))
+                return BaseDtoExtension.Invalid("Horário de abertura inválido");
+
+            DateTime closeTime;
+            if (!DateTime.TryParse(dto.CloseTime.ToString(), out closeTime))
+                return BaseDtoExtension.Invalid("Horário de fechamento inválido");
+
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement);
 
             var haircutPrice = new HaircutPriceEntity(dto.HairPrice, dto.BeardPrice, dto.MustachePrice);
 
-            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, address, dto.CNPJ, haircutPrice);
+            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, address, dto.CNPJ, haircutPrice, openTime, dto.GoogleMapsSource, closeTime);
 
             _userRepository.Create(newUser);
 
