@@ -1,6 +1,6 @@
-using Hair.Domain.Interfaces;
-﻿using Hair.Application.Exeception;
+using Hair.Application.Exeception;
 using Hair.Domain.Entities;
+using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Repositories;
 using Microsoft.Extensions.DependencyInjection;

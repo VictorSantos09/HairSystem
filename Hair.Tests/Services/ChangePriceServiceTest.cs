@@ -13,13 +13,14 @@ namespace Hair.Tests.Services
     {
         private readonly ChangePriceService _service;
         private readonly Mock<IBaseRepository<IUser>> _userRepositoryMock = new Mock<IBaseRepository<IUser>>();
-        private readonly GlobalUser _globalUser;
         private ChangePriceDto _dto;
+        private IHaircutPrice _haircutPrice = new HaircutPriceEntity(20, 20, 20);
+        private IUser _user;
 
         public ChangePriceServiceTest()
         {
-            _globalUser = new GlobalUser();
-            _dto = new(_globalUser.Id, 20, true, true, true, true);
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(), null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+            _dto = new(_user.Id, 20, true, true, true, true);
             _service = new ChangePriceService(_userRepositoryMock.Object);
         }
 
@@ -72,8 +73,7 @@ namespace Hair.Tests.Services
         private void ChangePrice_ShouldReturn406_WhenAnyHaircutTrue()
         {
             // Arrange
-            var user = _globalUser.GetGlobalUser();
-            _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(user);
+            _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(_user);
             _dto.Mustache = false;
             _dto.Beard = false;
             _dto.Hair = false;
@@ -91,8 +91,7 @@ namespace Hair.Tests.Services
         private void ChangePrice_ShouldReturn200_WhenDataIsCorrect_And_ApplyChange()
         {
             // Arrange
-            var user = _globalUser.GetGlobalUser();
-            _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(user);
+            _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(_user);
 
             // Act
             var actual = _service.ChangeHaircutePrice(_dto);

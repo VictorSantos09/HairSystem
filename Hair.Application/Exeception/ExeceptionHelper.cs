@@ -9,7 +9,7 @@
             return new
             {
                 StatusCode = _StatusCode,
-                ex.Message,
+                Message = ex.Message,
                 Target = ex.TargetSite
             };
         }

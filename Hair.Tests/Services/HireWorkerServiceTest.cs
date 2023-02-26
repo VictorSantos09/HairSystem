@@ -13,11 +13,14 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<IUser>> _userRepositoryMock = new Mock<IBaseRepository<IUser>>();
         private readonly Mock<IBaseRepository<IBarber>> _barberRepositoryMock = new Mock<IBaseRepository<IBarber>>();
-        private readonly GlobalUser _user = new();
         private readonly HireBarberService _service;
         private HireBarberDto _dto;
+        private IHaircutPrice _haircutPrice = new HaircutPriceEntity(20, 20, 20);
+        private IUser _user;
         public HireWorkerServiceTest()
         {
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(),
+                null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
             _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
             _dto = new HireBarberDto("Carlos", _user.Id, "047335478456", "carlos@gmail.com", 2000, "Rua Maria Alberta", "54", "", "Blumenau", "SC", true);
         }
@@ -56,7 +59,7 @@ namespace Hair.Tests.Services
         public void HireNewBarber_ShouldSuccess_WhenDtoDataOk()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_user.Id)).Returns(_user.GetGlobalUser());
+            _userRepositoryMock.Setup(x => x.GetById(_user.Id)).Returns(_user);
             _barberRepositoryMock.Setup(x => x.Create(It.IsAny<BarberEntity>()));
 
             // Act

@@ -36,35 +36,94 @@ namespace Hair.Repository.Repositories
 
         public List<ISaloonItem> GetAll()
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"SELECT * FROM {TableName}";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                var itens = new List<ISaloonItem>();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ISaloonItem item = new SaloonItemEntity();
+
+                        item.Id = reader.GetGuid("ID");
+                        item.SaloonId = reader.GetGuid("SALOON_ID");
+                        item.Name = reader.GetString("NAME");
+                        item.Price = reader.GetDouble("PRICE");
+                        item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
+
+                        itens.Add(item);
+                    }
+                }
+
+                return itens;
+            }
         }
 
         public ISaloonItem? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"SELECT * FROM {TableName} WHERE Id= @Id";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                conn.Open();
+
+                return BuildEntity(cmd);
+            }
         }
 
         public bool Remove(Guid id)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"DELETE FROM {TableName} WHERE ID= @ID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@ID", id);
+
+                conn.Open();
+
+                var affectRows = cmd.ExecuteNonQuery();
+
+                if (affectRows == 0)
+                    return false;
+
+                return true;
+            }
         }
 
         public void Update(ISaloonItem item)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
-            {
-                var cmd = new SqlCommand($"UPDATE {TableName} SET NAME = @NAME, PRICE = @PRICE, QUANTITY_AVAILABLE = @QUANTITY_AVAILABLE, SALOON_ID = @SALOON_ID WHERE ID = @ID");
 
-                conn.Open();
-
-                cmd.Parameters.AddWithValue("@NAME", item.Name);
-                cmd.Parameters.AddWithValue("@PRICE", item.Price);
-                cmd.Parameters.AddWithValue("@QUANTITY_AVAILABLE", item.QuantityAvaible);
-                cmd.Parameters.AddWithValue("@ID", item.Id);
-                cmd.Parameters.AddWithValue("@SALOON_ID", item.SaloonId);
-
-                cmd.ExecuteNonQuery();
-            }
         }
+
+        private ISaloonItem? BuildEntity(SqlCommand cmd)
+        {
+            ISaloonItem? item = new SaloonItemEntity();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    item.Id = reader.GetGuid("ID");
+                    item.SaloonId = reader.GetGuid("SALOON_ID");
+                    item.Name = reader.GetString("NAME");
+                    item.Price = reader.GetDouble("PRICE");
+                    item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
+                }
+
+            }
+            return item.Id == Guid.Empty ? null : item;
+        }
+
     }
 }

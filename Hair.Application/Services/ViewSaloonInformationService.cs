@@ -1,7 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Domain.Entities;
 using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 

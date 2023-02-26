@@ -189,8 +189,8 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                    //user.OpenTime = Convert.ToDateTime(reader.GetValue("OPEN_TIME"));
-                    //user.CloseTime = Convert.ToDateTime(reader.GetValue("CLOSE_TIME"));
+                    user.OpenTime = Convert.ToDateTime(reader.GetValue("OPEN_TIME")); // consertar
+                    user.CloseTime = Convert.ToDateTime(reader.GetValue("CLOSE_TIME"));
                 }
 
                 PopulateHaircut(user);

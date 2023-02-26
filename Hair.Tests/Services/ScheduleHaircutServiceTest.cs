@@ -59,7 +59,7 @@ namespace Hair.Tests.Services
             // Arrange
             var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
             var mockPrice = new HaircutPriceEntity(20, 20, 20);
-            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice);
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice,DateTime.Now,null,DateTime.Now.AddHours(4));
             DateTime? haircutTime = null;
 
             // Use the ternary operator to assign a default value if the haircutTime is null
