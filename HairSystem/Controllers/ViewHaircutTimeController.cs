@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Exeception;
 using Hair.Application.Services;
 using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
@@ -12,9 +13,11 @@ namespace HairSystem.Controllers
     public class ViewHaircutTimeController : ControllerBase
     {
         private readonly ViewHaircutTimeService _service;
+        private readonly IException _exHelper;
 
-        public ViewHaircutTimeController(IBaseRepository<IHaircut> haircutRepository)
+        public ViewHaircutTimeController(IBaseRepository<IHaircut> haircutRepository, IException exception)
         {
+            _exHelper = exception;
             _service = new ViewHaircutTimeService(haircutRepository);
         }
 
@@ -22,9 +25,21 @@ namespace HairSystem.Controllers
         [Route("GetScheduledHaircuts")]
         public IActionResult GetScheduledHaircuts([FromBody] ViewHaircutTimeDto dto)
         {
-            var result = _service.GetScheduledHaircuts(dto);
-
-            return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+            try
+            {
+                var result = _service.GetScheduledHaircuts(dto);
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }

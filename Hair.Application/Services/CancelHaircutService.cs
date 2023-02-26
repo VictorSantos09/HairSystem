@@ -38,8 +38,8 @@ namespace Hair.Application.Services
 
             var user = _userRepository.GetById(dto.UserID);
 
-            if (user == null)
-                return BaseDtoExtension.NotFound();
+            //if (user == null)
+            //    return BaseDtoExtension.NotFound();
 
             var haircut = user.Haircuts.Find(x => x.Client.Name == dto.ClientName && x.Client.PhoneNumber == dto.ClientPhoneNumber && x.HaircuteTime == dto.HaircutTime);
 

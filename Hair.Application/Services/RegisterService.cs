@@ -12,9 +12,9 @@ namespace Hair.Application.Services
     /// </summary>
     public class RegisterService
     {
-        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IGetByEmail _userRepository;
 
-        public RegisterService(IBaseRepository<IUser> userRepository)
+        public RegisterService(IGetByEmail userRepository)
         {
             _userRepository = userRepository;
         }
@@ -46,6 +46,11 @@ namespace Hair.Application.Services
 
             if (string.IsNullOrEmpty(dto.Name) || string.IsNullOrWhiteSpace(dto.Name) || dto.Name.Length < 5)
                 return BaseDtoExtension.Invalid("Nome muito curto");
+
+            var isExistentUser = _userRepository.GetByEmail(dto.Email,dto.Password);
+
+            if (isExistentUser != null)
+                return BaseDtoExtension.Invalid("Usuário já registrado");
 
             DateTime openTime;
             if (!DateTime.TryParse(dto.OpenTime.ToString(), out openTime))

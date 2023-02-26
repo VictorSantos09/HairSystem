@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Exeception;
 using Hair.Application.Services;
 using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
@@ -13,9 +14,11 @@ namespace HairSystem.Controllers
     {
         private readonly ChangePriceService _changePrice;
         private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IException _exHelper;
 
-        public ChangePriceController(IBaseRepository<IUser> userRepository)
+        public ChangePriceController(IBaseRepository<IUser> userRepository, IException exception)
         {
+            _exHelper = exception;
             _userRepository = userRepository;
             _changePrice = new ChangePriceService(_userRepository);
         }
@@ -24,9 +27,21 @@ namespace HairSystem.Controllers
         [Route("ChangeHaircutePrice")]
         public IActionResult ChangePrice(ChangePriceDto dto)
         {
-            var result = _changePrice.ChangeHaircutePrice(dto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            try
+            {
+                var result = _changePrice.ChangeHaircutePrice(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch(ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }

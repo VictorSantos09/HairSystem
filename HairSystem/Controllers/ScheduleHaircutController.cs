@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Exeception;
 using Hair.Application.Services;
 using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
@@ -14,9 +15,11 @@ namespace HairSystem.Controllers
         private ScheduleHaircutService _service;
         private readonly IBaseRepository<IUser> _userRepository;
         private readonly IBaseRepository<IHaircut> _haircutRepository;
+        private readonly IException _exHelper;
 
-        public ScheduleHaircutController(IBaseRepository<IUser> userRepository, IBaseRepository<IHaircut> haircutRepository)
+        public ScheduleHaircutController(IBaseRepository<IUser> userRepository, IBaseRepository<IHaircut> haircutRepository, IException exception)
         {
+            _exHelper = exception;
             _userRepository = userRepository;
             _haircutRepository = haircutRepository;
             _service = new(_userRepository, _haircutRepository);
@@ -26,9 +29,21 @@ namespace HairSystem.Controllers
         [Route("ScheduleHaircut")]
         public IActionResult Schedule([FromBody] ScheduleHaircutDto dto)
         {
-            var result = _service.Schedule(dto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            try
+            {
+                var result = _service.Schedule(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }
