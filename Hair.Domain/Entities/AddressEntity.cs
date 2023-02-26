@@ -17,7 +17,7 @@
             Number = number.ToUpper();
             City = city.ToUpper();
             State = state.ToUpper();
-            Complement = complement == null ? complement : complement.ToUpper();
+            Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement;
             FullAddress = $"{Street},{Number}. {City} - {State}. {Complement}";
         }
 

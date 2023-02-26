@@ -27,10 +27,10 @@
             Email = email.ToUpper();
             Password = password;
             Address = address;
-            CNPJ = cNPJ;
+            CNPJ = string.IsNullOrEmpty(cNPJ) == true || string.IsNullOrWhiteSpace(cNPJ) == true ? null : cNPJ;
             Prices = priceEntity;
             OpenTime = openTime;
-            GoogleMapsSource = googleMapsSource;
+            GoogleMapsSource = string.IsNullOrEmpty(googleMapsSource) == true || string.IsNullOrWhiteSpace(googleMapsSource) == true ? null : googleMapsSource;
             CloseTime = closeTime;
         }
         public UserEntity()

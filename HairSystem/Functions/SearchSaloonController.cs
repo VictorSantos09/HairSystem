@@ -27,7 +27,7 @@ namespace HairSystem.Functions
         {
             try
             {
-                var result = _function.Filtered(dto);
+                var result = _function.FilteredSearch(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)
