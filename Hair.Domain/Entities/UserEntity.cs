@@ -5,17 +5,53 @@
     /// </summary>
     public class UserEntity : BaseEntity
     {
+        /// <summary>
+        /// Nome do salão
+        /// </summary>
         public string SaloonName { get; set; }
+        /// <summary>
+        /// Nome do dono
+        /// </summary>
         public string OwnerName { get; set; }
+        /// <summary>
+        /// Telefone do salão
+        /// </summary>
         public string PhoneNumber { get; set; }
+        /// <summary>
+        /// Email do salão
+        /// </summary>
         public string Email { get; set; }
+        /// <summary>
+        /// CNPJ do salão
+        /// </summary>
         public string? CNPJ { get; set; }
+        /// <summary>
+        /// Senha do usuário
+        /// </summary>
         public string Password { get; set; }
+        /// <summary>
+        /// Horário de abertura do salão
+        /// </summary>
         public DateTime OpenTime { get; set; }
+        /// <summary>
+        /// Horário de fechamento do salão
+        /// </summary>
         public DateTime CloseTime { get; set; }
+        /// <summary>
+        /// Link do salão no Google Maps
+        /// </summary>
         public string? GoogleMapsSource { get; set; }
+        /// <summary>
+        /// Endereço do salão
+        /// </summary>
         public AddressEntity Address { get; set; } = new AddressEntity();
+        /// <summary>
+        /// Preço dos cortes
+        /// </summary>
         public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
+        /// <summary>
+        /// Cortes de cabelo agendados
+        /// </summary>
         public List<HaircutEntity> Haircuts { get; set; } = new();
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
             AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, DateTime openTime, string? googleMapsSource, DateTime closeTime)
