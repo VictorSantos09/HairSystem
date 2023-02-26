@@ -24,7 +24,7 @@ namespace Hair.Repository.Repositories
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
                 var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL," +
-                    $" @PASSWORD, @CNPJ, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE)", conn);
+                    $" @PASSWORD, @CNPJ, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE, @OPEN_TIME, @GOOGLE_MAPS_SOURCE, @CLOSE_TIME)", conn);
 
                 conn.Open();
 
@@ -38,6 +38,9 @@ namespace Hair.Repository.Repositories
                 cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
                 cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
                 cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
+                cmd.Parameters.AddWithValue("@OPEN_TIME",  user.OpenTime);
+                cmd.Parameters.AddWithValue("@GOOGLE_MAPS_SOURCE", user.GoogleMapsSource);
+                cmd.Parameters.AddWithValue("@CLOSE_TIME", user.CloseTime);
 
                 cmd.ExecuteNonQuery();
             }
@@ -66,7 +69,7 @@ namespace Hair.Repository.Repositories
 
                 cmd.ExecuteNonQuery();
             }
-        }
+        } // quebrado
 
         public UserEntity? GetByEmail(string email, string password)
         {
@@ -185,7 +188,8 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-
+                    user.OpenTime = Convert.ToDateTime(reader.GetString("OPEN_TIME"));
+                    user.CloseTime = Convert.ToDateTime(reader.GetString("CLOSE_TIME"));
                 }
                 PopulateHaircut(user);
             }
