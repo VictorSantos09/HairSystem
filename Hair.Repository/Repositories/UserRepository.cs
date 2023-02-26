@@ -46,30 +46,9 @@ namespace Hair.Repository.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
-        public void Update(IUser user) // quebrado
+        public void Update(IUser user) 
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
-            {
-                var query = $"UPDATE {TableName} SET SALOON_NAME= @SALOON_NAME, OWNER_NAME= @OWNER_NAME, PHONE_NUMBER= @PHONE_NUMBER, EMAIL= @EMAIL," +
-                    $" PASSWORD= @PASSWORD, CNPJ= @CNPJ, HAIRCUT_HAIR= @HAIRCUT_HAIR, HAIRCUT_MUSTACHE= @HAIRCUT_MUSTACHE, HAIRCUT_BEARD= @HAIRCUT_BEARD WHERE ID= @ID)";
-
-                var cmd = new SqlCommand(query, conn);
-
-                conn.Open();
-
-                cmd.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
-                cmd.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
-                cmd.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
-                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
-                cmd.Parameters.AddWithValue("@PASSWORD", user.Password);
-                cmd.Parameters.AddWithValue("@CNPJ", user.CNPJ);
-                cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
-                cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
-                cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
-                cmd.Parameters.AddWithValue("@ID", user.Id);
-
-                cmd.ExecuteNonQuery();
-            }
+ 
         }
 
         public IUser? GetByEmail(string email, string password)
@@ -176,7 +155,6 @@ namespace Hair.Repository.Repositories
             UserEntity? user = new UserEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
-
                 while (reader.Read())
                 {
                     user.Id = reader.GetGuid("ID");
@@ -189,8 +167,8 @@ namespace Hair.Repository.Repositories
                     user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
                     user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
                     user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                    user.OpenTime = Convert.ToDateTime(reader.GetValue("OPEN_TIME")); // consertar
-                    user.CloseTime = Convert.ToDateTime(reader.GetValue("CLOSE_TIME"));
+                    user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
+                    user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
                 }
 
                 PopulateHaircut(user);
