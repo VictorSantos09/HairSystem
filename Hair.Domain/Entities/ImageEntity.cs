@@ -1,5 +1,4 @@
-﻿using Hair.Domain.Common;
-using Hair.Domain.Interfaces;
+﻿using Hair.Domain.Interfaces;
 
 namespace Hair.Domain.Entities
 {

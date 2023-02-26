@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hair.Application.Exeception
+﻿namespace Hair.Application.Exeception
 {
     public interface IExeception
     {
