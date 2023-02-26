@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
+using Hair.Domain.Entities;
 
 namespace Hair.Application.Services
 {
@@ -11,10 +11,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class ChangePriceService
     {
-        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
         private double _newPrice;
 
-        public ChangePriceService(IBaseRepository<IUser> userRepository)
+        public ChangePriceService(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -60,7 +60,7 @@ namespace Hair.Application.Services
         /// <param name="beard"></param>
         /// 
         /// <returns>Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação</returns>
-        private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard, IUser user)
+        private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard, UserEntity user)
         {
             if (!beard || !mustache || !beard)
                 return false;
@@ -77,19 +77,19 @@ namespace Hair.Application.Services
 
             return true;
         }
-        private void ApplyHairPrice(IUser user)
+        private void ApplyHairPrice(UserEntity user)
         {
             user.Prices.Hair = _newPrice;
 
             _userRepository.Update(user);
         }
-        private void ApplyBeardPrice(IUser user)
+        private void ApplyBeardPrice(UserEntity user)
         {
             user.Prices.Beard = _newPrice;
 
             _userRepository.Update(user);
         }
-        private void ApplyMustachePrice(IUser user)
+        private void ApplyMustachePrice(UserEntity user)
         {
             user.Prices.Mustache = _newPrice;
 

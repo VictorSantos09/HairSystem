@@ -2,7 +2,6 @@
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
 
@@ -10,14 +9,14 @@ namespace Hair.Tests.Services
 {
     public class ScheduleHaircutServiceTests
     {
-        private readonly Mock<IBaseRepository<IUser>> _mockUserRepository;
-        private readonly Mock<IBaseRepository<IHaircut>> _mockHaircutRepository;
+        private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
+        private readonly Mock<IBaseRepository<HaircutEntity>> _mockHaircutRepository;
         private readonly ScheduleHaircutService _scheduleHaircutService;
 
         public ScheduleHaircutServiceTests()
         {
-            _mockUserRepository = new Mock<IBaseRepository<IUser>>();
-            _mockHaircutRepository = new Mock<IBaseRepository<IHaircut>>();
+            _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
+            _mockHaircutRepository = new Mock<IBaseRepository<HaircutEntity>>();
             _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object);
         }
 
@@ -59,7 +58,7 @@ namespace Hair.Tests.Services
             // Arrange
             var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
             var mockPrice = new HaircutPriceEntity(20, 20, 20);
-            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice,DateTime.Now,null,DateTime.Now.AddHours(4));
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
             DateTime? haircutTime = null;
 
             // Use the ternary operator to assign a default value if the haircutTime is null
@@ -147,9 +146,9 @@ namespace Hair.Tests.Services
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
 
-            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<IHaircut>());
+            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<HaircutEntity>());
 
-            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<IHaircut>())).Callback<IHaircut>(haircut =>
+            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<HaircutEntity>())).Callback<HaircutEntity>(haircut =>
             {
                 user.Haircuts.Add(haircut);
             });

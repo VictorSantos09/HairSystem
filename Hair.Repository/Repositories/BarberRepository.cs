@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -10,10 +9,10 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Repositório responsável por gerenciar as operações de Create e Update para a entidade Barber contida em <see cref="BarberEntity"/>.
     /// </summary>
-    public class BarberRepository : IBaseRepository<IBarber>
+    public class BarberRepository : IBaseRepository<BarberEntity>
     {
         public static readonly string TableName = "BARBERS";
-        public void Create(IBarber barber)
+        public void Create(BarberEntity barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -41,7 +40,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<IBarber> GetAll()
+        public List<BarberEntity> GetAll()
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -50,13 +49,13 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                var barbers = new List<IBarber>();
+                var barbers = new List<BarberEntity>();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        IBarber barber = new BarberEntity();
+                        BarberEntity barber = new BarberEntity();
 
                         barber.Id = reader.GetGuid("ID");
                         barber.Name = reader.GetString("NAME");
@@ -81,7 +80,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public IBarber? GetById(Guid id)
+        public BarberEntity? GetById(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -118,7 +117,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public void Update(IBarber barber)
+        public void Update(BarberEntity barber)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -126,9 +125,9 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private IBarber? BuildEntity(SqlCommand cmd)
+        private BarberEntity? BuildEntity(SqlCommand cmd)
         {
-            IBarber? barber = new BarberEntity();
+            BarberEntity? barber = new BarberEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
 

@@ -3,7 +3,6 @@ using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Microsoft.VisualBasic;
 using Moq;
 using static Xunit.Assert;
 
@@ -20,7 +19,7 @@ namespace Hair.Tests.Services
         {
             _service = new(_repository.Object);
             _dto = new("Victor", "victor@gmail.com", "victor", "55555555555555", true);
-            _user = new("Victor's", "Victor", "047552456897", _dto.Email, _dto.Password, null, _dto.CNPJ, null,DateTime.Now,null,DateTime.Now.AddHours(5));
+            _user = new("Victor's", "Victor", "047552456897", _dto.Email, _dto.Password, null, _dto.CNPJ, null, DateTime.Now, null, DateTime.Now.AddHours(5));
         }
 
         [Fact]

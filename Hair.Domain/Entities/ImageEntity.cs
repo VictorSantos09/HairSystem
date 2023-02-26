@@ -1,13 +1,10 @@
-﻿using Hair.Domain.Interfaces;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração da imagem
     /// </summary>
-    public class ImageEntity : IImage
+    public class ImageEntity : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid SaloonId { get; set; }
         public byte[] Img { get; set; }
 

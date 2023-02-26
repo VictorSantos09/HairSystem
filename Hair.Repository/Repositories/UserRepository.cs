@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -8,19 +7,19 @@ using System.Data.SqlClient;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="IUser"/>.
+    /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : IBaseRepository<IUser>, IGetByEmail
+    public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
     {
         private readonly static string TableName = "USERS";
-        private readonly IBaseRepository<IHaircut> _haircutRepository;
+        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
 
-        public UserRepository(IBaseRepository<IHaircut> haircutRepository)
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
         {
             _haircutRepository = haircutRepository;
         }
 
-        public void Create(IUser user)
+        public void Create(UserEntity user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -46,12 +45,12 @@ namespace Hair.Repository.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
-        public void Update(IUser user) 
+        public void Update(UserEntity user)
         {
- 
+
         }
 
-        public IUser? GetByEmail(string email, string password)
+        public UserEntity? GetByEmail(string email, string password)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -68,7 +67,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public IUser? GetById(Guid id)
+        public UserEntity? GetById(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -84,7 +83,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<IUser> GetAll()
+        public List<UserEntity> GetAll()
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -93,7 +92,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                var users = new List<IUser>();
+                var users = new List<UserEntity>();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -150,7 +149,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private IUser? BuildEntity(SqlCommand cmd)
+        private UserEntity? BuildEntity(SqlCommand cmd)
         {
             UserEntity? user = new UserEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -176,7 +175,7 @@ namespace Hair.Repository.Repositories
             return user.Id == Guid.Empty ? null : user;
         }
 
-        private void PopulateHaircut(IUser user)
+        private void PopulateHaircut(UserEntity user)
         {
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
 

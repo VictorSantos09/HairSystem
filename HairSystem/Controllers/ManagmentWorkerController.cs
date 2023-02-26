@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +13,11 @@ namespace HairSystem.Controllers
     public class ManagmentWorkerController : ControllerBase
     {
         private readonly ManagmentWorkerService _service;
-        private readonly IBaseRepository<IBarber> _barberRepository;
-        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IException _exHelper;
 
-        public ManagmentWorkerController(IBaseRepository<IBarber> barberRepository, IBaseRepository<IUser> userRepository, IException exception)
+        public ManagmentWorkerController(IBaseRepository<BarberEntity> barberRepository, IBaseRepository<UserEntity> userRepository, IException exception)
         {
             _exHelper = exception;
             _barberRepository = barberRepository;

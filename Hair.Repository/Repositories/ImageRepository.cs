@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -11,10 +10,10 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de imagens no banco de dados contidas na <see cref="ImageEntity"/>.
     /// </summary>
-    public class ImageRepository :IBaseRepository<IImage>
+    public class ImageRepository : IBaseRepository<ImageEntity>
     {
         private readonly static string TableName = "IMAGES";
-        public void Create(IImage image)
+        public void Create(ImageEntity image)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -30,7 +29,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<IImage> GetAll()
+        public List<ImageEntity> GetAll()
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -39,13 +38,13 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                var images = new List<IImage>();
+                var images = new List<ImageEntity>();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        IImage image = new ImageEntity();
+                        ImageEntity image = new ImageEntity();
 
                         image.Id = reader.GetGuid("ID");
                         image.SaloonId = reader.GetGuid("SALOON_ID");
@@ -59,7 +58,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public IImage? GetById(Guid id)
+        public ImageEntity? GetById(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -98,14 +97,14 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public void Update(IImage image)
+        public void Update(ImageEntity image)
         {
 
         }
 
-        private IImage? BuildEntity(SqlCommand cmd)
+        private ImageEntity? BuildEntity(SqlCommand cmd)
         {
-            IImage? image = new ImageEntity();
+            ImageEntity? image = new ImageEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
 

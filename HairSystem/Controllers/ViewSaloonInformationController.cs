@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +12,11 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ViewSaloonInformationController : ControllerBase
     {
-        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly ViewSaloonInformationService _service;
         private readonly IException _exHelper;
 
-        public ViewSaloonInformationController(IBaseRepository<IUser> userRepository, IException exception)
+        public ViewSaloonInformationController(IBaseRepository<UserEntity> userRepository, IException exception)
         {
             _exHelper = exception;
             _userRepository = userRepository;

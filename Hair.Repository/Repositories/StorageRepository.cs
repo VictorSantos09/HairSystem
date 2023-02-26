@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -8,13 +7,13 @@ using System.Data.SqlClient;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ISaloonItem"/>.
+    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="SaloonItemEntity"/>.
     /// </summary>
-    public class StorageRepository : IBaseRepository<ISaloonItem>
+    public class StorageRepository : IBaseRepository<SaloonItemEntity>
     {
         private readonly static string TableName = "SALOON_ITEMS";
 
-        public void Create(ISaloonItem item)
+        public void Create(SaloonItemEntity item)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -34,7 +33,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public List<ISaloonItem> GetAll()
+        public List<SaloonItemEntity> GetAll()
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -43,13 +42,13 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                var itens = new List<ISaloonItem>();
+                var itens = new List<SaloonItemEntity>();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        ISaloonItem item = new SaloonItemEntity();
+                        SaloonItemEntity item = new SaloonItemEntity();
 
                         item.Id = reader.GetGuid("ID");
                         item.SaloonId = reader.GetGuid("SALOON_ID");
@@ -65,7 +64,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public ISaloonItem? GetById(Guid id)
+        public SaloonItemEntity? GetById(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
@@ -102,14 +101,14 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public void Update(ISaloonItem item)
+        public void Update(SaloonItemEntity item)
         {
 
         }
 
-        private ISaloonItem? BuildEntity(SqlCommand cmd)
+        private SaloonItemEntity? BuildEntity(SqlCommand cmd)
         {
-            ISaloonItem? item = new SaloonItemEntity();
+            SaloonItemEntity? item = new SaloonItemEntity();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())

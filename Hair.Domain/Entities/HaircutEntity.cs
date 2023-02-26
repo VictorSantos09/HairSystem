@@ -1,19 +1,16 @@
-﻿using Hair.Domain.Interfaces;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do corte
     /// </summary>
-    public class HaircutEntity : IHaircut
+    public class HaircutEntity : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid SaloonId { get; set; }
         public DateTime HaircuteTime { get; set; }
         public bool Avaible { get; set; }
-        public IClient Client { get; set; } = new ClientEntity();
+        public ClientEntity Client { get; set; } = new ClientEntity();
 
-        public HaircutEntity(Guid saloonId, DateTime haircuteTime, bool avaible, IClient client)
+        public HaircutEntity(Guid saloonId, DateTime haircuteTime, bool avaible, ClientEntity client)
         {
             Id = Guid.NewGuid();
             SaloonId = saloonId;

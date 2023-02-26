@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Functions;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ namespace HairSystem.Functions
         private readonly SearchSaloonFunction _function;
         private readonly IException _exHelper;
 
-        public SearchSaloonController(IBaseRepository<IUser> userRepository, IException exception)
+        public SearchSaloonController(IBaseRepository<UserEntity> userRepository, IException exception)
         {
             _exHelper = exception;
             _function = new(userRepository);

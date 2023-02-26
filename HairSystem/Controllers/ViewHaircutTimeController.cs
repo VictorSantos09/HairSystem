@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ namespace HairSystem.Controllers
         private readonly ViewHaircutTimeService _service;
         private readonly IException _exHelper;
 
-        public ViewHaircutTimeController(IBaseRepository<IHaircut> haircutRepository, IException exception)
+        public ViewHaircutTimeController(IBaseRepository<HaircutEntity> haircutRepository, IException exception)
         {
             _exHelper = exception;
             _service = new ViewHaircutTimeService(haircutRepository);

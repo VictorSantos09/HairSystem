@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Functions
@@ -11,9 +11,9 @@ namespace Hair.Application.Functions
     /// </summary>
     public class SearchSaloonFunction
     {
-        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
 
-        public SearchSaloonFunction(IBaseRepository<IUser> userRepository)
+        public SearchSaloonFunction(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }

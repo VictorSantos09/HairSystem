@@ -1,13 +1,10 @@
-﻿using Hair.Domain.Interfaces;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do cliente do salão
     /// </summary>
-    public class ClientEntity : IClient
+    public class ClientEntity : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Email { get; set; }
         public string PhoneNumber { get; set; }

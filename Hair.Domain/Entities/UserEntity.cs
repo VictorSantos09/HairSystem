@@ -1,13 +1,10 @@
-﻿using Hair.Domain.Interfaces;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do usuário
     /// </summary>
-    public class UserEntity : IUser
+    public class UserEntity : BaseEntity
     {
-        public Guid Id { get; set; }
         public string SaloonName { get; set; }
         public string OwnerName { get; set; }
         public string PhoneNumber { get; set; }
@@ -17,11 +14,11 @@ namespace Hair.Domain.Entities
         public DateTime OpenTime { get; set; }
         public DateTime CloseTime { get; set; }
         public string? GoogleMapsSource { get; set; }
-        public IAddress Address { get; set; } = new AddressEntity();
-        public IHaircutPrice Prices { get; set; } = new HaircutPriceEntity();
-        public List<IHaircut> Haircuts { get; set; } = new();
+        public AddressEntity Address { get; set; } = new AddressEntity();
+        public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
+        public List<HaircutEntity> Haircuts { get; set; } = new();
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
-            IAddress address, string? cNPJ, IHaircutPrice priceEntity, DateTime openTime, string? googleMapsSource, DateTime closeTime)
+            AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, DateTime openTime, string? googleMapsSource, DateTime closeTime)
         {
             Id = Guid.NewGuid();
             SaloonName = saloonName.ToUpper();
