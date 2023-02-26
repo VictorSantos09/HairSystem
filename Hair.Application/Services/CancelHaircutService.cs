@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -11,10 +11,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class CancelHaircutService
     {
-        private readonly IBaseRepository<IUser> _userRepository;
-        private readonly IBaseRepository<IHaircut> _haircutRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
 
-        public CancelHaircutService(IBaseRepository<IUser> userRepository, IBaseRepository<IHaircut> haircutRepository)
+        public CancelHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository)
         {
             _userRepository = userRepository;
             _haircutRepository = haircutRepository;

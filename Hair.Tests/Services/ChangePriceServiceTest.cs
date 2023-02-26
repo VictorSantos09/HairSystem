@@ -2,7 +2,6 @@ using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Moq;
 using static Xunit.Assert;
@@ -12,10 +11,10 @@ namespace Hair.Tests.Services
     public class ChangePriceServiceTest
     {
         private readonly ChangePriceService _service;
-        private readonly Mock<IBaseRepository<IUser>> _userRepositoryMock = new Mock<IBaseRepository<IUser>>();
+        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private ChangePriceDto _dto;
-        private IHaircutPrice _haircutPrice = new HaircutPriceEntity(20, 20, 20);
-        private IUser _user;
+        private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
+        private UserEntity _user;
 
         public ChangePriceServiceTest()
         {

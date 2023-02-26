@@ -1,4 +1,4 @@
-﻿namespace Hair.Application.Exeception
+﻿namespace Hair.Application.ExceptionHandlling
 {
     public class ExceptionHelper : IException
     {

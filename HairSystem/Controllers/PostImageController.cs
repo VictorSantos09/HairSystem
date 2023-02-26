@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +13,11 @@ namespace HairSystem.Controllers
     public class PostImageController : ControllerBase
     {
         private readonly PostImageService _service;
-        private readonly IBaseRepository<IImage> _imageRepository;
-        private readonly IBaseRepository<IUser> _userRepository;
+        private readonly IBaseRepository<ImageEntity> _imageRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IException _exHelper;
 
-        public PostImageController(IBaseRepository<IImage> imageRepository, IBaseRepository<IUser> userRepository, IException exception)
+        public PostImageController(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository, IException exception)
         {
             _exHelper = exception;
             _imageRepository = imageRepository;

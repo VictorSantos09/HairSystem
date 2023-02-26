@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +13,11 @@ namespace HairSystem.Controllers
     public class ScheduleHaircutController : ControllerBase
     {
         private ScheduleHaircutService _service;
-        private readonly IBaseRepository<IUser> _userRepository;
-        private readonly IBaseRepository<IHaircut> _haircutRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
         private readonly IException _exHelper;
 
-        public ScheduleHaircutController(IBaseRepository<IUser> userRepository, IBaseRepository<IHaircut> haircutRepository, IException exception)
+        public ScheduleHaircutController(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository, IException exception)
         {
             _exHelper = exception;
             _userRepository = userRepository;

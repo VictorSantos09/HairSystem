@@ -1,8 +1,8 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Domain.Interfaces;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +13,11 @@ namespace HairSystem.Controllers
     public class ViewEmployeeDataController : ControllerBase
     {
         private readonly VisualizeEmployeeDataService _service;
-        private readonly IBaseRepository<IBarber> _barberRepository;
+        private readonly IBaseRepository<BarberEntity> _barberRepository;
         private readonly IGetByEmail _userRepository;
         private readonly IException _exHelper;
 
-        public ViewEmployeeDataController(IBaseRepository<IBarber> barberRepository, IGetByEmail userRepository, IException exception)
+        public ViewEmployeeDataController(IBaseRepository<BarberEntity> barberRepository, IGetByEmail userRepository, IException exception)
         {
             _exHelper = exception;
             _barberRepository = barberRepository;
@@ -31,10 +31,10 @@ namespace HairSystem.Controllers
         {
             try
             {
-            var result = _service.GetEmployeeData(dataDto.Email, dataDto.Password);
-            return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+                var result = _service.GetEmployeeData(dataDto.Email, dataDto.Password);
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
-            catch(ArgumentNullException e)
+            catch (ArgumentNullException e)
             {
                 var info = _exHelper.Error(e);
                 return StatusCode(info._StatusCode, info);

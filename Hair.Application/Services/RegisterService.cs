@@ -2,7 +2,6 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -47,7 +46,7 @@ namespace Hair.Application.Services
             if (string.IsNullOrEmpty(dto.Name) || string.IsNullOrWhiteSpace(dto.Name) || dto.Name.Length < 5)
                 return BaseDtoExtension.Invalid("Nome muito curto");
 
-            var isExistentUser = _userRepository.GetByEmail(dto.Email,dto.Password);
+            var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
 
             if (isExistentUser != null)
                 return BaseDtoExtension.Invalid("Usuário já registrado");

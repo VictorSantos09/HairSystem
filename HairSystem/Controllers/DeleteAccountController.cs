@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
-using Hair.Application.Exeception;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;

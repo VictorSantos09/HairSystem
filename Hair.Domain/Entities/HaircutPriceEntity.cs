@@ -1,11 +1,9 @@
-﻿using Hair.Domain.Interfaces;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração dos tipos de corte de cabelo
     /// </summary>
-    public class HaircutPriceEntity : IHaircutPrice
+    public class HaircutPriceEntity
     {
         public double Hair { get; set; }
         public double? Beard { get; set; }

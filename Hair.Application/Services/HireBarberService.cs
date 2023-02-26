@@ -2,7 +2,6 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
-using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -12,10 +11,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class HireBarberService
     {
-        private readonly IBaseRepository<IUser> _userRepository;
-        private readonly IBaseRepository<IBarber> _barberRepository;
+        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<BarberEntity> _barberRepository;
 
-        public HireBarberService(IBaseRepository<IUser> userRepository, IBaseRepository<IBarber> barberRepository)
+        public HireBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository)
         {
             _userRepository = userRepository;
             _barberRepository = barberRepository;
