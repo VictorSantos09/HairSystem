@@ -5,7 +5,7 @@ using Hair.Domain.Interfaces;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HairSystem.Controllers.Functions
+namespace HairSystem.Functions
 {
     [ApiController]
     [Route("api/SearchSaloon")]

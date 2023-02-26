@@ -1,13 +1,13 @@
-﻿using Hair.Domain.Common;
-using Hair.Domain.Interfaces;
+﻿using Hair.Domain.Interfaces;
 
 namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do barbeiro
     /// </summary>
-    public class BarberEntity : BaseEntity, IBarber
+    public class BarberEntity : IBarber
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }

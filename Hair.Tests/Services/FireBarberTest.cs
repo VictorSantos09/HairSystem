@@ -13,16 +13,17 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<IBarber>> _barberRepositoryMock = new Mock<IBaseRepository<IBarber>>();
         private readonly FireBarberService _service;
-        private GlobalUser _globalUser = new();
         private FireBarberDto _dto;
-        private UserEntity _user;
         private BarberEntity _barber;
+        private IHaircutPrice _haircutPrice = new HaircutPriceEntity(20, 20, 20);
+        private IUser _user;
 
         public FireBarberTest()
         {
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(),
+                null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
             _service = new(_barberRepositoryMock.Object);
-            _user = _globalUser.GetGlobalUser();
-            _barber = _globalUser.GetBarber();
+            _barber = new("carlos", null, null, 2000, new AddressEntity(), true, _user.Id, _user.SaloonName);
             _dto = new(_user.Id, _barber.Id, _barber.Name, _barber.Email, _barber.SaloonName);
         }
 
