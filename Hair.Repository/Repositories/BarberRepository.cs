@@ -3,7 +3,6 @@ using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
-using System.Threading;
 
 namespace Hair.Repository.Repositories
 {

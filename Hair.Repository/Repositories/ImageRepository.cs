@@ -3,7 +3,6 @@ using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
-using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Hair.Repository.Repositories
