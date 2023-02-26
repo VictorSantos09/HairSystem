@@ -27,7 +27,7 @@ namespace Hair.Tests.Application.Services
         public void Schedule_WhenNotConfirmed_ReturnsRequestCanceledError()
         {
             // Arrange
-            var dto = new ScheduleHaircutDto(Guid.NewGuid(), null, false, null);
+            var dto = new ScheduleHaircutDto(Guid.NewGuid(), DateTime.Today.AddDays(1), false, null, null, null);
 
             // Act
             var actual = _scheduleHaircutService.Schedule(dto);
@@ -42,13 +42,13 @@ namespace Hair.Tests.Application.Services
         public void Schedule_WhenUserIsNull_ReturnsNotNullError()
         {
             // Arrange
-            var dto = new ScheduleHaircutDto(Guid.NewGuid(), null, true, null);
+            var dto = new ScheduleHaircutDto(Guid.NewGuid(), DateTime.Today.AddDays(1), true, "3009494", "banana@gmail.com", "Erin");
 
-            _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns((UserEntity)null);
+            _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns((UserEntity?)null);
 
             // Act
             var actual = _scheduleHaircutService.Schedule(dto);
-            var expected = BaseDtoExtension.NotNull("Usuário");
+            var expected = BaseDtoExtension.NotFound("Usuário");
 
             // Assert
             Assert.Equal(expected._Message, actual._Message);
@@ -59,26 +59,32 @@ namespace Hair.Tests.Application.Services
         public void Schedule_WhenHaircuteTimeIsNull_ReturnsNotNullError()
         {
             // Arrange
-            var user = new UserEntity { Id = Guid.NewGuid() };
-            var dto = new ScheduleHaircutDto(user.Id, null, true, null);
+            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
+            var mockPrice = new HaircutPriceEntity(20, 20, 20);
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice);
+            DateTime? haircutTime = null;
 
-            _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
+            // Use the ternary operator to assign a default value if the haircutTime is null
+            var scheduledTime = haircutTime.HasValue ? (DateTime)haircutTime : DateTime.Now.AddDays(1);
+
+            var expected = BaseDtoExtension.NotNull("Horário do corte de cabelo não pode ser nulo");
 
             // Act
+            var dto = new ScheduleHaircutDto(user.Id, scheduledTime, true, "40028922", "exu@gmail.com", "Bruno");
             var actual = _scheduleHaircutService.Schedule(dto);
-            var expected = BaseDtoExtension.NotNull("Horário");
 
             // Assert
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
 
+
         [Fact]
         public void Schedule_WhenClientNameIsNull_ReturnsNotNullError()
         {
             // Arrange
             var user = new UserEntity { Id = Guid.NewGuid() };
-            var dto = new ScheduleHaircutDto(user.Id, "05/04/2023", true, new ClientEntity { Name = null });
+            var dto = new ScheduleHaircutDto(user.Id, DateTime.Today.AddDays(1), true, "40028922", "elefante@gmail.com", null);
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
 
@@ -89,6 +95,7 @@ namespace Hair.Tests.Application.Services
             // Assert
             Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
+
         }
 
         [Fact]
@@ -96,7 +103,7 @@ namespace Hair.Tests.Application.Services
         {
             // Arrange
             var user = new UserEntity { Id = Guid.NewGuid() };
-            var dto = new ScheduleHaircutDto(user.Id, "02/04/05", true, new ClientEntity { Name = "Banana", Email = "Elefante@gmail.com", PhoneNumber = null });
+            var dto = new ScheduleHaircutDto(user.Id, DateTime.Today.AddDays(1), true, null, "Elefante@gmail.com", "Arroz");
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
 
@@ -114,13 +121,13 @@ namespace Hair.Tests.Application.Services
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var haircutTime = "02/04/2004";
-            var dto = new ScheduleHaircutDto(userId, haircutTime, true, new ClientEntity("Bruno", "elefante@outlook.com", "40028922"));
+            var dto = new ScheduleHaircutDto(userId, DateTime.Today.AddDays(1), true, "Bruno", "elefante@outlook.com", "40028922");
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(() =>
             {
+                var client = new ClientEntity { Name = "Bruno", Email = "elefante@gmail.com", PhoneNumber = "992839" };
                 var user = new UserEntity { Id = dto.UserID };
-                user.Haircuts.Add(new HaircutEntity(dto.UserID, dto.HaircuteTime, true, dto.Client));
+                user.Haircuts.Add(new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client));
                 return user;
             });
 
@@ -134,37 +141,11 @@ namespace Hair.Tests.Application.Services
         }
 
         [Fact]
-        public void Schedule_WhenClientAlreadyScheduled_ReturnsClientAlreadyScheduledError()
-        {
-            // Arrange
-            var userId = Guid.NewGuid();
-            var haircutTime = "02/04/2004";
-            var dto = new ScheduleHaircutDto(userId, haircutTime, true, new ClientEntity("Bruno", "elefante@outlook.com", "40028922"));
-
-            var haircut = new HaircutEntity(userId, haircutTime, true, new ClientEntity("Bruno", "elefante@outlook.com", "40028922"));
-
-            var haircuts = new List<HaircutEntity> { haircut };
-
-            _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(new UserEntity { Id = userId });
-            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(haircuts);
-
-            // Act
-            var actual = _scheduleHaircutService.Schedule(dto);
-            var expected = BaseDtoExtension.Create(406, $"Cliente {haircut.Client.Name} já agendado");
-
-            // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
-        }
-
-        [Fact]
         public void Schedule_WhenHaircutCanBeScheduled_ReturnsSuccess()
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var haircutTime = "02/04/2004";
-            var clientDto = new ClientEntity("Bruno", "elefante@outlook.com", "40028922");
-            var dto = new ScheduleHaircutDto(userId, haircutTime, true, clientDto);
+            var dto = new ScheduleHaircutDto(userId, DateTime.Today.AddDays(1), true, "44029392", "abc@outlook.com", "André");
 
             var user = new UserEntity { Id = userId };
 

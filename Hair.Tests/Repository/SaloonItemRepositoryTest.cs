@@ -1,4 +1,5 @@
-﻿using Hair.Domain.Entities;
+﻿
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
 
@@ -11,7 +12,7 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Create_ShouldCreateSaloonItem_WhenCalled()
         {
-            var entity = new SaloonItemEntity("Navalha", 20, 12);
+            var entity = new SaloonItemEntity("Navalha", 20, 12, Guid.NewGuid());
 
             _mock.Setup(x => x.Create(entity)).Verifiable();
 
@@ -23,7 +24,7 @@ namespace Hair.Tests.Repository
         [Fact]
         public void Update_ShouldUpdateSaloonItem_WhenValid()
         {
-            var saloonItemEntity = new SaloonItemEntity("Navalha", 20, 12);
+            var saloonItemEntity = new SaloonItemEntity("Navalha", 20, 12, Guid.NewGuid());
 
             _mock.Setup(x => x.Update(It.IsAny<SaloonItemEntity>())).Callback((SaloonItemEntity entity) =>
             {
