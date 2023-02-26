@@ -3,6 +3,7 @@ using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace Hair.Repository.Repositories
 {
@@ -53,7 +54,22 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    var barber = BuildEntity(reader);
+                    var barber = new BarberEntity();
+
+                    barber.Id = reader.GetGuid("ID");
+                    barber.Name = reader.GetString("NAME");
+                    barber.PhoneNumber = reader.GetString("PHONE_NUMBER");
+                    barber.Email = reader.GetString("EMAIL");
+                    barber.Salary = reader.GetDouble("SALARY");
+                    barber.Hired = reader.GetBoolean("HIRED");
+                    barber.Address.Street = reader.GetString("STREET");
+                    barber.Address.State = reader.GetString("STATE");
+                    barber.Address.City = reader.GetString("CITY");
+                    barber.Address.Complement = reader.GetString("COMPLEMENT");
+                    barber.Address.Number = reader.GetString("NUMBER");
+                    barber.Address.FullAddress = reader.GetString("FULL_ADDRESS");
+                    barber.SaloonId = reader.GetGuid("SALOON_ID");
+                    barber.SaloonName = reader.GetString("SALOON_NAME");
 
                     barbers.Add(barber);
                 }

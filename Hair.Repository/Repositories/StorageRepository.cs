@@ -46,9 +46,15 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    var item = BuildEntity(reader);
+                    var item = new SaloonItemEntity();
 
-                        itens.Add(item);
+                    item.Id = reader.GetGuid("ID");
+                    item.SaloonId = reader.GetGuid("SALOON_ID");
+                    item.Name = reader.GetString("NAME");
+                    item.Price = reader.GetDouble("PRICE");
+                    item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
+
+                    itens.Add(item);
                 }
 
                 return itens;

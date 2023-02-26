@@ -3,6 +3,7 @@ using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Hair.Repository.Repositories
@@ -42,7 +43,11 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    var image = BuildEntity(reader);
+                    var image = new ImageEntity();
+
+                    image.Id = reader.GetGuid("ID");
+                    image.SaloonId = reader.GetGuid("SALOON_ID");
+                    //image.Img = reader.GetByte("IMAGE"); corrigir
                     images.Add(image);
                 }
 
