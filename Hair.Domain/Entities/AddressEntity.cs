@@ -28,7 +28,7 @@
         /// <summary>
         /// Endereço completo
         /// </summary>
-        public string FullAddress { get; private set; }
+        public string FullAddress { get; set; }
         public AddressEntity(string street, string number, string city, string state, string? complement)
         {
             Street = street.ToUpper();

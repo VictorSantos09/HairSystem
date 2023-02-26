@@ -55,8 +55,43 @@ namespace Hair.Repository.Repositories
         }
         public void Update(UserEntity user)
         {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
 
+                var query = $"UPDATE {TableName} SET SALOON_NAME = @SALOON_NAME, OWNER_NAME = @OWNER_NAME, PHONE_NUMBER = @PHONE_NUMBER, " +
+                    $"EMAIL = @EMAIL, PASSWORD = @PASSWORD, CNPJ = @CNPJ, HAIRCUT_HAIR = @HAIRCUT_HAIR, HAIRCUT_BEARD = @HAIRCUT_BEARD, " +
+                    $"HAIRCUT_MUSTACHE = @HAIRCUT_MUSTACHE, OPEN_TIME = @OPEN_TIME, GOOGLE_MAPS_SOURCE = @GOOGLE_MAPS_SOURCE, CLOSE_TIME = @CLOSE_TIME, " +
+                    $"STREET = @STREET, STATE = @STATE, CITY = @CITY, COMPLEMENT = @COMPLEMENT, NUMBER = @NUMBER, FULL_ADDRESS = @FULL_ADDRESS " +
+                    $"WHERE ID = @ID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@ID", user.Id);
+                cmd.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
+                cmd.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
+                cmd.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
+                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
+                cmd.Parameters.AddWithValue("@PASSWORD", user.Password);
+                cmd.Parameters.AddWithValue("@CNPJ", user.CNPJ);
+                cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
+                cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
+                cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
+                cmd.Parameters.AddWithValue("@OPEN_TIME", user.OpenTime);
+                cmd.Parameters.AddWithValue("@GOOGLE_MAPS_SOURCE", user.GoogleMapsSource);
+                cmd.Parameters.AddWithValue("@CLOSE_TIME", user.CloseTime);
+                cmd.Parameters.AddWithValue("@STREET", user.Address.Street);
+                cmd.Parameters.AddWithValue("@STATE", user.Address.State);
+                cmd.Parameters.AddWithValue("@CITY", user.Address.City);
+                cmd.Parameters.AddWithValue("@COMPLEMENT", user.Address.Complement);
+                cmd.Parameters.AddWithValue("@NUMBER", user.Address.Number);
+                cmd.Parameters.AddWithValue("@FULL_ADDRESS", user.Address.FullAddress);
+
+                cmd.ExecuteNonQuery();
+            }
         }
+
 
         public UserEntity? GetByEmail(string email, string password)
         {
