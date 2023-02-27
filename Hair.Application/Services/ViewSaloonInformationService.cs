@@ -33,6 +33,34 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
+            var saloonInformation = BuildVisibleData(user);
+
+            return BaseDtoExtension.Create(200, $"Informações do salão {user.SaloonName}", saloonInformation);
+        }
+
+        public BaseDto GetThreeSaloonsInfo()
+        {
+            var output = new List<object>();
+            var users = _userRepository.GetAll();
+
+            var random = new Random();
+
+            var requestAmount = 3;
+
+            for (int i = 0; i < requestAmount; i++)
+            {
+                var user = users[random.Next(users.Count)]; // nao deixar repetir usuarios
+
+                var userConverted = BuildVisibleData(user);
+
+                output.Add(userConverted);
+            }
+
+            return BaseDtoExtension.Create(200, $"{requestAmount} salões buscados", output);
+        }
+
+        private object BuildVisibleData(UserEntity user)
+        {
             object saloonInformation = new
             {
                 user.Address,
@@ -43,9 +71,12 @@ namespace Hair.Application.Services
                 user.Prices.Beard,
                 user.Prices.Mustache,
                 user.CNPJ,
+                user.GoogleMapsSource,
+                OpenTime = $"{user.OpenTime.Hour}:{user.OpenTime.Minute}",
+                CloseTime = $"{user.CloseTime.Hour}:{user.CloseTime.Minute}",
             };
 
-            return BaseDtoExtension.Create(200, $"Informações do salão {user.SaloonName}", saloonInformation);
+            return saloonInformation;
         }
     }
 }

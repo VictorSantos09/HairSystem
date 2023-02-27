@@ -28,14 +28,14 @@
         /// <summary>
         /// Endereço completo
         /// </summary>
-        public string FullAddress { get; private set; }
+        public string FullAddress { get;  set; }
         public AddressEntity(string street, string number, string city, string state, string? complement)
         {
             Street = street.ToUpper();
             Number = number.ToUpper();
             City = city.ToUpper();
             State = state.ToUpper();
-            Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement;
+            Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement.ToUpper();
             FullAddress = $"{Street},{Number}. {City} - {State}. {Complement}";
         }
 

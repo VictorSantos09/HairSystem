@@ -5,6 +5,7 @@ using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace HairSystem.Controllers
 {
@@ -36,6 +37,21 @@ namespace HairSystem.Controllers
             {
                 var info = _exHelper.Error(e);
                 return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+        }
+        [HttpGet]
+        [Route("ThreeSaloonsRequest")]
+        public IActionResult GetThreeSaloon()
+        {
+            try
+            {
+                var result = _service.GetThreeSaloonsInfo();
+                return StatusCode(result._StatusCode, result._Data);
             }
             catch (Exception e)
             {
