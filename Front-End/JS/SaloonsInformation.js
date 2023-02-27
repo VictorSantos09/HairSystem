@@ -1,19 +1,11 @@
-var btn = document.getElementById("infoSaloon-1-btn")
-const GetSaloonInformation = async function () {
+var userOne = undefined;
+var userTwo = undefined;
+var userThree = undefined;
 
-    const req = await fetch("https://localhost:7220/api/controller/ViewInformation",
-        {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify({ userId: 'FD9F9A34-7FBD-47AE-ACCE-693728610D49' })
-        })
-
-    const result = await req.json()
-
-    btn.addEventListener("click", () => BuildInformationModal(result))
+function GetSaloonInformation() {
+    document.getElementById("infoSaloon-1-btn").addEventListener("click", () => BuildInformationModal(userOne))
+    document.getElementById("infoSaloon-2-btn").addEventListener("click", () => BuildInformationModal(userTwo))
+    document.getElementById("infoSaloon-3-btn").addEventListener("click", () => BuildInformationModal(userThree))
 }
 
 const GetPreviewSaloons = async function () {
@@ -29,17 +21,19 @@ const GetPreviewSaloons = async function () {
 
     const result = await req.json()
 
-    BuildPreviewSaloon('infoSaloon-1-name', 'infoSaloon-1-address', 'infoSaloon-1-workingTime', result, 0)
-    BuildPreviewSaloon('infoSaloon-2-name', 'infoSaloon-2-address', 'infoSaloon-2-workingTime', result, 1)
-    BuildPreviewSaloon('infoSaloon-3-name', 'infoSaloon-3-address', 'infoSaloon-3-workingTime', result, 2)
+    userOne = result[0]
+    userTwo = result[1]
+    userThree = result[2]
 
+    BuildPreviewSaloon('infoSaloon-1-name', 'infoSaloon-1-address', 'infoSaloon-1-workingTime', userOne)
+    BuildPreviewSaloon('infoSaloon-2-name', 'infoSaloon-2-address', 'infoSaloon-2-workingTime', userTwo)
+    BuildPreviewSaloon('infoSaloon-3-name', 'infoSaloon-3-address', 'infoSaloon-3-workingTime', userThree)
 }
 
-function BuildPreviewSaloon(saloonNameId, saloonAddressId, SaloonWorkingTimeId, result, arrayIndex) {
-
-    document.getElementById(saloonNameId).innerHTML = result[arrayIndex].saloonName
-    document.getElementById(saloonAddressId).innerHTML = result[arrayIndex].address.fullAddress
-    document.getElementById(SaloonWorkingTimeId).innerHTML = result[arrayIndex].openTime + ' - ' + result[arrayIndex].closeTime
+function BuildPreviewSaloon(saloonNameId, saloonAddressId, SaloonWorkingTimeId, result) {
+    document.getElementById(saloonNameId).innerHTML = result.saloonName
+    document.getElementById(saloonAddressId).innerHTML = result.address.fullAddress
+    document.getElementById(SaloonWorkingTimeId).innerHTML = result.openTime + ' - ' + result.closeTime
 }
 
 function BuildInformationModal(result) {
@@ -49,8 +43,9 @@ function BuildInformationModal(result) {
     document.getElementById('saloonInfoHairPrice').innerHTML = 'Corte de Cabelo: ' + '$' + result.hair
     document.getElementById('saloonInfoMustachePrice').innerHTML = 'Corte de Barba: ' + '$' + result.beard
     document.getElementById('saloonInfoBeardPrice').innerHTML = 'Corte de Bigode: ' + '$' + result.mustache
-    document.getElementById('infoGoogleMaps').src = result.googleMapsSource + "&output=embed"
+    document.getElementById('infoGoogleMaps').src = result.googleMapsSource
 }
 
-GetSaloonInformation()
+// o GetPreviewSaloons deve ser chamado primeiro para poder configurar as variaveis userOne e as demais
 GetPreviewSaloons()
+GetSaloonInformation()
