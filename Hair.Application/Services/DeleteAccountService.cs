@@ -2,7 +2,6 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Repository.Interfaces;
-using Hair.Domain.Entities;
 
 namespace Hair.Application.Services
 {

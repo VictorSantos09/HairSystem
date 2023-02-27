@@ -35,7 +35,9 @@ namespace Hair.Application.Functions
             if (saloonsMatch.Count == 0)
                 return BaseDtoExtension.Sucess("Nenhum salão encontrado");
 
-            return BaseDtoExtension.Create(200, $"Salões com nome {dto.SaloonName} encontrados", saloonsMatch);
+            var saloons = BuildInformation(saloonsMatch);
+
+            return BaseDtoExtension.Create(200, $"Salões com nome {dto.SaloonName} encontrados", saloons);
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace Hair.Application.Functions
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public BaseDto Filtered(SearchSaloonFilterDto dto)
+        public BaseDto FilteredSearch(SearchSaloonFilterDto dto)
         {
             var users = _userRepository.GetAll();
 
@@ -51,12 +53,12 @@ namespace Hair.Application.Functions
                 return BaseDtoExtension.Sucess("Nehum salão disponível");
 
             if (dto.OnlyOpens)
-                return FilterOpens(dto);
+                return FilterOpen(dto);
 
-            return FilterCloseds(dto);
+            return FilterClosed(dto);
         }
 
-        private BaseDto FilterOpens(SearchSaloonFilterDto dto)
+        private BaseDto FilterOpen(SearchSaloonFilterDto dto)
         {
             var users = _userRepository.GetAll();
 
@@ -67,9 +69,11 @@ namespace Hair.Application.Functions
             if (saloonsMatch.Count == 0)
                 return BaseDtoExtension.Sucess("Nehum salão encontrado");
 
-            return BaseDtoExtension.Create(200, "Salões encontrados", saloonsMatch);
+            var saloons = BuildInformation(saloonsMatch);
+
+            return BaseDtoExtension.Create(200, "Salões encontrados", saloons);
         }
-        private BaseDto FilterCloseds(SearchSaloonFilterDto dto)
+        private BaseDto FilterClosed(SearchSaloonFilterDto dto)
         {
             var users = _userRepository.GetAll();
 
@@ -78,7 +82,56 @@ namespace Hair.Application.Functions
             if (saloonsMatch.Count == 0)
                 return BaseDtoExtension.Sucess("Nehum salão encontrado");
 
-            return BaseDtoExtension.Create(200, "Salões encontrados", saloonsMatch);
+            var saloons = BuildInformation(saloonsMatch);
+
+            return BaseDtoExtension.Create(200, "Salões encontrados", saloons);
+        }
+
+        /// <summary>
+        /// Constrói um <see cref="object"/> com as informações visíveis para o usuário a partir dos usuários cadastrados
+        /// </summary>
+        /// <param name="user">Usuário necessário para a conversão dos dados</param>
+        /// <returns>Retorna o <see cref="object"/> com os dados que o usuário pode visualizar</returns>
+        private object? BuildInformation(UserEntity user)
+        {
+            return new
+            {
+                user.Address.Number,
+                user.Address.City,
+                user.Address.State,
+                user.Address.Complement,
+                user.OpenTime,
+                user.CloseTime,
+                user.Email,
+                user.PhoneNumber,
+                user.CNPJ,
+                user.SaloonName,
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// Constrói um lista de <see cref="object"/> com as informações visíveis para o usuário a partir dos usuários cadastrados
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="users">Lista de usuários necessária para a conversão</param>
+        /// 
+        /// <returns>
+        /// 
+        /// Retorna uma <see cref="List{T}"/> de <see cref="object"/> com os dados que o usuário pode visualizar
+        /// 
+        /// </returns>
+        private List<object>? BuildInformation(List<UserEntity> users)
+        {
+            var usersOutput = new List<object>();
+
+            foreach (var user in users)
+            {
+                usersOutput.Add(BuildInformation(user));
+            }
+
+            return usersOutput;
         }
     }
 }

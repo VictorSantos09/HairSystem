@@ -17,14 +17,15 @@ namespace Hair.Tests.Services
         private BarberEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
+        private AddressEntity _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",");
 
         public UpdateBarberTest()
         {
-            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(),
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", _address,
                null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
-            _barber = new BarberEntity("Carlos", "017994578951", null, 2000, new AddressEntity(), true, _user.Id, _user.SaloonName);
+            _barber = new BarberEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
             _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
-            _dto = new(_user.Id, _barber.Name, _barber.Email, _barber.PhoneNumber, _barber.Salary, new AddressEntity(), "Carlos@gmail.com", "041991545235", "Carlos", 5000);
+            _dto = new(_user.Id, _barber.Name, _barber.Email, _barber.PhoneNumber, _barber.Salary, _address, "Carlos@gmail.com", "041991545235", "Carlos", 5000);
         }
 
         [Fact]
@@ -93,7 +94,7 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _service.Update(_dto);
-            var expected = BaseDtoExtension.Sucess($"Dados de {_dto.NewName} atualizados");
+            var expected = BaseDtoExtension.Sucess($"Dados de {_dto.NewName.ToUpper()} atualizados");
 
             // Assert
             Equal(expected._Message, actual._Message);

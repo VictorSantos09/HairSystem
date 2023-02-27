@@ -46,18 +46,15 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        SaloonItemEntity item = new SaloonItemEntity();
+                    var item = new SaloonItemEntity();
 
-                        item.Id = reader.GetGuid("ID");
-                        item.SaloonId = reader.GetGuid("SALOON_ID");
-                        item.Name = reader.GetString("NAME");
-                        item.Price = reader.GetDouble("PRICE");
-                        item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
+                    item.Id = reader.GetGuid("ID");
+                    item.SaloonId = reader.GetGuid("SALOON_ID");
+                    item.Name = reader.GetString("NAME");
+                    item.Price = reader.GetDouble("PRICE");
+                    item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
 
-                        itens.Add(item);
-                    }
+                    itens.Add(item);
                 }
 
                 return itens;
@@ -76,7 +73,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
@@ -103,24 +100,39 @@ namespace Hair.Repository.Repositories
 
         public void Update(SaloonItemEntity item)
         {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"UPDATE {TableName} SET " +
+                    $"NAME = @NAME, " +
+                    $"PRICE = @PRICE, " +
+                    $"QUANTITY_AVAILABLE = @QUANTITY_AVAILABLE " +
+                    $"WHERE ID = @ID";
 
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@ID", item.Id);
+                cmd.Parameters.AddWithValue("@NAME", item.Name);
+                cmd.Parameters.AddWithValue("@PRICE", item.Price);
+                cmd.Parameters.AddWithValue("@QUANTITY_AVAILABLE", item.QuantityAvaible);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
-        private SaloonItemEntity? BuildEntity(SqlCommand cmd)
+        private SaloonItemEntity? BuildEntity(SqlDataReader reader)
         {
             SaloonItemEntity? item = new SaloonItemEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    item.Id = reader.GetGuid("ID");
-                    item.SaloonId = reader.GetGuid("SALOON_ID");
-                    item.Name = reader.GetString("NAME");
-                    item.Price = reader.GetDouble("PRICE");
-                    item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
-                }
-
+                item.Id = reader.GetGuid("ID");
+                item.SaloonId = reader.GetGuid("SALOON_ID");
+                item.Name = reader.GetString("NAME");
+                item.Price = reader.GetDouble("PRICE");
+                item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
             }
+
             return item.Id == Guid.Empty ? null : item;
         }
 
