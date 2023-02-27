@@ -95,7 +95,23 @@ namespace Hair.Repository.Repositories
 
         public void Update(ImageEntity image)
         {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"UPDATE {TableName} SET " +
+                    $"SALOON_ID = @SALOON_ID, " +
+                    $"IMAGE = @IMAGE " +
+                    $"WHERE ID = @ID";
 
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@SALOON_ID", image.SaloonId);
+                cmd.Parameters.AddWithValue("@IMAGE", image.Img);
+                cmd.Parameters.AddWithValue("@ID", image.Id);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private ImageEntity? BuildEntity(SqlDataReader reader)

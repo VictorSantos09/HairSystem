@@ -100,7 +100,25 @@ namespace Hair.Repository.Repositories
 
         public void Update(SaloonItemEntity item)
         {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"UPDATE {TableName} SET " +
+                    $"NAME = @NAME, " +
+                    $"PRICE = @PRICE, " +
+                    $"QUANTITY_AVAILABLE = @QUANTITY_AVAILABLE " +
+                    $"WHERE ID = @ID";
 
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@ID", item.Id);
+                cmd.Parameters.AddWithValue("@NAME", item.Name);
+                cmd.Parameters.AddWithValue("@PRICE", item.Price);
+                cmd.Parameters.AddWithValue("@QUANTITY_AVAILABLE", item.QuantityAvaible);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private SaloonItemEntity? BuildEntity(SqlDataReader reader)

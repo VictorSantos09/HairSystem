@@ -19,10 +19,12 @@ namespace Hair.Tests.Services
 
         public FireBarberTest()
         {
-            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(),
-                null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity("Rua das Palmeiras",
+                "666", "Blumenau", "Santa Catarina", ","),
+                "400022884", _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
             _service = new(_barberRepositoryMock.Object);
-            _barber = new("carlos", null, null, 2000, new AddressEntity(), true, _user.Id, _user.SaloonName);
+            _barber = new("carlos", null, null, 2000, new AddressEntity("Rua das Palmeiras",
+                "666", "Blumenau", "Santa Catarina", ","), true, _user.Id, _user.SaloonName);
             _dto = new(_user.Id, _barber.Id, _barber.Name, _barber.Email, _barber.SaloonName);
         }
 
@@ -30,17 +32,18 @@ namespace Hair.Tests.Services
         public void FireBarber_ShouldFail_WhenBarberNotFound()
         {
             // Arrange
-            _barberRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
+            _barberRepositoryMock.Reset(); 
+            _barberRepositoryMock.Setup(x => x.GetById(_barber.Id)).Returns((BarberEntity)null);
 
             // Act
             var actual = _service.FireBarber(_dto);
             var expected = BaseDtoExtension.NotFound("Barbeiro");
 
             // Assert
-            Equal(expected._Message, actual._Message);
-            Equal(expected._StatusCode, actual._StatusCode);
-
+            Assert.Equal(expected._Message, actual._Message);
+            Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
+
 
         [Fact]
         public void FireBarber_ShouldFail_WhenUnableToMatchBarber()
