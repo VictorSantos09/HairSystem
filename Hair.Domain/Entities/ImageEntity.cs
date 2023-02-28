@@ -1,11 +1,17 @@
-﻿using Hair.Domain.Common;
-using System.IO;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração da imagem
+    /// </summary>
     public class ImageEntity : BaseEntity
     {
+        /// <summary>
+        /// Id do salão
+        /// </summary>
         public Guid SaloonId { get; set; }
+        /// <summary>
+        /// Imagem
+        /// </summary>
         public byte[] Img { get; set; }
 
         public ImageEntity(Guid saloonId, byte[] img)

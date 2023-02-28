@@ -1,4 +1,6 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -13,9 +15,11 @@ namespace HairSystem.Controllers
         private readonly PostImageService _service;
         private readonly IBaseRepository<ImageEntity> _imageRepository;
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IException _exHelper;
 
-        public PostImageController(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository)
+        public PostImageController(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository, IException exception)
         {
+            _exHelper = exception;
             _imageRepository = imageRepository;
             _userRepository = userRepository;
 
@@ -26,9 +30,21 @@ namespace HairSystem.Controllers
         [Route("PostImage")]
         public IActionResult PostImage([FromBody] PostImageDto dto)
         {
-            var result = _service.Post(dto);
-
-            return StatusCode(result._StatusCode, result._Message);
+            try
+            {
+                var result = _service.Post(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }

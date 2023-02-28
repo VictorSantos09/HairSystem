@@ -1,3 +1,4 @@
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
@@ -10,80 +11,94 @@ namespace Hair.Tests.Services
     public class ChangePriceServiceTest
     {
         private readonly ChangePriceService _service;
-        private readonly Mock<IBaseRepository<UserEntity>> _RepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private double _newPrice = 20;
-        private readonly GlobalUser _globalUser;
+        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
+        private ChangePriceDto _dto;
+        private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
+        private UserEntity _user;
 
         public ChangePriceServiceTest()
         {
-            _globalUser = new GlobalUser();
-            _service = new ChangePriceService(_RepositoryMock.Object);
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(), null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+            _dto = new(_user.Id, 20, true, true, true, true);
+            _service = new ChangePriceService(_userRepositoryMock.Object);
         }
 
         [Fact]
         private void ChangePrice_ShouldReturn200_WhenConfirmedFalse()
         {
-            var actual = _service.ChangeHaircutePrice(_newPrice, It.IsAny<Guid>(), false, true, false, false);
+            // Arrange
+            _dto.Confirmed = false;
+
+            // Act
+            var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.RequestCanceled();
 
-            Equal(expected._StatusCode, actual._StatusCode);
+            // Assert
             Equal(expected._Message, actual._Message);
-            Equal(expected._Data, actual._Data);
+            Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn406_WhenValueNegative()
         {
-            var newPrice = -25;
+            // Arrange
+            _dto.NewPrice = -25;
+
+            // Act
+            var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.Invalid();
 
-            var actual = _service.ChangeHaircutePrice(newPrice, It.IsAny<Guid>(), true, true, false, false);
-
-            Equal(expected._StatusCode, actual._StatusCode);
+            // Assert
             Equal(expected._Message, actual._Message);
-            Equal(expected._Data, actual._Data);
+            Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn404_WhenUserNotFounded()
         {
-            var expected = UserMessageExtension.UserNotFound();
+            // Arrange
+            _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
 
-            var actual = _service.ChangeHaircutePrice(_newPrice, It.IsAny<Guid>(), true, true, false, false);
+            // Act
+            var actual = _service.ChangeHaircutePrice(_dto);
+            var expected = BaseDtoExtension.NotFound();
 
-            Equal(expected._StatusCode, actual._StatusCode);
+            // Assert
             Equal(expected._Message, actual._Message);
-            Equal(expected._Data, actual._Data);
+            Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
-        private void ChangePrice_ShouldReturn406_WhenNotCorrectHaircute()
+        private void ChangePrice_ShouldReturn406_WhenAnyHaircutTrue()
         {
-            var userEntity = _globalUser.GetGlobalUser();
+            // Arrange
+            _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(_user);
+            _dto.Mustache = false;
+            _dto.Beard = false;
+            _dto.Hair = false;
 
-            _RepositoryMock.Setup(x => x.Create(userEntity));
-            _RepositoryMock.Setup(x => x.GetById(userEntity.Id)).Returns(_globalUser.GetGlobalUser());
-
-            var actual = _service.ChangeHaircutePrice(_newPrice, userEntity.Id, true, false, false, false);
-
+            // Act
+            var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.Create(406, "Escolha algum item");
 
-            Equal(expected._StatusCode, actual._StatusCode);
+            // Assert
             Equal(expected._Message, actual._Message);
-            Equal(expected._Data, actual._Data);
+            Equal(expected._StatusCode, actual._StatusCode);
         }
+
         [Fact]
         private void ChangePrice_ShouldReturn200_WhenDataIsCorrect_And_ApplyChange()
         {
-            var globalUser = _globalUser.GetGlobalUser();
+            // Arrange
+            _userRepositoryMock.Setup(x => x.GetById(_dto.SaloonId)).Returns(_user);
 
-            _RepositoryMock.Setup(x => x.Create(globalUser));
-            _RepositoryMock.Setup(x => x.GetById(globalUser.Id)).Returns(globalUser);
-
-            var actual = _service.ChangeHaircutePrice(_newPrice, globalUser.Id, true, true, true, true);
-
+            // Act
+            var actual = _service.ChangeHaircutePrice(_dto);
             var expected = BaseDtoExtension.Sucess("Alteração Concluída");
 
-            Equal(expected._StatusCode, actual._StatusCode);
+            // Assert
             Equal(expected._Message, actual._Message);
-            Equal(expected._Data, actual._Data);
+            Equal(expected._StatusCode, actual._StatusCode);
         }
     }
 }

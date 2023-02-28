@@ -1,98 +1,99 @@
 ﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Application.Interfaces;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Classe para efetuação da mudança de preços do corte de cabelo, barba e bigode
+    /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode
     /// </summary>
-    public class ChangePriceService : IChangePrice
+    public class ChangePriceService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private double _newPrice;
-        private Guid _saloonId;
 
         public ChangePriceService(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }
         /// <summary>
-        /// Verifica a confirmação e efetua a aplicação da alteração dos valores de cortes de cabelo, barba e bigode
+        /// 
+        /// Verifica a confirmação e efetua a alteração dos valores de cortes de cabelo, barba e bigode
+        /// 
         /// </summary>
-        /// <param name="newPrice"></param>
-        /// <param name="saloonId"></param>
-        /// <param name="confirmed"></param>
-        /// <param name="hair"></param>
-        /// <param name="mustache"></param>
-        /// <param name="beard"></param>
-        /// <returns>retorna um <see cref="BaseDto"/> com statusCode 404,406 e 200</returns>
-        public BaseDto ChangeHaircutePrice(double newPrice, Guid saloonId, bool confirmed, bool hair, bool mustache, bool beard)
+        /// 
+        /// <param name="dto"></param>
+        /// 
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
+        public BaseDto ChangeHaircutePrice(ChangePriceDto dto)
         {
-            if (!confirmed)
+            if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
 
-            _saloonId = saloonId;
-            _newPrice = newPrice;
-
-            if (double.IsNegative(newPrice) == true)
+            if (double.IsNegative(dto.NewPrice) == true)
                 return BaseDtoExtension.Invalid();
 
-            var saloon = _userRepository.GetById(saloonId);
+            _newPrice = dto.NewPrice;
 
-            if (saloon == null)
-                return UserMessageExtension.UserNotFound();
+            var user = _userRepository.GetById(dto.SaloonId);
 
-            var haircutePlace = CheckAndApplyPrice(hair, mustache, beard);
+            if (user == null)
+                return BaseDtoExtension.NotFound();
 
-            if (!haircutePlace)
+            var haircutPlace = CheckAndApplyPrice(dto.Hair, dto.Mustache, dto.Beard, user);
+
+            if (!haircutPlace)
                 return BaseDtoExtension.Create(406, "Escolha algum item");
 
             return BaseDtoExtension.Sucess("Alteração Concluída");
         }
         /// <summary>
+        /// 
         /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão
+        /// 
         /// </summary>
+        /// 
         /// <param name="hair"></param>
         /// <param name="mustache"></param>
         /// <param name="beard"></param>
+        /// 
         /// <returns>Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação</returns>
-        private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard)
+        private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard, UserEntity user)
         {
             if (!beard || !mustache || !beard)
                 return false;
 
             if (hair)
-                ApplyHairPrice();
+                ApplyHairPrice(user);
 
             if (mustache)
-                ApplyMustachePrice();
+                ApplyMustachePrice(user);
 
 
             if (beard)
-                ApplyBeardPrice();
+                ApplyBeardPrice(user);
 
             return true;
         }
-        private void ApplyHairPrice()
+        private void ApplyHairPrice(UserEntity user)
         {
-            var saloon = _userRepository.GetById(_saloonId);
+            user.Prices.Hair = _newPrice;
 
-            saloon.Prices.Hair = _newPrice;
+            _userRepository.Update(user);
         }
-        private void ApplyBeardPrice()
+        private void ApplyBeardPrice(UserEntity user)
         {
-            var saloon = _userRepository.GetById(_saloonId);
+            user.Prices.Beard = _newPrice;
 
-            saloon.Prices.Beard = _newPrice;
+            _userRepository.Update(user);
         }
-        private void ApplyMustachePrice()
+        private void ApplyMustachePrice(UserEntity user)
         {
-            var saloon = _userRepository.GetById(_saloonId);
+            user.Prices.Mustache = _newPrice;
 
-            saloon.Prices.Mustache = _newPrice;
+            _userRepository.Update(user);
         }
     }
 }

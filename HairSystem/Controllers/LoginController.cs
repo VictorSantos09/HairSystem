@@ -1,34 +1,45 @@
 ﻿
+using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
-using Hair.Repository.Repositories;
+using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/controller")]
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
-        private readonly UserRepository _userRepository;
+        private readonly IException _exHelper;
 
-        public LoginController()
+        public LoginController(IGetByEmail getByEmail, IException exception)
         {
-            _userRepository = new();
-            _loginService = new LoginService(_userRepository);
+            _exHelper = exception;
+            _loginService = new(getByEmail);
         }
 
-        [Route("Login")]
         [HttpPost]
-        public IActionResult Login([FromBody] LoginDto loginDto)
+        [Route("Login")]
+        public IActionResult Login([FromBody] LoginDto dto)
         {
-            var result = _loginService.CheckLogin(loginDto.Email, loginDto.Password);
-
-            if (result._StatusCode == 200)
-                return StatusCode(result._StatusCode, result._Data == null ? new { Message = result._Message } : new { Successful = true, Id = result._Data });
-
-            return StatusCode(result._StatusCode, new { Message = result._Message, Successful = false });
+            try
+            {
+                var result = _loginService.CheckLogin(dto);
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }

@@ -3,24 +3,23 @@ using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
-using Microsoft.SqlServer.Server;
 
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Classe responsavel por executar o cadastro de novos usuarios
+    /// Classe responsavel por executar o cadastro de novos usuários
     /// </summary>
     public class RegisterService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IGetByEmail _userRepository;
 
-        public RegisterService(IBaseRepository<UserEntity> userRepository)
+        public RegisterService(IGetByEmail userRepository)
         {
             _userRepository = userRepository;
         }
 
         /// <summary>
-        /// Efetua a criação de um novo <see cref="UserEntity"/>
+        /// Efetua a criação de um novo usuário
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido</returns>
@@ -35,10 +34,10 @@ namespace Hair.Application.Services
             if (dto.Password == null || dto.Password.Length < 5)
                 return BaseDtoExtension.Invalid("Senha muito curta");
 
-            if (dto.HaircutePrice.Hair <= 0)
+            if (dto.HairPrice <= 0)
                 return BaseDtoExtension.Invalid("Valor do corte de cabelo inválido");
 
-            if (string.IsNullOrEmpty(dto.Address.City) || string.IsNullOrEmpty(dto.Address.Street))
+            if (string.IsNullOrEmpty(dto.City) || string.IsNullOrEmpty(dto.StreetName))
                 return BaseDtoExtension.NotNull("Endereço");
 
             if (string.IsNullOrEmpty(dto.PhoneNumber) || string.IsNullOrWhiteSpace(dto.PhoneNumber))
@@ -47,7 +46,24 @@ namespace Hair.Application.Services
             if (string.IsNullOrEmpty(dto.Name) || string.IsNullOrWhiteSpace(dto.Name) || dto.Name.Length < 5)
                 return BaseDtoExtension.Invalid("Nome muito curto");
 
-            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, dto.Address, dto.CNPJ, dto.HaircutePrice);
+            var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
+
+            if (isExistentUser != null)
+                return BaseDtoExtension.Invalid("Usuário já registrado");
+
+            DateTime openTime;
+            if (!DateTime.TryParse(dto.OpenTime.ToString(), out openTime))
+                return BaseDtoExtension.Invalid("Horário de abertura inválido");
+
+            DateTime closeTime;
+            if (!DateTime.TryParse(dto.CloseTime.ToString(), out closeTime))
+                return BaseDtoExtension.Invalid("Horário de fechamento inválido");
+
+            var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement);
+
+            var haircutPrice = new HaircutPriceEntity(dto.HairPrice, dto.BeardPrice, dto.MustachePrice);
+
+            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, address, dto.CNPJ, haircutPrice, openTime, dto.GoogleMapsSource, closeTime);
 
             _userRepository.Create(newUser);
 

@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -8,15 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSystem.Controllers
 {
     [ApiController]
-    [Route("Controller")]
+    [Route("api/controller")]
     public class ManagmentWorkerController : ControllerBase
     {
         private readonly ManagmentWorkerService _service;
         private readonly IBaseRepository<BarberEntity> _barberRepository;
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IException _exHelper;
 
-        public ManagmentWorkerController(IBaseRepository<BarberEntity> barberRepository, IBaseRepository<UserEntity> userRepository)
+        public ManagmentWorkerController(IBaseRepository<BarberEntity> barberRepository, IBaseRepository<UserEntity> userRepository, IException exception)
         {
+            _exHelper = exception;
             _barberRepository = barberRepository;
             _userRepository = userRepository;
             _service = new(_userRepository, _barberRepository);
@@ -24,47 +27,50 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("FireBarber")]
-        public IActionResult FireBarber([FromBody] FireBarberDto fireBarberDto)
+        public IActionResult FireBarber([FromBody] FireBarberDto dto)
         {
-            var result = _service.FireBarber(fireBarberDto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            try
+            {
+                var result = _service.Fire(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
 
         [HttpPost]
         [Route("HireBarber")]
-        public IActionResult HireBarber([FromBody] HireBarberDto hireBarberDto)
+        public IActionResult HireBarber([FromBody] HireBarberDto dto)
         {
-            var result = _service.HireNewbarber(hireBarberDto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            try
+            {
+                var result = _service.Hire(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
 
         [HttpPost]
-        [Route("ChangeBarberAdress")]
-        public IActionResult ChangeAdress([FromBody] ChangeBarberAddressDto adressDto)
+        [Route("UpdateBarber")]
+        public IActionResult ChangeAdress([FromBody] UpdateBarberDto dto)
         {
-            var result = _service.ChangeBarberAddress(adressDto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
-        }
-
-        [HttpPost]
-        [Route("ChangeBarberName")]
-        public IActionResult ChangeName([FromBody] ChangeBarberNameDto nameDto)
-        {
-            var result = _service.ChangeBarberName(nameDto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
-        }
-
-        [HttpPost]
-        [Route("ChangeBarberSalary")]
-        public IActionResult ChangeSalary([FromBody] ChangeBarberSalaryDto salaryDto)
-        {
-            var result = _service.ChangeBarberSalary(salaryDto);
-
-            return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            try
+            {
+                var result = _service.Update(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }

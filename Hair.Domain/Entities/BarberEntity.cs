@@ -1,30 +1,59 @@
-﻿using Hair.Domain.Common;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
+    /// <summary>
+    /// Abstração do barbeiro
+    /// </summary>
     public class BarberEntity : BaseEntity
     {
+        /// <summary>
+        /// Nome do barbeiro
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Telefone do barbeiro
+        /// </summary>
         public string? PhoneNumber { get; set; }
+        /// <summary>
+        /// Email do barbeiro
+        /// </summary>
         public string? Email { get; set; }
+        /// <summary>
+        /// Salário do barbeiro
+        /// </summary>
         public double Salary { get; set; }
-        public AddressEntity Adress { get; set; }
+        /// <summary>
+        /// Endereço do barbeiro
+        /// </summary>
+        public AddressEntity Address { get; set; } = new AddressEntity();
+        /// <summary>
+        /// Contratado
+        /// </summary>
         public bool Hired { get; set; }
-        public Guid JobSaloonId { get; set; }
-        public string JobSaloonName { get; set; }
+        /// <summary>
+        /// Id do salão no qual o barbeiro trabalha
+        /// </summary>
+        public Guid SaloonId { get; set; }
+        /// <summary>
+        /// Nome do salão no qual o barbeiro trabalha
+        /// </summary>
+        public string SaloonName { get; set; }
 
         public BarberEntity(string name, string? phoneNumber, string? email, double salary, AddressEntity adress, bool hired, Guid jobSaloonId, string jobSaloonName)
         {
             Id = Guid.NewGuid();
-            Name = name;
+            Name = name.ToUpper();
             PhoneNumber = phoneNumber;
-            Email = email;
+            Email = email == null ? null : email.ToUpper();
             Salary = salary;
-            Adress = adress;
-            Adress.Complement = adress.Complement;
+            Address = adress;
             Hired = hired;
-            JobSaloonId = jobSaloonId;
-            JobSaloonName = jobSaloonName;
+            SaloonId = jobSaloonId;
+            SaloonName = jobSaloonName.ToUpper();
+        }
+
+        public BarberEntity()
+        {
+
         }
     }
 }

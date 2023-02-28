@@ -1,20 +1,22 @@
-﻿using Hair.Domain.Entities;
-
-namespace Hair.Application.Dto
+﻿namespace Hair.Application.Dto
 {
     public class ScheduleHaircutDto
     {
         public Guid UserID { get; set; }
-        public string HaircuteTime { get; set; }
+        public DateTime HaircuteTime { get; set; }
         public bool Confirmed { get; set; }
-        public ClientEntity Client { get; set; }
+        public string ClientPhoneNumber { get; set; }
+        public string? ClientEmail { get; set; }
+        public string? ClientName { get; set; }
 
-        public ScheduleHaircutDto(Guid userID, string haircuteTime, bool confirmed, ClientEntity client)
+        public ScheduleHaircutDto(Guid userID, DateTime haircuteTime, bool confirmed, string clientPhoneNumber, string? clientEmail, string? clientName)
         {
             UserID = userID;
             HaircuteTime = haircuteTime;
             Confirmed = confirmed;
-            Client = client;
+            ClientPhoneNumber = clientPhoneNumber;
+            ClientEmail = clientEmail;
+            ClientName = clientName;
         }
     }
 }

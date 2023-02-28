@@ -1,4 +1,6 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
+using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,11 @@ namespace HairSystem.Controllers
     public class DeleteAccountController : ControllerBase
     {
         private readonly DeleteAccountService _service;
+        private readonly IException _exHelper;
 
-        public DeleteAccountController(IGetByEmail getByEmail)
+        public DeleteAccountController(IGetByEmail getByEmail, IException exception)
         {
+            _exHelper = exception;
             _service = new(getByEmail);
         }
 
@@ -20,9 +24,21 @@ namespace HairSystem.Controllers
         [Route("DeleteAccount")]
         public IActionResult Delete([FromBody] DeleteAccountDto dto)
         {
-            var result = _service.Delete(dto);
-
-            return StatusCode(result._StatusCode, result._Message);
+            try
+            {
+                var result = _service.Delete(dto);
+                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
+            catch (Exception e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
+            }
         }
     }
 }
