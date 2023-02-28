@@ -30,7 +30,7 @@ namespace Hair.Application.Services
             if (barber == null)
                 return BaseDtoExtension.NotFound("Barbeiro");
 
-            if (dto.SaloonId == barber.SaloonId && dto.BarberName == barber.Name)
+            if (dto.SaloonId == barber.SaloonId && dto.BarberName.ToUpper() == barber.Name)
             {
                 barber.Hired = false;
 

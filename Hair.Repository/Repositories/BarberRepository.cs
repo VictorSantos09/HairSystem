@@ -53,27 +53,24 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        BarberEntity barber = new BarberEntity();
+                    var barber = new BarberEntity();
 
-                        barber.Id = reader.GetGuid("ID");
-                        barber.Name = reader.GetString("NAME");
-                        barber.PhoneNumber = reader.GetString("PHONE_NUMBER");
-                        barber.Email = reader.GetString("EMAIL");
-                        barber.Salary = reader.GetDouble("SALARY");
-                        barber.Hired = reader.GetBoolean("HIRED");
-                        barber.Address.Street = reader.GetString("STREET");
-                        barber.Address.State = reader.GetString("STATE");
-                        barber.Address.City = reader.GetString("CITY");
-                        barber.Address.Complement = reader.GetString("COMPLEMENT");
-                        barber.Address.Number = reader.GetString("NUMBER");
-                        barber.Address.FullAddress = reader.GetString("FULL_ADDRESS");
-                        barber.SaloonId = reader.GetGuid("SALOON_ID");
-                        barber.SaloonName = reader.GetString("SALOON_NAME");
+                    barber.Id = reader.GetGuid("ID");
+                    barber.Name = reader.GetString("NAME");
+                    barber.PhoneNumber = reader.GetString("PHONE_NUMBER");
+                    barber.Email = reader.GetString("EMAIL");
+                    barber.Salary = reader.GetDouble("SALARY");
+                    barber.Hired = reader.GetBoolean("HIRED");
+                    barber.Address.Street = reader.GetString("STREET");
+                    barber.Address.State = reader.GetString("STATE");
+                    barber.Address.City = reader.GetString("CITY");
+                    barber.Address.Complement = reader.GetString("COMPLEMENT");
+                    barber.Address.Number = reader.GetString("NUMBER");
+                    barber.Address.FullAddress = reader.GetString("FULL_ADDRESS");
+                    barber.SaloonId = reader.GetGuid("SALOON_ID");
+                    barber.SaloonName = reader.GetString("SALOON_NAME");
 
-                        barbers.Add(barber);
-                    }
+                    barbers.Add(barber);
                 }
 
                 return barbers;
@@ -92,7 +89,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
@@ -121,35 +118,67 @@ namespace Hair.Repository.Repositories
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
+                var query = $"UPDATE {TableName} SET " +
+                    $"NAME = @NAME, " +
+                    $"PHONE_NUMBER = @PHONE_NUMBER, " +
+                    $"EMAIL = @EMAIL, " +
+                    $"SALARY = @SALARY, " +
+                    $"HIRED = @HIRED, " +
+                    $"STREET = @STREET, " +
+                    $"STATE = @STATE, " +
+                    $"CITY = @CITY, " +
+                    $"COMPLEMENT = @COMPLEMENT, " +
+                    $"NUMBER = @NUMBER, " +
+                    $"FULL_ADDRESS = @FULL_ADDRESS, " +
+                    $"SALOON_ID = @SALOON_ID, " +
+                    $"SALOON_NAME = @SALOON_NAME " +
+                    $"WHERE ID = @ID";
 
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@ID", barber.Id);
+                cmd.Parameters.AddWithValue("@NAME", barber.Name);
+                cmd.Parameters.AddWithValue("@PHONE_NUMBER", barber.PhoneNumber);
+                cmd.Parameters.AddWithValue("@EMAIL", barber.Email);
+                cmd.Parameters.AddWithValue("@SALARY", barber.Salary);
+                cmd.Parameters.AddWithValue("@HIRED", barber.Hired);
+                cmd.Parameters.AddWithValue("@STREET", barber.Address.Street);
+                cmd.Parameters.AddWithValue("@STATE", barber.Address.State);
+                cmd.Parameters.AddWithValue("@CITY", barber.Address.City);
+                cmd.Parameters.AddWithValue("@COMPLEMENT", barber.Address.Complement);
+                cmd.Parameters.AddWithValue("@NUMBER", barber.Address.Number);
+                cmd.Parameters.AddWithValue("@FULL_ADDRESS", barber.Address.FullAddress);
+                cmd.Parameters.AddWithValue("@SALOON_ID", barber.SaloonId);
+                cmd.Parameters.AddWithValue("@SALOON_NAME", barber.SaloonName);
+
+                cmd.ExecuteNonQuery();
             }
         }
 
-        private BarberEntity? BuildEntity(SqlCommand cmd)
+        private BarberEntity? BuildEntity(SqlDataReader reader)
         {
             BarberEntity? barber = new BarberEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+
+            while (reader.Read())
             {
-
-                while (reader.Read())
-                {
-                    barber.Id = reader.GetGuid("ID");
-                    barber.Name = reader.GetString("NAME");
-                    barber.PhoneNumber = reader.GetString("PHONE_NUMBER");
-                    barber.Email = reader.GetString("EMAIL");
-                    barber.Salary = reader.GetDouble("SALARY");
-                    barber.Hired = reader.GetBoolean("HIRED");
-                    barber.Address.Street = reader.GetString("STREET");
-                    barber.Address.State = reader.GetString("STATE");
-                    barber.Address.City = reader.GetString("CITY");
-                    barber.Address.Complement = reader.GetString("COMPLEMENT");
-                    barber.Address.Number = reader.GetString("NUMBER");
-                    barber.Address.FullAddress = reader.GetString("FULL_ADDRESS");
-                    barber.SaloonId = reader.GetGuid("SALOON_ID");
-                    barber.SaloonName = reader.GetString("SALOON_NAME");
-                }
-
+                barber.Id = reader.GetGuid("ID");
+                barber.Name = reader.GetString("NAME");
+                barber.PhoneNumber = reader.GetString("PHONE_NUMBER");
+                barber.Email = reader.GetString("EMAIL");
+                barber.Salary = reader.GetDouble("SALARY");
+                barber.Hired = reader.GetBoolean("HIRED");
+                barber.Address.Street = reader.GetString("STREET");
+                barber.Address.State = reader.GetString("STATE");
+                barber.Address.City = reader.GetString("CITY");
+                barber.Address.Complement = reader.GetString("COMPLEMENT");
+                barber.Address.Number = reader.GetString("NUMBER");
+                barber.Address.FullAddress = reader.GetString("FULL_ADDRESS");
+                barber.SaloonId = reader.GetGuid("SALOON_ID");
+                barber.SaloonName = reader.GetString("SALOON_NAME");
             }
+
             return barber.Id == Guid.Empty ? null : barber;
         }
     }

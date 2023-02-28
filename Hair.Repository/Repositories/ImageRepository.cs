@@ -42,16 +42,12 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        ImageEntity image = new ImageEntity();
+                    var image = new ImageEntity();
 
-                        image.Id = reader.GetGuid("ID");
-                        image.SaloonId = reader.GetGuid("SALOON_ID");
-                        //image.Img = reader.GetString("IMAGE");
-
-                        images.Add(image);
-                    }
+                    image.Id = reader.GetGuid("ID");
+                    image.SaloonId = reader.GetGuid("SALOON_ID");
+                    //image.Img = reader.GetByte("IMAGE"); corrigir
+                    images.Add(image);
                 }
 
                 return images;
@@ -70,7 +66,7 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
@@ -99,21 +95,34 @@ namespace Hair.Repository.Repositories
 
         public void Update(ImageEntity image)
         {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"UPDATE {TableName} SET " +
+                    $"SALOON_ID = @SALOON_ID, " +
+                    $"IMAGE = @IMAGE " +
+                    $"WHERE ID = @ID";
 
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@SALOON_ID", image.SaloonId);
+                cmd.Parameters.AddWithValue("@IMAGE", image.Img);
+                cmd.Parameters.AddWithValue("@ID", image.Id);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
-        private ImageEntity? BuildEntity(SqlCommand cmd)
+        private ImageEntity? BuildEntity(SqlDataReader reader)
         {
             ImageEntity? image = new ImageEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
 
-                while (reader.Read())
-                {
-                    image.Id = reader.GetGuid("ID");
-                    image.SaloonId = reader.GetGuid("SALOON_ID");
-                    //image.Img = reader.GetByte("IMAGE"); corrigir
-                }
+            while (reader.Read())
+            {
+                image.Id = reader.GetGuid("ID");
+                image.SaloonId = reader.GetGuid("SALOON_ID");
+                //image.Img = reader.GetByte("IMAGE"); corrigir
             }
             return image.Id == Guid.Empty ? null : image;
         }

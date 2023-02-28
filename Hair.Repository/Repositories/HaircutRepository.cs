@@ -34,10 +34,36 @@ namespace Hair.Repository.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
+
         public void Update(HaircutEntity haircut)
         {
+            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var query = $"UPDATE {TableName} SET " +
+                    $"SALOON_ID = @SALOON_ID, " +
+                    $"HAIRCUT_TIME = @HAIRCUT_TIME, " +
+                    $"AVAILABLE = @AVAILABLE, " +
+                    $"CLIENT_NAME = @CLIENT_NAME," +
+                    $" CLIENT_EMAIL = @CLIENT_EMAIL, " +
+                    $"CLIENT_PHONE_NUMBER = @CLIENT_PHONE_NUMBER " +
+                    $"WHERE ID = @ID";
 
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@SALOON_ID", haircut.SaloonId);
+                cmd.Parameters.AddWithValue("@HAIRCUT_TIME", haircut.HaircuteTime);
+                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Avaible);
+                cmd.Parameters.AddWithValue("@CLIENT_NAME", haircut.Client.Name);
+                cmd.Parameters.AddWithValue("@CLIENT_EMAIL", haircut.Client.Email);
+                cmd.Parameters.AddWithValue("@CLIENT_PHONE_NUMBER", haircut.Client.PhoneNumber);
+                cmd.Parameters.AddWithValue("@ID", haircut.Id);
+
+                cmd.ExecuteNonQuery();
+            }
         }
+
         public bool Remove(Guid id)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -102,26 +128,24 @@ namespace Hair.Repository.Repositories
 
                 conn.Open();
 
-                return BuildEntity(cmd);
+                return BuildEntity(cmd.ExecuteReader());
             }
         }
 
-        private HaircutEntity? BuildEntity(SqlCommand cmd)
+        private HaircutEntity? BuildEntity(SqlDataReader reader)
         {
             HaircutEntity? haircut = new HaircutEntity();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
-                    haircut.Avaible = reader.GetBoolean("AVAILABLE");
-                    haircut.Id = reader.GetGuid("ID");
-                    haircut.SaloonId = reader.GetGuid("ID");
-                    haircut.Client.Name = reader.GetString("CLIENT_NAME");
-                    haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
-                    haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
-                }
+                haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
+                haircut.Avaible = reader.GetBoolean("AVAILABLE");
+                haircut.Id = reader.GetGuid("ID");
+                haircut.SaloonId = reader.GetGuid("ID");
+                haircut.Client.Name = reader.GetString("CLIENT_NAME");
+                haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
+                haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
             }
+
             return haircut.Id == Guid.Empty ? null : haircut;
         }
     }
