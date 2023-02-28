@@ -16,22 +16,14 @@ namespace Hair.Application.Services
 
     public class StorageService
     {
-<<<<<<< HEAD
         private readonly UserRepository _userRepository;
         private readonly StorageRepository _saloonItem;
-        //List<string> storage = new List<string>();   
         public StorageService(StorageRepository saloonItem, UserRepository userRepository)
-=======
-        private readonly StorageRepository _saloonItem;
-        //List<string> storage = new List<string>();   
-        public StorageService(StorageRepository saloonItem)
->>>>>>> 5c0679b (Rebase)
         {
             _saloonItem = saloonItem;
             _userRepository = userRepository;
         }
 
-<<<<<<< HEAD
         public BaseDto AddItem(string name, double price, int quantityAvaliable, Guid userId)
         {
             if (quantityAvaliable <= 0)
@@ -45,7 +37,7 @@ namespace Hair.Application.Services
 
             var item = new SaloonItemEntity(name, price, quantityAvaliable, userId);
             var user = _userRepository.GetById(userId);
-            if (user != null)
+            if (user == null)
                 return BaseDtoExtension.NotFound();
 
             _saloonItem.Create(item);
@@ -54,7 +46,7 @@ namespace Hair.Application.Services
         public BaseDto GetItems(Guid userId)
         {
             var user = _userRepository.GetById(userId);
-            if (user != null)
+            if (user == null)
                 return BaseDtoExtension.NotFound();
             var itemList = _saloonItem.GetAll().FindAll(x => x.Id == userId);
             if (itemList.Count == 0)
@@ -74,28 +66,5 @@ namespace Hair.Application.Services
 
             return BaseDtoExtension.Sucess("Item removido com sucesso");
         }
-=======
-
-
-        public BaseDto AddItem(string name, double price, int quantityAvaliable, Guid userId)
-        {
-            var item = new SaloonItemEntity(name, price, quantityAvaliable, userId);
-            _saloonItem.Create(item);
-            return new BaseDto(200, "Item adicionado com sucesso");
-        }
-
-
-
-        //public BaseDto GetItems()
-        //{
-        //    _saloonItem.GetAll();
-        //    return new BaseDto(200, "Exibindo todos os itens");
-        //}
-        //public BaseDto GetItemsId(Guid itemId)
-        //{
-        //    _saloonItem.GetById(itemId);
-        //    return new BaseDto(200, "Item encontrado");
-        //}
->>>>>>> 5c0679b (Rebase)
     }
 }
