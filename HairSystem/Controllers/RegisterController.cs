@@ -1,7 +1,9 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
+using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +16,10 @@ namespace HairSystem.Controllers
         private readonly RegisterService _service;
         private readonly IException _exHelper;
 
-        public RegisterController(IGetByEmail userRepository, IException exception)
+        public RegisterController(IGetByEmail userRepository, IException exception, IValidator<UserEntity> validator)
         {
             _exHelper = exception;
-            _service = new(userRepository);
+            _service = new(userRepository, validator);
         }
 
         [HttpPost]
@@ -27,7 +29,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Execute(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message): result._Data);
 
             }
             catch (ArgumentNullException e)

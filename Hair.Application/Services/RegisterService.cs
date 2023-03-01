@@ -1,8 +1,11 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
+using Hair.Application.Validation;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hair.Application.Services
 {
@@ -12,9 +15,11 @@ namespace Hair.Application.Services
     public class RegisterService
     {
         private readonly IGetByEmail _userRepository;
+        private readonly IValidator<UserEntity> _validator;
 
-        public RegisterService(IGetByEmail userRepository)
+        public RegisterService(IGetByEmail userRepository, IValidator<UserEntity> validator)
         {
+            _validator = validator;
             _userRepository = userRepository;
         }
 
@@ -25,45 +30,31 @@ namespace Hair.Application.Services
         /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido</returns>
         public BaseDto Execute(RegisterDto dto)
         {
-            if (!IsValidEmail(dto.Email))
-                return BaseDtoExtension.Invalid("Email inválido");
+            //var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
 
-            if (string.IsNullOrEmpty(dto.SaloonName) || string.IsNullOrWhiteSpace(dto.SaloonName))
-                return BaseDtoExtension.NotNull("Nome do salão");
+            //if (isExistentUser != null)
+            //    return BaseDtoExtension.Invalid("Usuário já registrado");
 
-            if (dto.Password == null || dto.Password.Length < 5)
-                return BaseDtoExtension.Invalid("Senha muito curta");
+            //DateTime openTime;
+            //if (!DateTime.TryParse(dto.OpenTime.ToString(), out openTime))
+            //    return BaseDtoExtension.Invalid("Horário de abertura inválido");
 
-            if (dto.HairPrice <= 0)
-                return BaseDtoExtension.Invalid("Valor do corte de cabelo inválido");
-
-            if (string.IsNullOrEmpty(dto.City) || string.IsNullOrEmpty(dto.StreetName))
-                return BaseDtoExtension.NotNull("Endereço");
-
-            if (string.IsNullOrEmpty(dto.PhoneNumber) || string.IsNullOrWhiteSpace(dto.PhoneNumber))
-                return BaseDtoExtension.NotNull("Telefone");
-
-            if (string.IsNullOrEmpty(dto.Name) || string.IsNullOrWhiteSpace(dto.Name) || dto.Name.Length < 5)
-                return BaseDtoExtension.Invalid("Nome muito curto");
-
-            var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
-
-            if (isExistentUser != null)
-                return BaseDtoExtension.Invalid("Usuário já registrado");
-
-            DateTime openTime;
-            if (!DateTime.TryParse(dto.OpenTime.ToString(), out openTime))
-                return BaseDtoExtension.Invalid("Horário de abertura inválido");
-
-            DateTime closeTime;
-            if (!DateTime.TryParse(dto.CloseTime.ToString(), out closeTime))
-                return BaseDtoExtension.Invalid("Horário de fechamento inválido");
+            //DateTime closeTime;
+            //if (!DateTime.TryParse(dto.CloseTime.ToString(), out closeTime))
+            //    return BaseDtoExtension.Invalid("Horário de fechamento inválido");
 
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement);
 
             var haircutPrice = new HaircutPriceEntity(dto.HairPrice, dto.BeardPrice, dto.MustachePrice);
 
-            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, address, dto.CNPJ, haircutPrice, openTime, dto.GoogleMapsSource, closeTime);
+            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, address, dto.CNPJ, haircutPrice, dto.OpenTime, dto.GoogleMapsSource, dto.CloseTime);
+
+            var result = _validator.Validate(newUser);
+
+            if (!result.IsValid)
+            {
+                return BaseDtoExtension.Create(400, "Dados inválidos", result.Errors);
+            }
 
             _userRepository.Create(newUser);
 

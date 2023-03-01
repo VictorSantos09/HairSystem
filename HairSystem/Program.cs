@@ -1,4 +1,5 @@
 using Hair.Application;
+using FluentValidation.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 

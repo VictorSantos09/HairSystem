@@ -1,4 +1,6 @@
+using FluentValidation;
 using Hair.Application.ExceptionHandlling;
+using Hair.Application.Validation;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Repositories;
@@ -25,6 +27,8 @@ namespace Hair.Application
 
             services.AddTransient<IGetByEmail, UserRepository>();
             services.AddTransient<IException, ExceptionHelper>();
+
+            services.AddTransient<IValidator<UserEntity>,UserValidator>();
         }
     }
 }
