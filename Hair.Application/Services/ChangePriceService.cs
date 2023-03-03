@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode
+    /// 
+    /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode.
+    /// 
     /// </summary>
     public class ChangePriceService
     {
@@ -20,13 +22,13 @@ namespace Hair.Application.Services
         }
         /// <summary>
         /// 
-        /// Verifica a confirmação e efetua a alteração dos valores de cortes de cabelo, barba e bigode
+        /// Verifica a confirmação e efetua a alteração dos valores de cortes de cabelo, barba e bigode.
         /// 
         /// </summary>
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
         public BaseDto ChangeHaircutePrice(ChangePriceDto dto)
         {
             if (!dto.Confirmed)
@@ -51,15 +53,17 @@ namespace Hair.Application.Services
         }
         /// <summary>
         /// 
-        /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão
+        /// Verifica as condições verdadeiras e aplica no tipo de corte true da Id do Salão.
         /// 
         /// </summary>
         /// 
         /// <param name="hair"></param>
+        /// 
         /// <param name="mustache"></param>
+        /// 
         /// <param name="beard"></param>
         /// 
-        /// <returns>Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação</returns>
+        /// <returns> Retorna false casos os parametros sejam falsos, e true caso algum verdadeiro após aplicação.</returns>
         private bool CheckAndApplyPrice(bool hair, bool mustache, bool beard, UserEntity user)
         {
             if (!beard || !mustache || !beard)

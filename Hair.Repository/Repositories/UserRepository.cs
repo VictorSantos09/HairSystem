@@ -140,27 +140,7 @@ namespace Hair.Repository.Repositories
                 {
                     while (reader.Read())
                     {
-                        var user = new UserEntity();
-                        user.Id = reader.GetGuid("ID");
-                        user.Password = reader.GetString("PASSWORD");
-                        user.CNPJ = reader.IsDBNull("CNPJ") ? null : reader.GetString("CNPJ");
-                        user.Email = reader.GetString("EMAIL");
-                        user.OwnerName = reader.GetString("OWNER_NAME");
-                        user.PhoneNumber = reader.GetString("PHONE_NUMBER");
-                        user.SaloonName = reader.GetString("SALOON_NAME");
-                        user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
-                        user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
-                        user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                        user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
-                        user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
-                        user.Address.Street = reader.GetString("STREET");
-                        user.Address.State = reader.GetString("STATE");
-                        user.Address.City = reader.GetString("CITY");
-                        user.Address.Complement = reader.IsDBNull("COMPLEMENT") ? null : reader.GetString("COMPLEMENT");
-                        user.Address.Number = reader.GetString("NUMBER");
-                        user.Address.FullAddress = reader.GetString("FULL_ADDRESS");
-                        user.GoogleMapsSource = reader.IsDBNull("GOOGLE_MAPS_SOURCE") ? null : reader.GetString("GOOGLE_MAPS_SOURCE");
-
+                        var user = BuildEntity(reader);
                         output.Add(user);
                     }
                 }
@@ -196,35 +176,32 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private UserEntity? BuildEntity(SqlDataReader reader)
+        private UserEntity BuildEntity(SqlDataReader reader)
         {
-            UserEntity? user = new UserEntity();
-            while (reader.Read())
-            {
-                user.Id = reader.GetGuid("ID");
-                user.Password = reader.GetString("PASSWORD");
-                user.CNPJ = reader.IsDBNull("CNPJ") ? null : reader.GetString("CNPJ");
-                user.Email = reader.GetString("EMAIL");
-                user.OwnerName = reader.GetString("OWNER_NAME");
-                user.PhoneNumber = reader.GetString("PHONE_NUMBER");
-                user.SaloonName = reader.GetString("SALOON_NAME");
-                user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
-                user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
-                user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-                user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
-                user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
-                user.Address.Street = reader.GetString("STREET");
-                user.Address.State = reader.GetString("STATE");
-                user.Address.City = reader.GetString("CITY");
-                user.Address.Complement = reader.IsDBNull("COMPLEMENT") ? null : reader.GetString("COMPLEMENT");
-                user.Address.Number = reader.GetString("NUMBER");
-                user.Address.FullAddress = reader.GetString("FULL_ADDRESS");
-                user.GoogleMapsSource = reader.IsDBNull("GOOGLE_MAPS_SOURCE") ? null : reader.GetString("GOOGLE_MAPS_SOURCE");
+            var user = new UserEntity();
+            user.Id = reader.GetGuid("ID");
+            user.Password = reader.GetString("PASSWORD");
+            user.CNPJ = reader.IsDBNull("CNPJ") ? null : reader.GetString("CNPJ");
+            user.Email = reader.GetString("EMAIL");
+            user.OwnerName = reader.GetString("OWNER_NAME");
+            user.PhoneNumber = reader.GetString("PHONE_NUMBER");
+            user.SaloonName = reader.GetString("SALOON_NAME");
+            user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
+            user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
+            user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
+            user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
+            user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
+            user.Address.Street = reader.GetString("STREET");
+            user.Address.State = reader.GetString("STATE");
+            user.Address.City = reader.GetString("CITY");
+            user.Address.Complement = reader.IsDBNull("COMPLEMENT") ? null : reader.GetString("COMPLEMENT");
+            user.Address.Number = reader.GetString("NUMBER");
+            user.Address.FullAddress = reader.GetString("FULL_ADDRESS");
+            user.GoogleMapsSource = reader.IsDBNull("GOOGLE_MAPS_SOURCE") ? null : reader.GetString("GOOGLE_MAPS_SOURCE");
 
-                PopulateHaircut(user);
+            PopulateHaircut(user);
 
-            }
-            return user.Id == Guid.Empty ? null : user;
+            return user;
         }
 
         private void PopulateHaircut(UserEntity user)

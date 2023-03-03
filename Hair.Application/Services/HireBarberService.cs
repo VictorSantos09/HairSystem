@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Define os métodos para a demissão de funcionários
+    /// 
+    /// Define os métodos para a contratação de funcionários.
+    /// 
     /// </summary>
     public class HireBarberService
     {
@@ -21,10 +23,14 @@ namespace Hair.Application.Services
         }
 
         /// <summary>
-        /// Método para contratação de novo barbeiro se confirmado true
+        /// 
+        /// Método para contratação de novo barbeiro se confirmado <see langword="true"/>.
+        /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
-        /// <returns>Retorna <see cref="BaseDto"/> com statusCode 200 e 404 caso o salão não foi encontrado</returns>
+        /// 
+        /// <returns>Retorna <see cref="BaseDto"/> com statusCode 200 e 404 caso o salão não foi encontrado.</returns>
         public BaseDto HireNewbarber(HireBarberDto dto)
         {
             if (!dto.Confirmed)

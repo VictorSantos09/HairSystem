@@ -6,27 +6,39 @@
     public class AddressEntity
     {
         /// <summary>
-        /// Rua
+        /// 
+        /// Rua.
+        /// 
         /// </summary>
         public string Street { get; set; }
         /// <summary>
-        /// Número do estabelecimento
+        /// 
+        /// Número do estabelecimento.
+        /// 
         /// </summary>
         public string Number { get; set; }
         /// <summary>
-        /// Cidade
+        /// 
+        /// Cidade.
+        /// 
         /// </summary>
         public string City { get; set; }
         /// <summary>
-        /// Estado
+        /// 
+        /// Estado.
+        /// 
         /// </summary>
         public string State { get; set; }
         /// <summary>
-        /// Complemento do endereço
+        /// 
+        /// Complemento do endereço.
+        /// 
         /// </summary>
         public string? Complement { get; set; }
         /// <summary>
-        /// Endereço completo
+        /// 
+        /// Endereço completo.
+        /// 
         /// </summary>
         public string FullAddress { get; set; }
         

@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Define a função de postar uma nova imagem
+    /// 
+    /// Define a função de postar uma nova imagem.
+    /// 
     /// </summary>
     public class PostImageService
     {
@@ -22,12 +24,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a postagem de uma nova imagem para o usuário
+        /// Efetua a postagem de uma nova imagem para o usuário.
         /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
         public BaseDto Post(PostImageDto dto)
         {
             var user = _userRepository.GetById(dto.UserID);

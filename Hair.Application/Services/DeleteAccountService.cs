@@ -6,7 +6,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Classe referente para efetuar a remoção da conta
+    /// 
+    /// Classe referente para efetuar a remoção da conta.
+    /// 
     /// </summary>
     public class DeleteAccountService
     {
@@ -19,12 +21,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a remoção da conta com as informações passadas em <paramref name="dto"/>
+        /// Efetua a remoção da conta com as informações passadas em <paramref name="dto"/>.
         /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
         public BaseDto Delete(DeleteAccountDto dto)
         {
             if (!dto.Confirmed)

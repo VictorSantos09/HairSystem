@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Contém o método para efetuar a demissão de funcionários
+    /// 
+    /// Contém o método para efetuar a demissão de funcionários.
+    /// 
     /// </summary>
     public class FireBarberService
     {
@@ -19,10 +21,14 @@ namespace Hair.Application.Services
         }
 
         /// <summary>
-        /// Método para demissão de funcionarios
+        /// 
+        /// Método para demissão de funcionarios.
+        /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
-        /// <returns>Retorna um <see cref="BaseDto"/> Com statusCode 404,200 e 406 caso dados inválidos</returns>
+        /// 
+        /// <returns>Retorna um <see cref="BaseDto"/> Com statusCode 404,200 e 406 caso dados inválidos.</returns>
         public BaseDto FireBarber(FireBarberDto dto)
         {
             var barber = _barberRepository.GetById(dto.BarberId);
