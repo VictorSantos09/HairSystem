@@ -8,7 +8,7 @@ namespace Hair.Application.Services
 {
     /// <summary>
     /// 
-    /// Define os métodos para a demissão de funcionários.
+    /// Define os métodos para a contratação de funcionários.
     /// 
     /// </summary>
     public class HireBarberService

@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Responsável pelas efetuações referentes ao agendamento de cortes
+    /// 
+    /// Responsável pelas efetuações referentes ao agendamento de cortes.
+    /// 
     /// </summary>
     public class ScheduleHaircutService
     {
@@ -22,13 +24,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua o agendamento do corte
+        /// Efetua o agendamento do corte.
         /// 
         /// </summary>
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha.</returns>
         public BaseDto Schedule(ScheduleHaircutDto dto)
         {
             if (!dto.Confirmed)

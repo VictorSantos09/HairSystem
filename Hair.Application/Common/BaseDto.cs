@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// 
-    /// Entidade base para envio de dados e informações para o front.
+    /// Entidade base para envio de dados e informações para o front, tais como StatusCode, Mensagem e Dados.
     /// 
     /// </summary>
     public class BaseDto
@@ -12,77 +12,37 @@
         /// Status Code HTTP.
         /// 
         /// </summary>
-       
-        public int StatusCode { get; set; }
-
+        public int _StatusCode { get; set; }
         /// <summary>
         /// 
         /// Mensagem a ser enviada.
         /// 
         /// </summary>
-       
-        public string Message { get; set; }
-
+        public string _Message { get; set; }
         /// <summary>
         /// 
         /// Dado a ser enviado.
         /// 
         /// </summary>
-        
-        public object Data { get; set; }
+        public object _Data { get; set; }
 
-        /// <summary>
-        /// 
-        /// Construtor que recebe o status code e o dado.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="statusCode">Código do status HTTP.</param>
-        /// 
-        /// <param name="data">Dado a ser enviado.</param>
-        /// 
-        /// <returns><see langword="true"/> se efetuado com sucesso, senão <see langword="false"/>.</returns>
         public BaseDto(int statusCode, object data)
         {
-            StatusCode = statusCode;
-            Data = data;
+            _StatusCode = statusCode;
+            _Data = data;
         }
 
-        /// <summary>
-        /// 
-        /// Construtor que recebe o status code e a mensagem.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="statusCode">Código do status HTTP.</param>
-        /// 
-        /// <param name="message">Mensagem a ser enviada.</param>
-        /// 
-        /// <returns><see langword="true"/> se efetuado com sucesso, senão <see langword="false"/>.</returns>
         public BaseDto(int statusCode, string message)
         {
-            StatusCode = statusCode;
-            Message = message;
+            _StatusCode = statusCode;
+            _Message = message;
         }
 
-        /// <summary>
-        /// 
-        /// Construtor que recebe o status code, a mensagem e o dado.
-        /// 
-        /// </summary>
-        /// <param name="statusCode">Código do status HTTP.</param>
-        /// 
-        /// <param name="message">Mensagem a ser enviada.</param>
-        /// 
-        /// <param name="data">Dado a ser enviado.</param>
-        /// 
-        /// <returns><see langword="true"/> se efetuado com sucesso, senão <see langword="false"/>.</returns>
         public BaseDto(int statusCode, string message, object data)
         {
-            StatusCode = statusCode;
-            Message = message;
-            Data = data;
+            _Data = data;
+            _StatusCode = statusCode;
+            _Message = message;
         }
     }
 }
-
