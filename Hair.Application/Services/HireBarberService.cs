@@ -28,9 +28,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto que contém dados do funcionário a ser contratado.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com statusCode 200 e 404 caso o salão não foi encontrado.</returns>
+        /// <returns>Retorna a contratação em caso de sucesso ou inválido.</returns>
         public BaseDto HireNewbarber(HireBarberDto dto)
         {
             if (!dto.Confirmed)

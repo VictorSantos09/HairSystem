@@ -30,9 +30,10 @@ namespace Hair.Application.Services
         /// Obtém os cortes de cabelo agendados por um usuário.
         /// 
         /// </summary>
-        /// <param name="dto">DTO com o ID do usuário.</param>
         /// 
-        /// <returns>Objeto BaseDto com a lista de cortes de cabelo agendados.</returns>
+        /// <param name="dto">Objeto com o ID do usuário.</param>
+        /// 
+        /// <returns>Retorna a lista de cortes de cabelo agendados em caso de sucesso ou inválido.</returns>
         public BaseDto GetScheduledHaircuts(ViewHaircutTimeDto dto)
         {
             var userHaircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == dto.UserID);

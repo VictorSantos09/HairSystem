@@ -18,17 +18,17 @@ namespace Hair.Application.Services
         public RegisterService(IGetByEmail userRepository)
         {
             _userRepository = userRepository;
-        }
+        } 
 
         /// <summary>
         /// 
-        /// Efetua a criação de um novo usuário.
+        /// Efetua o cadastro de um novo usuário.
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto que contém as informações do usuário a ser cadastrado.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido.</returns>
+        /// <returns>Retorna a criação da conta em caso de sucesso ou inválido.</returns> 
         public BaseDto Execute(RegisterDto dto)
         {
             if (!IsValidEmail(dto.Email))

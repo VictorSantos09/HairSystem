@@ -26,9 +26,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto que contém dados do funcionário a ser demitido.</param>
         /// 
-        /// <returns>Retorna um <see cref="BaseDto"/> Com statusCode 404,200 e 406 caso dados inválidos.</returns>
+        /// <returns>Retorna a remoção do funcionário em caso de sucesso ou inválido.</returns>
         public BaseDto FireBarber(FireBarberDto dto)
         {
             var barber = _barberRepository.GetById(dto.BarberId);

@@ -26,9 +26,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto que contém os preços.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
+        /// <returns>Retorna a alteração de preço em caso de sucesso ou inválido.</returns>
         public BaseDto ChangeHaircutePrice(ChangePriceDto dto)
         {
             if (!dto.Confirmed)

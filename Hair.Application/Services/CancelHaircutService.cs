@@ -28,9 +28,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto com os dados do corte agendado.</param>
         /// 
-        /// <returns> Retorna uma mensagem informando se o cancelamento foi realizado com sucesso ou se ocorreu algum erro.</returns>
+        /// <returns>Retorna o cancelamento em caso de sucesso ou inválido.</returns>
         public BaseDto Cancel(CancelHaircutDto dto)
         {
             if (string.IsNullOrEmpty(dto.ClientName))

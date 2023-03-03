@@ -20,13 +20,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua o processo de login através do <paramref name="dto"/> fornecido.
+        /// Efetua o processo de login.
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto com as credenciais de login.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
+        /// <returns>Retorna o login em caso de sucesso ou inválido.</returns>
         public BaseDto CheckLogin(LoginDto dto)
         {
             if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))

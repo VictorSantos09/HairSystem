@@ -26,9 +26,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto com as informações do salão.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code. Data de <see cref="BaseDto"/> recebe as informações do salão quando encontrado.</returns>
+        /// <returns>Retorna as informações do salão em caso de sucesso ou inválido.</returns>
         public BaseDto GetInformation(ViewSaloonInformationDto dto)
         {
             var user = _userRepository.GetById(dto.UserId);

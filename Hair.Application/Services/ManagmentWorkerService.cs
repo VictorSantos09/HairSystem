@@ -30,11 +30,12 @@ namespace Hair.Application.Services
         /// <summary>
         /// 
         /// Método que atualiza as informações de um barbeiro existente
+        /// 
         /// </summary>
         /// 
-        /// <param name="dto">Objeto do tipo UpdateBarberDto contendo as informações atualizadas do barbeiro.</param>
+        /// <param name="dto">Objeto com as informações atualizadas do barbeiro.</param>
         /// 
-        /// <returns>Objeto do tipo BaseDto com o resultado da operação de atualização.</returns>
+        /// <returns>Retorna o resultado da operação de atualização.</returns>
         public BaseDto Update(UpdateBarberDto dto) => _update.Update(dto);
 
         /// <summary>
@@ -43,9 +44,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto">Objeto do tipo HireBarberDto contendo as informações do novo barbeiro a ser contratado.</param>
+        /// <param name="dto">Objeto com as informações do barbeiro a ser contratado.</param>
         /// 
-        /// <returns>Objeto do tipo BaseDto com o resultado da operação de contratação.</returns>
+        /// <returns>Retorna o resultado da operação de contratação.</returns>
         public BaseDto Hire(HireBarberDto dto) => _hire.HireNewbarber(dto);
 
         /// <summary>
@@ -54,9 +55,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto">Objeto do tipo FireBarberDto contendo as informações do barbeiro a ser demitido.</param>
+        /// <param name="dto">Objeto com as informações do barbeiro a ser demitido.</param>
         /// 
-        /// <returns>Objeto do tipo BaseDto com o resultado da operação de demissão.</returns>
+        /// <returns>Retorna o resultado da operação de demissão.</returns>
         public BaseDto Fire(FireBarberDto dto) => _fire.FireBarber(dto);
     }
 }

@@ -28,9 +28,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto com dados do corte.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha.</returns>
+        /// <returns>Retorna o agendamento em caso de sucesso ou inválido.</returns>
         public BaseDto Schedule(ScheduleHaircutDto dto)
         {
             if (!dto.Confirmed)

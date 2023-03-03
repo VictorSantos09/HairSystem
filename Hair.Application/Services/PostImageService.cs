@@ -28,9 +28,9 @@ namespace Hair.Application.Services
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto com dados da imagem a ser postada.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
+        /// <returns>Retorna a postagem da imagem em caso de sucesso ou inválido.</returns>
         public BaseDto Post(PostImageDto dto)
         {
             var user = _userRepository.GetById(dto.UserID);

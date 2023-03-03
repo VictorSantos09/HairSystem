@@ -23,15 +23,15 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a busca dos funcionários do usuário quando paramêtros fornecidos válidos.
+        /// Efetua a busca dos funcionários do usuário quando os paramêtros são válidos.
         /// 
         /// </summary>
         /// 
-        /// <param name="email"></param>
+        /// <param name="email">Email do funcionário.</param>
         /// 
-        /// <param name="password"></param>
+        /// <param name="password">Senha do funcionário.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.</returns>
+        /// <returns>Retorna os funcionários quando encontrados ou inválido.</returns>
         public BaseDto GetEmployeeData(string email, string password)
         {
             if (string.IsNullOrEmpty(email))

@@ -21,13 +21,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a remoção da conta com as informações passadas em <paramref name="dto"/>.
+        /// Efetua a remoção da conta com as informações passadas.
         /// 
         /// </summary>
         /// 
-        /// <param name="dto"></param>
+        /// <param name="dto">Objeto com as informações da conta.</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
+        /// <returns>Retorna a remoção da conta em caso de sucesso ou inválido.</returns>
         public BaseDto Delete(DeleteAccountDto dto)
         {
             if (!dto.Confirmed)
