@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Functions
 {
     /// <summary>
-    /// Responsável pelas funções referentes a busca de salões
+    /// 
+    /// Responsável pelas funções referentes à busca de salões.
+    /// 
     /// </summary>
     public class SearchSaloonFunction
     {
@@ -19,10 +21,16 @@ namespace Hair.Application.Functions
         }
 
         /// <summary>
-        /// Busca os salões que forem encontrados com o nome fornecido
+        /// 
+        /// Busca os salões que forem encontrados com o nome fornecido.
+        /// 
         /// </summary>
-        /// <param name="dto">Contém os dados necessários para a busca</param>
-        /// <returns></returns>
+        /// 
+        /// <param name="dto">Contém os dados necessários para a busca.</param>
+        /// 
+        /// <returns> BaseDto que contém uma mensagem de sucesso e uma lista de objetos com informações sobre os salões encontrados.
+        /// Caso nenhum salão seja encontrado, a mensagem de sucesso conterá a indicação de que nenhum salão foi encontrado.
+        /// </returns>
         public BaseDto SimpleSearch(SearchSaloonSimpleDto dto)
         {
             var users = _userRepository.GetAll();
@@ -41,10 +49,14 @@ namespace Hair.Application.Functions
         }
 
         /// <summary>
-        /// Busca os salões de forma mais precisa, filtrando se desejado apenas os abertos ou não
+        /// 
+        /// Busca os salões de forma mais precisa, filtrando se desejado apenas os abertos ou não.
+        /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
-        /// <returns></returns>
+        /// 
+        /// <returns> O objeto BaseDto com os resultados da pesquisa de salões filtrados.</returns>
         public BaseDto FilteredSearch(SearchSaloonFilterDto dto)
         {
             var users = _userRepository.GetAll();
@@ -88,10 +100,14 @@ namespace Hair.Application.Functions
         }
 
         /// <summary>
-        /// Constrói um <see cref="object"/> com as informações visíveis para o usuário a partir dos usuários cadastrados
+        /// 
+        /// Constrói um <see cref="object"/> com as informações visíveis para o usuário a partir dos usuários cadastrados.
+        /// 
         /// </summary>
-        /// <param name="user">Usuário necessário para a conversão dos dados</param>
-        /// <returns>Retorna o <see cref="object"/> com os dados que o usuário pode visualizar</returns>
+        /// 
+        /// <param name="user">Usuário necessário para a conversão dos dados.</param>
+        /// 
+        /// <returns> Retorna o <see cref="object"/> com os dados que o usuário pode visualizar.</returns>
         private object? BuildInformation(UserEntity user)
         {
             return new
@@ -111,17 +127,13 @@ namespace Hair.Application.Functions
 
         /// <summary>
         /// 
-        /// Constrói um lista de <see cref="object"/> com as informações visíveis para o usuário a partir dos usuários cadastrados
+        /// Constrói um lista de <see cref="object"/> com as informações visíveis para o usuário a partir dos usuários cadastrados.
         /// 
         /// </summary>
         /// 
-        /// <param name="users">Lista de usuários necessária para a conversão</param>
+        /// <param name="users">Lista de usuários necessária para a conversão.</param>
         /// 
-        /// <returns>
-        /// 
-        /// Retorna uma <see cref="List{T}"/> de <see cref="object"/> com os dados que o usuário pode visualizar
-        /// 
-        /// </returns>
+        /// <returns> Retorna uma <see cref="List{T}"/> de <see cref="object"/> com os dados que o usuário pode visualizar. </returns>
         private List<object>? BuildInformation(List<UserEntity> users)
         {
             var usersOutput = new List<object>();

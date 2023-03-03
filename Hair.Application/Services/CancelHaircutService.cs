@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Responsável pelos métodos relacionados a cancelamento de corte
+    /// 
+    /// Responsável pelos métodos relacionados a cancelamento de corte.
+    /// 
     /// </summary>
     public class CancelHaircutService
     {
@@ -21,10 +23,14 @@ namespace Hair.Application.Services
         }
 
         /// <summary>
-        /// Efetua o cancelamento de um corte agendado existente
+        /// 
+        /// Efetua o cancelamento de um corte agendado existente.
+        /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
-        /// <returns></returns>
+        /// 
+        /// <returns> Retorna uma mensagem informando se o cancelamento foi realizado com sucesso ou se ocorreu algum erro.</returns>
         public BaseDto Cancel(CancelHaircutDto dto)
         {
             if (string.IsNullOrEmpty(dto.ClientName))
