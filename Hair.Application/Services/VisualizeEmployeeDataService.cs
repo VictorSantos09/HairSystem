@@ -6,7 +6,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Define o método de buscar informações dos funcionários
+    /// 
+    /// Define o método de buscar informações dos funcionários.
+    /// 
     /// </summary>
     public class VisualizeEmployeeDataService
     {
@@ -21,14 +23,15 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a busca dos funcionários do usuário quando paramêtros fornecidos validos
+        /// Efetua a busca dos funcionários do usuário quando paramêtros fornecidos válidos.
         /// 
         /// </summary>
         /// 
         /// <param name="email"></param>
+        /// 
         /// <param name="password"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e messagem</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.</returns>
         public BaseDto GetEmployeeData(string email, string password)
         {
             if (string.IsNullOrEmpty(email))

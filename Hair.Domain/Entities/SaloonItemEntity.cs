@@ -1,24 +1,34 @@
 ﻿namespace Hair.Domain.Entities
 {
     /// <summary>
-    /// Abstração dos itens do salão
+    /// 
+    /// Abstração dos itens do salão.
+    /// 
     /// </summary>
     public class SaloonItemEntity : BaseEntity
     {
         /// <summary>
-        /// Id do salão
+        /// 
+        /// Id do salão.
+        /// 
         /// </summary>
         public Guid SaloonId { get; set; }
         /// <summary>
-        /// Nome do item
+        /// 
+        /// Nome do item.
+        /// 
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Preço do item
+        /// 
+        /// Preço do item.
+        /// 
         /// </summary>
         public double Price { get; set; }
         /// <summary>
-        /// Quantidade disponível
+        /// 
+        /// Quantidade disponível.
+        /// 
         /// </summary>
         public int QuantityAvaible { get; set; }
 
