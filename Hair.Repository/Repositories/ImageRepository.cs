@@ -42,12 +42,14 @@ namespace Hair.Repository.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    var image = new ImageEntity();
-
-                    image.Id = reader.GetGuid("ID");
-                    image.SaloonId = reader.GetGuid("SALOON_ID");
-                    //image.Img = reader.GetByte("IMAGE"); corrigir
-                    images.Add(image);
+                    while (reader.Read())
+                    {
+                        var image = BuildEntity(reader);
+                        if (image != null)
+                        {
+                            images.Add(image);
+                        }
+                    }
                 }
 
                 return images;
@@ -118,12 +120,10 @@ namespace Hair.Repository.Repositories
         {
             ImageEntity? image = new ImageEntity();
 
-            while (reader.Read())
-            {
-                image.Id = reader.GetGuid("ID");
-                image.SaloonId = reader.GetGuid("SALOON_ID");
-                //image.Img = reader.GetByte("IMAGE"); corrigir
-            }
+            image.Id = reader.GetGuid("ID");
+            image.SaloonId = reader.GetGuid("SALOON_ID");
+            //image.Img = reader.GetByte("IMAGE"); corrigir
+
             return image.Id == Guid.Empty ? null : image;
         }
     }

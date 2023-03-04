@@ -52,28 +52,28 @@ namespace Hair.Tests.Services
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
 
-        //[Fact]
-        //public void Schedule_WhenHaircuteTimeIsNull_ReturnsNotNullError()
-        //{
-        //    // Arrange
-        //    var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
-        //    var mockPrice = new HaircutPriceEntity(20, 20, 20);
-        //    var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
-        //    DateTime? haircutTime = null;
+        [Fact]
+        public void Schedule_WhenHaircuteTimeIsNull_ReturnsNotNullError()
+        {
+            // Arrange
+            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
+            var mockPrice = new HaircutPriceEntity(20, 20, 20);
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+            DateTime? haircutTime = null;
 
-        //  
-        //    var scheduledTime = haircutTime.HasValue ? (DateTime)haircutTime : DateTime.Now.AddDays(1);
 
-        //    var expected = BaseDtoExtension.NotNull("Horário do corte de cabelo não pode ser nulo");
+            var scheduledTime = haircutTime.HasValue ? (DateTime)haircutTime : DateTime.Now.AddDays(1);
 
-        //    // Act
-        //    var dto = new ScheduleHaircutDto(user.Id, scheduledTime, true, "40028922", "exu@gmail.com", "Bruno");
-        //    var actual = _scheduleHaircutService.Schedule(dto);
+            var expected = BaseDtoExtension.NotNull("Horário do corte de cabelo não pode ser nulo");
 
-        //    // Assert
-        //    Assert.Equal(expected._Message, actual._Message);
-        //    Assert.Equal(expected._StatusCode, actual._StatusCode);
-        //}
+            // Act
+            var dto = new ScheduleHaircutDto(user.Id, scheduledTime, true, "40028922", "exu@gmail.com", "Bruno");
+            var actual = _scheduleHaircutService.Schedule(dto);
+
+            // Assert
+            Assert.Equal(expected._Message, actual._Message);
+            Assert.Equal(expected._StatusCode, actual._StatusCode);
+        }
 
 
         [Fact]

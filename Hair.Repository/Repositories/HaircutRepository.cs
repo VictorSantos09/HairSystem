@@ -99,15 +99,7 @@ namespace Hair.Repository.Repositories
                 {
                     while (reader.Read())
                     {
-                        HaircutEntity haircut = new HaircutEntity();
-
-                        haircut.Id = reader.GetGuid("ID");
-                        haircut.SaloonId = reader.GetGuid("SALOON_ID");
-                        haircut.Avaible = reader.GetBoolean("AVAILABLE");
-                        haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
-                        haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
-                        haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
-                        haircut.Client.Name = reader.GetString("CLIENT_NAME");
+                        HaircutEntity haircut = BuildEntity(reader);
 
                         haircuts.Add(haircut);
                     }
@@ -135,18 +127,21 @@ namespace Hair.Repository.Repositories
         private HaircutEntity? BuildEntity(SqlDataReader reader)
         {
             HaircutEntity? haircut = new HaircutEntity();
-            while (reader.Read())
+
+            if (reader.IsDBNull(reader.GetOrdinal("ID")))
             {
-                haircut.HaircuteTime = reader.GetDateTime("HAIRCUT_TIME");
-                haircut.Avaible = reader.GetBoolean("AVAILABLE");
-                haircut.Id = reader.GetGuid("ID");
-                haircut.SaloonId = reader.GetGuid("ID");
-                haircut.Client.Name = reader.GetString("CLIENT_NAME");
-                haircut.Client.Email = reader.GetString("CLIENT_EMAIL");
-                haircut.Client.PhoneNumber = reader.GetString("CLIENT_PHONE_NUMBER");
+                return null;
             }
 
-            return haircut.Id == Guid.Empty ? null : haircut;
+            haircut.Id = reader.GetGuid(reader.GetOrdinal("ID"));
+            haircut.SaloonId = reader.GetGuid(reader.GetOrdinal("SALOON_ID"));
+            haircut.Avaible = reader.GetBoolean(reader.GetOrdinal("AVAILABLE"));
+            haircut.HaircuteTime = reader.GetDateTime(reader.GetOrdinal("HAIRCUT_TIME"));
+            haircut.Client.PhoneNumber = reader.GetString(reader.GetOrdinal("CLIENT_PHONE_NUMBER"));
+            haircut.Client.Email = reader.GetString(reader.GetOrdinal("CLIENT_EMAIL"));
+            haircut.Client.Name = reader.GetString(reader.GetOrdinal("CLIENT_NAME"));
+
+            return haircut;
         }
     }
 }

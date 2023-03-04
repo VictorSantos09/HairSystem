@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Define os métodos para atualização de funcionário
+    /// 
+    /// Define os métodos para atualização de funcionário.
+    /// 
     /// </summary>
     public class UpdateBarberService
     {
@@ -22,13 +24,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a atualização de um novo barbeiro
+        /// Efetua a atualização de um novo barbeiro.
         /// 
         /// </summary>
         /// 
         /// <param name="dto">Dados necessários para atualizar</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
         public BaseDto Update(UpdateBarberDto dto)
         {
             var user = _userRepository.GetById(dto.UserId);

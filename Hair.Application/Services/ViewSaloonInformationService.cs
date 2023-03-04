@@ -7,7 +7,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
-    /// Define a função de ver as informações do salao
+    /// 
+    /// Define a função de ver as informações do salão.
+    /// 
     /// </summary>
     public class ViewSaloonInformationService
     {
@@ -20,12 +22,13 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a busca do salão e transfere suas informações pelo <paramref name="dto"/> fornecido
+        /// Efetua a busca do salão e transfere suas informações pelo <paramref name="dto"/> fornecido.
         /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code. Data de <see cref="BaseDto"/> recebe as informações do salão quando encontrado</returns>
+        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code. Data de <see cref="BaseDto"/> recebe as informações do salão quando encontrado.</returns>
         public BaseDto GetInformation(ViewSaloonInformationDto dto)
         {
             var user = _userRepository.GetById(dto.UserId);
@@ -53,7 +56,7 @@ namespace Hair.Application.Services
 
             for (int i = 0; i < requestAmount; i++)
             {
-                var user = users[random.Next(users.Count)]; // nao deixar repetir usuarios
+                var user = users[random.Next(users.Count)]; // não deixa repetir usuários
 
                 var userConverted = BuildVisibleData(user);
 

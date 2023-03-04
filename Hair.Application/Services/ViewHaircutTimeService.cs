@@ -7,14 +7,18 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services
 {
     /// <summary>
+    /// 
     /// O serviço efetua a busca de todos os cortes agendados para o usuário.
+    /// 
     /// </summary>
     public class ViewHaircutTimeService
     {
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
 
         /// <summary>
+        /// 
         /// <param name="haircutRepository">Repositório de cortes de cabelo.</param>
+        /// 
         /// </summary>
         public ViewHaircutTimeService(IBaseRepository<HaircutEntity> haircutRepository)
         {
@@ -22,9 +26,12 @@ namespace Hair.Application.Services
         }
 
         /// <summary>
+        /// 
         /// Obtém os cortes de cabelo agendados por um usuário.
+        /// 
         /// </summary>
         /// <param name="dto">DTO com o ID do usuário.</param>
+        /// 
         /// <returns>Objeto BaseDto com a lista de cortes de cabelo agendados.</returns>
         public BaseDto GetScheduledHaircuts(ViewHaircutTimeDto dto)
         {

@@ -10,7 +10,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Hair.Application.Services
 {
     /// <summary>
+    /// 
     /// Classe responsavel por executar o cadastro de novos usuários
+    /// 
     /// </summary>
     public class RegisterService
     {
@@ -24,10 +26,14 @@ namespace Hair.Application.Services
         }
 
         /// <summary>
-        /// Efetua a criação de um novo usuário
+        /// 
+        /// Efetua a criação de um novo usuário.
+        /// 
         /// </summary>
+        /// 
         /// <param name="dto"></param>
-        /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido</returns>
+        /// 
+        /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido.</returns>
         public BaseDto Execute(RegisterDto dto)
         {
             //var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
