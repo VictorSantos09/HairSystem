@@ -7,11 +7,11 @@ namespace Hair.Application.Validators
     {
         public ImageValidator()
         {
-            RuleFor(x => x.Id).NotNull().NotEmpty();
+            RuleFor(x => x.Id).NotEmpty();
             
-            RuleFor(x => x.SaloonId).NotEmpty().NotNull().WithName("ID do salão");
+            RuleFor(x => x.SaloonId).NotEmpty().WithName("ID do salão");
 
-            RuleFor(x => x.Img).NotNull().NotEmpty().WithName("Imagem");
+            RuleFor(x => x.Img).NotEmpty().WithName("Imagem");
         }
     }
 }

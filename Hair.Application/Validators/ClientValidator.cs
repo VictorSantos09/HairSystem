@@ -7,11 +7,13 @@ namespace Hair.Application.Validators
     {
         public ClientValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().NotNull().MinimumLength(3).WithName("Nome do cliente");
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(3).WithName("Nome do cliente");
 
-            RuleFor(x => x.PhoneNumber).NotNull().NotEmpty().Length(11).WithName("Telefone");
+            RuleFor(x => x.PhoneNumber).NotEmpty().Length(11).WithName("Telefone");
 
-            RuleFor(x => x.Id).NotEmpty().NotNull().WithName("ID");
+            RuleFor(x => x.Id).NotEmpty().WithName("ID");
+
+            RuleFor(x => x.Email).NotNull();
         }
     }
 }

@@ -11,11 +11,11 @@ namespace Hair.Application.Validators
         {
             _clientValidator = validator;
 
-            RuleFor(x => x.HaircuteTime).NotEmpty().NotNull().WithName("Horário de corte");
+            RuleFor(x => x.HaircuteTime).NotEmpty().WithName("Horário de corte");
 
-            RuleFor(x => x.Available).NotNull().NotEmpty().WithName("Disponibilidade");
+            RuleFor(x => x.Available).NotEmpty().WithName("Disponibilidade");
 
-            RuleFor(x => x.SaloonId).NotNull().NotEmpty().WithName("ID do salão");
+            RuleFor(x => x.SaloonId).NotEmpty().WithName("ID do salão");
 
             RuleFor(x => x.Client).Custom((client, context) =>
             {

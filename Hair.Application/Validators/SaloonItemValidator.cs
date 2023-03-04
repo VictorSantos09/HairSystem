@@ -7,15 +7,15 @@ namespace Hair.Application.Validators
     {
         public SaloonItemValidator()
         {
-            RuleFor(x => x.Price).NotNull().NotEmpty().LessThanOrEqualTo(0).WithName("Preço");
+            RuleFor(x => x.Price).NotEmpty().LessThanOrEqualTo(0).WithName("Preço");
 
-            RuleFor(x => x.QuantityAvaible).NotEmpty().NotNull().LessThanOrEqualTo(0).WithName("Quantidade Disponível");
+            RuleFor(x => x.QuantityAvaible).NotEmpty().LessThanOrEqualTo(0).WithName("Quantidade Disponível");
 
-            RuleFor(x => x.Name).NotNull().NotEmpty().MinimumLength(3).WithName("Nome do item");
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(3).WithName("Nome do item");
 
-            RuleFor(x => x.SaloonId).NotNull().NotEmpty().WithName("ID do salão");
+            RuleFor(x => x.SaloonId).NotEmpty().WithName("ID do salão");
 
-            RuleFor(x => x.Id).NotEmpty().NotNull().WithName("ID");
+            RuleFor(x => x.Id).NotEmpty().WithName("ID");
         }
     }
 }

@@ -26,8 +26,15 @@ namespace Hair.Application
 
         private static void InjectValidators(IServiceCollection services)
         {
+            services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             services.AddTransient<IValidator<UserEntity>, UserValidator>();
             services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
+            services.AddTransient<IValidator<BarberEntity>, BarberValidator>();
+            services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
+            services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
+            services.AddTransient<IValidator<HaircutEntity>, HaircutValidator>();
+            services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
+            services.AddTransient<IValidator<SaloonItemEntity>, SaloonItemValidator>();
         }
 
         private static void InjectRepositories(IServiceCollection services)

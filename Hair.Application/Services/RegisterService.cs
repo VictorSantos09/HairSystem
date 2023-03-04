@@ -35,10 +35,10 @@ namespace Hair.Application.Services
         /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido.</returns>
         public BaseDto Execute(RegisterDto dto)
         {
-            var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
+            //var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
 
-            if (isExistentUser != null)
-                return BaseDtoExtension.Invalid("Usuário já registrado");
+            //if (isExistentUser != null)
+            //    return BaseDtoExtension.Invalid("Usuário já registrado");
 
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP);
 

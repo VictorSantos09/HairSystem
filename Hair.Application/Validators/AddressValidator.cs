@@ -12,13 +12,13 @@ namespace Hair.Application.Validators
     {
         public AddressValidator()
         {
-            RuleFor(x => x.CEP).NotEmpty().NotNull().Length(8).WithName("CEP");
+            RuleFor(x => x.CEP).NotEmpty().Length(8).WithName("CEP");
 
-            RuleFor(x => x.Number).NotNull().NotEmpty().WithName("Número de endereço");
+            RuleFor(x => x.Number).NotNull().WithName("Número de endereço");
 
-            RuleFor(x => x.City).NotNull().NotEmpty().WithName("Cidade");
+            RuleFor(x => x.City).NotEmpty().WithName("Cidade");
 
-            RuleFor(x => x.State).NotEmpty().NotNull().Length(2).WithName("Estado");
+            RuleFor(x => x.State).NotEmpty().Length(2).WithName("Estado");
         }
     }
 }
