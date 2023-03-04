@@ -44,5 +44,10 @@
             _StatusCode = statusCode;
             _Message = message;
         }
+
+        public BaseDto(object data)
+        {
+            _Data = data;
+        }
     }
 }

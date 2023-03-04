@@ -24,7 +24,7 @@
         /// Disponibilidade.
         /// 
         /// </summary>
-        public bool Avaible { get; set; }
+        public bool Available { get; set; }
         /// <summary>
         /// 
         /// Cliente que agendou o corte.
@@ -37,7 +37,7 @@
             Id = Guid.NewGuid();
             SaloonId = saloonId;
             HaircuteTime = haircuteTime;
-            Avaible = avaible;
+            Available = avaible;
             Client = client;
         }
 

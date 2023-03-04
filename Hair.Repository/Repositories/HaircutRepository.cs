@@ -25,7 +25,7 @@ namespace Hair.Repository.Repositories
 
                 cmd.Parameters.AddWithValue("@SALOON_ID", haircut.SaloonId);
                 cmd.Parameters.AddWithValue("@HAIRCUT_TIME", haircut.HaircuteTime);
-                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Avaible);
+                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Available);
                 cmd.Parameters.AddWithValue("@CLIENT_NAME", haircut.Client.Name);
                 cmd.Parameters.AddWithValue("@CLIENT_EMAIL", haircut.Client.Email);
                 cmd.Parameters.AddWithValue("@CLIENT_PHONE_NUMBER", haircut.Client.PhoneNumber);
@@ -54,7 +54,7 @@ namespace Hair.Repository.Repositories
 
                 cmd.Parameters.AddWithValue("@SALOON_ID", haircut.SaloonId);
                 cmd.Parameters.AddWithValue("@HAIRCUT_TIME", haircut.HaircuteTime);
-                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Avaible);
+                cmd.Parameters.AddWithValue("@AVAILABLE", haircut.Available);
                 cmd.Parameters.AddWithValue("@CLIENT_NAME", haircut.Client.Name);
                 cmd.Parameters.AddWithValue("@CLIENT_EMAIL", haircut.Client.Email);
                 cmd.Parameters.AddWithValue("@CLIENT_PHONE_NUMBER", haircut.Client.PhoneNumber);
@@ -135,7 +135,7 @@ namespace Hair.Repository.Repositories
 
             haircut.Id = reader.GetGuid(reader.GetOrdinal("ID"));
             haircut.SaloonId = reader.GetGuid(reader.GetOrdinal("SALOON_ID"));
-            haircut.Avaible = reader.GetBoolean(reader.GetOrdinal("AVAILABLE"));
+            haircut.Available = reader.GetBoolean(reader.GetOrdinal("AVAILABLE"));
             haircut.HaircuteTime = reader.GetDateTime(reader.GetOrdinal("HAIRCUT_TIME"));
             haircut.Client.PhoneNumber = reader.GetString(reader.GetOrdinal("CLIENT_PHONE_NUMBER"));
             haircut.Client.Email = reader.GetString(reader.GetOrdinal("CLIENT_EMAIL"));

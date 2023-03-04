@@ -189,8 +189,8 @@ namespace Hair.Repository.Repositories
             user.Prices.Hair = reader.GetDouble("HAIRCUT_HAIR");
             user.Prices.Mustache = reader.GetDouble("HAIRCUT_MUSTACHE");
             user.Prices.Beard = reader.GetDouble("HAIRCUT_BEARD");
-            user.OpenTime = DateTime.Parse(reader.GetTimeSpan(10).ToString());
-            user.CloseTime = DateTime.Parse(reader.GetTimeSpan(12).ToString());
+            user.OpenTime = TimeOnly.Parse(reader.GetTimeSpan(10).ToString());
+            user.CloseTime = TimeOnly.Parse(reader.GetTimeSpan(12).ToString());
             user.Address.Street = reader.GetString("STREET");
             user.Address.State = reader.GetString("STATE");
             user.Address.City = reader.GetString("CITY");

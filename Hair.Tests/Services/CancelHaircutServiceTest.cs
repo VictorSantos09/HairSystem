@@ -7,7 +7,7 @@ using Hair.Repository.Interfaces;
 using Moq;
 using Xunit;
 
-namespace Hair.Tests.Application.Services
+namespace Hair.Tests.Services
 {
     public class CancelHaircutServiceTests
     {
@@ -75,7 +75,7 @@ namespace Hair.Tests.Application.Services
                             PhoneNumber = dto.ClientPhoneNumber
                        },
                             HaircuteTime = validTime,
-                    }   
+                    }
                 }
             };
 

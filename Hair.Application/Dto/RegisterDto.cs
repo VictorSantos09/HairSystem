@@ -1,4 +1,6 @@
-﻿namespace Hair.Application.Dto
+﻿using System.Text.Json.Serialization;
+
+namespace Hair.Application.Dto
 {
     public class RegisterDto
     {
@@ -16,12 +18,14 @@
         public string Name { get; set; }
         public string Password { get; set; }
         public string SaloonName { get; set; }
-        public DateTime OpenTime { get; set; }
-        public DateTime CloseTime { get; set; }
+        public string OpenTime { get; set; }
+        public string CloseTime { get; set; }
         public string? GoogleMapsSource { get; set; }
+        public string CEP { get; set; }
 
         public RegisterDto(double hair, double? beard, double? mustache, string street, string number, string city, string state,
-            string? complement, string phoneNumber, string email, string? cNPJ, string name, string password, string saloonName, DateTime openTime, string? googleMapsSource, DateTime closeTime)
+            string? complement, string phoneNumber, string email, string? cNPJ, string name, string password, string saloonName,
+            string openTime, string? googleMapsSource, string closeTime, string cEP)
         {
             HairPrice = hair;
             BeardPrice = beard;
@@ -37,9 +41,10 @@
             Name = name;
             Password = password;
             SaloonName = saloonName;
-            OpenTime = openTime;
-            GoogleMapsSource = googleMapsSource;
+            OpenTime =  openTime;
             CloseTime = closeTime;
+            GoogleMapsSource = googleMapsSource;
+            CEP = cEP;
         }
 
         public RegisterDto()
