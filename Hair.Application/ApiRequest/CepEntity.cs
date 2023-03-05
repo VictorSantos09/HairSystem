@@ -1,6 +1,6 @@
 ﻿namespace Hair.Application.ApiRequest
 {
-    public class ViaCepEntity
+    internal class CepEntity
     {
         public int Status { get; set; }
         public string Code { get; set; }

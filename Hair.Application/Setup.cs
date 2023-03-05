@@ -21,7 +21,7 @@ namespace Hair.Application
         public static void Inject(IServiceCollection services)
         {
             services.AddTransient<IException, ExceptionHelper>();
-            services.AddTransient<IApiRequest, ApiCallRequest>();
+            services.AddTransient<IApiRequest, ApiSenderRequest>();
             InjectRepositories(services);
             InjectValidators(services);
         }

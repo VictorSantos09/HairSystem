@@ -1,6 +1,6 @@
 ﻿namespace Hair.Application.ApiRequest
 {
-    public class ApiHelper
+    internal class ApiHelper
     {
         public static HttpClient ApiClient { get; set; }
     }

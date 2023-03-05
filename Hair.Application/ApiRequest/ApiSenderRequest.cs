@@ -6,7 +6,7 @@ using static Hair.Application.ApiRequest.ApiHelper;
 
 namespace Hair.Application.ApiRequest
 {
-    public class ApiCallRequest : IApiRequest
+    internal class ApiSenderRequest : IApiRequest
     {
         public void InitializeClient()
         {
