@@ -4,6 +4,9 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
+    /// <summary>
+    /// Efetua a validação do usuário, pela classe concreta <see cref="UserEntity"/>
+    /// </summary>
     internal class UserValidator : AbstractValidator<UserEntity>
     {
 

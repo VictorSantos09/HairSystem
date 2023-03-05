@@ -56,6 +56,19 @@ namespace Hair.Application.Validators
         /// </returns>
         public static BaseDto ToBaseDto(ValidationResultDto result) => result.Condition == true ? new BaseDto(200, "Dados válidos") : new BaseDto(406, result.Data);
 
+        /// <summary>
+        /// 
+        /// Efetua a verificação se a string é nula ou vázia
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="input">dado a ser verificado</param>
+        /// 
+        /// <returns>
+        /// 
+        /// Retorna <see langword="true"/> se inválido, e <see langword="false"/> se válido
+        /// 
+        /// </returns>
         public static bool NotEmpty(string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
     }
 }

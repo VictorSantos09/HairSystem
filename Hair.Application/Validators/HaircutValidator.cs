@@ -4,6 +4,9 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
+    /// <summary>
+    /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="HaircutEntity"/>
+    /// </summary>
     internal class HaircutValidator : AbstractValidator<HaircutEntity>
     {
         private readonly IValidator<ClientEntity> _clientValidator;

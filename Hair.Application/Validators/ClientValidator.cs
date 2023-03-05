@@ -3,6 +3,9 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
+    /// <summary>
+    /// Efetua a validação do cliente, pela classe concreta <see cref="ClientEntity"/>
+    /// </summary>
     internal class ClientValidator : AbstractValidator<ClientEntity>
     {
         public ClientValidator()

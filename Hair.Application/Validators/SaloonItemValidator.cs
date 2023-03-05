@@ -3,6 +3,9 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
+    /// <summary>
+    /// Efetua a validação do item do salão, pela classe concreta <see cref="SaloonItemEntity"/>
+    /// </summary>
     internal class SaloonItemValidator : AbstractValidator<SaloonItemEntity>
     {
         public SaloonItemValidator()

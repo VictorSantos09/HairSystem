@@ -3,6 +3,9 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
+    /// <summary>
+    /// Efetua a validação do barbeiro, pela classe concreta <see cref="BarberEntity"/>
+    /// </summary>
     internal class BarberValidator : AbstractValidator<BarberEntity>
     {
         public BarberValidator()
