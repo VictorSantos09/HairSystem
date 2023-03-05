@@ -30,7 +30,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _changePrice.ChangeHaircutePrice(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)
             {

@@ -41,8 +41,14 @@
         /// 
         /// </summary>
         public string FullAddress { get; set; }
-        
-        public AddressEntity(string street, string number, string city, string state, string? complement)
+        /// <summary>
+        /// 
+        /// CEP.
+        /// 
+        /// </summary>
+        public string CEP { get; set; }
+
+        public AddressEntity(string street, string number, string city, string state, string? complement, string cep)
         {
             Street = street.ToUpper();
             Number = number.ToUpper();
@@ -50,6 +56,7 @@
             State = state.ToUpper();
             Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement.ToUpper();
             FullAddress = $"{Street},{Number}. {City} - {State}. {Complement}";
+            CEP = cep;
         }
 
         public AddressEntity()

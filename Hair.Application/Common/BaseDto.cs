@@ -24,9 +24,9 @@
         /// Dado a ser enviado.
         /// 
         /// </summary>
-        public object _Data { get; set; }
+        public object? _Data { get; set; }
 
-        public BaseDto(int statusCode, object data)
+        public BaseDto(int statusCode, object? data)
         {
             _StatusCode = statusCode;
             _Data = data;
@@ -38,7 +38,7 @@
             _Message = message;
         }
 
-        public BaseDto(int statusCode, string message, object data)
+        public BaseDto(int statusCode, string message, object? data)
         {
             _Data = data;
             _StatusCode = statusCode;

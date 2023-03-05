@@ -12,7 +12,7 @@
         /// Mensagem a ser enviada.
         /// 
         /// </summary>
-        
+
         public string Message { get; set; }
 
         /// <summary>

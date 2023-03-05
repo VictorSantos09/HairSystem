@@ -1,6 +1,8 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
+using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
@@ -15,9 +17,12 @@ namespace Hair.Application.Services
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IValidator<HaircutEntity> _haircutValidator;
 
-        public ScheduleHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository)
+        public ScheduleHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository,
+            IValidator<HaircutEntity> haircutValidator)
         {
+            _haircutValidator = haircutValidator;
             _userRepository = userRepository;
             _haircutRepository = haircutRepository;
         }
@@ -41,12 +46,6 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound("Usuário");
 
-            if (string.IsNullOrEmpty(dto.ClientName))
-                return BaseDtoExtension.NotNull("Nome do cliente");
-
-            if (string.IsNullOrEmpty(dto.ClientPhoneNumber))
-                return BaseDtoExtension.NotNull("Telefone");
-
             foreach (var haircut in user.Haircuts)
             {
                 if (haircut.HaircuteTime == dto.HaircuteTime)
@@ -56,11 +55,15 @@ namespace Hair.Application.Services
             var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber);
             var newHaircut = new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client);
 
-            user.Haircuts.Add(newHaircut);
+            var validationResult = Validation.Verify(_haircutValidator.Validate(newHaircut));
 
-            _haircutRepository.Create(newHaircut);
+            if (validationResult.Condition)
+            {
+                _haircutRepository.Create(newHaircut);
+                return BaseDtoExtension.Sucess();
+            }
 
-            return BaseDtoExtension.Sucess();
+            return Validation.ToBaseDto(validationResult);
         }
     }
 }

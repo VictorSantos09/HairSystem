@@ -1,15 +1,11 @@
-﻿using Castle.Components.DictionaryAdapter;
-using Hair.Application.Common;
-using Hair.Application.Dto;
+﻿using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
-using System.Globalization;
-using Xunit;
 
-namespace Hair.Tests.Application.Services
+namespace Hair.Tests.Services
 {
     public class RegisterServiceTest
     {
@@ -133,7 +129,7 @@ namespace Hair.Tests.Application.Services
             // Arrange
             var dto = new RegisterDto(20, 20, 20, null, null, null, null, null, null, "cavalo@gmail.com", null, "Carla", "banana",
                 "Carlinhair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-        
+
             _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
 
             // Act
@@ -194,7 +190,7 @@ namespace Hair.Tests.Application.Services
         //    var expected = BaseDtoExtension.Invalid("Horário de abertura inválido");
 
         //    // Assert
-    
+
         //    Assert.Equal(expected._Message, actual._Message);
         //    Assert.Equal(expected._StatusCode, actual._StatusCode);
         //}

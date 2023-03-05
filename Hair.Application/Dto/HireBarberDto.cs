@@ -13,9 +13,10 @@
         public string BarberCity { get; set; }
         public string BarberState { get; set; }
         public bool Confirmed { get; set; }
+        public string CEP { get; set; }
 
         public HireBarberDto(string name, Guid saloonId, string? phoneNumber, string? email, double salary, string barberStreet,
-            string barberHouseNumber, string? barberHouseComplement, string barberCity, string barberState, bool confirmed)
+            string barberHouseNumber, string? barberHouseComplement, string barberCity, string barberState, bool confirmed, string cEP)
         {
             Name = name;
             SaloonId = saloonId;
@@ -28,6 +29,7 @@
             BarberCity = barberCity;
             BarberState = barberState;
             Confirmed = confirmed;
+            CEP = cEP;
         }
     }
 }

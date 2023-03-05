@@ -1,4 +1,5 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
@@ -13,16 +14,13 @@ namespace HairSystem.Controllers
     public class ManagmentWorkerController : ControllerBase
     {
         private readonly ManagmentWorkerService _service;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
-        private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IException _exHelper;
 
-        public ManagmentWorkerController(IBaseRepository<BarberEntity> barberRepository, IBaseRepository<UserEntity> userRepository, IException exception)
+        public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository, 
+            IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
         {
             _exHelper = exception;
-            _barberRepository = barberRepository;
-            _userRepository = userRepository;
-            _service = new(_userRepository, _barberRepository);
+            _service = new(userRepository, barberRepository, barberValidator);
         }
 
         [HttpPost]
@@ -32,7 +30,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Fire(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {
@@ -48,7 +46,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Hire(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {
@@ -64,7 +62,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Update(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {

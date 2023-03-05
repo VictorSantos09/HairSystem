@@ -41,6 +41,10 @@ namespace Hair.Application.Services
             return BaseDtoExtension.Create(200, $"Informações do salão {user.SaloonName}", saloonInformation);
         }
 
+        /// <summary>
+        /// Busca três salões aleatórios e diferentes no banco de dados
+        /// </summary>
+        /// <returns>Retorna um uma lista de objetos, no qual pode ser vazia se não encontrado nenhum salão </returns>
         public BaseDto GetThreeSaloonsInfo()
         {
             var output = new List<object>();

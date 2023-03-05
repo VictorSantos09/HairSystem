@@ -48,13 +48,13 @@
         /// Horário de abertura do salão.
         /// 
         /// </summary>
-        public DateTime OpenTime { get; set; }
+        public TimeOnly OpenTime { get; set; }
         /// <summary>
         /// 
         /// Horário de fechamento do salão.
         /// 
         /// </summary>
-        public DateTime CloseTime { get; set; }
+        public TimeOnly CloseTime { get; set; }
         /// <summary>
         /// 
         /// Link do salão no Google Maps.
@@ -80,7 +80,7 @@
         /// </summary>
         public List<HaircutEntity> Haircuts { get; set; } = new();
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
-            AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, DateTime openTime, string? googleMapsSource, DateTime closeTime)
+            AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, TimeOnly openTime, string? googleMapsSource, TimeOnly closeTime)
         {
             Id = Guid.NewGuid();
             SaloonName = saloonName.ToUpper();
