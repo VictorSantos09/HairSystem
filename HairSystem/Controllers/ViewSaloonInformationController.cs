@@ -5,7 +5,6 @@ using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
 
 namespace HairSystem.Controllers
 {

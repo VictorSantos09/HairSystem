@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Hair.Application.Dto
+﻿namespace Hair.Application.Dto
 {
     public class RegisterDto
     {
@@ -41,7 +39,7 @@ namespace Hair.Application.Dto
             Name = name;
             Password = password;
             SaloonName = saloonName;
-            OpenTime =  openTime;
+            OpenTime = openTime;
             CloseTime = closeTime;
             GoogleMapsSource = googleMapsSource;
             CEP = cEP;

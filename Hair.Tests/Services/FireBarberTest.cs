@@ -32,7 +32,7 @@ namespace Hair.Tests.Services
         public void FireBarber_ShouldFail_WhenBarberNotFound()
         {
             // Arrange
-            _barberRepositoryMock.Reset(); 
+            _barberRepositoryMock.Reset();
             _barberRepositoryMock.Setup(x => x.GetById(_barber.Id)).Returns((BarberEntity)null);
 
             // Act

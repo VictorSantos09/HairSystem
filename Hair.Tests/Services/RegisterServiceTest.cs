@@ -1,13 +1,9 @@
-﻿using Castle.Components.DictionaryAdapter;
-using Hair.Application.Common;
-using Hair.Application.Dto;
+﻿using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
-using System.Globalization;
-using Xunit;
 
 namespace Hair.Tests.Services
 {
