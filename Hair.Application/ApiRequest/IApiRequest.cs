@@ -1,6 +1,4 @@
-﻿using Hair.Application.Common;
-
-namespace Hair.Application.ApiRequest
+﻿namespace Hair.Application.ApiRequest
 {
     public interface IApiRequest
     {

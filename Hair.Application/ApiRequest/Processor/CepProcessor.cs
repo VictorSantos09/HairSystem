@@ -1,4 +1,5 @@
-﻿using Hair.Application.Common;
+﻿using Hair.Application.ApiRequest.Entities;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Validators;

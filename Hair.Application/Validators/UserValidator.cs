@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
