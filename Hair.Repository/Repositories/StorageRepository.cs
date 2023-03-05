@@ -117,17 +117,20 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private SaloonItemEntity BuildEntity(SqlDataReader reader)
+        private SaloonItemEntity? BuildEntity(SqlDataReader reader)
         {
             SaloonItemEntity item = new SaloonItemEntity();
 
-            item.Id = reader.GetGuid("ID");
-            item.SaloonId = reader.GetGuid("SALOON_ID");
-            item.Name = reader.GetString("NAME");
-            item.Price = reader.GetDouble("PRICE");
-            item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
+            while (reader.Read())
+            {
+                item.Id = reader.GetGuid("ID");
+                item.SaloonId = reader.GetGuid("SALOON_ID");
+                item.Name = reader.GetString("NAME");
+                item.Price = reader.GetDouble("PRICE");
+                item.QuantityAvaible = reader.GetInt32("QUANTITY_AVAILABLE");
+            }
 
-            return item;
+            return item.Id == Guid.Empty ? null : item;
         }
     }
 }

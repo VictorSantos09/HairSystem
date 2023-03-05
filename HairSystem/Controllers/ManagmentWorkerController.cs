@@ -32,7 +32,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Fire(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {
@@ -48,7 +48,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Hire(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace HairSystem.Controllers
             try
             {
                 var result = _service.Update(dto);
-                return StatusCode(result._StatusCode, new MessageDto(result._Message));
+                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {

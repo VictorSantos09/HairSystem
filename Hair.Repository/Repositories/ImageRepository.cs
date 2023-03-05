@@ -120,10 +120,13 @@ namespace Hair.Repository.Repositories
         {
             ImageEntity? image = new ImageEntity();
 
-            image.Id = reader.GetGuid("ID");
-            image.SaloonId = reader.GetGuid("SALOON_ID");
-            //image.Img = reader.GetByte("IMAGE"); corrigir
+            while (reader.Read())
+            {
+                image.Id = reader.GetGuid("ID");
+                image.SaloonId = reader.GetGuid("SALOON_ID");
+                //image.Img = reader.GetByte("IMAGE"); corrigir
 
+            }
             return image.Id == Guid.Empty ? null : image;
         }
     }
