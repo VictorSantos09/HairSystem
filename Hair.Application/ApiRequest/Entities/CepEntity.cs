@@ -1,4 +1,4 @@
-﻿namespace Hair.Application.ApiRequest
+﻿namespace Hair.Application.ApiRequest.Entities
 {
     internal class CepEntity
     {

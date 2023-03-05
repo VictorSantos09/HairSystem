@@ -1,4 +1,5 @@
 ﻿using Hair.Application.ApiRequest;
+using Hair.Application.ApiRequest.Processor;
 using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
@@ -10,13 +11,13 @@ namespace HairSystem.ApiControllers
     [Route("api/controller")]
     public class CepController : ControllerBase
     {
-        private readonly CepService _service;
+        private readonly CepProcessor _service;
         private readonly IException _exHelper;
 
-        public CepController(IApiRequest baseRequest, IException exception)
+        public CepController(IApiRequest apiRequest, IException exception)
         {
             _exHelper = exception;
-            _service = new CepService(baseRequest);
+            _service = new CepProcessor(apiRequest);
         }
 
         [HttpPost]

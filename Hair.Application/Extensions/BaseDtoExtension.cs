@@ -74,7 +74,7 @@ namespace Hair.Application.Extensions
         /// <param name="itemMissing"></param>
         /// 
         /// <returns>Retorna <see cref="BaseDto"/> com StatusCode 406 e mensagem sendo "<paramref name="message"/> não pode ser nulo."</returns>
-        public static BaseDto NotNull(string message = "Valor") => new(406, $"{message} não pode ser nulo");
+        public static BaseDto NotNull(string message = "Valor") => new BaseDto(406, $"{message} não pode ser nulo");
 
         /// <summary>
         /// 
@@ -83,6 +83,16 @@ namespace Hair.Application.Extensions
         /// </summary>
         /// 
         /// <returns>Retorna <see cref="BaseDto"/> com status code 200 e mensagem "Solicitação cancelada".</returns>
-        public static BaseDto RequestCanceled() => new(200, "Solicitação cancelada");
+        public static BaseDto RequestCanceled() => new BaseDto(200, "Solicitação cancelada");
+
+        /// <summary>
+        /// 
+        /// Cria uma BaseDto para caso de erro
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="data">Dados para envio, podendo ser <see langword="null"/></param>
+        /// <returns>Retorna <see cref="BaseDto"/> com status code recebendo 417, message e data fornecidos no parâmetro</returns>
+        public static BaseDto Error(string message, object? data = null) => new BaseDto(417, message, data);
     }
 }
