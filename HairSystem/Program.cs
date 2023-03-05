@@ -13,6 +13,11 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 
 Setup.Inject(builder.Services);
 
+DotNetEnv.Env.Load();
+//Environment.SetEnvironmentVariable("Carlos", "carlo");
+var message = Environment.GetEnvironmentVariable("Carlos");
+Console.WriteLine(message);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

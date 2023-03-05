@@ -1,6 +1,7 @@
 ﻿using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -92,17 +93,22 @@ namespace Hair.Repository.Repositories
             }
         }
 
-
         public UserEntity? GetByEmail(string email, string password)
         {
+            var key = KeyGenerator.Get("CARLOS");
+            var iv = KeyGenerator.Get("CARLIN");
+
+            var cipherEmail = CryptoSecurity.Encrypt(email, key, iv);
+            var cipherPassword = CryptoSecurity.Encrypt(password, key, iv);
+
             using (var conn = new SqlConnection(DataAccess.DBConnection))
             {
                 var query = $" SELECT * FROM {TableName} WHERE EMAIL= @EMAIL AND PASSWORD= @PASSWORD";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@EMAIL", email.ToUpper());
-                cmd.Parameters.AddWithValue("@PASSWORD", password);
+                cmd.Parameters.AddWithValue("@EMAIL", cipherEmail);
+                cmd.Parameters.AddWithValue("@PASSWORD", cipherPassword);
 
                 conn.Open();
 
