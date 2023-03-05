@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="HaircutEntity"/>
+    /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="HaircutEntity"/>, também testando <see cref="ClientEntity"/>
     /// </summary>
     internal class HaircutValidator : AbstractValidator<HaircutEntity>
     {
@@ -26,25 +25,10 @@ namespace Hair.Application.Validators
 
                 if (!clientResult.IsValid)
                 {
-                    context.AddFailure(BuildClientError(clientResult).ToString());
+                    var failure = BuildErrorValidation.BuildError(clientResult);
+                    context.AddFailure(failure);
                 }
             });
-        }
-
-        private List<string> BuildClientError(ValidationResult result)
-        {
-            if (result.IsValid)
-            {
-                return new List<string>();
-            }
-
-            var output = new List<string>();
-            foreach (var error in result.Errors)
-            {
-                output.Add(error.ErrorMessage);
-            }
-
-            return output;
         }
     }
 }

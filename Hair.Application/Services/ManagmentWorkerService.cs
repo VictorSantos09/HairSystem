@@ -1,4 +1,5 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -12,19 +13,15 @@ namespace Hair.Application.Services
     /// </summary>
     public class ManagmentWorkerService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
         private readonly UpdateBarberService _update;
         private readonly HireBarberService _hire;
         private readonly FireBarberService _fire;
 
-        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository)
+        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
         {
-            _userRepository = userRepository;
-            _barberRepository = barberRepository;
-            _update = new(_userRepository, _barberRepository);
-            _hire = new(_userRepository, _barberRepository);
-            _fire = new(_barberRepository);
+            _update = new(userRepository, barberRepository,barberValidator);
+            _hire = new(userRepository, barberRepository,barberValidator);
+            _fire = new(barberRepository);
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using Hair.Domain.Entities;
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do usuário, pela classe concreta <see cref="UserEntity"/>
+    /// Efetua a validação do usuário, pela classe concreta <see cref="UserEntity"/>, também testando <see cref="AddressEntity"/> e <see cref="HaircutPriceEntity"/>
     /// </summary>
     internal class UserValidator : AbstractValidator<UserEntity>
     {
@@ -45,7 +45,7 @@ namespace Hair.Application.Validators
 
                 if (!addressResult.IsValid)
                 {
-                    var failure = BuildError(addressResult);
+                    var failure = BuildErrorValidation.BuildError(addressResult);
 
                     context.AddFailure(failure);
                 }
@@ -57,33 +57,11 @@ namespace Hair.Application.Validators
 
                 if (!pricesResult.IsValid)
                 {
-                    var failure = BuildError(pricesResult);
+                    var failure = BuildErrorValidation.BuildError(pricesResult);
 
                     context.AddFailure(failure);
                 }
             });
-        }
-        private static ValidationFailure? BuildError(ValidationResult result)
-        {
-            ValidationFailure output = new ValidationFailure();
-
-            if (result.IsValid)
-            {
-                return null;
-            }
-
-            while (true)
-            {
-                foreach (var error in result.Errors)
-                {
-                    output.ErrorMessage = error.ErrorMessage;
-                    break;
-                }
-
-                break;
-            }
-
-            return output;
         }
     }
 }
