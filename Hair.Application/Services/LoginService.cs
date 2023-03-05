@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
+using Hair.Application.Validators;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services
@@ -29,7 +30,7 @@ namespace Hair.Application.Services
         /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
         public BaseDto CheckLogin(LoginDto dto)
         {
-            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))
+            if (Validation.NotEmpty(dto.Password) || Validation.NotEmpty(dto.Email))
                 return new BaseDto(406, "Email ou senha inválidos");
 
             var user = _userRepository.GetByEmail(dto.Email, dto.Password);

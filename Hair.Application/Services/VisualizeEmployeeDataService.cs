@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Extensions;
+using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
@@ -34,10 +35,10 @@ namespace Hair.Application.Services
         /// <returns>Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.</returns>
         public BaseDto GetEmployeeData(string email, string password)
         {
-            if (string.IsNullOrEmpty(email))
+            if (Validation.NotEmpty(email))
                 return BaseDtoExtension.Invalid("Email não informado.");
 
-            if (string.IsNullOrEmpty(password))
+            if (Validation.NotEmpty(password))
                 return BaseDtoExtension.Invalid("Senha não informada.");
 
             var user = _userRepository.GetByEmail(email, password);

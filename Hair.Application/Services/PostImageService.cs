@@ -1,6 +1,8 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
+using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
@@ -15,11 +17,13 @@ namespace Hair.Application.Services
     {
         private readonly IBaseRepository<ImageEntity> _imageRepository;
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IValidator<ImageEntity> _imageValidator;
 
-        public PostImageService(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository)
+        public PostImageService(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository, IValidator<ImageEntity> imageValidator)
         {
             _imageRepository = imageRepository;
             _userRepository = userRepository;
+            _imageValidator = imageValidator;
         }
 
         /// <summary>
@@ -45,9 +49,15 @@ namespace Hair.Application.Services
 
             var img = new ImageEntity(user.Id, imageByte);
 
-            _imageRepository.Create(img);
+            var validationResult = Validation.Verify(_imageValidator.Validate(img));
 
-            return BaseDtoExtension.Sucess();
+            if (validationResult.Condition)
+            {
+                _imageRepository.Create(img);
+                return BaseDtoExtension.Sucess();
+            }
+
+            return Validation.ToBaseDto(validationResult);
         }
     }
 }

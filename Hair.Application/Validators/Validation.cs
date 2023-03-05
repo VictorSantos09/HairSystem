@@ -55,5 +55,7 @@ namespace Hair.Application.Validators
         /// 
         /// </returns>
         public static BaseDto ToBaseDto(ValidationResultDto result) => result.Condition == true ? new BaseDto(200, "Dados válidos") : new BaseDto(406, result.Data);
+
+        public static bool NotEmpty(string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
     }
 }

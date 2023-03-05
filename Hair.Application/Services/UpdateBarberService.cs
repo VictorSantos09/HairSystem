@@ -1,6 +1,8 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
+using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
@@ -15,11 +17,13 @@ namespace Hair.Application.Services
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IValidator<BarberEntity> _barberValidator;
 
-        public UpdateBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository)
+        public UpdateBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
         {
             _userRepository = userRepository;
             _barberRepository = barberRepository;
+            _barberValidator = barberValidator;
         }
 
         /// <summary>
@@ -50,12 +54,16 @@ namespace Hair.Application.Services
 
             var barberUpdated = new BarberEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, true, user.Id, user.SaloonName);
 
-            barberToUpdate = barberUpdated;
+            var validationResult = Validation.Verify(_barberValidator.Validate(barberToUpdate));
 
-            _barberRepository.Update(barberToUpdate);
+            if (validationResult.Condition)
+            {
+                barberToUpdate = barberUpdated;
+                _barberRepository.Update(barberToUpdate);
+                return BaseDtoExtension.Sucess($"Dados de {barberToUpdate.Name} atualizados");
+            }
 
-            return BaseDtoExtension.Sucess($"Dados de {barberToUpdate.Name} atualizados");
-
+            return Validation.ToBaseDto(validationResult);
         }
     }
 }
