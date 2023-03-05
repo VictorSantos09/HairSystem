@@ -6,6 +6,9 @@ using Hair.Application.Validators;
 
 namespace Hair.Application.ApiRequest.Processor
 {
+    /// <summary>
+    /// Processador da busca do CEP através de API
+    /// </summary>
     public class CepProcessor
     {
         private readonly IApiRequest _service;

@@ -1,5 +1,8 @@
 ﻿namespace Hair.Application.ApiRequest.Entities
 {
+    /// <summary>
+    /// Entidade da API para busca do CEP
+    /// </summary>
     internal class CepEntity
     {
         public int Status { get; set; }

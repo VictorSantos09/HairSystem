@@ -3,6 +3,12 @@ using System.Net.Http.Headers;
 
 namespace Hair.Application.ApiRequest
 {
+    /// <summary>
+    /// Classe para efetuação de envio de requisições para APIs
+    /// 
+    /// <para>Implementa <see cref="IApiRequest"/></para>
+    /// 
+    /// </summary>
     public class ApiHelper : IApiRequest
     {
         public static HttpClient ApiClient { get; set; }
