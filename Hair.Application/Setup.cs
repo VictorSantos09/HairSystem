@@ -1,4 +1,5 @@
 using FluentValidation;
+using Hair.Application.ApiRequest;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
@@ -20,6 +21,7 @@ namespace Hair.Application
         public static void Inject(IServiceCollection services)
         {
             services.AddTransient<IException, ExceptionHelper>();
+            services.AddTransient<IApiRequest, ApiHelper>();
             InjectRepositories(services);
             InjectValidators(services);
         }

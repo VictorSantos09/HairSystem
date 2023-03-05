@@ -19,8 +19,8 @@ namespace Hair.Application.Services
 
         public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
         {
-            _update = new(userRepository, barberRepository,barberValidator);
-            _hire = new(userRepository, barberRepository,barberValidator);
+            _update = new(userRepository, barberRepository, barberValidator);
+            _hire = new(userRepository, barberRepository, barberValidator);
             _fire = new(barberRepository);
         }
 
