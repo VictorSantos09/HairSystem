@@ -3,10 +3,12 @@ using System.Text;
 
 namespace Hair.Repository.Security
 {
-    internal class KeyGenerator
+    /// <summary>
+    /// Controla o gerenciamento das chaves
+    /// </summary>
+    internal class KeyManagment
     {
         private static readonly int _byteSize = 16;
-
         private static byte[] GenerateRandomBytes()
         {
             byte[] key = new byte[_byteSize];
@@ -19,21 +21,24 @@ namespace Hair.Repository.Security
             return key;
         }
 
-        public static void Create(string nameKey, string nameIV)
+        /// <summary>
+        /// 
+        /// Cria uma nova chave
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="text">Texto a ser criptografado</param>
+        /// <returns>
+        /// 
+        /// Retorna o <paramref name="text"/> criptografado 
+        /// 
+        /// </returns>
+        public static byte[] Create(string text)
         {
             var key = GenerateRandomBytes();
             var iv = GenerateRandomBytes();
 
-            var cipherKey = CryptoSecurity.Encrypt(nameKey, key, iv);
-            var cipherIV = CryptoSecurity.Encrypt(nameIV, key, iv);
-
-            Set(nameKey, cipherKey.ToString());
-            Set(nameIV, cipherIV.ToString());
-        }
-
-        private static void Set(string name, string value)
-        {
-            Environment.SetEnvironmentVariable(name, value);
+            return CryptoSecurity.Encrypt(text, key, iv);
         }
 
         private static void Remove(string name)
@@ -44,9 +49,12 @@ namespace Hair.Repository.Security
                 Console.WriteLine($"variável de ambiente nome {name} foi deletada."); // confirmar remoção
         }
         
-        public static byte[] Get(string name)
+
+        public static string Get(string name, byte[] key, byte[] iv)
         {
-            return Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable(name));
+            var cipherKey = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable(name));
+
+            return CryptoSecurity.Decrypt(cipherKey, key, iv);
         }
     }
 }

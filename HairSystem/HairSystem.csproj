@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>85450c59-63f0-44df-82bb-583a4b010ada</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hair.Application\Hair.Application.csproj" />
-    <ProjectReference Include="..\Hair.Repository\Hair.Repository.csproj" />
   </ItemGroup>
 
 </Project>
