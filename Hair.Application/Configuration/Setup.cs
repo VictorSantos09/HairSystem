@@ -7,7 +7,7 @@ using Hair.Repository.Interfaces;
 using Hair.Repository.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hair.Application
+namespace Hair.Application.Configuration
 {
     /// <summary>
     /// Define as configurações do sistema

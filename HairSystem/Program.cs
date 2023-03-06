@@ -1,5 +1,4 @@
-using Hair.Application;
-using Hair.Application.Common;
+using Hair.Application.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

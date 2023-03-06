@@ -23,7 +23,7 @@ namespace Hair.Repository.Security
         /// Retorna o <paramref name="simpletext"/> criptografado, podendo apenas ser descriptografado com a mesma <paramref name="key"/> e <paramref name="iv"/>
         /// 
         /// </returns>
-        public static byte[] Encrypt(string simpletext, byte[] key, byte[] iv)
+        private static byte[] Encrypt(string simpletext, byte[] key, byte[] iv)
         {
             byte[] cipheredtext;
             using (Aes aes = Aes.Create())
@@ -60,7 +60,7 @@ namespace Hair.Repository.Security
         /// Retorna <paramref name="cipheredtext"/> como texto se <paramref name="key"/> e <paramref name="iv"/> forem a mesma utilizada para criptografar
         /// 
         /// </returns>
-        public static string Decrypt(byte[] cipheredtext, byte[] key, byte[] iv)
+        private static string Decrypt(byte[] cipheredtext, byte[] key, byte[] iv)
         {
             string simpletext = string.Empty;
             using (Aes aes = Aes.Create())
@@ -78,6 +78,22 @@ namespace Hair.Repository.Security
                 }
             }
             return simpletext;
+        }
+
+        public static byte[] Encrypt(string plainText)
+        {
+            var key = KeyManagment.Get(IKeyOrganizator.Key);
+            var iv = KeyManagment.Get(IKeyOrganizator.IV);
+            
+            return Encrypt(plainText, key, iv);
+        }
+
+        public static string Decrypt(byte[] cipheredText)
+        {
+            var key = KeyManagment.Get(IKeyOrganizator.Key);
+            var iv = KeyManagment.Get(IKeyOrganizator.IV);
+            
+            return Decrypt(cipheredText, key, iv);
         }
     }
 }

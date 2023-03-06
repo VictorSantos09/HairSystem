@@ -1,4 +1,6 @@
-﻿namespace Hair.Application.Common
+﻿using Hair.Repository.Security;
+
+namespace Hair.Application.Configuration
 {
     public class DotEnv
     {

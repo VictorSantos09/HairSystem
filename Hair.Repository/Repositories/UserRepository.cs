@@ -54,6 +54,7 @@ namespace Hair.Repository.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
+
         public void Update(UserEntity user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -101,8 +102,11 @@ namespace Hair.Repository.Repositories
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@EMAIL", email);
-                cmd.Parameters.AddWithValue("@PASSWORD", password);
+                var cipherEmail = CryptoSecurity.Encrypt(email);
+                var cipherPassword = CryptoSecurity.Encrypt(password);
+
+                cmd.Parameters.AddWithValue("@EMAIL", cipherEmail);
+                cmd.Parameters.AddWithValue("@PASSWORD", cipherPassword);
 
                 conn.Open();
 
