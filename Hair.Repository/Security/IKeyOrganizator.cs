@@ -6,8 +6,13 @@
     public interface IKeyOrganizator
     {
         /// <summary>
-        /// Chave principal para criptografia dos dados
+        /// Chave principal para tratar criptografia de dados
         /// </summary>
         const string Key = "OUR_BASE_KEY";
+        
+        /// <summary>
+        /// Vector principal para tratar criptografia de dados
+        /// </summary>
+        const string IV = "OUR_BASE_IV";
     }
 }

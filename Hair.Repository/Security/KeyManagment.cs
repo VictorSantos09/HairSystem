@@ -49,7 +49,6 @@ namespace Hair.Repository.Security
                 Console.WriteLine($"variável de ambiente nome {name} foi deletada."); // confirmar remoção
         }
         
-
         public static string Get(string name, byte[] key, byte[] iv)
         {
             var cipherKey = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable(name));
