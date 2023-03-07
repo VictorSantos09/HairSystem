@@ -1,4 +1,5 @@
-﻿using Hair.Domain.Entities;
+﻿using Dapper;
+using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
@@ -96,21 +97,13 @@ namespace Hair.Repository.Repositories
 
         public UserEntity? GetByEmail(string email, string password)
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $" SELECT * FROM {TableName} WHERE EMAIL= @EMAIL AND PASSWORD= @PASSWORD";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-
                 var cipherEmail = CryptoSecurity.Encrypt(email);
                 var cipherPassword = CryptoSecurity.Encrypt(password);
 
-                cmd.Parameters.AddWithValue("@EMAIL", cipherEmail);
-                cmd.Parameters.AddWithValue("@PASSWORD", cipherPassword);
-
-                conn.Open();
-
-                return BuildEntity(cmd.ExecuteReader());
+                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail @Email, @Password", new {Email = cipherEmail, Password = cipherPassword}).FirstOrDefault();
+                return user;
             }
         }
 
