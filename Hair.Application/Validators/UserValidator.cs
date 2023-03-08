@@ -24,7 +24,7 @@ namespace Hair.Application.Validators
 
             RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(11).WithName("Telefone");
 
-            RuleFor(x => x.CNPJ).NotEmpty().Length(14).WithName("CNPJ");
+            RuleFor(x => x.CNPJ).NotNull().Length(14).WithName("CNPJ");
 
             RuleFor(x => x.Password).NotEmpty().MinimumLength(8).WithName("Senha").Custom((password, context) =>
             {

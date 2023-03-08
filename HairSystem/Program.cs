@@ -1,4 +1,4 @@
-using Hair.Application;
+using Hair.Application.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,10 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 }));
 
 Setup.Inject(builder.Services);
+
+var root = $"{Directory.GetParent(Directory.GetCurrentDirectory())}";
+var dotenv = Path.Combine(root, "secrets.env");
+DotEnv.Load(dotenv);
 
 var app = builder.Build();
 

@@ -1,6 +1,8 @@
-﻿using Hair.Domain.Entities;
+﻿using Dapper;
+using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -22,37 +24,30 @@ namespace Hair.Repository.Repositories
 
         public void Create(UserEntity user)
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var cmd = new SqlCommand($"INSERT INTO {TableName} VALUES (@ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL," +
-                    $" @PASSWORD, @CNPJ, @HAIRCUT_HAIR, @HAIRCUT_BEARD, @HAIRCUT_MUSTACHE, @OPEN_TIME, @GOOGLE_MAPS_SOURCE, @CLOSE_TIME, " +
-                    $"@STREET, @STATE, @CITY, @COMPLEMENT, @NUMBER, @FULL_ADDRESS)", conn);
-
-                conn.Open();
-
-                cmd.Parameters.AddWithValue("@ID", user.Id);
-                cmd.Parameters.AddWithValue("@SALOON_NAME", user.SaloonName);
-                cmd.Parameters.AddWithValue("@OWNER_NAME", user.OwnerName);
-                cmd.Parameters.AddWithValue("@PHONE_NUMBER", user.PhoneNumber);
-                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
-                cmd.Parameters.AddWithValue("@PASSWORD", user.Password);
-                cmd.Parameters.AddWithValue("@CNPJ", user.CNPJ == null ? SqlString.Null : user.CNPJ);
-                cmd.Parameters.AddWithValue("@HAIRCUT_HAIR", user.Prices.Hair);
-                cmd.Parameters.AddWithValue("@HAIRCUT_BEARD", user.Prices.Beard);
-                cmd.Parameters.AddWithValue("@HAIRCUT_MUSTACHE", user.Prices.Mustache);
-                cmd.Parameters.AddWithValue("@OPEN_TIME", user.OpenTime);
-                cmd.Parameters.AddWithValue("@GOOGLE_MAPS_SOURCE", user.GoogleMapsSource == null ? SqlString.Null : user.GoogleMapsSource);
-                cmd.Parameters.AddWithValue("@CLOSE_TIME", user.CloseTime);
-                cmd.Parameters.AddWithValue("@STREET", user.Address.Street);
-                cmd.Parameters.AddWithValue("@STATE", user.Address.State);
-                cmd.Parameters.AddWithValue("@CITY", user.Address.City);
-                cmd.Parameters.AddWithValue("@COMPLEMENT", user.Address.Complement == null ? SqlString.Null : user.Address.Complement);
-                cmd.Parameters.AddWithValue("@NUMBER", user.Address.Number);
-                cmd.Parameters.AddWithValue("@FULL_ADDRESS", user.Address.FullAddress);
-
-                cmd.ExecuteNonQuery();
+                conn.Query("dbo.spCreateUser @ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL, @PASSWORD, @CNPJ, " +
+                    "@OPEN_TIME, @GOOGLE_MAPS_SOURCE, @CLOSE_TIME, @FULL_ADDRESS, @ADDRESS_FK, @HAIRCUT_FK, @BARBER_FK, @PRICE_FK", new
+                {
+                   ID = user.Id,
+                   SALOON_NAME = user.SaloonName,
+                   OWNER_NAME = user.OwnerName,
+                   PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
+                   EMAIL = CryptoSecurity.Encrypt(user.Email),
+                   PASSWORD = CryptoSecurity.Encrypt(user.Password),
+                   CNPJ = user.CNPJ,
+                   OPEN_TIME = user.OpenTime.ToString(),
+                   GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                   CLOSE_TIME = user.CloseTime.ToString(),
+                   FULL_ADDRESS = user.Address.FullAddress,
+                   ADDRESS_FK = Guid.NewGuid(),
+                   HAIRCUT_FK = Guid.NewGuid(),
+                   BARBER_FK = Guid.NewGuid(),
+                   PRICE_FK = Guid.NewGuid()
+                });
             }
         }
+
         public void Update(UserEntity user)
         {
             using (var conn = new SqlConnection(DataAccess.DBConnection))
@@ -92,21 +87,16 @@ namespace Hair.Repository.Repositories
             }
         }
 
-
         public UserEntity? GetByEmail(string email, string password)
         {
-            using (var conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var query = $" SELECT * FROM {TableName} WHERE EMAIL= @EMAIL AND PASSWORD= @PASSWORD";
+                var cipherEmail = CryptoSecurity.Encrypt(email);
+                var cipherPassword = CryptoSecurity.Encrypt(password);
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail @Email, @Password", new {Email = cipherEmail, Password = cipherPassword}).FirstOrDefault();
 
-                cmd.Parameters.AddWithValue("@EMAIL", email.ToUpper());
-                cmd.Parameters.AddWithValue("@PASSWORD", password);
-
-                conn.Open();
-
-                return BuildEntity(cmd.ExecuteReader());
+                return user;
             }
         }
 
