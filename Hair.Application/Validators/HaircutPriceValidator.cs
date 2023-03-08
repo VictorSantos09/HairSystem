@@ -10,11 +10,11 @@ namespace Hair.Application.Validators
     {
         public HaircutPriceValidator()
         {
-            RuleFor(x => x.Hair).NotEmpty().LessThanOrEqualTo(0).WithName("Corte de cabelo");
+            RuleFor(x => x.Hair).NotEmpty().GreaterThan(0).WithName("Corte de cabelo");
 
-            RuleFor(x => x.Mustache).NotNull().LessThanOrEqualTo(0).WithName("Corte de bigode");
+            RuleFor(x => x.Mustache).NotNull().WithName("Corte de bigode");
 
-            RuleFor(x => x.Beard).NotNull().LessThanOrEqualTo(0).WithName("Corte de barba");
+            RuleFor(x => x.Beard).NotNull().WithName("Corte de barba");
         }
     }
 }
