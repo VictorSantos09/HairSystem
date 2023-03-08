@@ -6,6 +6,7 @@ using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Net.NetworkInformation;
 
 namespace Hair.Repository.Repositories
 {
@@ -16,10 +17,17 @@ namespace Hair.Repository.Repositories
     {
         private readonly static string TableName = "USERS";
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<AddressEntity> _addressRepository;
+        private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IBaseRepository<HaircutPriceEntity> _priceRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository, IBaseRepository<AddressEntity> addressRepository,
+            IBaseRepository<BarberEntity> barberRepository, IBaseRepository<HaircutPriceEntity> priceRepository)
         {
             _haircutRepository = haircutRepository;
+            _addressRepository = addressRepository;
+            _barberRepository = barberRepository;
+            _priceRepository = priceRepository;
         }
 
         public void Create(UserEntity user)
@@ -28,23 +36,23 @@ namespace Hair.Repository.Repositories
             {
                 conn.Query("dbo.spCreateUser @ID, @SALOON_NAME, @OWNER_NAME, @PHONE_NUMBER, @EMAIL, @PASSWORD, @CNPJ, " +
                     "@OPEN_TIME, @GOOGLE_MAPS_SOURCE, @CLOSE_TIME, @FULL_ADDRESS, @ADDRESS_FK, @HAIRCUT_FK, @BARBER_FK, @PRICE_FK", new
-                {
-                   ID = user.Id,
-                   SALOON_NAME = user.SaloonName,
-                   OWNER_NAME = user.OwnerName,
-                   PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
-                   EMAIL = CryptoSecurity.Encrypt(user.Email),
-                   PASSWORD = CryptoSecurity.Encrypt(user.Password),
-                   CNPJ = user.CNPJ,
-                   OPEN_TIME = user.OpenTime.ToString(),
-                   GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
-                   CLOSE_TIME = user.CloseTime.ToString(),
-                   FULL_ADDRESS = user.Address.FullAddress,
-                   ADDRESS_FK = Guid.NewGuid(),
-                   HAIRCUT_FK = Guid.NewGuid(),
-                   BARBER_FK = Guid.NewGuid(),
-                   PRICE_FK = Guid.NewGuid()
-                });
+                    {
+                        ID = user.Id,
+                        SALOON_NAME = user.SaloonName,
+                        OWNER_NAME = user.OwnerName,
+                        PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
+                        EMAIL = CryptoSecurity.Encrypt(user.Email),
+                        PASSWORD = CryptoSecurity.Encrypt(user.Password),
+                        CNPJ = user.CNPJ,
+                        OPEN_TIME = user.OpenTime.ToString(),
+                        GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                        CLOSE_TIME = user.CloseTime.ToString(),
+                        FULL_ADDRESS = user.Address.FullAddress,
+                        ADDRESS_FK = _addressRepository.GetById(user.Id),
+                        HAIRCUT_FK = _haircutRepository.GetById(user.Id),
+                        BARBER_FK = _barberRepository.GetById(user.Id),
+                        PRICE_FK = _priceRepository.GetById(user.Id)
+                    });
             }
         }
 
