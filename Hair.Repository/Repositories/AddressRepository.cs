@@ -1,4 +1,5 @@
-﻿using Hair.Domain.Entities;
+﻿using Dapper;
+using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -18,22 +19,36 @@ namespace Hair.Repository.Repositories
 
         public List<AddressEntity> GetAll()
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                return conn.Query<AddressEntity>("dbo.spGetAllAddresses").ToList();
+            }
         }
 
         public AddressEntity? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                return conn.Query<AddressEntity>("dbo.spGetAddressById", new { ID = id }).FirstOrDefault();
+            }
         }
 
         public bool Remove(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spRemoveAddress", new { ID = id });
+            }
+
+            return true;
         }
 
         public void Update(AddressEntity entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+
+            }
         }
     }
 }
