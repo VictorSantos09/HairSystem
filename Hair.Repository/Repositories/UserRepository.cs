@@ -5,6 +5,7 @@ using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace Hair.Repository.Repositories
 {
@@ -14,45 +15,34 @@ namespace Hair.Repository.Repositories
     public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
     {
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
-        private readonly IBaseRepository<AddressEntity> _addressRepository;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
-        private readonly IBaseRepository<HaircutPriceEntity> _priceRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository, IBaseRepository<AddressEntity> addressRepository,
-            IBaseRepository<BarberEntity> barberRepository, IBaseRepository<HaircutPriceEntity> priceRepository)
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
         {
             _haircutRepository = haircutRepository;
-            _addressRepository = addressRepository;
-            _barberRepository = barberRepository;
-            _priceRepository = priceRepository;
         }
 
         public void Create(UserEntity user)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var addressFk = _addressRepository.GetById(user.Id);
-                var haircutFk = _haircutRepository.GetById(user.Id);
-                var barberFk = _barberRepository.GetById(user.Id);
-                var priceFk = _priceRepository.GetById(user.Id);
-
                 conn.Execute("dbo.spCreateUser", new
                 {
                     ID = user.Id,
                     SALOON_NAME = user.SaloonName,
-                    OWNER_NAME = user.OwnerName,
-                    PHONE_NUMBER = user.PhoneNumber,
-                    EMAIL = user.Email,
-                    PASSWORD = user.Password,
-                    CNPJ = user.CNPJ,
+                    OWNER_NAME = CryptoSecurity.Encrypt(user.OwnerName),
+                    PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
+                    EMAIL = CryptoSecurity.Encrypt(user.Email),
+                    PASSWORD = CryptoSecurity.Encrypt(user.Password),
+                    CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
                     OPEN_TIME = user.OpenTime.ToString(),
                     GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
                     CLOSE_TIME = user.CloseTime.ToString(),
-                    FULL_ADDRESS = user.Address.FullAddress,
-                    ADDRESS_FK = addressFk,
-                    HAIRCUT_FK = haircutFk,
-                    BARBER_FK = barberFk,
-                    PRICE_FK = priceFk
+                    STREET = user.Address.Street,
+                    NUMBER = user.Address.Number,
+                    CITY = user.Address.City,
+                    STATE = user.Address.State,
+                    COMPLEMENT = user.Address.Complement == null ? null : user.Address.Complement,
+                    CEP = user.Address.CEP,
                 }, commandType: CommandType.StoredProcedure);
             }
         }
@@ -76,7 +66,7 @@ namespace Hair.Repository.Repositories
 
                 PopulateHaircut(user);
 
-                return user;
+                return user == null ? null : user;
             }
         }
 
