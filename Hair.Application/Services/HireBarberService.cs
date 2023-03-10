@@ -45,8 +45,11 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var address = new AddressEntity(dto.BarberStreet, dto.BarberHouseNumber, dto.BarberCity, dto.BarberState, dto.BarberHouseComplement, dto.CEP);
-            var barber = new BarberEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, address, true, user.Id, user.SaloonName);
+            var barber = new BarberEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), true, user.Id, user.SaloonName);
+            var address = new AddressEntity(dto.BarberStreet, dto.BarberHouseNumber, dto.BarberCity, dto.BarberState, dto.BarberHouseComplement, dto.CEP, barber.Id);
+
+            barber.Address = address;
+
 
             var validationResult = Validation.Verify(_barberValidator.Validate(barber));
 

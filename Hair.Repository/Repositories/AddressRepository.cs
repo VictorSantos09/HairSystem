@@ -7,33 +7,29 @@ using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
-    /// <summary>
-    /// Repositório responsável por gerenciar as operações de Create e Update para a entidade Barber contida em <see cref="BarberEntity"/>.
-    /// </summary>
-    public class BarberRepository : IBaseRepository<BarberEntity>
+    public class AddressRepository : IBaseRepository<AddressEntity>
     {
-        public static readonly string TableName = "BARBERS";
-        public void Create(BarberEntity barber)
+        public void Create(AddressEntity entity)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spCreateBarber");
+
             }
         }
 
-        public List<BarberEntity> GetAll()
+        public List<AddressEntity> GetAll()
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                return conn.Query<BarberEntity>("dbo.spGetAllBarbers").ToList();
+                return conn.Query<AddressEntity>("dbo.spGetAllAddresses").ToList();
             }
         }
 
-        public BarberEntity? GetById(Guid id)
+        public AddressEntity? GetById(Guid id)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                return conn.Query<BarberEntity>("dbo.spGetBarberById", new { ID = id }).FirstOrDefault();   
+                return conn.Query<AddressEntity>("dbo.spGetAddressById", new { ID = id }).FirstOrDefault();
             }
         }
 
@@ -41,17 +37,17 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo");
-
-                return true;
+                conn.Query("dbo.spRemoveAddress", new { ID = id });
             }
+
+            return true;
         }
 
-        public void Update(BarberEntity barber)
+        public void Update(AddressEntity entity)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo");
+
             }
         }
     }

@@ -40,12 +40,12 @@ namespace Hair.Application.Services
             if (isExistentUser != null)
                 return BaseDtoExtension.Invalid("Usuário já registrado");
 
-            var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP);
-
             var haircutPrice = new HaircutPriceEntity(dto.HairPrice, dto.BeardPrice, dto.MustachePrice);
 
-            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, address,
+            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, new AddressEntity(),
                 dto.CNPJ, haircutPrice, TimeOnly.Parse(dto.OpenTime), dto.GoogleMapsSource, TimeOnly.Parse(dto.CloseTime));
+
+            newUser.Address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
 
             var validationResult = Validation.Verify(_userValidator.Validate(newUser));
 
