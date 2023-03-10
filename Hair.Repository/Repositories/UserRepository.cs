@@ -61,7 +61,14 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spUpdateUser");
+                conn.Execute("dbo.spUpdateUser",
+                    new
+                    {
+                        ID = user.Id,
+                        SALOON_NAME = user.SaloonName,
+                        EMAIL = CryptoSecurity.Encrypt(user.Email),
+                        PASSWORD = CryptoSecurity.Encrypt(user.Password),
+                    });
             }
         }
 
@@ -72,7 +79,9 @@ namespace Hair.Repository.Repositories
                 var cipherEmail = CryptoSecurity.Encrypt(email);
                 var cipherPassword = CryptoSecurity.Encrypt(password);
 
-                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail @Email, @Password", new { Email = cipherEmail, Password = cipherPassword }).FirstOrDefault();
+                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail",
+                    new { Email = cipherEmail, Password = cipherPassword },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 PopulateHaircut(user);
 
@@ -84,11 +93,13 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var user = conn.Query<UserEntity>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
+                var user = conn.Query<UserEntity>("dbo.spGetUserById",
+                    new { ID = id },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 PopulateHaircut(user);
 
-                return user == null ? null : user;
+                return user == null ? null : user;  
             }
         }
 
@@ -97,7 +108,8 @@ namespace Hair.Repository.Repositories
             var output = new List<UserEntity>();
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var users = conn.Query<UserEntity>("dbo.spGetAllUsers").ToList();
+                var users = conn.Query<UserEntity>("dbo.spGetAllUsers",
+                    commandType: CommandType.StoredProcedure).ToList();
 
                 foreach (var user in users)
                 {
@@ -113,7 +125,9 @@ namespace Hair.Repository.Repositories
             {
                 var user = GetById(id);
 
-                conn.Query("dbo.spRemoveUser @ID", new { ID = id });
+                conn.Execute("dbo.spDeleteUser",
+                    new { ID = id },
+                    commandType: CommandType.StoredProcedure);
 
                 foreach (var haircut in user.Haircuts)
                 {

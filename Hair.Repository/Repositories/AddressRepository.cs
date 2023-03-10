@@ -29,7 +29,11 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                return conn.Query<AddressEntity>("dbo.spGetAddressById", new { ID = id }).FirstOrDefault();
+                var parameters = new DynamicParameters();
+                parameters.Add("@ID", id);
+
+                return conn.Query<AddressEntity>("dbo.spGetAddressById", parameters,
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 

@@ -50,8 +50,11 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var haircut = conn.Query<HaircutEntity>("dbo.spGetHaircutById", new { ID = id }).FirstOrDefault();
-                return haircut == null ? null : haircut;
+                var parameters = new DynamicParameters();
+                parameters.Add("@ID", id);
+
+                return conn.Query<HaircutEntity>("dbo.spGetHaircutById", parameters,
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
     }

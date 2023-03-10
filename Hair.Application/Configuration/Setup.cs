@@ -48,6 +48,7 @@ namespace Hair.Application.Configuration
             services.AddTransient<IBaseRepository<SaloonItemEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
             services.AddTransient<IBaseRepository<AddressEntity>, AddressRepository>();
+            services.AddTransient<IBaseRepository<HaircutPriceEntity>, HaircutPriceRepository>();
         }
     }
 }
