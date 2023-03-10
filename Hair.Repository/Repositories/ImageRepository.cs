@@ -1,4 +1,5 @@
-﻿using Hair.Domain.Entities;
+﻿using Dapper;
+using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
@@ -16,7 +17,10 @@ namespace Hair.Repository.Repositories
 
         public void Create(ImageEntity entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Execute("spCreateImage", new { Id = entity.Id, UserId = entity.SaloonId, Image = entity.Img }, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public List<ImageEntity> GetAll()
@@ -29,9 +33,22 @@ namespace Hair.Repository.Repositories
             throw new NotImplementedException();
         }
 
+        public ImageEntity? GetByUserId(Guid id)
+        {
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                var result = conn.Query<ImageEntity>("spGetImagesByUserId", new { UserId = id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                return result;
+            }
+        }
+
         public bool Remove(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                int rowsAffected = conn.Execute("spDeleteImage", new { Id = id }, commandType: CommandType.StoredProcedure);
+                return rowsAffected > 0;
+            }
         }
 
         public void Update(ImageEntity entity)
