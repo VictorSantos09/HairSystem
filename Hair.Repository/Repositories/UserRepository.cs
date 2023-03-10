@@ -43,6 +43,9 @@ namespace Hair.Repository.Repositories
                     STATE = user.Address.State,
                     COMPLEMENT = user.Address.Complement == null ? null : user.Address.Complement,
                     CEP = user.Address.CEP,
+                    HAIR = user.Prices.Hair,
+                    BEARD = user.Prices.Beard,
+                    MUSTACHE = user.Prices.Mustache,
                 }, commandType: CommandType.StoredProcedure);
             }
         }
