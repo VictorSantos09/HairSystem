@@ -6,6 +6,7 @@ using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Threading.Tasks.Dataflow;
 
 namespace Hair.Repository.Repositories
 {
@@ -62,10 +63,11 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var cipherEmail = CryptoSecurity.Encrypt(email);
-                var cipherPassword = CryptoSecurity.Encrypt(password);
-
-                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail @Email, @Password", new { Email = cipherEmail, Password = cipherPassword }).FirstOrDefault();
+                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail @EMAIL, @PASSWORD", new
+                {
+                    EMAIL = CryptoSecurity.Encrypt(email),
+                    PASSWORD = CryptoSecurity.Encrypt(password)
+                }).FirstOrDefault();
 
                 PopulateHaircut(user);
 
@@ -90,11 +92,13 @@ namespace Hair.Repository.Repositories
             var output = new List<UserEntity>();
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var users = conn.Query<UserEntity>("dbo.spGetAllUsers").ToList();
+                var usersFromSql = conn.Query<UserEntityFromSql>("dbo.spGetAllUsers").ToList();
 
-                foreach (var user in users)
+                foreach (var userSql in usersFromSql)
                 {
+                    var user = DecryptProcess(userSql);
                     PopulateHaircut(user);
+                    output.Add(user);
                 }
             }
             return output;
@@ -125,6 +129,19 @@ namespace Hair.Repository.Repositories
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
 
             user.Haircuts.AddRange(haircuts);
+        }
+
+        private UserEntity DecryptProcess(UserEntityFromSql userSql)
+        {
+            var user = new UserEntity();
+
+            user.CNPJ = userSql.CNPJ == null ? null : CryptoSecurity.Decrypt(userSql.CNPJ);
+            user.Password = CryptoSecurity.Decrypt(userSql.Password);
+            user.Email = CryptoSecurity.Decrypt(userSql.Email);
+            user.PhoneNumber = CryptoSecurity.Decrypt(userSql.PhoneNumber);
+            user.OwnerName = CryptoSecurity.Decrypt(userSql.OwnerName);
+
+            return user;
         }
     }
 }
