@@ -31,28 +31,27 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var addressFk = _addressRepository.GetById(user.Id);
+                _addressRepository.Create(user.Address);
                 var haircutFk = _haircutRepository.GetById(user.Id);
                 var barberFk = _barberRepository.GetById(user.Id);
                 var priceFk = _priceRepository.GetById(user.Id);
 
                 conn.Execute("dbo.spCreateUser", new
                 {
-                    ID = user.Id,
-                    SALOON_NAME = user.SaloonName,
-                    OWNER_NAME = user.OwnerName,
-                    PHONE_NUMBER = user.PhoneNumber,
-                    EMAIL = user.Email,
-                    PASSWORD = user.Password,
-                    CNPJ = user.CNPJ,
-                    OPEN_TIME = user.OpenTime.ToString(),
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
-                    CLOSE_TIME = user.CloseTime.ToString(),
-                    FULL_ADDRESS = user.Address.FullAddress,
-                    ADDRESS_FK = addressFk,
-                    HAIRCUT_FK = haircutFk,
-                    BARBER_FK = barberFk,
-                    PRICE_FK = priceFk
+                    @ID = user.Id,
+                    @SALOON_NAME = user.SaloonName,
+                    @OWNER_NAME = user.OwnerName,
+                    @PHONE_NUMBER = user.PhoneNumber,
+                    @EMAIL = user.Email,
+                    @PASSWORD = user.Password,
+                    @CNPJ = user.CNPJ,
+                    @OPEN_TIME = user.OpenTime.ToString(),
+                    @GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                    @CLOSE_TIME = user.CloseTime.ToString(),
+                    @ADDRESS_FK = user.Address.OwnerId,
+                    @HAIRCUT_FK = haircutFk,
+                    @BARBER_FK = barberFk,
+                    @PRICE_FK = priceFk
                 }, commandType: CommandType.StoredProcedure);
             }
         }
