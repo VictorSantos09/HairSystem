@@ -49,11 +49,9 @@ namespace Hair.Application.Configuration
 
         private static void BuildUserRepository(IServiceCollection services)
         {
-            services.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
-            services.AddTransient<IBaseRepository<AddressEntity>, AddressRepository>();
-            services.AddTransient<IBaseRepository<HaircutPriceEntity>, HaircutPriceRepository>();
-            services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
             services.AddTransient<IGetByEmail, UserRepository>();
+            services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
+            services.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
         }
     }
 }

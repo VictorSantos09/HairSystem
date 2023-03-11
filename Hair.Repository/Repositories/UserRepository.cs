@@ -14,15 +14,10 @@ namespace Hair.Repository.Repositories
     public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
     {
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
-        private readonly IBaseRepository<HaircutPriceEntity> _priceRepository;
-        private readonly IBaseRepository<AddressEntity> _addressRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository, IBaseRepository<HaircutPriceEntity> priceRepository,
-            IBaseRepository<AddressEntity> addressRepository)
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
         {
             _haircutRepository = haircutRepository;
-            _priceRepository = priceRepository;
-            _addressRepository = addressRepository;
         }
 
         public void Create(UserEntity user)
@@ -71,9 +66,6 @@ namespace Hair.Repository.Repositories
                     GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
                     CLOSE_TIME = user.CloseTime
                 });
-
-                _addressRepository.Update(user.Address);
-                _priceRepository.Update(user.Prices);
             }
         }
 
@@ -91,7 +83,7 @@ namespace Hair.Repository.Repositories
                     return null;
 
                 var user = FillUser(userSql);
-                PopulateExtraEntities(user);
+                PopulateExtraEntities(user, conn);
 
                 return user == null ? null : user;
             }
@@ -107,7 +99,7 @@ namespace Hair.Repository.Repositories
                     return null;
 
                 var user = FillUser(userSql);
-                PopulateExtraEntities(user);
+                PopulateExtraEntities(user, conn);
 
                 return user == null ? null : user;
             }
@@ -120,7 +112,7 @@ namespace Hair.Repository.Repositories
             {
                 var usersFromSql = conn.Query<UserEntityFromSql>("dbo.spGetAllUsers").ToList();
 
-                output.AddRange(FillUser(usersFromSql));
+                output.AddRange(FillUser(usersFromSql, conn));
             }
             return output;
         }
@@ -131,7 +123,7 @@ namespace Hair.Repository.Repositories
             {
                 var user = GetById(id);
 
-                conn.Query("dbo.spRemoveUser @ID", new { ID = id });
+                conn.Query("dbo.spDeleteUser @ID", new { ID = id });
 
                 foreach (var haircut in user.Haircuts)
                 {
@@ -142,17 +134,16 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private void PopulateExtraEntities(UserEntity user)
+        private void PopulateExtraEntities(UserEntity user, IDbConnection conn)
         {
             if (user == null)
                 return;
 
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
-            var price = _priceRepository.GetById(user.Id);
-            var address = _addressRepository.GetById(user.Id);
 
-            user.Address = address;
-            user.Prices = price;
+            user.Address = conn.Query<AddressEntity>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault();
+            user.Prices = conn.Query<HaircutPriceEntity>("spGetUserHaircutPrice @ID", new { ID = user.Id }).FirstOrDefault();
+
             user.Haircuts.AddRange(haircuts);
         }
 
@@ -173,14 +164,14 @@ namespace Hair.Repository.Repositories
             return user;
         }
 
-        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql)
+        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql, IDbConnection conn)
         {
             var output = new List<UserEntity>();
 
             foreach (var userSql in usersFromSql)
             {
                 var user = DecryptProcess(userSql);
-                PopulateExtraEntities(user);
+                PopulateExtraEntities(user, conn);
                 output.Add(user);
             }
 
