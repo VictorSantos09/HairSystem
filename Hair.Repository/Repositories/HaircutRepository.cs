@@ -2,6 +2,7 @@
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -19,7 +20,18 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.CreateHaircut");
+                conn.Query("dbo.spCreateHaircut @HAIRCUT_ID, @HAIRCUT_TIME, @AVAILABLE, @SALOON_ID, " +
+                    "@CLIENT_FK, @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER", new
+                {
+                    HAIRCUT_ID = haircut.Id,
+                    HAIRCUT_TIME = haircut.HaircuteTime,
+                    AVAILABLE = haircut.Available,
+                    SALOON_ID = haircut.SaloonId,
+                    CLIENT_FK = haircut.Client.Id,
+                    CLIENT_NAME = CryptoSecurity.Encrypt(haircut.Client.Name),
+                    CLIENT_EMAIL = CryptoSecurity.Encrypt(haircut.Client.Email),
+                    CLIENT_PHONE_NUMBER = CryptoSecurity.Encrypt(haircut.Client.PhoneNumber)
+                });
             }
         }
 

@@ -138,8 +138,8 @@ namespace Hair.Repository.Repositories
             if (user == null)
                 return;
 
-            var haircuts = conn.Query<HaircutEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id });
-            user.Address = conn.Query<AddressEntity>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault();
+            var haircuts = conn.Query<HaircutEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id }).ToList();
+            user.Address = ConvertAddress(conn.Query<AddressEntityFromSql>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault());
             user.Prices = conn.Query<HaircutPriceEntity>("spGetUserHaircutPrice @ID", new { ID = user.Id }).FirstOrDefault();
 
             user.Haircuts.AddRange(haircuts);
@@ -182,5 +182,11 @@ namespace Hair.Repository.Repositories
 
             return user == null ? null : user;
         }
+
+        private AddressEntity ConvertAddress(AddressEntityFromSql addressSql)
+        {
+            return new AddressEntity(addressSql.Street, addressSql.Number, addressSql.City, addressSql.State, addressSql.Complement, addressSql.CEP, addressSql.Id);
+        }
+
     }
 }
