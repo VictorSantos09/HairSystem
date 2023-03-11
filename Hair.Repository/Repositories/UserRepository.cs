@@ -13,13 +13,6 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
     {
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
-
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
-        {
-            _haircutRepository = haircutRepository;
-        }
-
         public void Create(UserEntity user)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
@@ -56,15 +49,26 @@ namespace Hair.Repository.Repositories
                 conn.Query("dbo.spUpdateUser", new
                 {
                     ID = user.Id,
-                    SALOON_NAME = user.SaloonName,
-                    OWNER_NAME = user.OwnerName,
-                    PHONE_NUMBER = user.PhoneNumber,
-                    EMAIL = user.Email,
-                    PASSWORD = user.Password,
-                    CNPJ = user.CNPJ,
+                    SALOON_NAME = CryptoSecurity.Encrypt(user.SaloonName),
+                    OWNER_NAME = CryptoSecurity.Encrypt(user.OwnerName),
+                    PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
+                    EMAIL = CryptoSecurity.Encrypt(user.Email),
+                    PASSWORD = CryptoSecurity.Encrypt(user.Password),
+                    CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
                     OPEN_TIME = user.OpenTime,
                     GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
-                    CLOSE_TIME = user.CloseTime
+                    CLOSE_TIME = user.CloseTime,
+
+                    STREET = user.Address.Street,
+                    NUMBER = user.Address.Number,
+                    CITY = user.Address.City,
+                    STATE = user.Address.State,
+                    COMPLEMENT = user.Address.Complement,
+                    CEP = user.Address.CEP,
+
+                    HAIR = user.Prices.Hair,
+                    BEARD = user.Prices.Beard,
+                    MUSTACHE = user.Prices.Mustache
                 });
             }
         }
@@ -125,11 +129,6 @@ namespace Hair.Repository.Repositories
 
                 conn.Query("dbo.spDeleteUser @ID", new { ID = id });
 
-                foreach (var haircut in user.Haircuts)
-                {
-                    _haircutRepository.Remove(haircut.Id);
-                }
-
                 return true;
             }
         }
@@ -139,8 +138,7 @@ namespace Hair.Repository.Repositories
             if (user == null)
                 return;
 
-            var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
-
+            var haircuts = conn.Query<HaircutEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id });
             user.Address = conn.Query<AddressEntity>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault();
             user.Prices = conn.Query<HaircutPriceEntity>("spGetUserHaircutPrice @ID", new { ID = user.Id }).FirstOrDefault();
 
