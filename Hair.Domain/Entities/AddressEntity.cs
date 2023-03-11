@@ -3,9 +3,8 @@
     /// <summary>
     /// Abstração do endereço
     /// </summary>
-    public class AddressEntity
+    public class AddressEntity : BaseEntity
     {
-        public Guid OwnerId { get; set; }
         /// <summary>
         /// 
         /// Rua.
@@ -49,7 +48,7 @@
         /// </summary>
         public string CEP { get; set; }
 
-        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid ownerId)
+        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid _Id)
         {
             Street = street.ToUpper();
             Number = number.ToUpper();
@@ -58,7 +57,7 @@
             Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement.ToUpper();
             FullAddress = $"{Street},{Number}. {City} - {State}. {Complement}";
             CEP = cep;
-            OwnerId = ownerId;
+            Id = _Id;
         }
 
         public AddressEntity()

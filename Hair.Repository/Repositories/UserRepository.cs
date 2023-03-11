@@ -5,7 +5,6 @@ using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 
 namespace Hair.Repository.Repositories
 {
@@ -15,10 +14,15 @@ namespace Hair.Repository.Repositories
     public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
     {
         private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<HaircutPriceEntity> _priceRepository;
+        private readonly IBaseRepository<AddressEntity> _addressRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository)
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository, IBaseRepository<HaircutPriceEntity> priceRepository,
+            IBaseRepository<AddressEntity> addressRepository)
         {
             _haircutRepository = haircutRepository;
+            _priceRepository = priceRepository;
+            _addressRepository = addressRepository;
         }
 
         public void Create(UserEntity user)
@@ -54,7 +58,22 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spUpdateUser");
+                conn.Query("dbo.spUpdateUser", new
+                {
+                    ID = user.Id,
+                    SALOON_NAME = user.SaloonName,
+                    OWNER_NAME = user.OwnerName,
+                    PHONE_NUMBER = user.PhoneNumber,
+                    EMAIL = user.Email,
+                    PASSWORD = user.Password,
+                    CNPJ = user.CNPJ,
+                    OPEN_TIME = user.OpenTime,
+                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                    CLOSE_TIME = user.CloseTime
+                });
+
+                _addressRepository.Update(user.Address);
+                _priceRepository.Update(user.Prices);
             }
         }
 
@@ -62,12 +81,17 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var cipherEmail = CryptoSecurity.Encrypt(email);
-                var cipherPassword = CryptoSecurity.Encrypt(password);
+                var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserByEmail @EMAIL, @PASSWORD", new
+                {
+                    EMAIL = CryptoSecurity.Encrypt(email.ToUpper()),
+                    PASSWORD = CryptoSecurity.Encrypt(password)
+                }).FirstOrDefault();
 
-                var user = conn.Query<UserEntity>("dbo.spGetUserByEmail @Email, @Password", new { Email = cipherEmail, Password = cipherPassword }).FirstOrDefault();
+                if (userSql == null)
+                    return null;
 
-                PopulateHaircut(user);
+                var user = FillUser(userSql);
+                PopulateExtraEntities(user);
 
                 return user == null ? null : user;
             }
@@ -77,9 +101,13 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var user = conn.Query<UserEntity>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
+                var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
 
-                PopulateHaircut(user);
+                if (userSql == null)
+                    return null;
+
+                var user = FillUser(userSql);
+                PopulateExtraEntities(user);
 
                 return user == null ? null : user;
             }
@@ -90,12 +118,9 @@ namespace Hair.Repository.Repositories
             var output = new List<UserEntity>();
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var users = conn.Query<UserEntity>("dbo.spGetAllUsers").ToList();
+                var usersFromSql = conn.Query<UserEntityFromSql>("dbo.spGetAllUsers").ToList();
 
-                foreach (var user in users)
-                {
-                    PopulateHaircut(user);
-                }
+                output.AddRange(FillUser(usersFromSql));
             }
             return output;
         }
@@ -117,14 +142,56 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        private void PopulateHaircut(UserEntity user)
+        private void PopulateExtraEntities(UserEntity user)
         {
             if (user == null)
                 return;
 
             var haircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
+            var price = _priceRepository.GetById(user.Id);
+            var address = _addressRepository.GetById(user.Id);
 
+            user.Address = address;
+            user.Prices = price;
             user.Haircuts.AddRange(haircuts);
+        }
+
+        private UserEntity DecryptProcess(UserEntityFromSql userSql)
+        {
+            var user = new UserEntity();
+
+            user.Id = userSql.Id;
+            user.Address = userSql.Address;
+            user.SaloonName = userSql.Saloon_Name;
+            user.GoogleMapsSource = userSql.Google_Maps_Source;
+            user.CNPJ = userSql.CNPJ == null ? null : CryptoSecurity.Decrypt(userSql.CNPJ);
+            user.Password = CryptoSecurity.Decrypt(userSql.Password);
+            user.Email = CryptoSecurity.Decrypt(userSql.Email);
+            user.PhoneNumber = CryptoSecurity.Decrypt(userSql.Phone_Number);
+            user.OwnerName = CryptoSecurity.Decrypt(userSql.Owner_Name);
+
+            return user;
+        }
+
+        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql)
+        {
+            var output = new List<UserEntity>();
+
+            foreach (var userSql in usersFromSql)
+            {
+                var user = DecryptProcess(userSql);
+                PopulateExtraEntities(user);
+                output.Add(user);
+            }
+
+            return output;
+        }
+
+        private UserEntity? FillUser(UserEntityFromSql userFromSql)
+        {
+            var user = DecryptProcess(userFromSql);
+
+            return user == null ? null : user;
         }
     }
 }
