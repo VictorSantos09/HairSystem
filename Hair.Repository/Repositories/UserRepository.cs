@@ -17,7 +17,7 @@ namespace Hair.Repository.Repositories
         private readonly IBaseRepository<HaircutPriceEntity> _priceRepository;
         private readonly IBaseRepository<AddressEntity> _addressRepository;
 
-        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository, IBaseRepository<HaircutPriceEntity> priceRepository, 
+        public UserRepository(IBaseRepository<HaircutEntity> haircutRepository, IBaseRepository<HaircutPriceEntity> priceRepository,
             IBaseRepository<AddressEntity> addressRepository)
         {
             _haircutRepository = haircutRepository;
@@ -58,7 +58,22 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spUpdateUser");
+                conn.Query("dbo.spUpdateUser", new
+                {
+                    ID = user.Id,
+                    SALOON_NAME = user.SaloonName,
+                    OWNER_NAME = user.OwnerName,
+                    PHONE_NUMBER = user.PhoneNumber,
+                    EMAIL = user.Email,
+                    PASSWORD = user.Password,
+                    CNPJ = user.CNPJ,
+                    OPEN_TIME = user.OpenTime,
+                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                    CLOSE_TIME = user.CloseTime
+                });
+
+                _addressRepository.Update(user.Address);
+                _priceRepository.Update(user.Prices);
             }
         }
 
@@ -86,8 +101,12 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var user = conn.Query<UserEntity>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
+                var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
 
+                if (userSql == null)
+                    return null;
+
+                var user = FillUser(userSql);
                 PopulateExtraEntities(user);
 
                 return user == null ? null : user;
