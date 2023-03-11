@@ -9,15 +9,15 @@ namespace Hair.Repository
 {
     internal class UserEntityFromSql : BaseEntity
     {
-        public string SaloonName { get; set; }
-        public byte[] OwnerName { get; set; }
-        public byte[] PhoneNumber { get; set; }
+        public string Saloon_Name { get; set; }
+        public byte[] Owner_Name { get; set; }
+        public byte[] Phone_Number { get; set; }
         public byte[] Email { get; set; }
         public byte[]? CNPJ { get; set; }
         public byte[] Password { get; set; }
         public TimeOnly OpenTime { get; set; }
         public TimeOnly CloseTime { get; set; }
-        public string? GoogleMapsSource { get; set; }
+        public string? Google_Maps_Source { get; set; }
         public AddressEntity Address { get; set; } = new AddressEntity();
         public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
         public List<HaircutEntity> Haircuts { get; set; } = new();
@@ -26,15 +26,15 @@ namespace Hair.Repository
             TimeOnly closeTime, string? googleMapsSource, 
             AddressEntity address, HaircutPriceEntity prices, List<HaircutEntity> haircuts)
         {
-            SaloonName = saloonName;
-            OwnerName = ownerName;
-            PhoneNumber = phoneNumber;
+            Saloon_Name = saloonName;
+            Owner_Name = ownerName;
+            Phone_Number = phoneNumber;
             Email = email;
             CNPJ = cNPJ;
             Password = password;
             OpenTime = openTime;
             CloseTime = closeTime;
-            GoogleMapsSource = googleMapsSource;
+            Google_Maps_Source = googleMapsSource;
             Address = address;
             Prices = prices;
             Haircuts = haircuts;

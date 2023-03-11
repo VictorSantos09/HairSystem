@@ -35,7 +35,6 @@ namespace Hair.Application.Services
         /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido.</returns>
         public BaseDto Execute(RegisterDto dto)
         {
-            _userRepository.GetAll();
             var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
 
             if (isExistentUser != null)
