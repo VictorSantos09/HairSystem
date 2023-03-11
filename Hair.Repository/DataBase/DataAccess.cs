@@ -8,6 +8,6 @@
         /// <summary>
         /// string de conexão para o SQL Server
         /// </summary>
-        public static string DBConnection = "Server=;Database=HairSystem_DB; User=; Password=; Trusted_Connection=True;";
+        public static string DBConnection = "Server=;Database=HairSystem_DB; User=; Password=; Trusted_Connection=;";
     }
 }

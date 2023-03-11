@@ -47,8 +47,14 @@
         /// 
         /// </summary>
         public string CEP { get; set; }
+        /// <summary>
+        /// 
+        /// Representa a relação entre o endereço e a entidade correspondente.
+        /// 
+        /// </summary>
+        public Guid OwnerId { get; set; }
 
-        public AddressEntity(string street, string number, string city, string state, string? complement, string cep)
+        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid ownerId)
         {
             Street = street.ToUpper();
             Number = number.ToUpper();
@@ -57,6 +63,7 @@
             Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement.ToUpper();
             FullAddress = $"{Street},{Number}. {City} - {State}. {Complement}";
             CEP = cep;
+            OwnerId = ownerId;
         }
 
         public AddressEntity()
