@@ -1,6 +1,9 @@
-﻿using Hair.Domain.Entities;
+﻿using Dapper;
+using Hair.Domain.Entities;
+using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
-
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -11,7 +14,15 @@ namespace Hair.Repository.Repositories
     {
         public void Create(ImageEntity entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spCreateImage @ID, @USER_ID, @IMAGE", new
+                {
+                    ID = entity.Id,
+                    USER_ID = entity.SaloonId,
+                    IMAGE = entity.Img
+                });
+            }
         }
 
         public List<ImageEntity> GetAll()

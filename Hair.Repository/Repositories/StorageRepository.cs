@@ -1,5 +1,9 @@
-﻿using Hair.Domain.Entities;
+﻿using Dapper;
+using Hair.Domain.Entities;
+using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -10,27 +14,89 @@ namespace Hair.Repository.Repositories
     {
         public void Create(SaloonItemEntity entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spCreateItem @ID, @NAME, @PRICE, @QUANTITY_AVAILABLE, @SALOON_ID", new
+                {
+                    ID = entity.Id,
+                    NAME = entity.Name,
+                    PRICE = entity.Price,
+                    QUANTITY_AVAILABLE = entity.QuantityAvaible,
+                    SALOON_ID = entity.SaloonId
+                });
+            }
         }
 
         public List<SaloonItemEntity> GetAll()
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+               return ConvertToEntity(conn.Query<SaloonItemEntityFromSql>("dbo.spGetAllItens").ToList());
+            }
         }
 
         public SaloonItemEntity? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                return ConvertToEntity(conn.Query<SaloonItemEntityFromSql>("dbo.spGetItemById @ID", new {ID = id}).FirstOrDefault());
+            }
         }
 
         public bool Remove(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spDeleteItem @ID", new { ID = id });
+            }
+
+            return true;
         }
 
         public void Update(SaloonItemEntity entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spUpdateItem @ID, @NAME, @PRICE, @QUANTITY_AVAILABLE, @SALOON_ID", new
+                {
+                    ID = entity.Id,
+                    NAME = entity.Name,
+                    PRICE = entity.Price,
+                    QUANTITY_AVAILABLE = entity.QuantityAvaible,
+                    SALOON_ID = entity.SaloonId
+                });
+            }
+        }
+
+        private List<SaloonItemEntity> ConvertToEntity(List<SaloonItemEntityFromSql> itensSql)
+        {
+            var output = new List<SaloonItemEntity>();
+
+            foreach (var item in itensSql)
+            {
+                var toAdd = new SaloonItemEntity();
+                toAdd.Name = item.Name;
+                toAdd.Price = item.Price;
+                toAdd.QuantityAvaible = item.Quantity_Avaible;
+                toAdd.Id = item.Id;
+                toAdd.SaloonId = item.Saloon_Id;
+                
+                output.Add(toAdd);
+            }
+
+            return output;
+        }
+
+        private SaloonItemEntity ConvertToEntity(SaloonItemEntityFromSql itemSql)
+        {
+            var output = new SaloonItemEntity();
+            output.Name = itemSql.Name;
+            output.Price = itemSql.Price;
+            output.QuantityAvaible = itemSql.Quantity_Avaible;
+            output.Id = itemSql.Id;
+            output.SaloonId = itemSql.Saloon_Id;
+
+            return output;
         }
     }
 }
