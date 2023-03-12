@@ -15,7 +15,7 @@ namespace Hair.Application.Validators
 
             RuleFor(x => x.Email).NotNull().EmailAddress().WithName("Email");
 
-            RuleFor(x => x.Salary).NotEmpty().LessThanOrEqualTo(0).WithName("Salário");
+            RuleFor(x => x.Salary).NotEmpty().GreaterThan(0).WithName("Salário");
 
             RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(12).WithName("Telefone");
 

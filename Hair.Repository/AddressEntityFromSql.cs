@@ -1,9 +1,8 @@
-﻿namespace Hair.Domain.Entities
+﻿using Hair.Domain.Entities;
+
+namespace Hair.Repository
 {
-    /// <summary>
-    /// Abstração do endereço
-    /// </summary>
-    public class AddressEntity : BaseEntity
+    internal class AddressEntityFromSql : BaseEntity
     {
         /// <summary>
         /// 
@@ -40,28 +39,12 @@
         /// Endereço completo.
         /// 
         /// </summary>
-        public string FullAddress { get; set; }
+        public string Full_Address { get; set; }
         /// <summary>
         /// 
         /// CEP.
         /// 
         /// </summary>
         public string CEP { get; set; }
-
-        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid _Id)
-        {
-            Street = street.ToUpper();
-            Number = number.ToUpper();
-            City = city.ToUpper();
-            State = state.ToUpper();
-            Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement.ToUpper();
-            CEP = cep;
-            Id = _Id;
-        }
-
-        public AddressEntity()
-        {
-
-        }
     }
 }
