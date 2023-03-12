@@ -9,7 +9,7 @@
         /// Chave principal para tratar criptografia de dados
         /// </summary>
         const string Key = "OUR_BASE_KEY";
-        
+
         /// <summary>
         /// Vector principal para tratar criptografia de dados
         /// </summary>

@@ -19,16 +19,16 @@ namespace Hair.Repository.Repositories
             {
                 conn.Query("dbo.spCreateHaircut @HAIRCUT_ID, @HAIRCUT_TIME, @AVAILABLE, @SALOON_ID," +
                     " @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER, @CLIENT_ID", new
-                {
-                    HAIRCUT_ID = haircut.Id,
-                    HAIRCUT_TIME = haircut.HaircuteTime,
-                    AVAILABLE = haircut.Available,
-                    SALOON_ID = haircut.SaloonId,
-                    CLIENT_NAME = CryptoSecurity.Encrypt(haircut.Client.Name),
-                    CLIENT_EMAIL = CryptoSecurity.Encrypt(haircut.Client.Email),
-                    CLIENT_PHONE_NUMBER = CryptoSecurity.Encrypt(haircut.Client.PhoneNumber),
-                    CLIENT_ID = haircut.Client.Id
-                });
+                    {
+                        HAIRCUT_ID = haircut.Id,
+                        HAIRCUT_TIME = haircut.HaircuteTime,
+                        AVAILABLE = haircut.Available,
+                        SALOON_ID = haircut.SaloonId,
+                        CLIENT_NAME = CryptoSecurity.Encrypt(haircut.Client.Name),
+                        CLIENT_EMAIL = CryptoSecurity.Encrypt(haircut.Client.Email),
+                        CLIENT_PHONE_NUMBER = CryptoSecurity.Encrypt(haircut.Client.PhoneNumber),
+                        CLIENT_ID = haircut.Client.Id
+                    });
             }
         }
 

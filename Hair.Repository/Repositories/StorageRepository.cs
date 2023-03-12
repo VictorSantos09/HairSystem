@@ -1,8 +1,5 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {

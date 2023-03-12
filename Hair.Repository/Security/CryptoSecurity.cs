@@ -84,7 +84,7 @@ namespace Hair.Repository.Security
         {
             var key = KeyManagment.Get(IKeyOrganizator.Key);
             var iv = KeyManagment.Get(IKeyOrganizator.IV);
-            
+
             return Encrypt(plainText, key, iv);
         }
 
@@ -92,7 +92,7 @@ namespace Hair.Repository.Security
         {
             var key = KeyManagment.Get(IKeyOrganizator.Key);
             var iv = KeyManagment.Get(IKeyOrganizator.IV);
-            
+
             return Decrypt(cipheredText, key, iv);
         }
     }

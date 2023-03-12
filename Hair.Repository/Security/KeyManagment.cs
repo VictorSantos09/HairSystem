@@ -48,7 +48,7 @@ namespace Hair.Repository.Security
             if (Environment.GetEnvironmentVariable(name) == null)
                 Console.WriteLine($"variável de ambiente nome {name} foi deletada."); // confirmar remoção
         }
-        
+
         public static byte[] Get(string name)
         {
             return Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable(name));

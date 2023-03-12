@@ -1,9 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hair.Repository
 {
@@ -22,8 +17,8 @@ namespace Hair.Repository
         public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
         public List<HaircutEntity> Haircuts { get; set; } = new();
 
-        public UserEntityFromSql(string saloonName, byte[] ownerName, byte[] phoneNumber, byte[] email, byte[]? cNPJ, byte[] password, TimeOnly openTime, 
-            TimeOnly closeTime, string? googleMapsSource, 
+        public UserEntityFromSql(string saloonName, byte[] ownerName, byte[] phoneNumber, byte[] email, byte[]? cNPJ, byte[] password, TimeOnly openTime,
+            TimeOnly closeTime, string? googleMapsSource,
             AddressEntity address, HaircutPriceEntity prices, List<HaircutEntity> haircuts)
         {
             Saloon_Name = saloonName;
@@ -42,7 +37,7 @@ namespace Hair.Repository
 
         public UserEntityFromSql()
         {
-            
+
         }
     }
 }
