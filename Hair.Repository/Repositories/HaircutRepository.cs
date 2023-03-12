@@ -44,7 +44,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spRemoveHaircut", new { ID = id });
+                conn.Query("dbo.", new { ID = id });
                 return true;
             }
         }
@@ -52,14 +52,14 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                return conn.Query<HaircutEntity>("dbo.spGetAllHaircuts").ToList();
+                return conn.Query<HaircutEntity>("dbo.").ToList();
             }
         }
         public HaircutEntity? GetById(Guid id)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                var haircut = conn.Query<HaircutEntity>("dbo.spGetHaircutById", new { ID = id }).FirstOrDefault();
+                var haircut = conn.Query<HaircutEntity>("dbo.", new { ID = id }).FirstOrDefault();
                 return haircut == null ? null : haircut;
             }
         }
