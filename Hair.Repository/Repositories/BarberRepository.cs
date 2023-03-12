@@ -2,6 +2,7 @@
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Security;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,12 +13,29 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class BarberRepository : IBaseRepository<BarberEntity>
     {
-        public static readonly string TableName = "BARBERS";
         public void Create(BarberEntity barber)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spCreateBarber");
+                conn.Query("dbo.spCreateBarber @ID, @NAME, @PHONE_NUMBER, @EMAIL, @SALARY, @HIRED, @SALOON_ID, @ADDRESS_FK," +
+                    "@STREET, @NUMBER, @CITY, @STATE, @COMPLEMENT, @CEP", new
+                {
+                    ID = barber.Id,
+                    NAME = CryptoSecurity.Encrypt(barber.Name),
+                    PHONE_NUMBER = CryptoSecurity.Encrypt(barber.PhoneNumber),
+                    EMAIL = CryptoSecurity.Encrypt(barber.Email),
+                    SALARY = barber.Salary,
+                    HIRED = barber.Hired,
+                    SALOON_ID = barber.SaloonId,
+                    ADDRESS_FK = barber.Address.Id,
+
+                    STREET = barber.Address.Street,
+                    NUMBER = barber.Address.Number,
+                    CITY = barber.Address.City,
+                    STATE = barber.Address.State,
+                    COMPLEMENT = barber.Address.Complement,
+                    CEP = barber.Address.CEP
+                });
             }
         }
 
@@ -25,7 +43,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                return conn.Query<BarberEntity>("dbo.spGetAllBarbers").ToList();
+                return conn.Query<BarberEntity>("dbo.").ToList();
             }
         }
 
@@ -33,7 +51,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                return conn.Query<BarberEntity>("dbo.spGetBarberById", new { ID = id }).FirstOrDefault();   
+                return conn.Query<BarberEntity>("dbo.", new { ID = id }).FirstOrDefault();   
             }
         }
 

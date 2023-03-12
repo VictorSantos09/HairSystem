@@ -13,9 +13,6 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class HaircutRepository : IBaseRepository<HaircutEntity>
     {
-        public HaircutRepository()
-        {
-        }
         public void Create(HaircutEntity haircut)
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))

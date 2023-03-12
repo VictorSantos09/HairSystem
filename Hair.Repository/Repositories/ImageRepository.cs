@@ -12,8 +12,6 @@ namespace Hair.Repository.Repositories
     /// </summary>
     public class ImageRepository : IBaseRepository<ImageEntity>
     {
-        private readonly static string TableName = "IMAGES";
-
         public void Create(ImageEntity entity)
         {
             throw new NotImplementedException();
