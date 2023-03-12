@@ -14,7 +14,7 @@ namespace Hair.Application.Validators
 
             RuleFor(x => x.SaloonId).NotEmpty().WithName("ID do salão");
 
-            RuleFor(x => x.Img).NotEmpty().WithName("Imagem");
+            RuleFor(x => x.Image).NotEmpty().WithName("Imagem");
         }
     }
 }
