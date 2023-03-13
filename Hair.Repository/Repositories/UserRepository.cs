@@ -129,8 +129,8 @@ namespace Hair.Repository.Repositories
 
                 conn.Query("dbo.spDeleteUser @ID", new { ID = id });
 
-                return true;
             }
+            return true;
         }
 
         private void PopulateExtraEntities(UserEntity user, IDbConnection conn)

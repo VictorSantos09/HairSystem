@@ -43,22 +43,23 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                conn.Query("dbo.", new { ID = id });
-                return true;
+                conn.Query("dbo.spRemoveHaircut @ID", new { ID = id });
             }
+            
+            return true;
         }
         public List<HaircutEntity> GetAll()
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                return conn.Query<HaircutEntity>("dbo.").ToList();
+                return conn.Query<HaircutEntity>("dbo.spGetAllHaircuts").ToList();
             }
         }
         public HaircutEntity? GetById(Guid id)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                var haircut = conn.Query<HaircutEntity>("dbo.", new { ID = id }).FirstOrDefault();
+                var haircut = conn.Query<HaircutEntity>("dbo.spGetHaircutById @ID", new { ID = id }).FirstOrDefault();
                 return haircut == null ? null : haircut;
             }
         }

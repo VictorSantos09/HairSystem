@@ -112,12 +112,9 @@ namespace Hair.Application.Functions
         {
             return new
             {
-                user.Address.Number,
-                user.Address.City,
-                user.Address.State,
-                user.Address.Complement,
-                user.OpenTime,
-                user.CloseTime,
+                user.Address,
+                OpenTime = Convert.ToString(user.OpenTime),
+                CloseTime = Convert.ToString(user.CloseTime),
                 user.Email,
                 user.PhoneNumber,
                 user.CNPJ,

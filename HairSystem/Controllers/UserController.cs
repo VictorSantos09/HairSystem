@@ -11,26 +11,35 @@ namespace HairSystem.Controllers
 {
     [ApiController]
     [Route("api/controller")]
-    public class ManagmentWorkerController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ManagmentWorkerService _service;
+        private readonly RegisterService _registerService;
+        private readonly LoginService _loginService;
+        private readonly DeleteAccountService _deleteService;
         private readonly IException _exHelper;
 
-        public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository,
-            IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
+        public UserController(IGetByEmail userRepository, IException exception, IValidator<UserEntity> validator)
         {
             _exHelper = exception;
-            _service = new(userRepository, barberRepository, barberValidator);
+            _registerService = new(userRepository, validator);
+            _loginService = new(userRepository);
+            _deleteService = new(userRepository);
         }
 
-        [HttpDelete]
-        [Route("FireBarber")]
-        public IActionResult FireBarber([FromBody] FireBarberDto dto)
+        [HttpPost]
+        [Route("Register")]
+        public IActionResult Register([FromBody] RegisterDto dto)
         {
             try
             {
-                var result = _service.Fire(dto);
+                var result = _registerService.Execute(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
             }
             catch (Exception e)
             {
@@ -40,13 +49,18 @@ namespace HairSystem.Controllers
         }
 
         [HttpPost]
-        [Route("HireBarber")]
-        public IActionResult HireBarber([FromBody] HireBarberDto dto)
+        [Route("Login")]
+        public IActionResult Login([FromBody] LoginDto dto)
         {
             try
             {
-                var result = _service.Hire(dto);
+                var result = _loginService.CheckLogin(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
             }
             catch (Exception e)
             {
@@ -55,14 +69,19 @@ namespace HairSystem.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("UpdateBarber")]
-        public IActionResult ChangeAdress([FromBody] UpdateBarberDto dto)
+        [HttpDelete]
+        [Route("DeleteAccount")]
+        public IActionResult Delete([FromBody] DeleteAccountDto dto)
         {
             try
             {
-                var result = _service.Update(dto);
+                var result = _deleteService.Delete(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
             }
             catch (Exception e)
             {

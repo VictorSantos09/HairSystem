@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Hair.Application.Common;
+﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
@@ -11,26 +10,33 @@ namespace HairSystem.Controllers
 {
     [ApiController]
     [Route("api/controller")]
-    public class ManagmentWorkerController : ControllerBase
+    public class ViewDataController : ControllerBase
     {
-        private readonly ManagmentWorkerService _service;
+        private readonly VisualizeEmployeeDataService _viewEmployeeData;
+        private readonly ViewHaircutTimeService _viewHaircutTime;
         private readonly IException _exHelper;
 
-        public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository,
-            IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
+        public ViewDataController(IBaseRepository<BarberEntity> barberRepository, IGetByEmail userRepository, 
+            IException exception, IBaseRepository<HaircutEntity> haircutRepository)
         {
             _exHelper = exception;
-            _service = new(userRepository, barberRepository, barberValidator);
+            _viewEmployeeData = new VisualizeEmployeeDataService(barberRepository, userRepository);
+            _viewHaircutTime = new ViewHaircutTimeService(haircutRepository);
         }
 
-        [HttpDelete]
-        [Route("FireBarber")]
-        public IActionResult FireBarber([FromBody] FireBarberDto dto)
+        [HttpPost]
+        [Route("VisualizeEmployeeData")]
+        public IActionResult Visualize([FromBody] VisualizeEmployeeDataDto dataDto)
         {
             try
             {
-                var result = _service.Fire(dto);
+                var result = _viewEmployeeData.GetEmployeeData(dataDto.Email, dataDto.Password);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
+            }
+            catch (ArgumentNullException e)
+            {
+                var info = _exHelper.Error(e);
+                return StatusCode(info._StatusCode, info);
             }
             catch (Exception e)
             {
@@ -40,29 +46,18 @@ namespace HairSystem.Controllers
         }
 
         [HttpPost]
-        [Route("HireBarber")]
-        public IActionResult HireBarber([FromBody] HireBarberDto dto)
+        [Route("GetScheduledHaircuts")]
+        public IActionResult GetScheduledHaircuts([FromBody] ViewHaircutTimeDto dto)
         {
             try
             {
-                var result = _service.Hire(dto);
+                var result = _viewHaircutTime.GetScheduledHaircuts(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
-            catch (Exception e)
+            catch (ArgumentNullException e)
             {
                 var info = _exHelper.Error(e);
                 return StatusCode(info._StatusCode, info);
-            }
-        }
-
-        [HttpPut]
-        [Route("UpdateBarber")]
-        public IActionResult ChangeAdress([FromBody] UpdateBarberDto dto)
-        {
-            try
-            {
-                var result = _service.Update(dto);
-                return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (Exception e)
             {

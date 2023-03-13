@@ -75,8 +75,8 @@ namespace Hair.Repository.Repositories
             {
                 conn.Query("dbo.spDeleteBarber");
 
-                return true;
             }
+            return true;
         }
 
         public void Update(BarberEntity barber)

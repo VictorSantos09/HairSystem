@@ -1,4 +1,5 @@
-﻿using Hair.Application.Common;
+﻿using FluentValidation;
+using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services;
@@ -10,26 +11,25 @@ namespace HairSystem.Controllers
 {
     [ApiController]
     [Route("api/controller")]
-    public class ChangePriceController : ControllerBase
+    public class ImageController : ControllerBase
     {
-        private readonly ChangePriceService _changePrice;
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly PostImageService _service;
         private readonly IException _exHelper;
 
-        public ChangePriceController(IBaseRepository<UserEntity> userRepository, IException exception)
+        public ImageController(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository,
+            IException exception, IValidator<ImageEntity> imageValidator)
         {
             _exHelper = exception;
-            _userRepository = userRepository;
-            _changePrice = new ChangePriceService(_userRepository);
+            _service = new(imageRepository, userRepository, imageValidator);
         }
 
         [HttpPost]
-        [Route("ChangeHaircutePrice")]
-        public IActionResult ChangePrice(ChangePriceDto dto)
+        [Route("PostImage")]
+        public IActionResult PostImage([FromBody] PostImageDto dto)
         {
             try
             {
-                var result = _changePrice.ChangeHaircutePrice(dto);
+                var result = _service.Post(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)
