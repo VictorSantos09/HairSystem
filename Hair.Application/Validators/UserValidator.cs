@@ -6,7 +6,7 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação do usuário, pela classe concreta <see cref="UserEntity"/>, também testando <see cref="AddressEntity"/> e <see cref="HaircutPriceEntity"/>
     /// </summary>
-    internal class UserValidator : AbstractValidator<UserEntity>
+    public class UserValidator : AbstractValidator<UserEntity>
     {
 
         private readonly IValidator<AddressEntity> _addressValidator;

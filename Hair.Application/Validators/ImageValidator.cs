@@ -6,7 +6,7 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação da imagem, pela classe concreta <see cref="ImageEntity"/>
     /// </summary>
-    internal class ImageValidator : AbstractValidator<ImageEntity>
+    public class ImageValidator : AbstractValidator<ImageEntity>
     {
         public ImageValidator()
         {

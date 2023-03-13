@@ -27,7 +27,7 @@ namespace Hair.Tests.Services
             _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",", "45231245", _user.Id);
 
             _barber = new BarberEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
-            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
+            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object, null);
             _dto = new(_user.Id, _barber.Name, _barber.Email, _barber.PhoneNumber, _barber.Salary, _address, "Carlos@gmail.com", "041991545235", "Carlos", 5000);
         }
 

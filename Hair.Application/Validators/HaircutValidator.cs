@@ -6,7 +6,7 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="HaircutEntity"/>, também testando <see cref="ClientEntity"/>
     /// </summary>
-    internal class HaircutValidator : AbstractValidator<HaircutEntity>
+    public class HaircutValidator : AbstractValidator<HaircutEntity>
     {
         private readonly IValidator<ClientEntity> _clientValidator;
         public HaircutValidator(IValidator<ClientEntity> validator)

@@ -6,7 +6,7 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação dos preços de corte, pela classe concreta <see cref="HaircutPriceEntity"/>
     /// </summary>
-    internal class HaircutPriceValidator : AbstractValidator<HaircutPriceEntity>
+    public class HaircutPriceValidator : AbstractValidator<HaircutPriceEntity>
     {
         public HaircutPriceValidator()
         {

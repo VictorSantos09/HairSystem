@@ -19,9 +19,11 @@ namespace Hair.Tests.Services
         public HireWorkerServiceTest()
         {
             _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(),
-                null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
-            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
-            _dto = new HireBarberDto("Carlos", _user.Id, "047335478456", "carlos@gmail.com", 2000, "Rua Maria Alberta", "54", "", "Blumenau", "SC", true);
+                null, _haircutPrice, TimeOnly.FromDateTime(DateTime.Now), null,  TimeOnly.FromDateTime(DateTime.Now).AddHours(4));
+
+            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object, null);
+
+            _dto = new HireBarberDto("Carlos", _user.Id, "047335478456", "carlos@gmail.com", 2000, "Rua Maria Alberta", "54", "", "Blumenau", "SC", true,"458789520");
         }
 
         [Fact]

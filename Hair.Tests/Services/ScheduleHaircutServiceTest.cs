@@ -17,7 +17,7 @@ namespace Hair.Tests.Services
         {
             _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
             _mockHaircutRepository = new Mock<IBaseRepository<HaircutEntity>>();
-            _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object);
+            _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object, null);
         }
 
         [Fact]
@@ -56,11 +56,15 @@ namespace Hair.Tests.Services
         public void Schedule_WhenHaircuteTimeIsNull_ReturnsNotNullError()
         {
             // Arrange
-            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
             var mockPrice = new HaircutPriceEntity(20, 20, 20);
-            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", new AddressEntity(), null, 
+                mockPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now).AddHours(4));
             DateTime? haircutTime = null;
 
+            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal", "45213580",user.Id);
+
+            user.Address = mockAdress;
 
             var scheduledTime = haircutTime.HasValue ? (DateTime)haircutTime : DateTime.Now.AddDays(1);
 
