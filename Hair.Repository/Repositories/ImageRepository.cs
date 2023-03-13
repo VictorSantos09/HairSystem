@@ -16,33 +16,47 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
             {
-                conn.Query("dbo.spCreateImage @ID, @USER_ID, @IMAGE", new
+                conn.Query("dbo.spCreateImage @ID, @USERID, @IMAGE", new
                 {
                     ID = entity.Id,
-                    USER_ID = entity.SaloonId,
-                    IMAGE = entity.Img
+                    USERID = entity.SaloonId,
+                    IMAGE = entity.Image
                 });
             }
         }
 
         public List<ImageEntity> GetAll()
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                return conn.Query<ImageEntity>("dbo.spGetAllImages").ToList();
+            }
         }
 
         public ImageEntity? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                return conn.Query<ImageEntity>("dbo.spGetImageById", new { ID = id }).FirstOrDefault();
+            }
         }
 
         public bool Remove(Guid id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spDeleteImage", new { ID = id });
+            }
+
+            return true;
         }
 
         public void Update(ImageEntity entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            {
+                conn.Query("dbo.spUpdateImage", new { ID = entity.Id, IMAGE = entity.Image, @SALOON_ID = entity.SaloonId });
+            }
         }
     }
 }

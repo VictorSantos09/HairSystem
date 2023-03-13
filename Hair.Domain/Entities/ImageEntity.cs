@@ -18,13 +18,13 @@
         /// Imagem.
         /// 
         /// </summary>
-        public byte[] Img { get; set; }
+        public byte[] Image { get; set; }
 
         public ImageEntity(Guid saloonId, byte[] img)
         {
             Id = Guid.NewGuid();
             SaloonId = saloonId;
-            Img = img;
+            Image = img;
         }
 
         public ImageEntity()
