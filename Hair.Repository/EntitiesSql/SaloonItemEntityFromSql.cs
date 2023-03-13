@@ -1,6 +1,6 @@
 ﻿using Hair.Domain.Entities;
 
-namespace Hair.Repository
+namespace Hair.Repository.EntitiesSql
 {
     internal class SaloonItemEntityFromSql : BaseEntity
     {

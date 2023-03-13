@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
+using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -15,7 +15,7 @@ namespace Hair.Repository.Repositories
     {
         public void Create(UserEntity user)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Execute("dbo.spCreateUser", new
                 {
@@ -44,7 +44,7 @@ namespace Hair.Repository.Repositories
 
         public void Update(UserEntity user)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spUpdateUser", new
                 {
@@ -75,7 +75,7 @@ namespace Hair.Repository.Repositories
 
         public UserEntity? GetByEmail(string email, string password)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserByEmail @EMAIL, @PASSWORD", new
                 {
@@ -95,7 +95,7 @@ namespace Hair.Repository.Repositories
 
         public UserEntity? GetById(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
 
@@ -112,7 +112,7 @@ namespace Hair.Repository.Repositories
         public List<UserEntity> GetAll()
         {
             var output = new List<UserEntity>();
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var usersFromSql = conn.Query<UserEntityFromSql>("dbo.spGetAllUsers").ToList();
 
@@ -123,7 +123,7 @@ namespace Hair.Repository.Repositories
 
         public bool Remove(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var user = GetById(id);
 

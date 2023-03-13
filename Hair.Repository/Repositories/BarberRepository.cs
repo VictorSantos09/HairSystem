@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
+using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -15,7 +15,7 @@ namespace Hair.Repository.Repositories
     {
         public void Create(BarberEntity barber)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spCreateBarber @ID, @NAME, @PHONE_NUMBER, @EMAIL, @SALARY, @HIRED, @SALOON_ID, @ADDRESS_FK," +
                     "@STREET, @NUMBER, @CITY, @STATE, @COMPLEMENT, @CEP", new
@@ -41,7 +41,7 @@ namespace Hair.Repository.Repositories
 
         public List<BarberEntity> GetAll()
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 return conn.Query<BarberEntity>("dbo.spGetAllBarbers").ToList();
             }
@@ -50,7 +50,7 @@ namespace Hair.Repository.Repositories
         public BarberEntity? GetById(Guid id)
         {
             var output = new BarberEntity();
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var barberSql = conn.Query<BarberEntityFromSql>("dbo.spGetBarberById", new { ID = id }).FirstOrDefault();
                 var barberAddress = ConvertAddress(conn.Query<AddressEntityFromSql>("dbo.spGetBarberAddress", new { ID = id }).FirstOrDefault());
@@ -71,7 +71,7 @@ namespace Hair.Repository.Repositories
 
         public bool Remove(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spDeleteBarber");
 
@@ -81,7 +81,7 @@ namespace Hair.Repository.Repositories
 
         public void Update(BarberEntity barber)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spUpdateBarber @ID, @NAME, @PHONE_NUMBER, @EMAIL, @SALARY, @HIRED, @SALOON_ID, @ADDRESS_FK," +
                     "@STREET, @NUMBER, @CITY, @STATE, @COMPLEMENT, @CEP", new

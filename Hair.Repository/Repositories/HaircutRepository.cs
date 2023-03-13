@@ -4,7 +4,6 @@ using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -15,7 +14,7 @@ namespace Hair.Repository.Repositories
     {
         public void Create(HaircutEntity haircut)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spCreateHaircut @HAIRCUT_ID, @HAIRCUT_TIME, @AVAILABLE, @SALOON_ID," +
                     " @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER, @CLIENT_ID", new
@@ -34,7 +33,7 @@ namespace Hair.Repository.Repositories
 
         public void Update(HaircutEntity haircut)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
 
             }
@@ -42,7 +41,7 @@ namespace Hair.Repository.Repositories
 
         public bool Remove(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.", new { ID = id });
                 return true;
@@ -50,14 +49,14 @@ namespace Hair.Repository.Repositories
         }
         public List<HaircutEntity> GetAll()
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 return conn.Query<HaircutEntity>("dbo.").ToList();
             }
         }
         public HaircutEntity? GetById(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var haircut = conn.Query<HaircutEntity>("dbo.", new { ID = id }).FirstOrDefault();
                 return haircut == null ? null : haircut;

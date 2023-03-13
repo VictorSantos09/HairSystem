@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
+using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -14,7 +14,7 @@ namespace Hair.Repository.Repositories
     {
         public void Create(SaloonItemEntity entity)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spCreateItem @ID, @NAME, @PRICE, @QUANTITY_AVAILABLE, @SALOON_ID", new
                 {
@@ -29,23 +29,23 @@ namespace Hair.Repository.Repositories
 
         public List<SaloonItemEntity> GetAll()
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-               return ConvertToEntity(conn.Query<SaloonItemEntityFromSql>("dbo.spGetAllItens").ToList());
+                return ConvertToEntity(conn.Query<SaloonItemEntityFromSql>("dbo.spGetAllItens").ToList());
             }
         }
 
         public SaloonItemEntity? GetById(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                return ConvertToEntity(conn.Query<SaloonItemEntityFromSql>("dbo.spGetItemById @ID", new {ID = id}).FirstOrDefault());
+                return ConvertToEntity(conn.Query<SaloonItemEntityFromSql>("dbo.spGetItemById @ID", new { ID = id }).FirstOrDefault());
             }
         }
 
         public bool Remove(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spDeleteItem @ID", new { ID = id });
             }
@@ -55,7 +55,7 @@ namespace Hair.Repository.Repositories
 
         public void Update(SaloonItemEntity entity)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spUpdateItem @ID, @NAME, @PRICE, @QUANTITY_AVAILABLE, @SALOON_ID", new
                 {
@@ -80,7 +80,7 @@ namespace Hair.Repository.Repositories
                 toAdd.QuantityAvaible = item.Quantity_Avaible;
                 toAdd.Id = item.Id;
                 toAdd.SaloonId = item.Saloon_Id;
-                
+
                 output.Add(toAdd);
             }
 
