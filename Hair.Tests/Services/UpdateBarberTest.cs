@@ -17,12 +17,15 @@ namespace Hair.Tests.Services
         private BarberEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
-        private AddressEntity _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",");
+        private AddressEntity _address;
 
         public UpdateBarberTest()
         {
             _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", _address,
-               null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+               null, _haircutPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now.AddHours(4)));
+
+            _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",", "45231245", _user.Id);
+
             _barber = new BarberEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
             _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
             _dto = new(_user.Id, _barber.Name, _barber.Email, _barber.PhoneNumber, _barber.Salary, _address, "Carlos@gmail.com", "041991545235", "Carlos", 5000);

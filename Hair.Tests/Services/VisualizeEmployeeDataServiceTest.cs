@@ -25,7 +25,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_user.Email, _user.Password)).Returns(_user);
 
             var jobSaloonId = Guid.NewGuid();
-            var mockAdress = new AddressEntity("Rua das Palmeiras", "222", "Blumenau", "Santa Catarina", null);
+            var mockAdress = new AddressEntity("Rua das Palmeiras", "222", "Blumenau", "Santa Catarina", null, "456487895", _user.Id);
 
             var barbers = new List<BarberEntity>
             {

@@ -21,10 +21,13 @@ namespace Hair.Tests.Services
         {
             _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity("Rua das Palmeiras",
                 "666", "Blumenau", "Santa Catarina", ","),
-                "400022884", _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+                "400022884", _haircutPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now.AddHours(4)));
+
             _service = new(_barberRepositoryMock.Object);
+
             _barber = new("carlos", null, null, 2000, new AddressEntity("Rua das Palmeiras",
                 "666", "Blumenau", "Santa Catarina", ","), true, _user.Id, _user.SaloonName);
+
             _dto = new(_user.Id, _barber.Id, _barber.Name, _barber.Email, _barber.SaloonName);
         }
 
