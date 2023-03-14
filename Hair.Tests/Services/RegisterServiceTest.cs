@@ -10,16 +10,19 @@ namespace Hair.Tests.Services
 {
     public class RegisterServiceTest
     {
-        private readonly Mock<IGetByEmail> _userRepositoryMock;
+        private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
+        private readonly ServiceProvider _provider;
         private readonly RegisterService _registerService;
         private RegisterDto _registerDto;
 
         public RegisterServiceTest()
         {
+            _provider = new ServiceProvider();
+            _registerService = _provider.GetRegisterService();
+
             _registerDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956", "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50",
                 null, "23:50", "78053680");
-            _userRepositoryMock = new Mock<IGetByEmail>();
-            _registerService = new RegisterService(_userRepositoryMock.Object, null);
+            
         }
 
         [Fact]
