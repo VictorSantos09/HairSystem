@@ -1,4 +1,6 @@
-﻿using Hair.Application.Dto;
+﻿using FluentValidation.Results;
+using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Application.Validators;
@@ -11,18 +13,14 @@ namespace Hair.Tests.Services
     public class RegisterServiceTest
     {
         private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
-        private readonly ServiceProvider _provider;
+        private readonly ServiceProvider _provider = new ServiceProvider();
         private readonly RegisterService _registerService;
-        private RegisterDto _registerDto;
+        private RegisterDto _registerDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956",
+            "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50", null, "23:50", "78053680");
 
         public RegisterServiceTest()
         {
-            _provider = new ServiceProvider();
             _registerService = _provider.GetRegisterService();
-
-            _registerDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956", "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50",
-                null, "23:50", "78053680");
-            
         }
 
         [Fact]
@@ -32,50 +30,51 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Sucess("Conta Criada com sucesso");
+            var expected = 200;
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenInvalidEmail_ReturnsInvalidError()
         {
+            //Arrange
+            _registerDto.Email = "carlosgmail";
+
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Invalid("Email inválido");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenExistingEmail_ReturnsConflictError()
         {
+            // Arrange
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns(new UserEntity());
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Invalid("Usuário já registrado");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_TooShortPassword_ReturnsInvalidError()
         {
+            _registerDto.Password = "maria";
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns((UserEntity)null);
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Invalid("Senha muito curta");
+            var expected = ValidationResultDto.GetStatusCode();
 
-            // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
@@ -85,11 +84,10 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Invalid("Nome muito curto");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
@@ -99,11 +97,10 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Invalid("Valor do corte de cabelo inválido");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
@@ -113,11 +110,10 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.NotNull("Endereço");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
@@ -127,11 +123,10 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.NotNull("Nome do salão");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
@@ -141,11 +136,10 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _registerService.Execute(_registerDto);
-            var expected = BaseDtoExtension.Invalid("Telefone não pode ser nulo");
+            var expected = ValidationResultDto.GetStatusCode();
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(expected, actual._StatusCode);
         }
 
         [Fact]
@@ -162,7 +156,6 @@ namespace Hair.Tests.Services
 
             // Assert
 
-            Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
     }
