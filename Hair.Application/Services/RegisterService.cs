@@ -40,6 +40,14 @@ namespace Hair.Application.Services
             if (isExistentUser != null)
                 return BaseDtoExtension.Invalid("Usuário já registrado");
 
+            var resultOpenTime = new TimeOnly();
+            if (TimeOnly.TryParse(dto.OpenTime,out resultOpenTime) == false)
+                return BaseDtoExtension.Invalid("Horario de abertura");
+
+            var resultCloseTime = new TimeOnly();
+            if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
+                return BaseDtoExtension.Invalid("Horario de fechamento");
+
             var haircutPrice = new HaircutPriceEntity(dto.HairPrice, dto.BeardPrice, dto.MustachePrice);
 
             var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, new AddressEntity(),

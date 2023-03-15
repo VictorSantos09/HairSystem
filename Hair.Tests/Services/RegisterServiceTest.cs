@@ -13,14 +13,20 @@ namespace Hair.Tests.Services
     public class RegisterServiceTest
     {
         private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
-        private readonly ServiceProvider _provider = new ServiceProvider();
+        private readonly ServiceProvider _provider;
         private readonly RegisterService _registerService;
         private RegisterDto _registerDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956",
             "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50", null, "23:50", "78053680");
+        private UserEntity _user;
 
         public RegisterServiceTest()
         {
+            _provider = new ServiceProvider(new Mock<IBaseRepository<UserEntity>>(), new Mock<IBaseRepository<HaircutEntity>>(), 
+                new Mock<IBaseRepository<BarberEntity>>(), _userRepositoryMock);
+
             _registerService = _provider.GetRegisterService();
+            _user = new UserEntity(_registerDto.SaloonName, _registerDto.Name, _registerDto.PhoneNumber,
+                _registerDto.Email, _registerDto.Password, null, null, null, TimeOnly.Parse(_registerDto.OpenTime), null, TimeOnly.Parse(_registerDto.CloseTime));
         }
 
         [Fact]
@@ -54,7 +60,7 @@ namespace Hair.Tests.Services
         public void Execute_WhenExistingEmail_ReturnsConflictError()
         {
             // Arrange
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns(new UserEntity());
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns(_user);
 
             // Act
             var actual = _registerService.Execute(_registerDto);
@@ -80,32 +86,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_WhenTooShortName_ReturnsInvalidError()
         {
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns((UserEntity)null);
-
-            // Act
-            var actual = _registerService.Execute(_registerDto);
-            var expected = ValidationResultDto.GetStatusCode();
-
-            // Assert
-            Assert.Equal(expected, actual._StatusCode);
-        }
-
-        [Fact]
-        public void Execute_WhenInvalidHairPrice_ReturnsInvalidError()
-        {
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns((UserEntity)null);
-
-            // Act
-            var actual = _registerService.Execute(_registerDto);
-            var expected = ValidationResultDto.GetStatusCode();
-
-            // Assert
-            Assert.Equal(expected, actual._StatusCode);
-        }
-
-        [Fact]
-        public void Execute_WhenMissingAddress_ReturnsNotNullError()
-        {
+            // Arrange
+            _registerDto.Name = "Ana";
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns((UserEntity)null);
 
             // Act
@@ -119,7 +101,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_WhenMissingSaloonName_ReturnsNotNullError()
         {
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns((UserEntity)null);
+            _registerDto.SaloonName = null;
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_registerDto.Email, _registerDto.Password)).Returns(_user);
 
             // Act
             var actual = _registerService.Execute(_registerDto);
@@ -132,7 +115,8 @@ namespace Hair.Tests.Services
         [Fact]
         public void Execute_WhenPhoneNumberIsNullOrEmpty_ShouldReturnBaseDtoWithNotNullErrorMessage()
         {
-            _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns((UserEntity)null);
+            _registerDto.PhoneNumber = "";
+            _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns(_user);
 
             // Act
             var actual = _registerService.Execute(_registerDto);
@@ -146,16 +130,31 @@ namespace Hair.Tests.Services
         public void Execute_ShouldReturnInvalid_WhenOpenTimeIsInvalid()
         {
             // Arrange
-            var invalidOpenTime = DateTime.Now.AddDays(-1);
-            var dto = new RegisterDto(20, 20, 20, "Rua B", "22", "Guarapuava", "Paraná", "Atrás do mercado", "4785489647",
-                "ALELUIA@GMAIL.COM", "123456789-10", "Patrícia", "znpkdwor35f", "LightSaloon", invalidOpenTime.ToString(), "abc.com",
-                TimeOnly.FromDateTime(DateTime.Now.AddDays(20)).ToString(), "45874350");
+            var invalidOpenTime = "24:00";
+            _registerDto.OpenTime = invalidOpenTime;
+
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Horário de abertura inválido");
+            var actual = _registerService.Execute(_registerDto);
+            var expected = BaseDtoExtension.Invalid("Horario de abertura");
 
             // Assert
+            Assert.Equal(expected._Message, actual._Message);
+            Assert.Equal(expected._StatusCode, actual._StatusCode);
+        }
 
+        [Fact]
+        public void Execute_ShouldReturnInvalid_WhenCloseTimeIsInvalid()
+        {
+            // Arrange
+            var invalidCloseTime = "24:00";
+            _registerDto.CloseTime = invalidCloseTime;
+
+            // Act
+            var actual = _registerService.Execute(_registerDto);
+            var expected = BaseDtoExtension.Invalid("Horario de fechamento");
+
+            // Assert
+            Assert.Equal(expected._Message, actual._Message);
             Assert.Equal(expected._StatusCode, actual._StatusCode);
         }
     }

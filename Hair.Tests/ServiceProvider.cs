@@ -9,9 +9,9 @@ namespace Hair.Tests
 {
     internal class ServiceProvider
     {
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<HaircutEntity>>();
-        private readonly Mock<IBaseRepository<BarberEntity>> _barberRepositoryMock = new Mock<IBaseRepository<BarberEntity>>();
+        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock;
+        private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock;
+        private readonly Mock<IBaseRepository<BarberEntity>> _barberRepositoryMock;
 
         private readonly Mock<IGetByEmail> _IGetByEmailMock = new Mock<IGetByEmail>();
 
@@ -22,10 +22,15 @@ namespace Hair.Tests
         private readonly IValidator<HaircutEntity> _haircutValidator;
         private readonly IValidator<BarberEntity> _barberValidator;
 
-        public ServiceProvider()
+        public ServiceProvider(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<HaircutEntity>> haircutRepositoryMock,
+            Mock<IBaseRepository<BarberEntity>> barberRepositoryMock, Mock<IGetByEmail> iGetByEmailMock)
         {
             _haircutValidator = new HaircutValidator(_clientValidator);
             _userValidator = new UserValidator(_addressValidator, _priceValidator);
+            _userRepositoryMock = userRepositoryMock;
+            _haircutRepositoryMock = haircutRepositoryMock;
+            _barberRepositoryMock = barberRepositoryMock;
+            _IGetByEmailMock = iGetByEmailMock;
         }
 
         public RegisterService GetRegisterService() => new RegisterService(_IGetByEmailMock.Object, _userValidator);
