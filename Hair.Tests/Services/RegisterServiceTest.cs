@@ -13,7 +13,6 @@ namespace Hair.Tests.Services
     public class RegisterServiceTest
     {
         private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
-        private readonly ServiceProvider _provider;
         private readonly RegisterService _registerService;
         private RegisterDto _registerDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956",
             "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50", null, "23:50", "78053680");
@@ -21,10 +20,8 @@ namespace Hair.Tests.Services
 
         public RegisterServiceTest()
         {
-            _provider = new ServiceProvider(new Mock<IBaseRepository<UserEntity>>(), new Mock<IBaseRepository<HaircutEntity>>(), 
-                new Mock<IBaseRepository<BarberEntity>>(), _userRepositoryMock);
+            _registerService = ServiceProvider.InstanceRegisterService(_userRepositoryMock);
 
-            _registerService = _provider.GetRegisterService();
             _user = new UserEntity(_registerDto.SaloonName, _registerDto.Name, _registerDto.PhoneNumber,
                 _registerDto.Email, _registerDto.Password, null, null, null, TimeOnly.Parse(_registerDto.OpenTime), null, TimeOnly.Parse(_registerDto.CloseTime));
         }

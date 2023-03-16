@@ -9,16 +9,14 @@ namespace Hair.Tests.Services
 {
     public class CancelHaircutServiceTests
     {
+        private readonly ServiceProvider _serviceProvider = new ServiceProvider();
         private readonly CancelHaircutService _service;
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock;
-        private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock;
+        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
+        private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<HaircutEntity>>();
 
         public CancelHaircutServiceTests()
         {
-            _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-            _haircutRepositoryMock = new Mock<IBaseRepository<HaircutEntity>>();
-
-            _service = new CancelHaircutService(_userRepositoryMock.Object, _haircutRepositoryMock.Object);
+            _service = _serviceProvider.InstanceCancelHaircutService(_userRepositoryMock, _haircutRepositoryMock);
         }
 
 
