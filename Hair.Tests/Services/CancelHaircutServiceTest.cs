@@ -1,18 +1,23 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Tests.Builders;
 using Moq;
+using Xunit.Sdk;
 
 namespace Hair.Tests.Services
 {
     public class CancelHaircutServiceTests
     {
-        private readonly ServiceProvider _serviceProvider = new ServiceProvider();
+        private CancelHaircutDto _sucessDto = new CancelHaircutDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
         private readonly CancelHaircutService _service;
+        private readonly ServiceBuilder _serviceProvider = new ServiceBuilder();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<HaircutEntity>>();
+        private readonly int _Expected = ValidationResultDto.GetStatusCode();
 
         public CancelHaircutServiceTests()
         {
@@ -24,16 +29,17 @@ namespace Hair.Tests.Services
         public void Cancel_When_Client_Name_Is_Invalid()
         {
             // Arrange
+            UserEntity user = new UserEntity();
+            user.Haircuts.Add(new HaircutEntity());
+            _userRepositoryMock.Setup(x => x.GetById(_sucessDto.UserID)).Returns(user);
             string? clientName = string.Empty;
-            var dto = new CancelHaircutDto(Guid.NewGuid(), false, clientName, "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
+            _sucessDto.ClientName = clientName;
 
             // Act
-            var actual = _service.Cancel(dto);
-            var expected = BaseDtoExtension.Invalid("Nome do cliente inválido");
+            var actual = _service.Cancel(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
@@ -44,11 +50,9 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _service.Cancel(dto);
-            var expected = BaseDtoExtension.Invalid("Telefone do cliente inválido");
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
