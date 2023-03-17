@@ -16,10 +16,10 @@ namespace Hair.Application.Services
     public class UpdateBarberService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
-        private readonly IValidator<BarberEntity> _barberValidator;
+        private readonly IBaseRepository<WorkerEntity> _barberRepository;
+        private readonly IValidator<WorkerEntity> _barberValidator;
 
-        public UpdateBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
+        public UpdateBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> barberRepository, IValidator<WorkerEntity> barberValidator)
         {
             _userRepository = userRepository;
             _barberRepository = barberRepository;
@@ -42,7 +42,7 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var allBarbers = _barberRepository.GetAll().FindAll(x => x.SaloonId == user.Id);
+            var allBarbers = _barberRepository.GetAll().FindAll(x => x.UserID == user.Id);
 
             if (allBarbers.Count == 0)
                 return BaseDtoExtension.Create(404, "Nenhum barbeiro foi encontrado");
@@ -52,7 +52,7 @@ namespace Hair.Application.Services
             if (barberToUpdate == null)
                 return BaseDtoExtension.NotFound("Barbeiro para atualizar");
 
-            var barberUpdated = new BarberEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, true, user.Id, user.SaloonName);
+            var barberUpdated = new WorkerEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, true, user.Id, user.SaloonName);
 
             var validationResult = Validation.Verify(_barberValidator.Validate(barberToUpdate));
 

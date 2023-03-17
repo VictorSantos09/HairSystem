@@ -17,7 +17,7 @@ namespace HairSystem.Controllers
         private readonly IException _exHelper;
 
         public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository,
-            IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
+            IBaseRepository<WorkerEntity> barberRepository, IValidator<WorkerEntity> barberValidator)
         {
             _exHelper = exception;
             _service = new(userRepository, barberRepository, barberValidator);

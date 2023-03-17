@@ -28,7 +28,7 @@ namespace Hair.Tests.Builders
         }
 
         public ManagmentWorkerService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<BarberEntity>> barberRepositoryMock)
+            Mock<IBaseRepository<WorkerEntity>> barberRepositoryMock)
         {
             return new ManagmentWorkerService(userRepositoryMock.Object, barberRepositoryMock.Object, _validatorBuilder.InstanceBarberValidator());
         }
@@ -39,7 +39,7 @@ namespace Hair.Tests.Builders
             return new CancelHaircutService(userRepositoryMock.Object, haircutRepositoryMock.Object);
         }
 
-        public HireBarberService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<BarberEntity>> barberRepositoryMock)
+        public HireBarberService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> barberRepositoryMock)
         {
             return new HireBarberService(userRepositoryMock.Object, barberRepositoryMock.Object, _validatorBuilder.InstanceBarberValidator());
         }

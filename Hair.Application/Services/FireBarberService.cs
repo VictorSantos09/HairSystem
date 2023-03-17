@@ -13,9 +13,9 @@ namespace Hair.Application.Services
     /// </summary>
     public class FireBarberService
     {
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
+        private readonly IBaseRepository<WorkerEntity> _barberRepository;
 
-        public FireBarberService(IBaseRepository<BarberEntity> barberRepository)
+        public FireBarberService(IBaseRepository<WorkerEntity> barberRepository)
         {
             _barberRepository = barberRepository;
         }
@@ -36,7 +36,7 @@ namespace Hair.Application.Services
             if (barber == null)
                 return BaseDtoExtension.NotFound("Barbeiro");
 
-            if (dto.SaloonId == barber.SaloonId && dto.BarberName.ToUpper() == barber.Name)
+            if (dto.SaloonId == barber.UserID && dto.BarberName.ToUpper() == barber.Name)
             {
                 barber.Hired = false;
 

@@ -16,10 +16,10 @@ namespace Hair.Application.Services
     public class HireBarberService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<BarberEntity> _barberRepository;
-        private readonly IValidator<BarberEntity> _barberValidator;
+        private readonly IBaseRepository<WorkerEntity> _barberRepository;
+        private readonly IValidator<WorkerEntity> _barberValidator;
 
-        public HireBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
+        public HireBarberService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> barberRepository, IValidator<WorkerEntity> barberValidator)
         {
             _barberValidator = barberValidator;
             _userRepository = userRepository;
@@ -45,7 +45,7 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var barber = new BarberEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), true, user.Id, user.SaloonName);
+            var barber = new WorkerEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), true, user.Id, user.SaloonName);
             var address = new AddressEntity(dto.BarberStreet, dto.BarberHouseNumber, dto.BarberCity, dto.BarberState, dto.BarberHouseComplement, dto.CEP, barber.Id);
 
             barber.Address = address;

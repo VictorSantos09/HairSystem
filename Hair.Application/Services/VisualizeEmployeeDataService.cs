@@ -13,10 +13,10 @@ namespace Hair.Application.Services
     /// </summary>
     public class VisualizeEmployeeDataService
     {
-        private readonly IBaseRepository<BarberEntity> _employeeRepository;
+        private readonly IBaseRepository<WorkerEntity> _employeeRepository;
         private readonly IGetByEmail _userRepository;
 
-        public VisualizeEmployeeDataService(IBaseRepository<BarberEntity> employeeRepository, IGetByEmail userRepository)
+        public VisualizeEmployeeDataService(IBaseRepository<WorkerEntity> employeeRepository, IGetByEmail userRepository)
         {
             _employeeRepository = employeeRepository;
             _userRepository = userRepository;
@@ -48,7 +48,7 @@ namespace Hair.Application.Services
 
             var employees = _employeeRepository.GetAll();
 
-            employees.FindAll(e => e.SaloonId == user.Id);
+            employees.FindAll(e => e.UserID == user.Id);
 
             if (employees.Count == 0)
                 return BaseDtoExtension.Sucess("Barbeiros não encontrados.");

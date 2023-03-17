@@ -66,19 +66,17 @@
         /// Endereço do salão.
         /// 
         /// </summary>
-        public AddressEntity Address { get; set; } = new AddressEntity();
+        public AddressEntity Address { get; set; }
         /// <summary>
         /// 
-        /// Preço dos cortes.
-        /// 
-        /// </summary>
-        public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
-        /// <summary>
-        /// 
-        /// Cortes de cabelo agendados.
+        /// Serviços agendados.
         /// 
         /// </summary>
         public List<DutyEntity> Haircuts { get; set; } = new List<DutyEntity>();
+        /// <summary>
+        /// Funcionários cadastrados.
+        /// </summary>
+        public List<WorkerEntity> Workers { get; set; } = new List<WorkerEntity>();
 
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
             AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, TimeOnly openTime, string? googleMapsSource, TimeOnly closeTime)

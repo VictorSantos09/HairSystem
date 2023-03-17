@@ -11,10 +11,10 @@ namespace Hair.Tests.Services
     public class UpdateBarberTest
     {
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<BarberEntity>> _barberRepositoryMock = new Mock<IBaseRepository<BarberEntity>>();
+        private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
         private readonly UpdateBarberService _service;
         private UpdateBarberDto _dto;
-        private BarberEntity _barber;
+        private WorkerEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
         private AddressEntity _address;
@@ -26,7 +26,7 @@ namespace Hair.Tests.Services
 
             _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",", "45231245", _user.Id);
 
-            _barber = new BarberEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
+            _barber = new WorkerEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
             _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object, null);
             _dto = new(_user.Id, _barber.Name, _barber.Email, _barber.PhoneNumber, _barber.Salary, _address, "Carlos@gmail.com", "041991545235", "Carlos", 5000);
         }
@@ -51,7 +51,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
-            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<BarberEntity>());
+            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<WorkerEntity>());
 
             // Act
             var actual = _service.Update(_dto);
@@ -68,7 +68,7 @@ namespace Hair.Tests.Services
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
 
-            var barbers = new List<BarberEntity>();
+            var barbers = new List<WorkerEntity>();
             _barber.Name = "Jose";
             _barber.PhoneNumber = "047994565856";
             _dto.BarberName = "Maria";
@@ -90,7 +90,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
-            var barbers = new List<BarberEntity>();
+            var barbers = new List<WorkerEntity>();
             barbers.Add(_barber);
 
             _barberRepositoryMock.Setup(x => x.GetAll()).Returns(barbers);

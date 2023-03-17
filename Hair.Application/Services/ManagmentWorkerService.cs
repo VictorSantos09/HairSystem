@@ -17,7 +17,7 @@ namespace Hair.Application.Services
         private readonly HireBarberService _hire;
         private readonly FireBarberService _fire;
 
-        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<BarberEntity> barberRepository, IValidator<BarberEntity> barberValidator)
+        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> barberRepository, IValidator<WorkerEntity> barberValidator)
         {
             _update = new(userRepository, barberRepository, barberValidator);
             _hire = new(userRepository, barberRepository, barberValidator);
