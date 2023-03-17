@@ -16,7 +16,7 @@ namespace Hair.Tests.Services
         private readonly CancelHaircutService _service;
         private readonly ServiceBuilder _serviceProvider = new ServiceBuilder();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<HaircutEntity>>();
+        private readonly Mock<IBaseRepository<DutyEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<DutyEntity>>();
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
 
         public CancelHaircutServiceTests()
@@ -30,7 +30,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             UserEntity user = new UserEntity();
-            user.Haircuts.Add(new HaircutEntity());
+            user.Haircuts.Add(new DutyEntity());
             _userRepositoryMock.Setup(x => x.GetById(_sucessDto.UserID)).Returns(user);
             string? clientName = string.Empty;
             _sucessDto.ClientName = clientName;
@@ -65,16 +65,16 @@ namespace Hair.Tests.Services
             var user = new UserEntity
             {
                 Id = dto.UserID,
-                Haircuts = new List<HaircutEntity>
+                Haircuts = new List<DutyEntity>
                 {
-                    new HaircutEntity
+                    new DutyEntity
                     {
                        Client = new ClientEntity
                        {
                             Name = dto.ClientName,
                             PhoneNumber = dto.ClientPhoneNumber
                        },
-                            HaircuteTime = validTime,
+                            Date = validTime,
                     }
                 }
             };
@@ -99,16 +99,16 @@ namespace Hair.Tests.Services
             var user = new UserEntity
             {
                 Id = dto.UserID,
-                Haircuts = new List<HaircutEntity>
+                Haircuts = new List<DutyEntity>
                 {
-                    new HaircutEntity
+                    new DutyEntity
                     {
                        Client = new ClientEntity
                        {
                             Name = dto.ClientName,
                             PhoneNumber = dto.ClientPhoneNumber
                        },
-                            HaircuteTime = DateTime.Now.AddDays(3),
+                            Date = DateTime.Now.AddDays(3),
                     }
                 }
             };

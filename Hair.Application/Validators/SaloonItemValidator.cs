@@ -4,9 +4,9 @@ using Hair.Domain.Entities;
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do item do salão, pela classe concreta <see cref="SaloonItemEntity"/>
+    /// Efetua a validação do item do salão, pela classe concreta <see cref="ItemEntity"/>
     /// </summary>
-    public class SaloonItemValidator : AbstractValidator<SaloonItemEntity>
+    public class SaloonItemValidator : AbstractValidator<ItemEntity>
     {
         public SaloonItemValidator()
         {
@@ -16,7 +16,7 @@ namespace Hair.Application.Validators
 
             RuleFor(x => x.Name).NotEmpty().MinimumLength(3).WithName("Nome do item");
 
-            RuleFor(x => x.SaloonId).NotEmpty().WithName("ID do salão");
+            RuleFor(x => x.UserID).NotEmpty().WithName("ID do salão");
 
             RuleFor(x => x.Id).NotEmpty().WithName("ID");
         }

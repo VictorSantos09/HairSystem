@@ -18,8 +18,8 @@ namespace HairSystem.Controllers
         private readonly ChangePriceService _changePrice;
         private readonly IException _exHelper;
 
-        public HaircutController(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository,
-            IException exception, IValidator<HaircutEntity> haircutValidator)
+        public HaircutController(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
+            IException exception, IValidator<DutyEntity> haircutValidator)
         {
             _exHelper = exception;
             _schedule = new ScheduleHaircutService(userRepository, haircutRepository, haircutValidator);

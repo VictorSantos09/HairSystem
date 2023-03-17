@@ -8,11 +8,11 @@ using System.Data;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="SaloonItemEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ItemEntity"/>.
     /// </summary>
-    public class StorageRepository : IBaseRepository<SaloonItemEntity>
+    public class StorageRepository : IBaseRepository<ItemEntity>
     {
-        public void Create(SaloonItemEntity entity)
+        public void Create(ItemEntity entity)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -22,12 +22,12 @@ namespace Hair.Repository.Repositories
                     NAME = entity.Name,
                     PRICE = entity.Price,
                     QUANTITY_AVAILABLE = entity.QuantityAvaible,
-                    SALOON_ID = entity.SaloonId
+                    SALOON_ID = entity.UserID
                 });
             }
         }
 
-        public List<SaloonItemEntity> GetAll()
+        public List<ItemEntity> GetAll()
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -35,7 +35,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public SaloonItemEntity? GetById(Guid id)
+        public ItemEntity? GetById(Guid id)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -53,7 +53,7 @@ namespace Hair.Repository.Repositories
             return true;
         }
 
-        public void Update(SaloonItemEntity entity)
+        public void Update(ItemEntity entity)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -63,23 +63,23 @@ namespace Hair.Repository.Repositories
                     NAME = entity.Name,
                     PRICE = entity.Price,
                     QUANTITY_AVAILABLE = entity.QuantityAvaible,
-                    SALOON_ID = entity.SaloonId
+                    SALOON_ID = entity.UserID
                 });
             }
         }
 
-        private List<SaloonItemEntity> ConvertToEntity(List<SaloonItemEntityFromSql> itensSql)
+        private List<ItemEntity> ConvertToEntity(List<SaloonItemEntityFromSql> itensSql)
         {
-            var output = new List<SaloonItemEntity>();
+            var output = new List<ItemEntity>();
 
             foreach (var item in itensSql)
             {
-                var toAdd = new SaloonItemEntity();
+                var toAdd = new ItemEntity();
                 toAdd.Name = item.Name;
                 toAdd.Price = item.Price;
                 toAdd.QuantityAvaible = item.Quantity_Avaible;
                 toAdd.Id = item.Id;
-                toAdd.SaloonId = item.Saloon_Id;
+                toAdd.UserID = item.Saloon_Id;
 
                 output.Add(toAdd);
             }
@@ -87,14 +87,14 @@ namespace Hair.Repository.Repositories
             return output;
         }
 
-        private SaloonItemEntity ConvertToEntity(SaloonItemEntityFromSql itemSql)
+        private ItemEntity ConvertToEntity(SaloonItemEntityFromSql itemSql)
         {
-            var output = new SaloonItemEntity();
+            var output = new ItemEntity();
             output.Name = itemSql.Name;
             output.Price = itemSql.Price;
             output.QuantityAvaible = itemSql.Quantity_Avaible;
             output.Id = itemSql.Id;
-            output.SaloonId = itemSql.Saloon_Id;
+            output.UserID = itemSql.Saloon_Id;
 
             return output;
         }

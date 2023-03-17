@@ -22,7 +22,7 @@ namespace Hair.Tests.Builders
         }
 
         public ScheduleHaircutService InstanceScheduleHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<HaircutEntity>> haircutRepositoryMock)
+            Mock<IBaseRepository<DutyEntity>> haircutRepositoryMock)
         {
             return new ScheduleHaircutService(userRepositoryMock.Object, haircutRepositoryMock.Object, _validatorBuilder.InstanceHaircutValidator());
         }
@@ -34,7 +34,7 @@ namespace Hair.Tests.Builders
         }
 
         public CancelHaircutService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<HaircutEntity>> haircutRepositoryMock)
+            Mock<IBaseRepository<DutyEntity>> haircutRepositoryMock)
         {
             return new CancelHaircutService(userRepositoryMock.Object, haircutRepositoryMock.Object);
         }

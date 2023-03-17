@@ -10,9 +10,9 @@ namespace Hair.Tests.Builders
         private IValidator<AddressEntity> _addressValidator;
         private IValidator<ClientEntity> _clientValidator;
         private IValidator<HaircutPriceEntity> _priceValidator;
-        private IValidator<HaircutEntity> _haircutValidator;
+        private IValidator<DutyEntity> _haircutValidator;
         private IValidator<BarberEntity> _barberValidator;
-        private IValidator<SaloonItemEntity> _saloonItemValidator;
+        private IValidator<ItemEntity> _saloonItemValidator;
         private IValidator<ImageEntity> _imageValidator;
         public ValidatorBuilder()
         {
@@ -36,11 +36,11 @@ namespace Hair.Tests.Builders
 
         public IValidator<BarberEntity> InstanceBarberValidator() => _barberValidator;
 
-        public IValidator<HaircutEntity> InstanceHaircutValidator() => _haircutValidator;
+        public IValidator<DutyEntity> InstanceHaircutValidator() => _haircutValidator;
 
         public IValidator<ImageEntity> InstanceImageValidator() => _imageValidator;
 
-        public IValidator<SaloonItemEntity> InstanceSaloonItemValidator() => _saloonItemValidator;
+        public IValidator<ItemEntity> InstanceSaloonItemValidator() => _saloonItemValidator;
 
     }
 }

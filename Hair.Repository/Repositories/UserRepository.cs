@@ -27,7 +27,7 @@ namespace Hair.Repository.Repositories
                     PASSWORD = CryptoSecurity.Encrypt(user.Password),
                     CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
                     OPEN_TIME = user.OpenTime.ToString(),
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                    GOOGLE_MAPS_SOURCE = user.GoogleMapsLocation,
                     CLOSE_TIME = user.CloseTime.ToString(),
                     STREET = user.Address.Street,
                     NUMBER = user.Address.Number,
@@ -56,7 +56,7 @@ namespace Hair.Repository.Repositories
                     PASSWORD = CryptoSecurity.Encrypt(user.Password),
                     CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
                     OPEN_TIME = user.OpenTime,
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
+                    GOOGLE_MAPS_SOURCE = user.GoogleMapsLocation,
                     CLOSE_TIME = user.CloseTime,
 
                     STREET = user.Address.Street,
@@ -138,7 +138,7 @@ namespace Hair.Repository.Repositories
             if (user == null)
                 return;
 
-            var haircuts = conn.Query<HaircutEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id }).ToList();
+            var haircuts = conn.Query<DutyEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id }).ToList();
             user.Address = ConvertAddress(conn.Query<AddressEntityFromSql>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault());
             user.Prices = conn.Query<HaircutPriceEntity>("spGetUserHaircutPrice @ID", new { ID = user.Id }).FirstOrDefault();
 
@@ -152,7 +152,7 @@ namespace Hair.Repository.Repositories
             user.Id = userSql.Id;
             user.Address = userSql.Address;
             user.SaloonName = userSql.Saloon_Name;
-            user.GoogleMapsSource = userSql.Google_Maps_Source;
+            user.GoogleMapsLocation = userSql.Google_Maps_Source;
             user.CNPJ = userSql.CNPJ == null ? null : CryptoSecurity.Decrypt(userSql.CNPJ);
             user.Password = CryptoSecurity.Decrypt(userSql.Password);
             user.Email = CryptoSecurity.Decrypt(userSql.Email);

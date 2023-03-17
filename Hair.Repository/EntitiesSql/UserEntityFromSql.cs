@@ -15,11 +15,11 @@ namespace Hair.Repository.EntitiesSql
         public string? Google_Maps_Source { get; set; }
         public AddressEntity Address { get; set; } = new AddressEntity();
         public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
-        public List<HaircutEntity> Haircuts { get; set; } = new();
+        public List<DutyEntity> Haircuts { get; set; } = new();
 
         public UserEntityFromSql(string saloonName, byte[] ownerName, byte[] phoneNumber, byte[] email, byte[]? cNPJ, byte[] password, TimeOnly openTime,
             TimeOnly closeTime, string? googleMapsSource,
-            AddressEntity address, HaircutPriceEntity prices, List<HaircutEntity> haircuts)
+            AddressEntity address, HaircutPriceEntity prices, List<DutyEntity> haircuts)
         {
             Saloon_Name = saloonName;
             Owner_Name = ownerName;

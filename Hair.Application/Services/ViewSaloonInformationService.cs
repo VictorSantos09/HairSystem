@@ -78,7 +78,7 @@ namespace Hair.Application.Services
                 user.Prices.Beard,
                 user.Prices.Mustache,
                 user.CNPJ,
-                user.GoogleMapsSource,
+                user.GoogleMapsLocation,
                 OpenTime = $"{user.OpenTime.Hour}:{user.OpenTime.Minute}",
                 CloseTime = $"{user.CloseTime.Hour}:{user.CloseTime.Minute}",
             };

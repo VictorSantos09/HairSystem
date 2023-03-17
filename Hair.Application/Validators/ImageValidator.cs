@@ -12,7 +12,7 @@ namespace Hair.Application.Validators
         {
             RuleFor(x => x.Id).NotEmpty();
 
-            RuleFor(x => x.SaloonId).NotEmpty().WithName("ID do salão");
+            RuleFor(x => x.UserID).NotEmpty().WithName("ID do salão");
 
             RuleFor(x => x.Image).NotEmpty().WithName("Imagem");
         }

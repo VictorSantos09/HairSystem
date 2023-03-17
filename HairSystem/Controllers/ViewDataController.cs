@@ -17,7 +17,7 @@ namespace HairSystem.Controllers
         private readonly IException _exHelper;
 
         public ViewDataController(IBaseRepository<BarberEntity> barberRepository, IGetByEmail userRepository, 
-            IException exception, IBaseRepository<HaircutEntity> haircutRepository)
+            IException exception, IBaseRepository<DutyEntity> haircutRepository)
         {
             _exHelper = exception;
             _viewEmployeeData = new VisualizeEmployeeDataService(barberRepository, userRepository);

@@ -16,11 +16,11 @@ namespace Hair.Application.Services
     public class ScheduleHaircutService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
-        private readonly IValidator<HaircutEntity> _haircutValidator;
+        private readonly IBaseRepository<DutyEntity> _haircutRepository;
+        private readonly IValidator<DutyEntity> _haircutValidator;
 
-        public ScheduleHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository,
-            IValidator<HaircutEntity> haircutValidator)
+        public ScheduleHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
+            IValidator<DutyEntity> haircutValidator)
         {
             _haircutValidator = haircutValidator;
             _userRepository = userRepository;
@@ -48,12 +48,12 @@ namespace Hair.Application.Services
 
             foreach (var haircut in user.Haircuts)
             {
-                if (haircut.HaircuteTime == dto.HaircuteTime)
+                if (haircut.Date == dto.HaircuteTime)
                     return BaseDtoExtension.Create(200, "Horário indisponível");
             }
 
             var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber);
-            var newHaircut = new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client);
+            var newHaircut = new DutyEntity(dto.UserID, dto.HaircuteTime, true, client);
 
             var validationResult = Validation.Verify(_haircutValidator.Validate(newHaircut));
 

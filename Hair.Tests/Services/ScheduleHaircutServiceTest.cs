@@ -10,13 +10,13 @@ namespace Hair.Tests.Services
     public class ScheduleHaircutServiceTests
     {
         private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
-        private readonly Mock<IBaseRepository<HaircutEntity>> _mockHaircutRepository;
+        private readonly Mock<IBaseRepository<DutyEntity>> _mockHaircutRepository;
         private readonly ScheduleHaircutService _scheduleHaircutService;
 
         public ScheduleHaircutServiceTests()
         {
             _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
-            _mockHaircutRepository = new Mock<IBaseRepository<HaircutEntity>>();
+            _mockHaircutRepository = new Mock<IBaseRepository<DutyEntity>>();
             _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object, null);
         }
 
@@ -128,7 +128,7 @@ namespace Hair.Tests.Services
             {
                 var client = new ClientEntity { Name = "Bruno", Email = "elefante@gmail.com", PhoneNumber = "992839" };
                 var user = new UserEntity { Id = dto.UserID };
-                user.Haircuts.Add(new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client));
+                user.Haircuts.Add(new DutyEntity(dto.UserID, dto.HaircuteTime, true, client));
                 return user;
             });
 
@@ -150,9 +150,9 @@ namespace Hair.Tests.Services
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
 
-            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<HaircutEntity>());
+            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<DutyEntity>());
 
-            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<HaircutEntity>())).Callback<HaircutEntity>(haircut =>
+            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<DutyEntity>())).Callback<DutyEntity>(haircut =>
             {
                 user.Haircuts.Add(haircut);
             });

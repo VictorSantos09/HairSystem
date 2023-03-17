@@ -34,23 +34,23 @@ namespace Hair.Application.Configuration
             services.AddTransient<IValidator<BarberEntity>, BarberValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
             services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
-            services.AddTransient<IValidator<HaircutEntity>, HaircutValidator>();
+            services.AddTransient<IValidator<DutyEntity>, HaircutValidator>();
             services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
-            services.AddTransient<IValidator<SaloonItemEntity>, SaloonItemValidator>();
+            services.AddTransient<IValidator<ItemEntity>, SaloonItemValidator>();
         }
 
         private static void InjectRepositories(IServiceCollection services)
         {
             BuildUserRepository(services);
             services.AddTransient<IBaseRepository<BarberEntity>, BarberRepository>();
-            services.AddTransient<IBaseRepository<SaloonItemEntity>, StorageRepository>();
+            services.AddTransient<IBaseRepository<ItemEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
         }
 
         private static void BuildUserRepository(IServiceCollection services)
         {
             services.AddTransient<IGetByEmail, UserRepository>();
-            services.AddTransient<IBaseRepository<HaircutEntity>, HaircutRepository>();
+            services.AddTransient<IBaseRepository<DutyEntity>, HaircutRepository>();
             services.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
         }
     }

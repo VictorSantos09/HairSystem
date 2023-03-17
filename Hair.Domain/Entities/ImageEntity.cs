@@ -12,7 +12,8 @@
         /// Id do salão.
         /// 
         /// </summary>
-        public Guid SaloonId { get; set; }
+        public Guid UserID { get; set; }
+
         /// <summary>
         /// 
         /// Imagem.
@@ -20,11 +21,23 @@
         /// </summary>
         public byte[] Image { get; set; }
 
-        public ImageEntity(Guid saloonId, byte[] img)
+        /// <summary>
+        /// Data de upload da imagem
+        /// </summary>
+        public DateOnly UploadDate { get; set; }
+
+        /// <summary>
+        /// Tipo da imagem
+        /// </summary>
+        public string Type { get; set; }
+
+        public ImageEntity(Guid userID, byte[] image, DateOnly uploadDate, string type)
         {
             Id = Guid.NewGuid();
-            SaloonId = saloonId;
-            Image = img;
+            UserID = userID;
+            Image = image;
+            UploadDate = uploadDate;
+            Type = type;
         }
 
         public ImageEntity()

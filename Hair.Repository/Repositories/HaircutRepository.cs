@@ -8,11 +8,11 @@ using System.Data;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="HaircutEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="DutyEntity"/>.
     /// </summary>
-    public class HaircutRepository : IBaseRepository<HaircutEntity>
+    public class HaircutRepository : IBaseRepository<DutyEntity>
     {
-        public void Create(HaircutEntity haircut)
+        public void Create(DutyEntity haircut)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -20,9 +20,9 @@ namespace Hair.Repository.Repositories
                     " @CLIENT_NAME, @CLIENT_EMAIL, @CLIENT_PHONE_NUMBER, @CLIENT_ID", new
                     {
                         HAIRCUT_ID = haircut.Id,
-                        HAIRCUT_TIME = haircut.HaircuteTime,
+                        HAIRCUT_TIME = haircut.Date,
                         AVAILABLE = haircut.Available,
-                        SALOON_ID = haircut.SaloonId,
+                        SALOON_ID = haircut.UserID,
                         CLIENT_NAME = CryptoSecurity.Encrypt(haircut.Client.Name),
                         CLIENT_EMAIL = CryptoSecurity.Encrypt(haircut.Client.Email),
                         CLIENT_PHONE_NUMBER = CryptoSecurity.Encrypt(haircut.Client.PhoneNumber),
@@ -31,7 +31,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public void Update(HaircutEntity haircut)
+        public void Update(DutyEntity haircut)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -48,18 +48,18 @@ namespace Hair.Repository.Repositories
             
             return true;
         }
-        public List<HaircutEntity> GetAll()
+        public List<DutyEntity> GetAll()
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                return conn.Query<HaircutEntity>("dbo.spGetAllHaircuts").ToList();
+                return conn.Query<DutyEntity>("dbo.spGetAllHaircuts").ToList();
             }
         }
-        public HaircutEntity? GetById(Guid id)
+        public DutyEntity? GetById(Guid id)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                var haircut = conn.Query<HaircutEntity>("dbo.spGetHaircutById @ID", new { ID = id }).FirstOrDefault();
+                var haircut = conn.Query<DutyEntity>("dbo.spGetHaircutById @ID", new { ID = id }).FirstOrDefault();
                 return haircut == null ? null : haircut;
             }
         }

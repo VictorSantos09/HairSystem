@@ -18,7 +18,7 @@ namespace Hair.Repository.Repositories
                 conn.Query("dbo.spCreateImage @ID, @USERID, @IMAGE", new
                 {
                     ID = entity.Id,
-                    USERID = entity.SaloonId,
+                    USERID = entity.UserID,
                     IMAGE = entity.Image
                 });
             }
@@ -54,7 +54,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                conn.Query("dbo.spUpdateImage", new { ID = entity.Id, IMAGE = entity.Image, @SALOON_ID = entity.SaloonId });
+                conn.Query("dbo.spUpdateImage", new { ID = entity.Id, IMAGE = entity.Image, @SALOON_ID = entity.UserID });
             }
         }
     }

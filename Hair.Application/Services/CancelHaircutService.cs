@@ -15,9 +15,9 @@ namespace Hair.Application.Services
     public class CancelHaircutService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<DutyEntity> _haircutRepository;
 
-        public CancelHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<HaircutEntity> haircutRepository)
+        public CancelHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository)
         {
             _userRepository = userRepository;
             _haircutRepository = haircutRepository;
@@ -48,7 +48,7 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var haircut = user.Haircuts.Find(x => x.Client.Name == dto.ClientName && x.Client.PhoneNumber == dto.ClientPhoneNumber && x.HaircuteTime == dto.HaircutTime);
+            var haircut = user.Haircuts.Find(x => x.Client.Name == dto.ClientName && x.Client.PhoneNumber == dto.ClientPhoneNumber && x.Date == dto.HaircutTime);
 
             if (haircut == null)
                 return BaseDtoExtension.NotFound("Corte");

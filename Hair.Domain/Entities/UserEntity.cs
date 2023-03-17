@@ -60,7 +60,7 @@
         /// Link do salão no Google Maps.
         /// 
         /// </summary>
-        public string? GoogleMapsSource { get; set; }
+        public string? GoogleMapsLocation { get; set; }
         /// <summary>
         /// 
         /// Endereço do salão.
@@ -78,7 +78,8 @@
         /// Cortes de cabelo agendados.
         /// 
         /// </summary>
-        public List<HaircutEntity> Haircuts { get; set; } = new();
+        public List<DutyEntity> Haircuts { get; set; } = new List<DutyEntity>();
+
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
             AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, TimeOnly openTime, string? googleMapsSource, TimeOnly closeTime)
         {
@@ -92,7 +93,7 @@
             CNPJ = string.IsNullOrEmpty(cNPJ) == true || string.IsNullOrWhiteSpace(cNPJ) == true ? null : cNPJ;
             Prices = priceEntity;
             OpenTime = openTime;
-            GoogleMapsSource = string.IsNullOrEmpty(googleMapsSource) == true || string.IsNullOrWhiteSpace(googleMapsSource) == true ? null : googleMapsSource;
+            GoogleMapsLocation = string.IsNullOrEmpty(googleMapsSource) == true || string.IsNullOrWhiteSpace(googleMapsSource) == true ? null : googleMapsSource;
             CloseTime = closeTime;
         }
         public UserEntity()
