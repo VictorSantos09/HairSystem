@@ -12,8 +12,8 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
-        private readonly UpdateBarberService _service;
-        private UpdateBarberDto _dto;
+        private readonly UpdateWorkerService _service;
+        private UpdateWorkerDto _dto;
         private WorkerEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
@@ -50,7 +50,7 @@ namespace Hair.Tests.Services
         public void Update_ShouldFail_WhenAnyBarberFound()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
             _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<WorkerEntity>());
 
             // Act
@@ -66,12 +66,12 @@ namespace Hair.Tests.Services
         public void Update_ShouldFail_WhenNoneBarberToUpdateFound()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
 
             var barbers = new List<WorkerEntity>();
             _barber.Name = "Jose";
             _barber.PhoneNumber = "047994565856";
-            _dto.BarberName = "Maria";
+            _dto.WorkerName = "Maria";
             barbers.Add(_barber);
 
             _barberRepositoryMock.Setup(x => x.GetAll()).Returns(barbers);
@@ -89,7 +89,7 @@ namespace Hair.Tests.Services
         public void Update_ShouldBeSucess_WhenAllOk()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
             var barbers = new List<WorkerEntity>();
             barbers.Add(_barber);
 

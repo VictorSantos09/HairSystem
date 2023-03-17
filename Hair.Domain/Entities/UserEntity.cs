@@ -1,4 +1,6 @@
-﻿namespace Hair.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Hair.Domain.Entities
 {
     /// <summary>
     /// 
@@ -78,22 +80,20 @@
         /// </summary>
         public List<WorkerEntity> Workers { get; set; } = new List<WorkerEntity>();
 
-        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
-            AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, TimeOnly openTime, string? googleMapsSource, TimeOnly closeTime)
+        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string? cNPJ,
+            string password, TimeOnly openTime, TimeOnly closeTime, string? googleMapsLocation)
         {
-            Id = Guid.NewGuid();
-            SaloonName = saloonName.ToUpper();
-            OwnerName = ownerName.ToUpper();
+            SaloonName = saloonName;
+            OwnerName = ownerName;
             PhoneNumber = phoneNumber;
-            Email = email.ToUpper();
+            Email = email;
+            CNPJ = cNPJ;
             Password = password;
-            Address = address;
-            CNPJ = string.IsNullOrEmpty(cNPJ) == true || string.IsNullOrWhiteSpace(cNPJ) == true ? null : cNPJ;
-            Prices = priceEntity;
             OpenTime = openTime;
-            GoogleMapsLocation = string.IsNullOrEmpty(googleMapsSource) == true || string.IsNullOrWhiteSpace(googleMapsSource) == true ? null : googleMapsSource;
             CloseTime = closeTime;
+            GoogleMapsLocation = googleMapsLocation;
         }
+
         public UserEntity()
         {
 

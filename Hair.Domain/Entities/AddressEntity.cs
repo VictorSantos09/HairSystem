@@ -1,4 +1,6 @@
-﻿namespace Hair.Domain.Entities
+﻿using System;
+
+namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do endereço

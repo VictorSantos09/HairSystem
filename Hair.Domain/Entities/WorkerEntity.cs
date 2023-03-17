@@ -1,4 +1,6 @@
-﻿namespace Hair.Domain.Entities
+﻿using System;
+
+namespace Hair.Domain.Entities
 {
     /// <summary>
     /// 
@@ -43,14 +45,8 @@
         /// 
         /// </summary>
         public Guid UserID { get; set; }
-        /// <summary>
-        /// 
-        /// Nome do salão no qual o funcionário trabalha.
-        /// 
-        /// </summary>
-        public string SaloonName { get; set; }
 
-        public WorkerEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID, string saloonName)
+        public WorkerEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID)
         {
             Name = name;
             PhoneNumber = phoneNumber;
@@ -58,7 +54,6 @@
             Salary = salary;
             Address = address;
             UserID = userID;
-            SaloonName = saloonName;
         }
 
         public WorkerEntity()

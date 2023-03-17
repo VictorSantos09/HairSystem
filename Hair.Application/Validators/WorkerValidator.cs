@@ -4,12 +4,12 @@ using Hair.Domain.Entities;
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do barbeiro, pela classe concreta <see cref="WorkerEntity"/>, também testando <see cref="AddressEntity"/>
+    /// Efetua a validação do funcionário, pela classe concreta <see cref="WorkerEntity"/>, também testando <see cref="AddressEntity"/>
     /// </summary>
-    public class BarberValidator : AbstractValidator<WorkerEntity>
+    public class WorkerValidator : AbstractValidator<WorkerEntity>
     {
         private readonly IValidator<AddressEntity> _addressValidator;
-        public BarberValidator(IValidator<AddressEntity> addressValidator)
+        public WorkerValidator(IValidator<AddressEntity> addressValidator)
         {
             _addressValidator = addressValidator;
 
@@ -21,11 +21,7 @@ namespace Hair.Application.Validators
 
             RuleFor(x => x.Name).NotEmpty().MinimumLength(5).WithName("Nome");
 
-            RuleFor(x => x.SaloonName).NotEmpty().MinimumLength(3).WithName("Nome do salão");
-
-            RuleFor(x => x.UserID).NotEmpty().WithName("ID do salão");
-
-            RuleFor(x => x.Hired).NotEmpty().WithName("Contratado");
+            RuleFor(x => x.UserID).NotEmpty().WithName("ID do usuário");
 
             RuleFor(x => x.Id).NotEmpty().WithName("ID");
 

@@ -11,8 +11,8 @@ namespace Hair.Tests.Services
     public class FireBarberTest
     {
         private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
-        private readonly FireBarberService _service;
-        private FireBarberDto _dto;
+        private readonly FireWorkerService _service;
+        private FireWorkerDto _dto;
         private WorkerEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;

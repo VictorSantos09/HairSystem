@@ -1,54 +1,49 @@
 ﻿using Hair.Domain.Entities;
+using System;
 
 namespace Hair.Repository.EntitiesSql
 {
-    internal class BarberEntityFromSql : BaseEntity
+    internal class WorkerEntityFromSql : BaseEntity
     {
         /// <summary>
         /// 
-        /// Nome do barbeiro.
+        /// Nome do funcionário.
         /// 
         /// </summary>
         public string Name { get; set; }
         /// <summary>
         /// 
-        /// Telefone do barbeiro.
+        /// Telefone do funcionário.
         /// 
         /// </summary>
-        public string? Phone_Number { get; set; }
+        public string Phone_Number { get; set; }
         /// <summary>
         /// 
-        /// Email do barbeiro.
+        /// Email do funcionário.
         /// 
         /// </summary>
         public string? Email { get; set; }
         /// <summary>
         /// 
-        /// Salário do barbeiro.
+        /// Salário do funcionário.
         /// 
         /// </summary>
-        public double Salary { get; set; }
+        public float Salary { get; set; }
         /// <summary>
         /// 
-        /// Endereço do barbeiro.
+        /// Endereço do funcionário.
         /// 
         /// </summary>
-        public AddressEntity Address { get; set; } = new AddressEntity();
+        public AddressEntity Address { get; set; }
         /// <summary>
         /// 
-        /// Contratado.
+        /// Id do usuário no qual o funcionário trabalha.
         /// 
         /// </summary>
-        public bool Hired { get; set; }
+        public Guid User_ID { get; set; }
         /// <summary>
         /// 
-        /// Id do salão no qual o barbeiro trabalha.
-        /// 
-        /// </summary>
-        public Guid Saloon_Id { get; set; }
-        /// <summary>
-        /// 
-        /// Nome do salão no qual o barbeiro trabalha.
+        /// Nome do salão no qual o funcionário trabalha.
         /// 
         /// </summary>
         public string Saloon_Name { get; set; }

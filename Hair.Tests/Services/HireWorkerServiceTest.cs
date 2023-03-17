@@ -15,15 +15,13 @@ namespace Hair.Tests.Services
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
-        private readonly HireBarberService _service;
-        private HireBarberDto _dto;
-        private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
+        private readonly HireWorkerService _service;
+        private HireWorkerDto _dto;
         private UserEntity _user;
         private ServiceBuilder _serviceBuilder = new ServiceBuilder();
         public HireWorkerServiceTest()
         {
-            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(),
-                null, _haircutPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now).AddHours(4));
+            _user = new UserEntity();
 
             _service = _serviceBuilder.InstanceHireWorker(_userRepositoryMock, _barberRepositoryMock);
 
@@ -37,7 +35,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
 
             // Act
-            var actual = _service.HireNewbarber(_dto);
+            var actual = _service.HireNewWorker(_dto);
 
             // Assert
             Equal(_Expected, actual._StatusCode);
@@ -50,7 +48,7 @@ namespace Hair.Tests.Services
             _dto.Confirmed = false;
 
             // Act
-            var actual = _service.HireNewbarber(_dto);
+            var actual = _service.HireNewWorker(_dto);
 
             // Assert
             Equal(_Expected, actual._StatusCode);
@@ -64,7 +62,7 @@ namespace Hair.Tests.Services
             _barberRepositoryMock.Setup(x => x.Create(It.IsAny<WorkerEntity>()));
 
             // Act
-            var actual = _service.HireNewbarber(_dto);
+            var actual = _service.HireNewWorker(_dto);
             var expected = BaseDtoExtension.Create(200, $"{_dto.Name} foi registrado");
 
             // Assert

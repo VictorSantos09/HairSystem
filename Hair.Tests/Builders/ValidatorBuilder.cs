@@ -21,7 +21,7 @@ namespace Hair.Tests.Builders
             _priceValidator = new HaircutPriceValidator();
             _saloonItemValidator = new SaloonItemValidator();
             _imageValidator = new ImageValidator();
-            _barberValidator = new BarberValidator(_addressValidator);
+            _barberValidator = new WorkerValidator(_addressValidator);
             _haircutValidator = new HaircutValidator(_clientValidator);
             _userValidator = new UserValidator(_addressValidator, _priceValidator);
         }

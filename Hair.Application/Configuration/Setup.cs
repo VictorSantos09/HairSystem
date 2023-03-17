@@ -31,7 +31,7 @@ namespace Hair.Application.Configuration
             services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             services.AddTransient<IValidator<UserEntity>, UserValidator>();
             services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
-            services.AddTransient<IValidator<WorkerEntity>, BarberValidator>();
+            services.AddTransient<IValidator<WorkerEntity>, WorkerValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
             services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
             services.AddTransient<IValidator<DutyEntity>, HaircutValidator>();
@@ -42,7 +42,7 @@ namespace Hair.Application.Configuration
         private static void InjectRepositories(IServiceCollection services)
         {
             BuildUserRepository(services);
-            services.AddTransient<IBaseRepository<WorkerEntity>, BarberRepository>();
+            services.AddTransient<IBaseRepository<WorkerEntity>, WorkerRepository>();
             services.AddTransient<IBaseRepository<ItemEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
         }

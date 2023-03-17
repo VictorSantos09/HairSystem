@@ -13,47 +13,47 @@ namespace Hair.Application.Services
     /// </summary>
     public class ManagmentWorkerService
     {
-        private readonly UpdateBarberService _update;
-        private readonly HireBarberService _hire;
-        private readonly FireBarberService _fire;
+        private readonly UpdateWorkerService _update;
+        private readonly HireWorkerService _hire;
+        private readonly FireWorkerService _fire;
 
-        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> barberRepository, IValidator<WorkerEntity> barberValidator)
+        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> workerRepository, IValidator<WorkerEntity> workerValidator)
         {
-            _update = new(userRepository, barberRepository, barberValidator);
-            _hire = new(userRepository, barberRepository, barberValidator);
-            _fire = new(barberRepository);
+            _update = new(userRepository, workerRepository, workerValidator);
+            _hire = new(userRepository, workerRepository, workerValidator);
+            _fire = new(workerRepository);
         }
 
         /// <summary>
         /// 
-        /// Método que atualiza as informações de um barbeiro existente
+        /// Método que atualiza as informações de um funcionário existente
         /// </summary>
         /// 
-        /// <param name="dto">Objeto do tipo UpdateBarberDto contendo as informações atualizadas do barbeiro.</param>
+        /// <param name="dto">Objeto do tipo UpdateBarberDto contendo as informações atualizadas do funcionário.</param>
         /// 
         /// <returns>Objeto do tipo BaseDto com o resultado da operação de atualização.</returns>
-        public BaseDto Update(UpdateBarberDto dto) => _update.Update(dto);
+        public BaseDto Update(UpdateWorkerDto dto) => _update.Update(dto);
 
         /// <summary>
         /// 
-        /// Método que contrata um novo barbeiro.
+        /// Método que contrata um novo funcionário.
         /// 
         /// </summary>
         /// 
-        /// <param name="dto">Objeto do tipo HireBarberDto contendo as informações do novo barbeiro a ser contratado.</param>
+        /// <param name="dto">Objeto do tipo HireBarberDto contendo as informações do novo funcionário a ser contratado.</param>
         /// 
         /// <returns>Objeto do tipo BaseDto com o resultado da operação de contratação.</returns>
-        public BaseDto Hire(HireBarberDto dto) => _hire.HireNewbarber(dto);
+        public BaseDto Hire(HireWorkerDto dto) => _hire.HireNewWorker(dto);
 
         /// <summary>
         /// 
-        /// Método que demite um barbeiro existente.
+        /// Método que demite um funcionário existente.
         /// 
         /// </summary>
         /// 
-        /// <param name="dto">Objeto do tipo FireBarberDto contendo as informações do barbeiro a ser demitido.</param>
+        /// <param name="dto">Objeto do tipo FireBarberDto contendo as informações do funcionário a ser demitido.</param>
         /// 
         /// <returns>Objeto do tipo BaseDto com o resultado da operação de demissão.</returns>
-        public BaseDto Fire(FireBarberDto dto) => _fire.FireBarber(dto);
+        public BaseDto Fire(FireWorkerDto dto) => _fire.FireBarber(dto);
     }
 }
