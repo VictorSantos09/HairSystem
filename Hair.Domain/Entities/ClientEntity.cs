@@ -5,7 +5,7 @@ namespace Hair.Domain.Entities
     /// <summary>
     /// Abstração do cliente do salão
     /// </summary>
-    public class ClientEntity : BaseEntity
+    public sealed class ClientEntity : BaseEntity
     {
         /// <summary>
         /// Id do usuário

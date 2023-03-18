@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração do funcionário.
     /// 
     /// </summary>
-    public class WorkerEntity : BaseEntity
+    public sealed class WorkerEntity : BaseEntity
     {
         /// <summary>
         /// 

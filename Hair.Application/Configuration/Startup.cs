@@ -31,9 +31,10 @@ namespace Hair.Application.Configuration
             services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
             services.AddTransient<IValidator<DutyEntity>, DutyValidator>();
-            services.AddTransient <IValidator<FunctionTypeEntity>, FunctionTypeValidator>();
+            services.AddTransient<IValidator<FunctionTypeEntity>, FunctionTypeValidator>();
             services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
             services.AddTransient<IValidator<ItemEntity>, ItemValidator>();
+            services.AddTransient<IValidator<ItemTypeEntity>, ItemTypeValidator>();
             services.AddTransient<IValidator<ServiceEntity>, ServiceValidator>();
             services.AddTransient<IValidator<ServiceTypeEntity>, ServiceTypeValidator>();
             services.AddTransient<IValidator<UserEntity>, UserValidator>();

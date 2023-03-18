@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração do usuário.
     /// 
     /// </summary>
-    public class UserEntity : BaseEntity
+    public sealed class UserEntity : BaseEntity
     {
         /// <summary>
         /// 

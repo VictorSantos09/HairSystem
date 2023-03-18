@@ -5,7 +5,7 @@ namespace Hair.Domain.Entities
     /// <summary>
     /// Abstração do endereço
     /// </summary>
-    public class AddressEntity : BaseEntity
+    public sealed class AddressEntity : BaseEntity
     {
         /// <summary>
         /// 

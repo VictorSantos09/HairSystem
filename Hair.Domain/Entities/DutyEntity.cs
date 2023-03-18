@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração da prestação de serviço para o cliente
     /// 
     /// </summary>
-    public class DutyEntity : BaseEntity
+    public sealed class DutyEntity : BaseEntity
     {
         /// <summary>
         /// 

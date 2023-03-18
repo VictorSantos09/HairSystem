@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração da imagem.
     /// 
     /// </summary>
-    public class ImageEntity : BaseEntity
+    public sealed class ImageEntity : BaseEntity
     {
         /// <summary>
         /// 

@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração dos itens do salão.
     /// 
     /// </summary>
-    public class ItemEntity : BaseEntity
+    public sealed class ItemEntity : BaseEntity
     {
         /// <summary>
         /// 

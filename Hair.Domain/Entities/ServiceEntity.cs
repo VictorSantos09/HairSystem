@@ -1,6 +1,6 @@
 ﻿namespace Hair.Domain.Entities
 {
-    public class ServiceEntity : BaseEntity
+    public sealed class ServiceEntity : BaseEntity
     {
         public ServiceTypeEntity Type { get; set; }
         public Guid UserID { get; set; }
