@@ -13,30 +13,30 @@ namespace Hair.Application.Services
     /// Responsável pelas efetuações referentes ao agendamento de cortes.
     /// 
     /// </summary>
-    public class ScheduleHaircutService
+    public class ScheduleDutyService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<DutyEntity> _haircutRepository;
-        private readonly IValidator<DutyEntity> _haircutValidator;
+        private readonly IBaseRepository<DutyEntity> _dutyRepository;
+        private readonly IValidator<DutyEntity> _dutyValidator;
 
-        public ScheduleHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
-            IValidator<DutyEntity> haircutValidator)
+        public ScheduleDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> dutyRepository,
+            IValidator<DutyEntity> dutyValidator)
         {
-            _haircutValidator = haircutValidator;
+            _dutyValidator = dutyValidator;
             _userRepository = userRepository;
-            _haircutRepository = haircutRepository;
+            _dutyRepository = dutyRepository;
         }
 
         /// <summary>
         /// 
-        /// Efetua o agendamento do corte.
+        /// Efetua o agendamento do serviço.
         /// 
         /// </summary>
         /// 
         /// <param name="dto"></param>
         /// 
         /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha.</returns>
-        public BaseDto Schedule(ScheduleHaircutDto dto)
+        public BaseDto Schedule(ScheduleDutyDto dto)
         {
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
@@ -52,14 +52,14 @@ namespace Hair.Application.Services
                     return BaseDtoExtension.Create(200, "Horário indisponível");
             }
 
-            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber);
-            var newHaircut = new DutyEntity(dto.UserID, dto.HaircuteTime, true, client);
+            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber, user.Id);
+            var newDuty = new DutyEntity(dto.UserID, dto.HaircuteTime, client);
 
-            var validationResult = Validation.Verify(_haircutValidator.Validate(newHaircut));
+            var validationResult = Validation.Verify(_dutyValidator.Validate(newDuty));
 
             if (validationResult.Condition)
             {
-                _haircutRepository.Create(newHaircut);
+                _dutyRepository.Create(newDuty);
                 return BaseDtoExtension.Sucess();
             }
 

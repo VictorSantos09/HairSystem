@@ -13,7 +13,7 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class HaircutController : ControllerBase
     {
-        private readonly ScheduleHaircutService _schedule;
+        private readonly ScheduleDutyService _schedule;
         private readonly CancelHaircutService _cancel;
         private readonly ChangePriceService _changePrice;
         private readonly IException _exHelper;
@@ -22,14 +22,14 @@ namespace HairSystem.Controllers
             IException exception, IValidator<DutyEntity> haircutValidator)
         {
             _exHelper = exception;
-            _schedule = new ScheduleHaircutService(userRepository, haircutRepository, haircutValidator);
+            _schedule = new ScheduleDutyService(userRepository, haircutRepository, haircutValidator);
             _cancel = new CancelHaircutService(userRepository, haircutRepository);
             _changePrice = new ChangePriceService(userRepository);
         }
 
         [HttpPost]
         [Route("Schedule")]
-        public IActionResult Schedule([FromBody] ScheduleHaircutDto dto)
+        public IActionResult Schedule([FromBody] ScheduleDutyDto dto)
         {
             try
             {

@@ -11,13 +11,13 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
         private readonly Mock<IBaseRepository<DutyEntity>> _mockHaircutRepository;
-        private readonly ScheduleHaircutService _scheduleHaircutService;
+        private readonly ScheduleDutyService _scheduleHaircutService;
 
         public ScheduleHaircutServiceTests()
         {
             _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
             _mockHaircutRepository = new Mock<IBaseRepository<DutyEntity>>();
-            _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object, null);
+            _scheduleHaircutService = new ScheduleDutyService(_mockUserRepository.Object, _mockHaircutRepository.Object, null);
         }
 
         [Fact]

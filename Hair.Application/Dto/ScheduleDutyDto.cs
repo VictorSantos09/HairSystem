@@ -1,6 +1,8 @@
-﻿namespace Hair.Application.Dto
+﻿using System;
+
+namespace Hair.Application.Dto
 {
-    public class ScheduleHaircutDto
+    public class ScheduleDutyDto
     {
         public Guid UserID { get; set; }
         public DateTime HaircuteTime { get; set; }
@@ -9,7 +11,7 @@
         public string? ClientEmail { get; set; }
         public string ClientName { get; set; }
 
-        public ScheduleHaircutDto(Guid userID, DateTime haircuteTime, bool confirmed, string clientPhoneNumber, string? clientEmail, string clientName)
+        public ScheduleDutyDto(Guid userID, DateTime haircuteTime, bool confirmed, string clientPhoneNumber, string? clientEmail, string clientName)
         {
             UserID = userID;
             HaircuteTime = haircuteTime;

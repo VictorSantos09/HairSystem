@@ -21,10 +21,10 @@ namespace Hair.Tests.Builders
             return new LoginService(iGetByEmailMock.Object);
         }
 
-        public ScheduleHaircutService InstanceScheduleHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
+        public ScheduleDutyService InstanceScheduleHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
             Mock<IBaseRepository<DutyEntity>> haircutRepositoryMock)
         {
-            return new ScheduleHaircutService(userRepositoryMock.Object, haircutRepositoryMock.Object, _validatorBuilder.InstanceHaircutValidator());
+            return new ScheduleDutyService(userRepositoryMock.Object, haircutRepositoryMock.Object, _validatorBuilder.InstanceHaircutValidator());
         }
 
         public ManagmentWorkerService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,

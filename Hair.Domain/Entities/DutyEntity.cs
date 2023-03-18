@@ -4,7 +4,7 @@ namespace Hair.Domain.Entities
 {
     /// <summary>
     /// 
-    /// Abstração do corte de cabelo.
+    /// Abstração da prestação de serviço para o cliente
     /// 
     /// </summary>
     public class DutyEntity : BaseEntity
