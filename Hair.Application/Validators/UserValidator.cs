@@ -10,11 +10,9 @@ namespace Hair.Application.Validators
     {
 
         private readonly IValidator<AddressEntity> _addressValidator;
-        private readonly IValidator<HaircutPriceEntity> _priceValidator;
-        public UserValidator(IValidator<AddressEntity> addressValidator, IValidator<HaircutPriceEntity> priceValidator)
+        public UserValidator(IValidator<AddressEntity> addressValidator)
         {
             _addressValidator = addressValidator;
-            _priceValidator = priceValidator;
 
             RuleFor(x => x.OwnerName).NotEmpty().MinimumLength(5).WithName("Nome do dono");
 
@@ -45,18 +43,6 @@ namespace Hair.Application.Validators
                 if (!addressResult.IsValid)
                 {
                     var failure = BuildErrorValidation.BuildError(addressResult);
-
-                    context.AddFailure(failure);
-                }
-            });
-
-            RuleFor(x => x.Prices).Custom((prices, context) =>
-            {
-                var pricesResult = _priceValidator.Validate(prices);
-
-                if (!pricesResult.IsValid)
-                {
-                    var failure = BuildErrorValidation.BuildError(pricesResult);
 
                     context.AddFailure(failure);
                 }

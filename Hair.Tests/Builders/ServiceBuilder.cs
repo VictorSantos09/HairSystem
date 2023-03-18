@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using Hair.Application.Services;
-using Hair.Application.Validators;
+﻿using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;

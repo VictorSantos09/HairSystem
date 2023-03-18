@@ -89,13 +89,13 @@ namespace Hair.Application.Services
         }
         private void ApplyBeardPrice(UserEntity user)
         {
-            user.Prices.Beard = _newPrice;
+            //user.Prices.Beard = _newPrice;
 
             _userRepository.Update(user);
         }
         private void ApplyMustachePrice(UserEntity user)
         {
-            user.Prices.Mustache = _newPrice;
+            //user.Prices.Mustache = _newPrice;
 
             _userRepository.Update(user);
         }

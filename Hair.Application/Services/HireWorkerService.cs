@@ -46,16 +46,16 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var barber = new WorkerEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), user.Id);
-            var address = new AddressEntity(dto.WorkerStreet, dto.WorkerHouseNumber, dto.WorkerCity, dto.WorkerState, dto.WorkerHouseComplement, dto.CEP, barber.Id);
+            var worker = new WorkerEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), user.Id);
+            var address = new AddressEntity(dto.WorkerStreet, dto.WorkerHouseNumber, dto.WorkerCity, dto.WorkerState, dto.WorkerHouseComplement, dto.CEP, worker.Id);
 
-            barber.Address = address;
+            worker.Address = address;
 
-            var validationResult = Validation.Verify(_workerValidator.Validate(barber));
+            var validationResult = Validation.Verify(_workerValidator.Validate(worker));
 
             if (validationResult.Condition)
             {
-                _workerRepository.Create(barber);
+                _workerRepository.Create(worker);
                 return BaseDtoExtension.Create(200, $"{dto.Name} foi registrado");
             }
 

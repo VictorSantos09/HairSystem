@@ -45,8 +45,12 @@ namespace Hair.Domain.Entities
         /// 
         /// </summary>
         public Guid UserID { get; set; }
+        /// <summary>
+        /// Tipo de serviço prestado pelo funcionário
+        /// </summary>
+        public FunctionTypeEntity FunctionType { get; set; }
 
-        public WorkerEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID)
+        public WorkerEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID, FunctionTypeEntity functionType)
         {
             Name = name;
             PhoneNumber = phoneNumber;
@@ -54,6 +58,7 @@ namespace Hair.Domain.Entities
             Salary = salary;
             Address = address;
             UserID = userID;
+            FunctionType = functionType;
         }
 
         public WorkerEntity()

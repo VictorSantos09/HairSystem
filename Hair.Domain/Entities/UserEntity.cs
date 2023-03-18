@@ -81,7 +81,7 @@ namespace Hair.Domain.Entities
         public List<WorkerEntity> Workers { get; set; } = new List<WorkerEntity>();
 
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string? cNPJ,
-            string password, TimeOnly openTime, TimeOnly closeTime, string? googleMapsLocation)
+            string password, AddressEntity address, TimeOnly openTime, TimeOnly closeTime, string? googleMapsLocation)
         {
             SaloonName = saloonName;
             OwnerName = ownerName;
@@ -89,6 +89,7 @@ namespace Hair.Domain.Entities
             Email = email;
             CNPJ = cNPJ;
             Password = password;
+            Address = address;
             OpenTime = openTime;
             CloseTime = closeTime;
             GoogleMapsLocation = googleMapsLocation;

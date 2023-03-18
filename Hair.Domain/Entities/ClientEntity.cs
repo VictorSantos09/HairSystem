@@ -32,14 +32,19 @@ namespace Hair.Domain.Entities
         /// 
         /// </summary>
         public string PhoneNumber { get; set; }
+        /// <summary>
+        /// Prestação de serviço a ser recebido.
+        /// </summary>
+        public DutyEntity Duty { get; set; }
 
-        public ClientEntity(string name, string? email, string phoneNumber, Guid userID)
+        public ClientEntity(string name, string? email, string phoneNumber, Guid userID, DutyEntity duty)
         {
             Id = Guid.NewGuid();
             Name = name.ToUpper();
             Email = email.ToUpper();
             PhoneNumber = phoneNumber;
             UserID = userID;
+            Duty = duty;
         }
 
         public ClientEntity()

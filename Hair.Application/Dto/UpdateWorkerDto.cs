@@ -15,9 +15,10 @@ namespace Hair.Application.Dto
         public string? NewPhoneNumber { get; set; }
         public string NewName { get; set; }
         public float NewSalary { get; set; }
+        public string NewFunction { get; set; }
 
         public UpdateWorkerDto(Guid userID, string workerName, string? workerEmail, string? workerPhoneNumber, double workerSalary,
-            AddressEntity newAddress, string? newEmail, string? newPhoneNumber, string newName, float newSalary)
+            AddressEntity newAddress, string? newEmail, string? newPhoneNumber, string newName, float newSalary, string newFunction)
         {
             UserID = userID;
             WorkerName = workerName;
@@ -29,6 +30,7 @@ namespace Hair.Application.Dto
             NewPhoneNumber = newPhoneNumber;
             NewName = newName;
             NewSalary = newSalary;
+            NewFunction = newFunction;
         }
     }
 }

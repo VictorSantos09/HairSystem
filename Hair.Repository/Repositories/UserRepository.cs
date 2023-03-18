@@ -19,25 +19,7 @@ namespace Hair.Repository.Repositories
             {
                 conn.Execute("dbo.spCreateUser", new
                 {
-                    ID = user.Id,
-                    SALOON_NAME = user.SaloonName,
-                    OWNER_NAME = CryptoSecurity.Encrypt(user.OwnerName),
-                    PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
-                    EMAIL = CryptoSecurity.Encrypt(user.Email),
-                    PASSWORD = CryptoSecurity.Encrypt(user.Password),
-                    CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
-                    OPEN_TIME = user.OpenTime.ToString(),
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsLocation,
-                    CLOSE_TIME = user.CloseTime.ToString(),
-                    STREET = user.Address.Street,
-                    NUMBER = user.Address.Number,
-                    CITY = user.Address.City,
-                    STATE = user.Address.State,
-                    COMPLEMENT = user.Address.Complement == null ? null : user.Address.Complement,
-                    CEP = user.Address.CEP,
-                    HAIR = user.Prices.Hair,
-                    BEARD = user.Prices.Beard,
-                    MUSTACHE = user.Prices.Mustache,
+                   
                 }, commandType: CommandType.StoredProcedure);
             }
         }
@@ -48,27 +30,7 @@ namespace Hair.Repository.Repositories
             {
                 conn.Query("dbo.spUpdateUser", new
                 {
-                    ID = user.Id,
-                    SALOON_NAME = CryptoSecurity.Encrypt(user.SaloonName),
-                    OWNER_NAME = CryptoSecurity.Encrypt(user.OwnerName),
-                    PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
-                    EMAIL = CryptoSecurity.Encrypt(user.Email),
-                    PASSWORD = CryptoSecurity.Encrypt(user.Password),
-                    CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
-                    OPEN_TIME = user.OpenTime,
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsLocation,
-                    CLOSE_TIME = user.CloseTime,
-
-                    STREET = user.Address.Street,
-                    NUMBER = user.Address.Number,
-                    CITY = user.Address.City,
-                    STATE = user.Address.State,
-                    COMPLEMENT = user.Address.Complement,
-                    CEP = user.Address.CEP,
-
-                    HAIR = user.Prices.Hair,
-                    BEARD = user.Prices.Beard,
-                    MUSTACHE = user.Prices.Mustache
+                    
                 });
             }
         }
@@ -87,7 +49,6 @@ namespace Hair.Repository.Repositories
                     return null;
 
                 var user = FillUser(userSql);
-                PopulateExtraEntities(user, conn);
 
                 return user == null ? null : user;
             }
@@ -103,7 +64,6 @@ namespace Hair.Repository.Repositories
                     return null;
 
                 var user = FillUser(userSql);
-                PopulateExtraEntities(user, conn);
 
                 return user == null ? null : user;
             }
@@ -116,7 +76,7 @@ namespace Hair.Repository.Repositories
             {
                 var usersFromSql = conn.Query<UserEntityFromSql>("dbo.spGetAllUsers").ToList();
 
-                output.AddRange(FillUser(usersFromSql, conn));
+                output.AddRange(FillUser(usersFromSql));
             }
             return output;
         }
@@ -131,18 +91,6 @@ namespace Hair.Repository.Repositories
 
             }
             return true;
-        }
-
-        private void PopulateExtraEntities(UserEntity user, IDbConnection conn)
-        {
-            if (user == null)
-                return;
-
-            var haircuts = conn.Query<DutyEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id }).ToList();
-            user.Address = ConvertAddress(conn.Query<AddressEntityFromSql>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault());
-            user.Prices = conn.Query<HaircutPriceEntity>("spGetUserHaircutPrice @ID", new { ID = user.Id }).FirstOrDefault();
-
-            user.Haircuts.AddRange(haircuts);
         }
 
         private UserEntity DecryptProcess(UserEntityFromSql userSql)
@@ -162,14 +110,13 @@ namespace Hair.Repository.Repositories
             return user;
         }
 
-        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql, IDbConnection conn)
+        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql)
         {
             var output = new List<UserEntity>();
 
             foreach (var userSql in usersFromSql)
             {
                 var user = DecryptProcess(userSql);
-                PopulateExtraEntities(user, conn);
                 output.Add(user);
             }
 

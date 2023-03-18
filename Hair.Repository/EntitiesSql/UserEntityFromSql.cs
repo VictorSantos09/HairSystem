@@ -14,25 +14,20 @@ namespace Hair.Repository.EntitiesSql
         public TimeOnly CloseTime { get; set; }
         public string? Google_Maps_Source { get; set; }
         public AddressEntity Address { get; set; } = new AddressEntity();
-        public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
-        public List<DutyEntity> Haircuts { get; set; } = new();
 
-        public UserEntityFromSql(string saloonName, byte[] ownerName, byte[] phoneNumber, byte[] email, byte[]? cNPJ, byte[] password, TimeOnly openTime,
-            TimeOnly closeTime, string? googleMapsSource,
-            AddressEntity address, HaircutPriceEntity prices, List<DutyEntity> haircuts)
+        public UserEntityFromSql(string saloon_Name, byte[] owner_Name, byte[] phone_Number, 
+            byte[] email, byte[]? cNPJ, byte[] password, TimeOnly openTime, TimeOnly closeTime, string? google_Maps_Source, AddressEntity address)
         {
-            Saloon_Name = saloonName;
-            Owner_Name = ownerName;
-            Phone_Number = phoneNumber;
+            Saloon_Name = saloon_Name;
+            Owner_Name = owner_Name;
+            Phone_Number = phone_Number;
             Email = email;
             CNPJ = cNPJ;
             Password = password;
             OpenTime = openTime;
             CloseTime = closeTime;
-            Google_Maps_Source = googleMapsSource;
+            Google_Maps_Source = google_Maps_Source;
             Address = address;
-            Prices = prices;
-            Haircuts = haircuts;
         }
 
         public UserEntityFromSql()

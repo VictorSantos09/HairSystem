@@ -30,26 +30,21 @@ namespace Hair.Application.Configuration
         {
             services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             services.AddTransient<IValidator<UserEntity>, UserValidator>();
-            services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
             services.AddTransient<IValidator<WorkerEntity>, WorkerValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
-            services.AddTransient<IValidator<HaircutPriceEntity>, HaircutPriceValidator>();
-            services.AddTransient<IValidator<DutyEntity>, HaircutValidator>();
+            services.AddTransient<IValidator<DutyEntity>, DutyValidator>();
             services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
             services.AddTransient<IValidator<ItemEntity>, SaloonItemValidator>();
         }
 
         private static void InjectRepositories(IServiceCollection services)
         {
-            BuildUserRepository(services);
+            services.AddTransient<IGetByEmail, UserRepository>();
+            services.AddTransient<IServiceTypeRequest, ServiceTypeRepository>();
+            services.AddTransient<IFunctionTypeRequest, FunctionTypeRepository>();
             services.AddTransient<IBaseRepository<WorkerEntity>, WorkerRepository>();
             services.AddTransient<IBaseRepository<ItemEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
-        }
-
-        private static void BuildUserRepository(IServiceCollection services)
-        {
-            services.AddTransient<IGetByEmail, UserRepository>();
             services.AddTransient<IBaseRepository<DutyEntity>, DutyRepository>();
             services.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
         }
