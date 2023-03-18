@@ -26,14 +26,14 @@
         /// Mensagem de aviso de erro, por padrão recebendo "Dados Inválidos"
         /// 
         /// </summary>
-        private string Message { get; set; } = "Dados Inválidos";
+        private static string Message { get; set; } = "Dados Inválidos";
 
         /// <summary>
         /// 
         /// Status code, por padrão recebendo 406
         /// 
         /// </summary>
-        private int StatusCode { get; set; } = 406;
+        private static int StatusCode { get; set; } = 406;
 
         public ValidationResultDto(bool condition, object? data = null)
         {
@@ -41,14 +41,7 @@
             Data = data;
         }
 
-        private ValidationResultDto(bool condition, object? data, string message, int statusCode)
-        {
-            Condition = condition;
-            Data = data;
-            Message = message;
-            StatusCode = statusCode;
-        }
-
-        public ValidationResultDto BuildStandard(object data = null) => new ValidationResultDto(false, data, Message, StatusCode);
+        public static string GetMessage() => Message; 
+        public static int GetStatusCode() => StatusCode;
     }
 }

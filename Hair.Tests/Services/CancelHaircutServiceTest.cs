@@ -1,24 +1,27 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Tests.Builders;
 using Moq;
+using Xunit.Sdk;
 
 namespace Hair.Tests.Services
 {
     public class CancelHaircutServiceTests
     {
+        private CancelHaircutDto _sucessDto = new CancelHaircutDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
         private readonly CancelHaircutService _service;
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock;
-        private readonly Mock<IBaseRepository<HaircutEntity>> _haircutRepositoryMock;
+        private readonly ServiceBuilder _serviceProvider = new ServiceBuilder();
+        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
+        private readonly Mock<IBaseRepository<DutyEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<DutyEntity>>();
+        private readonly int _Expected = ValidationResultDto.GetStatusCode();
 
         public CancelHaircutServiceTests()
         {
-            _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-            _haircutRepositoryMock = new Mock<IBaseRepository<HaircutEntity>>();
-
-            _service = new CancelHaircutService(_userRepositoryMock.Object, _haircutRepositoryMock.Object);
+            _service = _serviceProvider.InstanceCancelHaircutService(_userRepositoryMock, _haircutRepositoryMock);
         }
 
 
@@ -26,16 +29,17 @@ namespace Hair.Tests.Services
         public void Cancel_When_Client_Name_Is_Invalid()
         {
             // Arrange
+            UserEntity user = new UserEntity();
+            user.Haircuts.Add(new DutyEntity());
+            _userRepositoryMock.Setup(x => x.GetById(_sucessDto.UserID)).Returns(user);
             string? clientName = string.Empty;
-            var dto = new CancelHaircutDto(Guid.NewGuid(), false, clientName, "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
+            _sucessDto.ClientName = clientName;
 
             // Act
-            var actual = _service.Cancel(dto);
-            var expected = BaseDtoExtension.Invalid("Nome do cliente inválido");
+            var actual = _service.Cancel(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
@@ -46,11 +50,9 @@ namespace Hair.Tests.Services
 
             // Act
             var actual = _service.Cancel(dto);
-            var expected = BaseDtoExtension.Invalid("Telefone do cliente inválido");
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
@@ -63,16 +65,16 @@ namespace Hair.Tests.Services
             var user = new UserEntity
             {
                 Id = dto.UserID,
-                Haircuts = new List<HaircutEntity>
+                Haircuts = new List<DutyEntity>
                 {
-                    new HaircutEntity
+                    new DutyEntity
                     {
                        Client = new ClientEntity
                        {
                             Name = dto.ClientName,
                             PhoneNumber = dto.ClientPhoneNumber
                        },
-                            HaircuteTime = validTime,
+                            Date = validTime,
                     }
                 }
             };
@@ -97,16 +99,16 @@ namespace Hair.Tests.Services
             var user = new UserEntity
             {
                 Id = dto.UserID,
-                Haircuts = new List<HaircutEntity>
+                Haircuts = new List<DutyEntity>
                 {
-                    new HaircutEntity
+                    new DutyEntity
                     {
                        Client = new ClientEntity
                        {
                             Name = dto.ClientName,
                             PhoneNumber = dto.ClientPhoneNumber
                        },
-                            HaircuteTime = DateTime.Now.AddDays(3),
+                            Date = DateTime.Now.AddDays(3),
                     }
                 }
             };

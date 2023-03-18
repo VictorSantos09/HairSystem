@@ -6,7 +6,7 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação do endereço, pela classe concreta <see cref="AddressEntity"/>
     /// </summary>
-    internal class AddressValidator : AbstractValidator<AddressEntity>
+    public class AddressValidator : AbstractValidator<AddressEntity>
     {
         public AddressValidator()
         {

@@ -6,17 +6,22 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação do cliente, pela classe concreta <see cref="ClientEntity"/>
     /// </summary>
-    internal class ClientValidator : AbstractValidator<ClientEntity>
+    public class ClientValidator : AbstractValidator<ClientEntity>
     {
         public ClientValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().MinimumLength(3).WithName("Nome do cliente");
-
-            RuleFor(x => x.PhoneNumber).NotEmpty().Length(11).WithName("Telefone");
-
-            RuleFor(x => x.Id).NotEmpty().WithName("ID");
-
-            RuleFor(x => x.Email).NotNull();
+            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.UserID).NotEmpty().WithName("Id do usuário");
+            RuleFor(x => x.Duty).SetValidator(new DutyValidator());
+            RuleFor(x => x.Name).NotEmpty().MaximumLength(50).WithName("Nome");
+            RuleFor(x => x.Email).MaximumLength(50).Custom((email, context) =>
+            {
+                if (email != null)
+                {
+                    RuleFor(x => x.Email).EmailAddress();
+                }
+            });
+            RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(50).WithName("Telefone");
         }
     }
 }

@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Hair.Application\Hair.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

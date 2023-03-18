@@ -11,20 +11,23 @@ namespace Hair.Tests.Services
     public class UpdateBarberTest
     {
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<BarberEntity>> _barberRepositoryMock = new Mock<IBaseRepository<BarberEntity>>();
-        private readonly UpdateBarberService _service;
-        private UpdateBarberDto _dto;
-        private BarberEntity _barber;
+        private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
+        private readonly UpdateWorkerService _service;
+        private UpdateWorkerDto _dto;
+        private WorkerEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
-        private AddressEntity _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",");
+        private AddressEntity _address;
 
         public UpdateBarberTest()
         {
             _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", _address,
-               null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
-            _barber = new BarberEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
-            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object);
+               null, _haircutPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now.AddHours(4)));
+
+            _address = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", ",", "45231245", _user.Id);
+
+            _barber = new WorkerEntity("Carlos", "017994578951", "victor@gmail.com", 2000, _address, true, _user.Id, _user.SaloonName);
+            _service = new(_userRepositoryMock.Object, _barberRepositoryMock.Object, null);
             _dto = new(_user.Id, _barber.Name, _barber.Email, _barber.PhoneNumber, _barber.Salary, _address, "Carlos@gmail.com", "041991545235", "Carlos", 5000);
         }
 
@@ -47,8 +50,8 @@ namespace Hair.Tests.Services
         public void Update_ShouldFail_WhenAnyBarberFound()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
-            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<BarberEntity>());
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
+            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<WorkerEntity>());
 
             // Act
             var actual = _service.Update(_dto);
@@ -63,12 +66,12 @@ namespace Hair.Tests.Services
         public void Update_ShouldFail_WhenNoneBarberToUpdateFound()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
 
-            var barbers = new List<BarberEntity>();
+            var barbers = new List<WorkerEntity>();
             _barber.Name = "Jose";
             _barber.PhoneNumber = "047994565856";
-            _dto.BarberName = "Maria";
+            _dto.WorkerName = "Maria";
             barbers.Add(_barber);
 
             _barberRepositoryMock.Setup(x => x.GetAll()).Returns(barbers);
@@ -86,8 +89,8 @@ namespace Hair.Tests.Services
         public void Update_ShouldBeSucess_WhenAllOk()
         {
             // Arrange
-            _userRepositoryMock.Setup(x => x.GetById(_dto.UserId)).Returns(_user);
-            var barbers = new List<BarberEntity>();
+            _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
+            var barbers = new List<WorkerEntity>();
             barbers.Add(_barber);
 
             _barberRepositoryMock.Setup(x => x.GetAll()).Returns(barbers);

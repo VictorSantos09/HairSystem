@@ -1,11 +1,13 @@
-﻿namespace Hair.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Hair.Domain.Entities
 {
     /// <summary>
     /// 
     /// Abstração do usuário.
     /// 
     /// </summary>
-    public class UserEntity : BaseEntity
+    public sealed class UserEntity : BaseEntity
     {
         /// <summary>
         /// 
@@ -60,41 +62,39 @@
         /// Link do salão no Google Maps.
         /// 
         /// </summary>
-        public string? GoogleMapsSource { get; set; }
+        public string? GoogleMapsLocation { get; set; }
         /// <summary>
         /// 
         /// Endereço do salão.
         /// 
         /// </summary>
-        public AddressEntity Address { get; set; } = new AddressEntity();
+        public AddressEntity Address { get; set; }
         /// <summary>
         /// 
-        /// Preço dos cortes.
+        /// Serviços agendados.
         /// 
         /// </summary>
-        public HaircutPriceEntity Prices { get; set; } = new HaircutPriceEntity();
+        public List<DutyEntity> Haircuts { get; set; } = new List<DutyEntity>();
         /// <summary>
-        /// 
-        /// Cortes de cabelo agendados.
-        /// 
+        /// Funcionários cadastrados.
         /// </summary>
-        public List<HaircutEntity> Haircuts { get; set; } = new();
-        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string password,
-            AddressEntity address, string? cNPJ, HaircutPriceEntity priceEntity, TimeOnly openTime, string? googleMapsSource, TimeOnly closeTime)
+        public List<WorkerEntity> Workers { get; set; } = new List<WorkerEntity>();
+
+        public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string? cNPJ,
+            string password, AddressEntity address, TimeOnly openTime, TimeOnly closeTime, string? googleMapsLocation)
         {
-            Id = Guid.NewGuid();
-            SaloonName = saloonName.ToUpper();
-            OwnerName = ownerName.ToUpper();
+            SaloonName = saloonName;
+            OwnerName = ownerName;
             PhoneNumber = phoneNumber;
-            Email = email.ToUpper();
+            Email = email;
+            CNPJ = cNPJ;
             Password = password;
             Address = address;
-            CNPJ = string.IsNullOrEmpty(cNPJ) == true || string.IsNullOrWhiteSpace(cNPJ) == true ? null : cNPJ;
-            Prices = priceEntity;
             OpenTime = openTime;
-            GoogleMapsSource = string.IsNullOrEmpty(googleMapsSource) == true || string.IsNullOrWhiteSpace(googleMapsSource) == true ? null : googleMapsSource;
             CloseTime = closeTime;
+            GoogleMapsLocation = googleMapsLocation;
         }
+
         public UserEntity()
         {
 

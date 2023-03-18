@@ -13,14 +13,14 @@ namespace Hair.Application.Services
     /// </summary>
     public class ViewHaircutTimeService
     {
-        private readonly IBaseRepository<HaircutEntity> _haircutRepository;
+        private readonly IBaseRepository<DutyEntity> _haircutRepository;
 
         /// <summary>
         /// 
         /// <param name="haircutRepository">Repositório de cortes de cabelo.</param>
         /// 
         /// </summary>
-        public ViewHaircutTimeService(IBaseRepository<HaircutEntity> haircutRepository)
+        public ViewHaircutTimeService(IBaseRepository<DutyEntity> haircutRepository)
         {
             _haircutRepository = haircutRepository;
         }
@@ -35,7 +35,7 @@ namespace Hair.Application.Services
         /// <returns>Objeto BaseDto com a lista de cortes de cabelo agendados.</returns>
         public BaseDto GetScheduledHaircuts(ViewHaircutTimeDto dto)
         {
-            var userHaircuts = _haircutRepository.GetAll().FindAll(x => x.SaloonId == dto.UserID);
+            var userHaircuts = _haircutRepository.GetAll().FindAll(x => x.UserID == dto.UserID);
 
             if (userHaircuts.Count == 0)
             {

@@ -20,7 +20,7 @@ namespace Hair.Application.Validators
         /// Retorna uma <see cref="ValidationFailure"/> onde a mensagem de erro recebe o valor da falha de <paramref name="result"/>
         /// 
         /// </returns>
-        public static ValidationFailure? BuildError(ValidationResult result)
+        public static ValidationFailure? Build(ValidationResult result)
         {
             ValidationFailure output = new ValidationFailure();
 

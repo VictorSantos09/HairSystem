@@ -10,14 +10,14 @@ namespace Hair.Tests.Services
     public class ScheduleHaircutServiceTests
     {
         private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
-        private readonly Mock<IBaseRepository<HaircutEntity>> _mockHaircutRepository;
-        private readonly ScheduleHaircutService _scheduleHaircutService;
+        private readonly Mock<IBaseRepository<DutyEntity>> _mockHaircutRepository;
+        private readonly ScheduleDutyService _scheduleHaircutService;
 
         public ScheduleHaircutServiceTests()
         {
             _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
-            _mockHaircutRepository = new Mock<IBaseRepository<HaircutEntity>>();
-            _scheduleHaircutService = new ScheduleHaircutService(_mockUserRepository.Object, _mockHaircutRepository.Object);
+            _mockHaircutRepository = new Mock<IBaseRepository<DutyEntity>>();
+            _scheduleHaircutService = new ScheduleDutyService(_mockUserRepository.Object, _mockHaircutRepository.Object, null);
         }
 
         [Fact]
@@ -56,11 +56,15 @@ namespace Hair.Tests.Services
         public void Schedule_WhenHaircuteTimeIsNull_ReturnsNotNullError()
         {
             // Arrange
-            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal");
             var mockPrice = new HaircutPriceEntity(20, 20, 20);
-            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", mockAdress, null, mockPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", new AddressEntity(), null, 
+                mockPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now).AddHours(4));
             DateTime? haircutTime = null;
 
+            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal", "45213580",user.Id);
+
+            user.Address = mockAdress;
 
             var scheduledTime = haircutTime.HasValue ? (DateTime)haircutTime : DateTime.Now.AddDays(1);
 
@@ -124,7 +128,7 @@ namespace Hair.Tests.Services
             {
                 var client = new ClientEntity { Name = "Bruno", Email = "elefante@gmail.com", PhoneNumber = "992839" };
                 var user = new UserEntity { Id = dto.UserID };
-                user.Haircuts.Add(new HaircutEntity(dto.UserID, dto.HaircuteTime, true, client));
+                user.Haircuts.Add(new DutyEntity(dto.UserID, dto.HaircuteTime, true, client));
                 return user;
             });
 
@@ -146,9 +150,9 @@ namespace Hair.Tests.Services
 
             _mockUserRepository.Setup(repo => repo.GetById(dto.UserID)).Returns(user);
 
-            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<HaircutEntity>());
+            _mockHaircutRepository.Setup(repo => repo.GetAll()).Returns(new List<DutyEntity>());
 
-            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<HaircutEntity>())).Callback<HaircutEntity>(haircut =>
+            _mockHaircutRepository.Setup(repo => repo.Create(It.IsAny<DutyEntity>())).Callback<DutyEntity>(haircut =>
             {
                 user.Haircuts.Add(haircut);
             });

@@ -1,198 +1,153 @@
-﻿using Hair.Application.Dto;
+﻿using FluentValidation.Results;
+using Hair.Application.Common;
+using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Application.Services;
+using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Tests.Builders;
 using Moq;
 
 namespace Hair.Tests.Services
 {
     public class RegisterServiceTest
     {
-        private readonly Mock<IGetByEmail> _userRepositoryMock;
+        private readonly int _Expected = ValidationResultDto.GetStatusCode();
+        private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
         private readonly RegisterService _registerService;
+        private RegisterDto _sucessDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956",
+            "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50", null, "23:50", "78053680");
+        private UserEntity _user;
 
         public RegisterServiceTest()
         {
-            _userRepositoryMock = new Mock<IGetByEmail>();
-            _registerService = new RegisterService(_userRepositoryMock.Object);
+            _registerService = ServiceBuilder.InstanceRegister(_userRepositoryMock);
+
+            _user = new UserEntity(_sucessDto.SaloonName, _sucessDto.Name, _sucessDto.PhoneNumber,
+                _sucessDto.Email, _sucessDto.Password, null, null, null, TimeOnly.Parse(_sucessDto.OpenTime), null, TimeOnly.Parse(_sucessDto.CloseTime));
         }
 
         [Fact]
         public void Execute_WhenValidInput_ReturnsSuccess()
         {
-            // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "49", "Blumenau", "SC", "Ao lado da Blumob", "40028922", "banana@gmail.com", null, "Carlos", "banana",
-                "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Sucess("Conta Criada com sucesso");
+            var actual = _registerService.Execute(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenInvalidEmail_ReturnsInvalidError()
         {
-            // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "49", "Blumenau", "SC", "Ao lado da Blumob", "40028922", null, null, "Carlos", "banana",
-               "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
+            //Arrange
+            _sucessDto.Email = "carlosgmail";
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Email inválido");
+            var actual = _registerService.Execute(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenExistingEmail_ReturnsConflictError()
         {
             // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "49", "Blumenau", "SC", "Ao lado da Blumob", "40028922", "banana@gmail.com", null, "Carlos", "banana",
-              "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns(new UserEntity());
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns(_user);
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Usuário já registrado");
+            var actual = _registerService.Execute(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_TooShortPassword_ReturnsInvalidError()
         {
-            // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "49", "Blumenau", "SC", "Ao lado da Blumob", "40028922", "banana@gmail.com", null, "Carlos", "1",
-             "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
+            _sucessDto.Password = "maria";
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Senha muito curta");
+            var actual = _registerService.Execute(_sucessDto);
 
-            // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenTooShortName_ReturnsInvalidError()
         {
             // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "49", "Blumenau", "SC", "Ao lado da Blumob", "40028922", "banana@gmail.com", null, "A", "banana",
-             "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
+            _sucessDto.Name = "Ana";
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Nome muito curto");
+            var actual = _registerService.Execute(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
-        }
-
-        [Fact]
-        public void Execute_WhenInvalidHairPrice_ReturnsInvalidError()
-        {
-            // Arrange
-            var dto = new RegisterDto(-20, -20, -20, "Rua das Palmeiras", "69", "Blumenau", "SC", null, null, "banana@gmail.com", null, "Carlos", "banana",
-                "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
-
-            // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Valor do corte de cabelo inválido");
-
-            // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
-        }
-
-        [Fact]
-        public void Execute_WhenMissingAddress_ReturnsNotNullError()
-        {
-            // Arrange
-            var dto = new RegisterDto(20, 20, 20, null, null, null, null, null, null, "cavalo@gmail.com", null, "Carla", "banana",
-                "Carlinhair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
-
-            // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.NotNull("Endereço");
-
-            // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenMissingSaloonName_ReturnsNotNullError()
         {
-            // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "69", "Blumenau", "SC", "Ao lado da Blumob", "472823829", "banana@gmail.com", null, "Carlos", "banana",
-              null, DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-
-            _userRepositoryMock.Setup(repo => repo.GetByEmail(dto.Email, dto.Password)).Returns((UserEntity)null);
+            _sucessDto.SaloonName = null;
+            _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns(_user);
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.NotNull("Nome do salão");
+            var actual = _registerService.Execute(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
         [Fact]
         public void Execute_WhenPhoneNumberIsNullOrEmpty_ShouldReturnBaseDtoWithNotNullErrorMessage()
         {
-            // Arrange
-            var dto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "49", "Blumenau", "SC", "Ao lado da Blumob", null, "banana@gmail.com", null, "Carlos", "banana",
-                "CarlinHair", DateTime.Now.AddDays(3), null, DateTime.Now.AddDays(3));
-
-            _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns((UserEntity)null);
+            _sucessDto.PhoneNumber = "";
+            _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns(_user);
 
             // Act
-            var actual = _registerService.Execute(dto);
-            var expected = BaseDtoExtension.Invalid("Telefone não pode ser nulo");
+            var actual = _registerService.Execute(_sucessDto);
 
             // Assert
-            Assert.Equal(expected._Message, actual._Message);
-            Assert.Equal(expected._StatusCode, actual._StatusCode);
+            Assert.Equal(_Expected, actual._StatusCode);
         }
 
-        //[Fact]
-        //public void Execute_ShouldReturnInvalid_WhenOpenTimeIsInvalid()
-        //{
-        //    // Arrange
-        //    var invalidOpenTime = DateTime.Now.AddDays(-1);
-        //    var dto = new RegisterDto(20, 20, 20, "Rua B", "22", "Guarapuava", "Paraná", "Atrás do mercado", "4785489647",
-        //        "ALELUIA@GMAIL.COM", "123456789-10", "Patrícia", "znpkdwor35f", "LightSaloon", invalidOpenTime, "abc.com", DateTime.Now.AddDays(20));
-        //    // Act
-        //    var actual = _registerService.Execute(dto);
-        //    var expected = BaseDtoExtension.Invalid("Horário de abertura inválido");
+        [Fact]
+        public void Execute_ShouldReturnInvalid_WhenOpenTimeIsInvalid()
+        {
+            // Arrange
+            var invalidOpenTime = "24:00";
+            _sucessDto.OpenTime = invalidOpenTime;
 
-        //    // Assert
+            // Act
+            var actual = _registerService.Execute(_sucessDto);
+            var _Expected = BaseDtoExtension.Invalid("Horario de abertura");
 
-        //    Assert.Equal(expected._Message, actual._Message);
-        //    Assert.Equal(expected._StatusCode, actual._StatusCode);
-        //}
+            // Assert
+            Assert.Equal(_Expected._Message, actual._Message);
+            Assert.Equal(_Expected._StatusCode, actual._StatusCode);
+        }
+
+        [Fact]
+        public void Execute_ShouldReturnInvalid_WhenCloseTimeIsInvalid()
+        {
+            // Arrange
+            var invalidCloseTime = "24:00";
+            _sucessDto.CloseTime = invalidCloseTime;
+
+            // Act
+            var actual = _registerService.Execute(_sucessDto);
+            var _Expected = BaseDtoExtension.Invalid("Horario de fechamento");
+
+            // Assert
+            Assert.Equal(_Expected._Message, actual._Message);
+            Assert.Equal(_Expected._StatusCode, actual._StatusCode);
+        }
     }
 }

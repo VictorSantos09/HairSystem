@@ -42,9 +42,16 @@ namespace Hair.Application.Services
         }
 
         /// <summary>
+        /// 
         /// Busca três salões aleatórios e diferentes no banco de dados
+        /// 
         /// </summary>
-        /// <returns>Retorna um uma lista de objetos, no qual pode ser vazia se não encontrado nenhum salão </returns>
+        /// 
+        /// <returns>
+        /// 
+        /// Retorna um uma lista de objetos, no qual pode ser vazia se não encontrado nenhum salão 
+        /// 
+        /// </returns>
         public BaseDto GetThreeSaloonsInfo()
         {
             var output = new List<object>();
@@ -74,11 +81,8 @@ namespace Hair.Application.Services
                 user.PhoneNumber,
                 user.Email,
                 user.SaloonName,
-                user.Prices.Hair,
-                user.Prices.Beard,
-                user.Prices.Mustache,
                 user.CNPJ,
-                user.GoogleMapsSource,
+                user.GoogleMapsLocation,
                 OpenTime = $"{user.OpenTime.Hour}:{user.OpenTime.Minute}",
                 CloseTime = $"{user.CloseTime.Hour}:{user.CloseTime.Minute}",
             };

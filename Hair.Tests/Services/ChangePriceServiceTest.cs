@@ -18,7 +18,8 @@ namespace Hair.Tests.Services
 
         public ChangePriceServiceTest()
         {
-            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(), null, _haircutPrice, DateTime.Now, null, DateTime.Now.AddHours(4));
+            _user = new UserEntity("Elefante's", "victor", "047991548789", "victor@gmail.com", "Victor", new AddressEntity(), null,
+                _haircutPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now.AddHours(4)));
             _dto = new(_user.Id, 20, true, true, true, true);
             _service = new ChangePriceService(_userRepositoryMock.Object);
         }

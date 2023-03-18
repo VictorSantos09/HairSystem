@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
+using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -15,67 +15,29 @@ namespace Hair.Repository.Repositories
     {
         public void Create(UserEntity user)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Execute("dbo.spCreateUser", new
                 {
-                    ID = user.Id,
-                    SALOON_NAME = user.SaloonName,
-                    OWNER_NAME = CryptoSecurity.Encrypt(user.OwnerName),
-                    PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
-                    EMAIL = CryptoSecurity.Encrypt(user.Email),
-                    PASSWORD = CryptoSecurity.Encrypt(user.Password),
-                    CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
-                    OPEN_TIME = user.OpenTime.ToString(),
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
-                    CLOSE_TIME = user.CloseTime.ToString(),
-                    STREET = user.Address.Street,
-                    NUMBER = user.Address.Number,
-                    CITY = user.Address.City,
-                    STATE = user.Address.State,
-                    COMPLEMENT = user.Address.Complement == null ? null : user.Address.Complement,
-                    CEP = user.Address.CEP,
-                    HAIR = user.Prices.Hair,
-                    BEARD = user.Prices.Beard,
-                    MUSTACHE = user.Prices.Mustache,
+                   
                 }, commandType: CommandType.StoredProcedure);
             }
         }
 
         public void Update(UserEntity user)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spUpdateUser", new
                 {
-                    ID = user.Id,
-                    SALOON_NAME = CryptoSecurity.Encrypt(user.SaloonName),
-                    OWNER_NAME = CryptoSecurity.Encrypt(user.OwnerName),
-                    PHONE_NUMBER = CryptoSecurity.Encrypt(user.PhoneNumber),
-                    EMAIL = CryptoSecurity.Encrypt(user.Email),
-                    PASSWORD = CryptoSecurity.Encrypt(user.Password),
-                    CNPJ = user.CNPJ == null ? null : CryptoSecurity.Encrypt(user.CNPJ),
-                    OPEN_TIME = user.OpenTime,
-                    GOOGLE_MAPS_SOURCE = user.GoogleMapsSource,
-                    CLOSE_TIME = user.CloseTime,
-
-                    STREET = user.Address.Street,
-                    NUMBER = user.Address.Number,
-                    CITY = user.Address.City,
-                    STATE = user.Address.State,
-                    COMPLEMENT = user.Address.Complement,
-                    CEP = user.Address.CEP,
-
-                    HAIR = user.Prices.Hair,
-                    BEARD = user.Prices.Beard,
-                    MUSTACHE = user.Prices.Mustache
+                    
                 });
             }
         }
 
         public UserEntity? GetByEmail(string email, string password)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserByEmail @EMAIL, @PASSWORD", new
                 {
@@ -87,7 +49,6 @@ namespace Hair.Repository.Repositories
                     return null;
 
                 var user = FillUser(userSql);
-                PopulateExtraEntities(user, conn);
 
                 return user == null ? null : user;
             }
@@ -95,7 +56,7 @@ namespace Hair.Repository.Repositories
 
         public UserEntity? GetById(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var userSql = conn.Query<UserEntityFromSql>("dbo.spGetUserById @ID", new { ID = id }).FirstOrDefault();
 
@@ -103,7 +64,6 @@ namespace Hair.Repository.Repositories
                     return null;
 
                 var user = FillUser(userSql);
-                PopulateExtraEntities(user, conn);
 
                 return user == null ? null : user;
             }
@@ -112,37 +72,25 @@ namespace Hair.Repository.Repositories
         public List<UserEntity> GetAll()
         {
             var output = new List<UserEntity>();
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var usersFromSql = conn.Query<UserEntityFromSql>("dbo.spGetAllUsers").ToList();
 
-                output.AddRange(FillUser(usersFromSql, conn));
+                output.AddRange(FillUser(usersFromSql));
             }
             return output;
         }
 
         public bool Remove(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var user = GetById(id);
 
                 conn.Query("dbo.spDeleteUser @ID", new { ID = id });
 
-                return true;
             }
-        }
-
-        private void PopulateExtraEntities(UserEntity user, IDbConnection conn)
-        {
-            if (user == null)
-                return;
-
-            var haircuts = conn.Query<HaircutEntity>("dbo.spGetUserHaircuts @ID", new { ID = user.Id }).ToList();
-            user.Address = ConvertAddress(conn.Query<AddressEntityFromSql>("dbo.spGetUserAddress @ID", new { ID = user.Id }).FirstOrDefault());
-            user.Prices = conn.Query<HaircutPriceEntity>("spGetUserHaircutPrice @ID", new { ID = user.Id }).FirstOrDefault();
-
-            user.Haircuts.AddRange(haircuts);
+            return true;
         }
 
         private UserEntity DecryptProcess(UserEntityFromSql userSql)
@@ -152,7 +100,7 @@ namespace Hair.Repository.Repositories
             user.Id = userSql.Id;
             user.Address = userSql.Address;
             user.SaloonName = userSql.Saloon_Name;
-            user.GoogleMapsSource = userSql.Google_Maps_Source;
+            user.GoogleMapsLocation = userSql.Google_Maps_Source;
             user.CNPJ = userSql.CNPJ == null ? null : CryptoSecurity.Decrypt(userSql.CNPJ);
             user.Password = CryptoSecurity.Decrypt(userSql.Password);
             user.Email = CryptoSecurity.Decrypt(userSql.Email);
@@ -162,14 +110,13 @@ namespace Hair.Repository.Repositories
             return user;
         }
 
-        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql, IDbConnection conn)
+        private List<UserEntity>? FillUser(List<UserEntityFromSql> usersFromSql)
         {
             var output = new List<UserEntity>();
 
             foreach (var userSql in usersFromSql)
             {
                 var user = DecryptProcess(userSql);
-                PopulateExtraEntities(user, conn);
                 output.Add(user);
             }
 

@@ -47,7 +47,11 @@ namespace Hair.Application.Services
 
             byte[] imageByte = Convert.FromHexString(dto.Image.ToString());
 
-            var img = new ImageEntity(user.Id, imageByte);
+            var resultDate = new DateOnly();
+            if (DateOnly.TryParse(dto.UploadDate, out resultDate) == false)
+                return BaseDtoExtension.Invalid("Data de postagem");
+
+            var img = new ImageEntity(user.Id, imageByte, resultDate, dto.Type);
 
             var validationResult = Validation.Verify(_imageValidator.Validate(img));
 

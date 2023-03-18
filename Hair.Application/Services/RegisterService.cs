@@ -40,10 +40,15 @@ namespace Hair.Application.Services
             if (isExistentUser != null)
                 return BaseDtoExtension.Invalid("Usuário já registrado");
 
-            var haircutPrice = new HaircutPriceEntity(dto.HairPrice, dto.BeardPrice, dto.MustachePrice);
+            var resultOpenTime = new TimeOnly();
+            if (TimeOnly.TryParse(dto.OpenTime, out resultOpenTime) == false)
+                return BaseDtoExtension.Invalid("Horario de abertura");
 
-            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.Password, new AddressEntity(),
-                dto.CNPJ, haircutPrice, TimeOnly.Parse(dto.OpenTime), dto.GoogleMapsSource, TimeOnly.Parse(dto.CloseTime));
+            var resultCloseTime = new TimeOnly();
+            if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
+                return BaseDtoExtension.Invalid("Horario de fechamento");
+
+            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(), resultOpenTime, resultCloseTime, dto.GoogleMapsSource);
 
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
 
@@ -54,7 +59,7 @@ namespace Hair.Application.Services
             if (validationResult.Condition)
             {
                 _userRepository.Create(newUser);
-                return BaseDtoExtension.Sucess("Conta Criada com sucesso");
+                return BaseDtoExtension.Sucess("conta criada com sucesso");
             }
 
             return Validation.ToBaseDto(validationResult);

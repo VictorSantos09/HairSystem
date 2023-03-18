@@ -17,7 +17,7 @@ namespace Hair.Tests.Services
         {
             _mockImageRepository = new Mock<IBaseRepository<ImageEntity>>();
             _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
-            _postImageService = new PostImageService(_mockImageRepository.Object, _mockUserRepository.Object);
+            _postImageService = new PostImageService(_mockImageRepository.Object, _mockUserRepository.Object, null);
         }
 
         [Fact]

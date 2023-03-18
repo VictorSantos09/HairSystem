@@ -3,7 +3,6 @@ using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Hair.Repository.Repositories
 {
@@ -14,12 +13,12 @@ namespace Hair.Repository.Repositories
     {
         public void Create(ImageEntity entity)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spCreateImage @ID, @USERID, @IMAGE", new
                 {
                     ID = entity.Id,
-                    USERID = entity.SaloonId,
+                    USERID = entity.UserID,
                     IMAGE = entity.Image
                 });
             }
@@ -27,7 +26,7 @@ namespace Hair.Repository.Repositories
 
         public List<ImageEntity> GetAll()
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 return conn.Query<ImageEntity>("dbo.spGetAllImages").ToList();
             }
@@ -35,7 +34,7 @@ namespace Hair.Repository.Repositories
 
         public ImageEntity? GetById(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 return conn.Query<ImageEntity>("dbo.spGetImageById", new { ID = id }).FirstOrDefault();
             }
@@ -43,7 +42,7 @@ namespace Hair.Repository.Repositories
 
         public bool Remove(Guid id)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 conn.Query("dbo.spDeleteImage", new { ID = id });
             }
@@ -53,9 +52,9 @@ namespace Hair.Repository.Repositories
 
         public void Update(ImageEntity entity)
         {
-            using (IDbConnection conn = new SqlConnection(DataAccess.DBConnection))
+            using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                conn.Query("dbo.spUpdateImage", new { ID = entity.Id, IMAGE = entity.Image, @SALOON_ID = entity.SaloonId });
+                conn.Query("dbo.spUpdateImage", new { ID = entity.Id, IMAGE = entity.Image, @SALOON_ID = entity.UserID });
             }
         }
     }
