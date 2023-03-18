@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
@@ -8,22 +9,18 @@ namespace Hair.Application.Validators
     /// </summary>
     public class DutyValidator : AbstractValidator<DutyEntity>
     {
-        private readonly IValidator<ClientEntity> _clientValidator;
-        public DutyValidator(IValidator<ClientEntity> validator)
+        public DutyValidator()
         {
-            _clientValidator = validator;
-
-            RuleFor(x => x.Date).NotEmpty().WithName("Horário de corte");
-
+            RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.UserID).NotEmpty().WithName("ID do usuário");
-
-            RuleFor(x => x.Client).Custom((client, context) =>
+            RuleFor(x => x.Client).SetValidator(new ClientValidator()).WithName("Cliente");
+            RuleFor(x => x.ServiceType).SetValidator(new ServiceTypeValidator()).WithName("Tipo do serviço");
+            RuleFor(x => x.Date).NotEmpty().WithName("Data").Custom((date, context) =>
             {
-                var clientResult = _clientValidator.Validate(client);
-
-                if (!clientResult.IsValid)
+                if (date < DateTime.Today)
                 {
-                    var failure = BuildErrorValidation.BuildError(clientResult);
+                    ValidationFailure failure = new ValidationFailure(date.ToString(), "Não é possível agendar para dia anterior");
+
                     context.AddFailure(failure);
                 }
             });

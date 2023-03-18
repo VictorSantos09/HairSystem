@@ -8,33 +8,22 @@ namespace Hair.Application.Validators
     /// </summary>
     public class WorkerValidator : AbstractValidator<WorkerEntity>
     {
-        private readonly IValidator<AddressEntity> _addressValidator;
-        public WorkerValidator(IValidator<AddressEntity> addressValidator)
+        public WorkerValidator()
         {
-            _addressValidator = addressValidator;
-
-            RuleFor(x => x.Email).NotNull().EmailAddress().WithName("Email");
-
-            RuleFor(x => x.Salary).NotEmpty().GreaterThan(0).WithName("Salário");
-
-            RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(12).WithName("Telefone");
-
-            RuleFor(x => x.Name).NotEmpty().MinimumLength(5).WithName("Nome");
-
-            RuleFor(x => x.UserID).NotEmpty().WithName("ID do usuário");
-
-            RuleFor(x => x.Id).NotEmpty().WithName("ID");
-
-            RuleFor(x => x.Address).Custom((address, context) =>
+            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.UserID).NotEmpty().WithName("Id do usuário");
+            RuleFor(x => x.Address).SetValidator(new AddressValidator());
+            RuleFor(x => x.FunctionType).SetValidator(new FunctionTypeValidator());
+            RuleFor(x => x.Name).NotEmpty().MaximumLength(50).WithName("Nome");
+            RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(50).WithName("Telefone");
+            RuleFor(x => x.Email).Custom((email, context) =>
             {
-                var addressResult = _addressValidator.Validate(address);
-
-                if (!addressResult.IsValid)
+                if (email != null)
                 {
-                    var failure = BuildErrorValidation.BuildError(addressResult);
-                    context.AddFailure(failure);
+                    RuleFor(x => x.Email).EmailAddress();
                 }
             });
+            RuleFor(x => x.Salary).NotEmpty().WithName("Salário");
         }
     }
 }

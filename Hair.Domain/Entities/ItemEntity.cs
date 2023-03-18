@@ -18,10 +18,10 @@ namespace Hair.Domain.Entities
 
         /// <summary>
         /// 
-        /// Nome do item.
+        /// Tipo do item.
         /// 
         /// </summary>
-        public string Name { get; set; }
+        public ItemTypeEntity Type { get; set; }
 
         /// <summary>
         /// Descrição do item.
@@ -42,11 +42,10 @@ namespace Hair.Domain.Entities
         /// </summary>
         public int QuantityAvaible { get; set; }
 
-        public ItemEntity(Guid userID, string name, string? description, double price, int quantityAvaible)
+        public ItemEntity(Guid userID, ItemTypeEntity type, string? description, double price, int quantityAvaible)
         {
-            Id = Guid.NewGuid();
             UserID = userID;
-            Name = name;
+            Type = type;
             Description = description;
             Price = price;
             QuantityAvaible = quantityAvaible;

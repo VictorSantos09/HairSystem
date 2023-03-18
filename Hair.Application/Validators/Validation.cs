@@ -28,11 +28,11 @@ namespace Hair.Application.Validators
             if (result.IsValid)
                 return new ValidationResultDto(true);
 
-            List<ValidationErrorDto> errors = new List<ValidationErrorDto>();
+            List<ValidationResultDto> errors = new List<ValidationResultDto>();
 
             foreach (var error in result.Errors)
             {
-                ValidationErrorDto dto = new ValidationErrorDto(error.ErrorMessage);
+                ValidationResultDto dto = new ValidationResultDto(false, error.ErrorMessage);
                 errors.Add(dto);
             }
 
