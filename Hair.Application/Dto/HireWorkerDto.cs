@@ -16,9 +16,10 @@ namespace Hair.Application.Dto
         public string WorkerState { get; set; }
         public bool Confirmed { get; set; }
         public string CEP { get; set; }
+        public string WorkerFunction { get; set; }
 
         public HireWorkerDto(string name, Guid userID, string phoneNumber, string? email, float salary, string workerStreet, 
-            string workerHouseNumber, string? workerHouseComplement, string workerCity, string workerState, bool confirmed, string cEP)
+            string workerHouseNumber, string? workerHouseComplement, string workerCity, string workerState, bool confirmed, string cEP, string workerFunction)
         {
             Name = name;
             UserID = userID;
@@ -32,6 +33,7 @@ namespace Hair.Application.Dto
             WorkerState = workerState;
             Confirmed = confirmed;
             CEP = cEP;
+            WorkerFunction = workerFunction;
         }
     }
 }

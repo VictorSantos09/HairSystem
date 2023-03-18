@@ -20,26 +20,26 @@ namespace Hair.Tests.Builders
         }
 
         public ScheduleDutyService InstanceScheduleHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<DutyEntity>> haircutRepositoryMock)
+            Mock<IBaseRepository<DutyEntity>> dutyRepositoryMock)
         {
-            return new ScheduleDutyService(userRepositoryMock.Object, haircutRepositoryMock.Object, _validatorBuilder.InstanceHaircutValidator());
+            return new ScheduleDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object, _validatorBuilder.InstanceDutyValidator());
         }
 
         public ManagmentWorkerService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<WorkerEntity>> barberRepositoryMock)
+            Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock, Mock<IFunctionTypeRequest> functionTypeRepository)
         {
-            return new ManagmentWorkerService(userRepositoryMock.Object, barberRepositoryMock.Object, _validatorBuilder.InstanceBarberValidator());
+            return new ManagmentWorkerService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator(), functionTypeRepository.Object);
         }
 
         public CancelHaircutService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<DutyEntity>> haircutRepositoryMock)
+            Mock<IBaseRepository<DutyEntity>> dutyRepositoryMock)
         {
-            return new CancelHaircutService(userRepositoryMock.Object, haircutRepositoryMock.Object);
+            return new CancelHaircutService(userRepositoryMock.Object, dutyRepositoryMock.Object);
         }
 
-        public HireWorkerService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> barberRepositoryMock)
+        public HireWorkerService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock)
         {
-            return new HireWorkerService(userRepositoryMock.Object, barberRepositoryMock.Object, _validatorBuilder.InstanceBarberValidator());
+            return new HireWorkerService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator());
         }
     }
 }

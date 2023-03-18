@@ -51,9 +51,9 @@ namespace Hair.Application.Services
             employees.FindAll(e => e.UserID == user.Id);
 
             if (employees.Count == 0)
-                return BaseDtoExtension.Sucess("Barbeiros não encontrados.");
+                return BaseDtoExtension.Sucess("funcionários não encontrados.");
 
-            return BaseDtoExtension.Create(200, "Relação de barbeiros.", employees);
+            return BaseDtoExtension.Create(200, "Relação de funcionários.", employees);
         }
     }
 }

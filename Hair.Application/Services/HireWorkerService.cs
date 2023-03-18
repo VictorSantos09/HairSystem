@@ -5,6 +5,7 @@ using Hair.Application.Extensions;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using System.Reflection;
 
 namespace Hair.Application.Services
 {
@@ -46,7 +47,22 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var worker = new WorkerEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), user.Id);
+            
+            FunctionTypeEntity newFunction = new FunctionTypeEntity();
+            
+            FunctionDataTypes functions = new FunctionDataTypes();
+            Type typeFunction = functions.GetType();
+            foreach (PropertyInfo pInfo in typeFunction.GetProperties())
+            {
+                string propertyValue = pInfo.GetValue(functions, null).ToString();
+
+                if(dto.WorkerFunction == propertyValue)
+                {
+                    newFunction.Name = propertyValue;
+                }
+            }
+
+            var worker = new WorkerEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), user.Id, newFunction);
             var address = new AddressEntity(dto.WorkerStreet, dto.WorkerHouseNumber, dto.WorkerCity, dto.WorkerState, dto.WorkerHouseComplement, dto.CEP, worker.Id);
 
             worker.Address = address;

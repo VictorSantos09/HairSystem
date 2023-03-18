@@ -17,15 +17,15 @@ namespace HairSystem.Controllers
         private readonly IException _exHelper;
 
         public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository,
-            IBaseRepository<WorkerEntity> workerRepository, IValidator<WorkerEntity> workerValidator)
+            IBaseRepository<WorkerEntity> workerRepository, IValidator<WorkerEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
         {
             _exHelper = exception;
-            _service = new(userRepository, workerRepository, workerValidator);
+            _service = new(userRepository, workerRepository, workerValidator, functionTypeRepository);
         }
 
         [HttpDelete]
-        [Route("FireBarber")]
-        public IActionResult FireBarber([FromBody] FireWorkerDto dto)
+        [Route("FireWorker")]
+        public IActionResult FireWorker([FromBody] FireWorkerDto dto)
         {
             try
             {
@@ -40,8 +40,8 @@ namespace HairSystem.Controllers
         }
 
         [HttpPost]
-        [Route("HireBarber")]
-        public IActionResult HireBarber([FromBody] HireWorkerDto dto)
+        [Route("HireWorker")]
+        public IActionResult HireWorker([FromBody] HireWorkerDto dto)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace HairSystem.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateBarber")]
-        public IActionResult ChangeAdress([FromBody] UpdateWorkerDto dto)
+        [Route("UpdateWorker")]
+        public IActionResult UpdateWorker([FromBody] UpdateWorkerDto dto)
         {
             try
             {

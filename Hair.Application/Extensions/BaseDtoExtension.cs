@@ -92,7 +92,12 @@ namespace Hair.Application.Extensions
         /// </summary>
         /// <param name="message"></param>
         /// <param name="data">Dados para envio, podendo ser <see langword="null"/></param>
-        /// <returns>Retorna <see cref="BaseDto"/> com status code recebendo 417, message e data fornecidos no parâmetro</returns>
+        /// 
+        /// <returns>
+        /// 
+        /// Retorna <see cref="BaseDto"/> com status code recebendo 417, message e data fornecidos no parâmetro
+        /// 
+        /// </returns>
         public static BaseDto Error(string message, object? data = null) => new BaseDto(417, message, data);
     }
 }

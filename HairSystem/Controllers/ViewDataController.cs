@@ -16,11 +16,11 @@ namespace HairSystem.Controllers
         private readonly ViewHaircutTimeService _viewHaircutTime;
         private readonly IException _exHelper;
 
-        public ViewDataController(IBaseRepository<WorkerEntity> barberRepository, IGetByEmail userRepository, 
+        public ViewDataController(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository, 
             IException exception, IBaseRepository<DutyEntity> haircutRepository)
         {
             _exHelper = exception;
-            _viewEmployeeData = new VisualizeEmployeeDataService(barberRepository, userRepository);
+            _viewEmployeeData = new VisualizeEmployeeDataService(workerRepository, userRepository);
             _viewHaircutTime = new ViewHaircutTimeService(haircutRepository);
         }
 

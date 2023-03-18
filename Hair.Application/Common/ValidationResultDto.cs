@@ -42,6 +42,6 @@
         }
 
         public static string GetMessage() => Message; 
-        public static int GetStatusCode() => StatusCode; 
+        public static int GetStatusCode() => StatusCode;
     }
 }

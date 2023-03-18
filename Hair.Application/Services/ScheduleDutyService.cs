@@ -5,6 +5,7 @@ using Hair.Application.Extensions;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using System.Reflection;
 
 namespace Hair.Application.Services
 {
@@ -52,8 +53,24 @@ namespace Hair.Application.Services
                     return BaseDtoExtension.Create(200, "Horário indisponível");
             }
 
-            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber, user.Id);
-            var newDuty = new DutyEntity(dto.UserID, dto.HaircuteTime, client);
+            ServiceTypeEntity newService = new ServiceTypeEntity();
+
+            FunctionDataTypes duties = new FunctionDataTypes();
+            Type typeDuty = duties.GetType();
+            foreach (PropertyInfo pInfo in typeDuty.GetProperties())
+            {
+                string propertyValue = pInfo.GetValue(duties, null).ToString();
+
+                if (dto.DutyType == propertyValue)
+                {
+                    newService.Name = propertyValue;
+                }
+            }
+
+            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber, user.Id, new DutyEntity());
+            var newDuty = new DutyEntity(dto.UserID, dto.HaircuteTime, client, newService);
+
+            client.Duty = newDuty;
 
             var validationResult = Validation.Verify(_dutyValidator.Validate(newDuty));
 

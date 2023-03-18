@@ -10,16 +10,16 @@ namespace Hair.Tests.Builders
         private IValidator<AddressEntity> _addressValidator;
         private IValidator<ClientEntity> _clientValidator;
         private IValidator<DutyEntity> _haircutValidator;
-        private IValidator<WorkerEntity> _barberValidator;
-        private IValidator<ItemEntity> _saloonItemValidator;
+        private IValidator<WorkerEntity> _workerValidator;
+        private IValidator<ItemEntity> _itemValidator;
         private IValidator<ImageEntity> _imageValidator;
         public ValidatorBuilder()
         {
             _addressValidator = new AddressValidator();
             _clientValidator = new ClientValidator();
-            _saloonItemValidator = new SaloonItemValidator();
+            _itemValidator = new SaloonItemValidator();
             _imageValidator = new ImageValidator();
-            _barberValidator = new WorkerValidator(_addressValidator);
+            _workerValidator = new WorkerValidator(_addressValidator);
             _haircutValidator = new DutyValidator(_clientValidator);
             _userValidator = new UserValidator(_addressValidator);
         }
@@ -30,12 +30,12 @@ namespace Hair.Tests.Builders
 
         public IValidator<ClientEntity> InstanceClientValidator() => _clientValidator;
 
-        public IValidator<WorkerEntity> InstanceBarberValidator() => _barberValidator;
+        public IValidator<WorkerEntity> InstanceWorkerValidator() => _workerValidator;
 
-        public IValidator<DutyEntity> InstanceHaircutValidator() => _haircutValidator;
+        public IValidator<DutyEntity> InstanceDutyValidator() => _haircutValidator;
 
         public IValidator<ImageEntity> InstanceImageValidator() => _imageValidator;
 
-        public IValidator<ItemEntity> InstanceSaloonItemValidator() => _saloonItemValidator;
+        public IValidator<ItemEntity> InstanceItemValidator() => _itemValidator;
     }
 }

@@ -12,7 +12,7 @@ namespace Hair.Application.Configuration
     /// <summary>
     /// Define as configurações do sistema
     /// </summary>
-    public class Setup
+    public class Startup
     {
         /// <summary>
         /// Injeta os itns necessarios no <paramref name="services"/> fornecido
@@ -29,12 +29,15 @@ namespace Hair.Application.Configuration
         private static void InjectValidators(IServiceCollection services)
         {
             services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
-            services.AddTransient<IValidator<UserEntity>, UserValidator>();
-            services.AddTransient<IValidator<WorkerEntity>, WorkerValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
             services.AddTransient<IValidator<DutyEntity>, DutyValidator>();
+            services.AddTransient <IValidator<FunctionTypeEntity, FunctionTypeValidator>();
             services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
             services.AddTransient<IValidator<ItemEntity>, SaloonItemValidator>();
+            services.AddTransient<IValidator<ServiceEntity>, ServiceValidator>();
+            services.AddTransient<IValidator<ServiceTypeEntity>, ServiceTypeValidator>();
+            services.AddTransient<IValidator<UserEntity>, UserValidator>();
+            services.AddTransient<IValidator<WorkerEntity>, WorkerValidator>();
         }
 
         private static void InjectRepositories(IServiceCollection services)

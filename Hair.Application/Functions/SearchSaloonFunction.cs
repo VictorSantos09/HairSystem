@@ -28,8 +28,11 @@ namespace Hair.Application.Functions
         /// 
         /// <param name="dto">Contém os dados necessários para a busca.</param>
         /// 
-        /// <returns> BaseDto que contém uma mensagem de sucesso e uma lista de objetos com informações sobre os salões encontrados.
-        /// Caso nenhum salão seja encontrado, a mensagem de sucesso conterá a indicação de que nenhum salão foi encontrado.
+        /// <returns> 
+        /// 
+        /// BaseDto que contém uma mensagem de sucesso e uma lista de objetos com informações sobre os salões encontrados.
+        /// <para>Caso nenhum salão seja encontrado, a mensagem de sucesso conterá a indicação de que nenhum salão foi encontrado.</para>
+        /// 
         /// </returns>
         public BaseDto SimpleSearch(SearchSaloonSimpleDto dto)
         {
@@ -56,7 +59,9 @@ namespace Hair.Application.Functions
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns> O objeto BaseDto com os resultados da pesquisa de salões filtrados.</returns>
+        /// <returns>
+        /// O objeto BaseDto com os resultados da pesquisa de salões filtrados.
+        /// </returns>
         public BaseDto FilteredSearch(SearchSaloonFilterDto dto)
         {
             var users = _userRepository.GetAll();

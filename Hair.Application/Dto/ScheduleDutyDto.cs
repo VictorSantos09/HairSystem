@@ -10,8 +10,9 @@ namespace Hair.Application.Dto
         public string ClientPhoneNumber { get; set; }
         public string? ClientEmail { get; set; }
         public string ClientName { get; set; }
+        public string DutyType { get; set; }
 
-        public ScheduleDutyDto(Guid userID, DateTime haircuteTime, bool confirmed, string clientPhoneNumber, string? clientEmail, string clientName)
+        public ScheduleDutyDto(Guid userID, DateTime haircuteTime, bool confirmed, string clientPhoneNumber, string? clientEmail, string clientName, string dutyType)
         {
             UserID = userID;
             HaircuteTime = haircuteTime;
@@ -19,6 +20,7 @@ namespace Hair.Application.Dto
             ClientPhoneNumber = clientPhoneNumber;
             ClientEmail = clientEmail;
             ClientName = clientName;
+            DutyType = dutyType;
         }
     }
 }

@@ -29,18 +29,18 @@ namespace Hair.Application.Services
         /// <param name="dto"></param>
         /// 
         /// <returns>Retorna um <see cref="BaseDto"/> Com statusCode 404,200 e 406 caso dados inválidos.</returns>
-        public BaseDto FireBarber(FireWorkerDto dto)
+        public BaseDto FireWorker(FireWorkerDto dto)
         {
-            var barber = _workerRepository.GetById(dto.WorkerID);
+            var worker = _workerRepository.GetById(dto.WorkerID);
 
-            if (barber == null)
+            if (worker == null)
                 return BaseDtoExtension.NotFound("Funcionário");
 
-            if (dto.UserID == barber.UserID && dto.WorkerName.ToUpper() == barber.Name)
+            if (dto.UserID == worker.UserID && dto.WorkerName.ToUpper() == worker.Name)
             {
-                _workerRepository.Remove(barber.Id);
+                _workerRepository.Remove(worker.Id);
 
-                return BaseDtoExtension.Sucess($"{barber.Name} foi desligado");
+                return BaseDtoExtension.Sucess($"{worker.Name} foi desligado");
             }
 
             return BaseDtoExtension.Create(406, "Não foi possivel encontrar o funcionário no salão");

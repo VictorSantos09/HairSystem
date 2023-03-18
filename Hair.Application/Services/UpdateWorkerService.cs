@@ -31,7 +31,7 @@ namespace Hair.Application.Services
 
         /// <summary>
         /// 
-        /// Efetua a atualização de um novo barbeiro.
+        /// Efetua a atualização de um novo funcionário.
         /// 
         /// </summary>
         /// 
