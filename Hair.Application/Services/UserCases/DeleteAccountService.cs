@@ -3,7 +3,7 @@ using Hair.Application.Dto;
 using Hair.Application.Extensions;
 using Hair.Repository.Interfaces;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.UserCases
 {
     /// <summary>
     /// 

@@ -4,7 +4,7 @@ using Hair.Application.Dto;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.UserCases
 {
     /// <summary>
     /// 
@@ -17,7 +17,7 @@ namespace Hair.Application.Services
         private readonly HireWorkerService _hire;
         private readonly FireWorkerService _fire;
 
-        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> workerRepository, 
+        public ManagmentWorkerService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> workerRepository,
             IValidator<WorkerEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
         {
             _update = new(userRepository, workerRepository, workerValidator, functionTypeRepository);

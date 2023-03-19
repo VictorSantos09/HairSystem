@@ -6,7 +6,7 @@ using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.UserCases
 {
     /// <summary>
     /// 
@@ -48,7 +48,7 @@ namespace Hair.Application.Services
             if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
                 return BaseDtoExtension.Invalid("Horario de fechamento inválido");
 
-            var newUser = new UserEntity(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(), 
+            var newUser = new UserEntity(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(),
                 resultOpenTime, resultCloseTime, dto.GoogleMapsLocation);
 
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);

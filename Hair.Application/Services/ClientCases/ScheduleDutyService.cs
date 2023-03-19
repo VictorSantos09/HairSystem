@@ -7,7 +7,7 @@ using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using System.Reflection;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.ClientCases
 {
     /// <summary>
     /// 
@@ -58,7 +58,7 @@ namespace Hair.Application.Services
                     return BaseDtoExtension.Create(406, "Horário indisponível");
             }
 
-            ServiceTypeEntity newService = new ServiceTypeEntity();
+            TaskTypeEntity newService = new TaskTypeEntity();
 
             FunctionDataTypes dutyTypes = new FunctionDataTypes();
             Type typeDuty = duties.GetType();

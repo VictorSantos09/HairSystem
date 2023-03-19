@@ -5,7 +5,7 @@ using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.ClientCases
 {
     /// <summary>
     /// 

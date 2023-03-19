@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Services;
+using Hair.Application.Services.ClientCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("ViewInformation")]
-        public IActionResult GetInformation([FromBody] ViewUsernformationDto dto)
+        public IActionResult GetInformation([FromBody] ViewUserInformationDto dto)
         {
             try
             {

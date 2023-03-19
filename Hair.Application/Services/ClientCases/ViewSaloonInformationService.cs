@@ -4,7 +4,7 @@ using Hair.Application.Extensions;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.ClientCases
 {
     /// <summary>
     /// 
@@ -29,7 +29,7 @@ namespace Hair.Application.Services
         /// <param name="dto"></param>
         /// 
         /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code. Data de <see cref="BaseDto"/> recebe as informações do salão quando encontrado.</returns>
-        public BaseDto GetInformation(ViewUsernformationDto dto)
+        public BaseDto GetInformation(ViewUserInformationDto dto)
         {
             var user = _userRepository.GetById(dto.UserId);
 

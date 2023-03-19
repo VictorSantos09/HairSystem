@@ -1,6 +1,6 @@
 using Hair.Application.Dto;
 using Hair.Application.Extensions;
-using Hair.Application.Services;
+using Hair.Application.Services.UserCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
@@ -10,9 +10,9 @@ namespace Hair.Tests.Services
 {
     public class ChangePriceServiceTest
     {
-        private readonly ChangeServicePriceService _service;
+        private readonly UpdateTaskService _service;
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private ChangeServicePriceDto _dto;
+        private UpdateTaskDto _dto;
         private UserEntity _user;
 
        

@@ -26,17 +26,17 @@ namespace Hair.Domain.Entities
         /// </summary>
         public ClientEntity Client { get; set; }
         /// <summary>
-        /// Tipo de serviço a ser prestado
+        /// Tipo de tarefa a ser prestado
         /// </summary>
-        public ServiceTypeEntity ServiceType { get; set; }
+        public TaskTypeEntity TaskType { get; set; }
 
-        public DutyEntity(Guid userID, DateTime date, ClientEntity client, ServiceTypeEntity serviceType)
+        public DutyEntity(Guid userID, DateTime date, ClientEntity client, TaskTypeEntity taskType)
         {
             Id = Guid.NewGuid();
             UserID = userID;
             Date = date;
             Client = client;
-            ServiceType = serviceType;
+            TaskType = taskType;
         }
 
         public DutyEntity()

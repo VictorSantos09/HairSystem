@@ -2,7 +2,8 @@
 using Hair.Application.Common;
 using Hair.Application.Dto;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Services;
+using Hair.Application.Services.ClientCases;
+using Hair.Application.Services.UserCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,20 +12,20 @@ namespace HairSystem.Controllers
 {
     [ApiController]
     [Route("api/controller")]
-    public class HaircutController : ControllerBase
+    public class DutyController : ControllerBase
     {
         private readonly ScheduleDutyService _schedule;
         private readonly CancelDutyService _cancel;
-        private readonly ChangeServicePriceService _changePrice;
+        private readonly UpdateTaskService _changePrice;
         private readonly IException _exHelper;
 
-        public HaircutController(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
+        public DutyController(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
             IException exception, IValidator<DutyEntity> haircutValidator)
         {
             _exHelper = exception;
             _schedule = new ScheduleDutyService(userRepository, haircutRepository, haircutValidator);
             _cancel = new CancelDutyService(userRepository, haircutRepository);
-            _changePrice = new ChangeServicePriceService(userRepository);
+            _changePrice = new UpdateTaskService(userRepository);
         }
 
         [HttpPost]
@@ -49,7 +50,7 @@ namespace HairSystem.Controllers
         }
 
         [HttpDelete]
-        [Route("CancelExistentHaircut")]
+        [Route("CancelExistentDuty")]
         public IActionResult Cancel([FromBody] CancelDutyDto dto)
         {
             try
@@ -70,12 +71,12 @@ namespace HairSystem.Controllers
         }
 
         [HttpPut]
-        [Route("ChangeHaircutePrice")]
-        public IActionResult ChangePrice(ChangeServicePriceDto dto)
+        [Route("ChangeServicePrice")]
+        public IActionResult ChangePrice(UpdateTaskDto dto)
         {
             try
             {
-                var result = _changePrice.ChangeServicePrice(dto);
+                var result = _changePrice.Update(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)

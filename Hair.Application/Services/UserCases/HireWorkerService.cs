@@ -7,7 +7,7 @@ using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using System.Reflection;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.UserCases
 {
     /// <summary>
     /// 
@@ -48,14 +48,13 @@ namespace Hair.Application.Services
                 return BaseDtoExtension.NotFound();
 
             FunctionTypeEntity newFunction = new FunctionTypeEntity();
-            
-            FunctionDataTypes functions = new FunctionDataTypes();
+
             Type typeFunction = functions.GetType();
             foreach (PropertyInfo pInfo in typeFunction.GetProperties())
             {
                 string propertyValue = pInfo.GetValue(functions, null).ToString();
 
-                if(dto.WorkerFunction == propertyValue)
+                if (dto.WorkerFunction == propertyValue)
                 {
                     newFunction.Name = propertyValue;
                 }

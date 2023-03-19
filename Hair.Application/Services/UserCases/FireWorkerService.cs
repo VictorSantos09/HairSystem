@@ -4,7 +4,7 @@ using Hair.Application.Extensions;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 
-namespace Hair.Application.Services
+namespace Hair.Application.Services.UserCases
 {
     /// <summary>
     /// 

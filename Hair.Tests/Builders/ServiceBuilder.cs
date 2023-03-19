@@ -1,4 +1,5 @@
-﻿using Hair.Application.Services;
+﻿using Hair.Application.Services.ClientCases;
+using Hair.Application.Services.UserCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;

@@ -14,7 +14,7 @@ namespace Hair.Application.Validators
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.UserID).NotEmpty().WithName("ID do usuário");
             RuleFor(x => x.Client).SetValidator(new ClientValidator()).WithName("Cliente");
-            RuleFor(x => x.ServiceType).SetValidator(new ServiceTypeValidator()).WithName("Tipo do serviço");
+            RuleFor(x => x.TaskType).SetValidator(new ServiceTypeValidator()).WithName("Tipo do serviço");
             RuleFor(x => x.Date).NotEmpty().WithName("Data").Custom((date, context) =>
             {
                 if (date < DateTime.Today)
