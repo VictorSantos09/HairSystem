@@ -14,7 +14,7 @@ namespace Hair.Application.Services.UserCases
     /// Define os métodos para a contratação de funcionários.
     /// 
     /// </summary>
-    public class HireWorkerService
+    public sealed class HireWorkerService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<WorkerEntity> _workerRepository;

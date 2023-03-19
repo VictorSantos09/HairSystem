@@ -10,7 +10,7 @@ namespace Hair.Application.Services.UserCases
     /// Classe referente para efetuar a remoção da conta.
     /// 
     /// </summary>
-    public class DeleteAccountService
+    public sealed class DeleteAccountService
     {
         private readonly IGetByEmail _userRepository;
 

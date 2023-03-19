@@ -13,7 +13,7 @@ namespace Hair.Application.Services.UserCases
     /// Define a função de postar uma nova imagem.
     /// 
     /// </summary>
-    public class PostImageService
+    public sealed class PostImageService
     {
         private readonly IBaseRepository<ImageEntity> _imageRepository;
         private readonly IBaseRepository<UserEntity> _userRepository;

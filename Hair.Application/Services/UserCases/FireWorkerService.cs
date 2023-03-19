@@ -11,7 +11,7 @@ namespace Hair.Application.Services.UserCases
     /// Contém o método para efetuar a demissão de funcionários.
     /// 
     /// </summary>
-    public class FireWorkerService
+    public sealed class FireWorkerService
     {
         private readonly IBaseRepository<WorkerEntity> _workerRepository;
 

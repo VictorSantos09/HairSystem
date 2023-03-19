@@ -12,7 +12,7 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ViewDataController : ControllerBase
     {
-        private readonly VisualizeWorkerDataService _viewEmployeeData;
+        private readonly ViewWorkerDataService _viewEmployeeData;
         private readonly ViewDutyTimeService _viewHaircutTime;
         private readonly IException _exHelper;
 
@@ -20,7 +20,7 @@ namespace HairSystem.Controllers
             IException exception, IBaseRepository<DutyEntity> haircutRepository)
         {
             _exHelper = exception;
-            _viewEmployeeData = new VisualizeWorkerDataService(workerRepository, userRepository);
+            _viewEmployeeData = new ViewWorkerDataService(workerRepository, userRepository);
             _viewHaircutTime = new ViewDutyTimeService(haircutRepository);
         }
 
@@ -30,7 +30,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _viewEmployeeData.GetEmployeeData(dataDto.Email, dataDto.Password);
+                var result = _viewEmployeeData.GetWorkerData(dataDto.Email, dataDto.Password);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)

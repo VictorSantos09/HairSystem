@@ -8,7 +8,7 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services.UserCases
 {
-    public class CreateTaskService
+    public sealed class CreateTaskService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<TaskEntity> _taskRepository;
@@ -16,11 +16,11 @@ namespace Hair.Application.Services.UserCases
         private readonly IValidator<TaskEntity> _taskValidator;
 
         public CreateTaskService(IBaseRepository<UserEntity> userRepository, IBaseRepository<TaskEntity> taskRepository, 
-            IBaseRepository<TaskTypeEntity> serviceTypeRepository, IValidator<TaskEntity> taskValidator)
+            IBaseRepository<TaskTypeEntity> taskTypeRepository, IValidator<TaskEntity> taskValidator)
         {
             _userRepository = userRepository;
             _taskRepository = taskRepository;
-            _taskTypeRepository = serviceTypeRepository;
+            _taskTypeRepository = taskTypeRepository;
             _taskValidator = taskValidator;
         }
 

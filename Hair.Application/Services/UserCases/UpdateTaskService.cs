@@ -11,7 +11,7 @@ namespace Hair.Application.Services.UserCases
     /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode.
     /// 
     /// </summary>
-    public class UpdateTaskService
+    public sealed class UpdateTaskService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<TaskEntity> _taskRepository;

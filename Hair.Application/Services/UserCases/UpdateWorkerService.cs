@@ -13,7 +13,7 @@ namespace Hair.Application.Services.UserCases
     /// Define os métodos para atualização de funcionário.
     /// 
     /// </summary>
-    public class UpdateWorkerService
+    public sealed class UpdateWorkerService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
         private readonly IBaseRepository<WorkerEntity> _workerRepository;

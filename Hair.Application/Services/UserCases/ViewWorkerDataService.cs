@@ -11,12 +11,12 @@ namespace Hair.Application.Services.UserCases
     /// Define o método de buscar informações dos funcionários.
     /// 
     /// </summary>
-    public class VisualizeWorkerDataService
+    public class ViewWorkerDataService
     {
         private readonly IBaseRepository<WorkerEntity> _workerRepositories;
         private readonly IGetByEmail _userRepository;
 
-        public VisualizeWorkerDataService(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository)
+        public ViewWorkerDataService(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository)
         {
             _workerRepositories = workerRepository;
             _userRepository = userRepository;
@@ -37,7 +37,7 @@ namespace Hair.Application.Services.UserCases
         /// Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.
         /// 
         /// </returns>
-        public BaseDto GetEmployeeData(string email, string password)
+        public BaseDto GetWorkerData(string email, string password)
         {
             if (Validation.NotEmpty(email))
                 return BaseDtoExtension.Invalid("Email não informado.");
