@@ -42,13 +42,14 @@ namespace Hair.Application.Services
 
             var resultOpenTime = new TimeOnly();
             if (TimeOnly.TryParse(dto.OpenTime, out resultOpenTime) == false)
-                return BaseDtoExtension.Invalid("Horario de abertura");
+                return BaseDtoExtension.Invalid("Horario de abertura inválido");
 
             var resultCloseTime = new TimeOnly();
             if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
-                return BaseDtoExtension.Invalid("Horario de fechamento");
+                return BaseDtoExtension.Invalid("Horario de fechamento inválido");
 
-            var newUser = new UserEntity(dto.SaloonName, dto.Name, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(), resultOpenTime, resultCloseTime, dto.GoogleMapsSource);
+            var newUser = new UserEntity(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(), 
+                resultOpenTime, resultCloseTime, dto.GoogleMapsLocation);
 
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
 

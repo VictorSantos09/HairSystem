@@ -8,12 +8,12 @@ namespace Hair.Tests.Services
 {
     public class ViewHaircutTimeServiceTests
     {
-        private readonly ViewHaircutTimeService _service;
+        private readonly ViewDutyTimeService _service;
         private readonly Mock<IBaseRepository<DutyEntity>> _repositoryMock;
         public ViewHaircutTimeServiceTests()
         {
             _repositoryMock = new Mock<IBaseRepository<DutyEntity>>();
-            _service = new ViewHaircutTimeService(_repositoryMock.Object);
+            _service = new ViewDutyTimeService(_repositoryMock.Object);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace Hair.Tests.Services
                 new DutyEntity { Id = Guid.NewGuid(), UserID = userId}
             };
 
-            var dto = new ViewHaircutTimeDto(userId);
+            var dto = new ViewDutyTimeDto(userId);
             _repositoryMock.Setup(x => x.GetAll()).Returns(expectedHaircuts);
 
             // Act
@@ -50,7 +50,7 @@ namespace Hair.Tests.Services
                 new DutyEntity { Id = Guid.NewGuid(), UserID = Guid.NewGuid()}
             };
 
-            var dto = new ViewHaircutTimeDto(userId);
+            var dto = new ViewDutyTimeDto(userId);
             _repositoryMock.Setup(x => x.GetAll()).Returns(expectedHaircuts);
 
             // Act

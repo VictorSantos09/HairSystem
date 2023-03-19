@@ -1,22 +1,22 @@
 ﻿namespace Hair.Application.Dto
 {
-    public class CancelHaircutDto
+    public class CancelDutyDto
     {
         public Guid UserID { get; set; }
         public bool Confirmed { get; set; }
         public string ClientName { get; set; }
         public string? ClientEmail { get; set; }
         public string ClientPhoneNumber { get; set; }
-        public DateTime HaircutTime { get; set; }
+        public DateTime DutyTime { get; set; }
 
-        public CancelHaircutDto(Guid userID, bool confirmed, string clientName, string? clientEmail, string clientPhoneNumber, DateTime haircutTime)
+        public CancelDutyDto(Guid userID, bool confirmed, string clientName, string? clientEmail, string clientPhoneNumber, DateTime dutyTime)
         {
             UserID = userID;
             Confirmed = confirmed;
-            ClientName = clientName.ToUpper();
-            ClientEmail = clientEmail == null ? null : clientEmail.ToUpper();
+            ClientName = clientName;
+            ClientEmail = clientEmail;
             ClientPhoneNumber = clientPhoneNumber;
-            HaircutTime = haircutTime;
+            DutyTime = dutyTime;
         }
     }
 }

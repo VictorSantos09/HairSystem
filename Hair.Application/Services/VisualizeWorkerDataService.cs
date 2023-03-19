@@ -11,14 +11,14 @@ namespace Hair.Application.Services
     /// Define o método de buscar informações dos funcionários.
     /// 
     /// </summary>
-    public class VisualizeEmployeeDataService
+    public class VisualizeWorkerDataService
     {
-        private readonly IBaseRepository<WorkerEntity> _employeeRepository;
+        private readonly IBaseRepository<WorkerEntity> _workerRepositories;
         private readonly IGetByEmail _userRepository;
 
-        public VisualizeEmployeeDataService(IBaseRepository<WorkerEntity> employeeRepository, IGetByEmail userRepository)
+        public VisualizeWorkerDataService(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository)
         {
-            _employeeRepository = employeeRepository;
+            _workerRepositories = workerRepository;
             _userRepository = userRepository;
         }
 
@@ -32,7 +32,11 @@ namespace Hair.Application.Services
         /// 
         /// <param name="password"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.</returns>
+        /// <returns>
+        /// 
+        /// Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.
+        /// 
+        /// </returns>
         public BaseDto GetEmployeeData(string email, string password)
         {
             if (Validation.NotEmpty(email))
@@ -46,14 +50,14 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var employees = _employeeRepository.GetAll();
+            var workers = _workerRepositories.GetAll();
 
-            employees.FindAll(e => e.UserID == user.Id);
+            workers.FindAll(e => e.UserID == user.Id);
 
-            if (employees.Count == 0)
+            if (workers.Count == 0)
                 return BaseDtoExtension.Sucess("funcionários não encontrados.");
 
-            return BaseDtoExtension.Create(200, "Relação de funcionários.", employees);
+            return BaseDtoExtension.Create(200, "Relação de funcionários.", workers);
         }
     }
 }

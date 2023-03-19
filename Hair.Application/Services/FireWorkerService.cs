@@ -28,15 +28,19 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna um <see cref="BaseDto"/> Com statusCode 404,200 e 406 caso dados inválidos.</returns>
+        /// <returns>
+        /// 
+        /// Retorna um <see cref="BaseDto"/> Com statusCode 404,200 e 406 caso dados inválidos.
+        /// 
+        /// </returns>
         public BaseDto FireWorker(FireWorkerDto dto)
         {
-            var worker = _workerRepository.GetById(dto.WorkerID);
+            var worker = _workerRepository.GetByName(dto.WorkerName);
 
             if (worker == null)
                 return BaseDtoExtension.NotFound("Funcionário");
 
-            if (dto.UserID == worker.UserID && dto.WorkerName.ToUpper() == worker.Name)
+            if (dto.UserID == worker.UserID && dto.WorkerName.ToUpper() == worker.Name && dto.WorkerPhoneNumber == worker.PhoneNumber)
             {
                 _workerRepository.Remove(worker.Id);
 

@@ -49,16 +49,21 @@ namespace Hair.Domain.Entities
         /// 
         /// </summary>
         public string CEP { get; set; }
+        /// <summary>
+        /// Id do usuário
+        /// </summary>
+        public Guid UserID { get; set; }
 
-        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid _Id)
+        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid userId)
         {
-            Street = street.ToUpper();
-            Number = number.ToUpper();
-            City = city.ToUpper();
-            State = state.ToUpper();
-            Complement = string.IsNullOrWhiteSpace(complement) == true || string.IsNullOrEmpty(complement) == true ? null : complement.ToUpper();
+            Id = Guid.NewGuid();
+            Street = street;
+            Number = number;
+            City = city;
+            State = state;
+            Complement = complement;
             CEP = cep;
-            Id = _Id;
+            UserID = userId;
         }
 
         public AddressEntity()

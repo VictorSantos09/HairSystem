@@ -11,12 +11,13 @@ namespace Hair.Application.Services
     /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode.
     /// 
     /// </summary>
-    public class ChangePriceService
+    public class ChangeServicePriceService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<ServiceEntity> _serviceRepository;
         private double _newPrice;
 
-        public ChangePriceService(IBaseRepository<UserEntity> userRepository)
+        public ChangeServicePriceService(IBaseRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -29,7 +30,7 @@ namespace Hair.Application.Services
         /// <param name="dto"></param>
         /// 
         /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
-        public BaseDto ChangeHaircutePrice(ChangePriceDto dto)
+        public BaseDto ChangeServicePrice(ChangeServicePriceDto dto)
         {
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
@@ -39,7 +40,8 @@ namespace Hair.Application.Services
 
             _newPrice = dto.NewPrice;
 
-            var user = _userRepository.GetById(dto.SaloonId);
+            var user = _userRepository.GetById(dto.UserID);
+            _
 
             if (user == null)
                 return BaseDtoExtension.NotFound();

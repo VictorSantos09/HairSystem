@@ -34,7 +34,11 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
+        /// <returns>
+        /// 
+        /// Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.
+        /// 
+        /// </returns>
         public BaseDto Post(PostImageDto dto)
         {
             var user = _userRepository.GetById(dto.UserID);

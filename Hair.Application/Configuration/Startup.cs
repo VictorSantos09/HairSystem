@@ -18,15 +18,15 @@ namespace Hair.Application.Configuration
         /// Injeta os itns necessarios no <paramref name="services"/> fornecido
         /// </summary>
         /// <param name="services"></param>
-        public static void Inject(IServiceCollection services)
+        public static void Configure(IServiceCollection services)
         {
             services.AddTransient<IException, ExceptionHelper>();
             services.AddTransient<IApiRequest, ApiHelper>();
-            InjectRepositories(services);
-            InjectValidators(services);
+            ConfigureRepositories(services);
+            ConfigueValidators(services);
         }
 
-        private static void InjectValidators(IServiceCollection services)
+        private static void ConfigueValidators(IServiceCollection services)
         {
             services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
@@ -41,7 +41,7 @@ namespace Hair.Application.Configuration
             services.AddTransient<IValidator<WorkerEntity>, WorkerValidator>();
         }
 
-        private static void InjectRepositories(IServiceCollection services)
+        private static void ConfigureRepositories(IServiceCollection services)
         {
             services.AddTransient<IGetByEmail, UserRepository>();
             services.AddTransient<IServiceTypeRequest, ServiceTypeRepository>();

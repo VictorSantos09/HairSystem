@@ -32,7 +32,11 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto">Objeto do tipo UpdateWorkerDto contendo as informações atualizadas do funcionário.</param>
         /// 
-        /// <returns>Objeto do tipo BaseDto com o resultado da operação de atualização.</returns>
+        /// <returns>
+        /// 
+        /// Objeto do tipo BaseDto com o resultado da operação de atualização.
+        /// 
+        /// </returns>
         public BaseDto Update(UpdateWorkerDto dto) => _update.Update(dto);
 
         /// <summary>
@@ -43,7 +47,11 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto">Objeto do tipo HireWorkerDto contendo as informações do novo funcionário a ser contratado.</param>
         /// 
-        /// <returns>Objeto do tipo BaseDto com o resultado da operação de contratação.</returns>
+        /// <returns>
+        /// 
+        /// Objeto do tipo BaseDto com o resultado da operação de contratação.
+        /// 
+        /// </returns>
         public BaseDto Hire(HireWorkerDto dto) => _hire.HireNewWorker(dto);
 
         /// <summary>
@@ -54,7 +62,11 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto">Objeto do tipo FireWorkerDto contendo as informações do funcionário a ser demitido.</param>
         /// 
-        /// <returns>Objeto do tipo BaseDto com o resultado da operação de demissão.</returns>
+        /// <returns>
+        /// 
+        /// Objeto do tipo BaseDto com o resultado da operação de demissão.
+        /// 
+        /// </returns>
         public BaseDto Fire(FireWorkerDto dto) => _fire.FireWorker(dto);
     }
 }

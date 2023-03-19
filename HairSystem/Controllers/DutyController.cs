@@ -14,8 +14,8 @@ namespace HairSystem.Controllers
     public class HaircutController : ControllerBase
     {
         private readonly ScheduleDutyService _schedule;
-        private readonly CancelHaircutService _cancel;
-        private readonly ChangePriceService _changePrice;
+        private readonly CancelDutyService _cancel;
+        private readonly ChangeServicePriceService _changePrice;
         private readonly IException _exHelper;
 
         public HaircutController(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
@@ -23,8 +23,8 @@ namespace HairSystem.Controllers
         {
             _exHelper = exception;
             _schedule = new ScheduleDutyService(userRepository, haircutRepository, haircutValidator);
-            _cancel = new CancelHaircutService(userRepository, haircutRepository);
-            _changePrice = new ChangePriceService(userRepository);
+            _cancel = new CancelDutyService(userRepository, haircutRepository);
+            _changePrice = new ChangeServicePriceService(userRepository);
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace HairSystem.Controllers
 
         [HttpDelete]
         [Route("CancelExistentHaircut")]
-        public IActionResult Cancel([FromBody] CancelHaircutDto dto)
+        public IActionResult Cancel([FromBody] CancelDutyDto dto)
         {
             try
             {
@@ -71,11 +71,11 @@ namespace HairSystem.Controllers
 
         [HttpPut]
         [Route("ChangeHaircutePrice")]
-        public IActionResult ChangePrice(ChangePriceDto dto)
+        public IActionResult ChangePrice(ChangeServicePriceDto dto)
         {
             try
             {
-                var result = _changePrice.ChangeHaircutePrice(dto);
+                var result = _changePrice.ChangeServicePrice(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)

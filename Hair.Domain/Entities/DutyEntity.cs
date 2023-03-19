@@ -32,6 +32,7 @@ namespace Hair.Domain.Entities
 
         public DutyEntity(Guid userID, DateTime date, ClientEntity client, ServiceTypeEntity serviceType)
         {
+            Id = Guid.NewGuid();
             UserID = userID;
             Date = date;
             Client = client;

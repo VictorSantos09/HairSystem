@@ -10,12 +10,12 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<WorkerEntity>> _employeeRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
         private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
-        private readonly VisualizeEmployeeDataService _service;
+        private readonly VisualizeWorkerDataService _service;
         private UserEntity _user = new UserEntity { Email = "Carlos@gmail.com", Password = "carlos123" };
 
         public VisualizeEmployeeDataServiceTest()
         {
-            _service = new VisualizeEmployeeDataService(_employeeRepositoryMock.Object, _userRepositoryMock.Object);
+            _service = new VisualizeWorkerDataService(_employeeRepositoryMock.Object, _userRepositoryMock.Object);
         }
 
         [Fact]

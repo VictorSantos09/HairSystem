@@ -19,9 +19,9 @@ namespace Hair.Tests.Builders
             _clientValidator = new ClientValidator();
             _itemValidator = new ItemValidator();
             _imageValidator = new ImageValidator();
-            _workerValidator = new WorkerValidator(_addressValidator);
-            _haircutValidator = new DutyValidator(_clientValidator);
-            _userValidator = new UserValidator(_addressValidator);
+            _workerValidator = new WorkerValidator();
+            _haircutValidator = new DutyValidator();
+            _userValidator = new UserValidator();
         }
 
         public IValidator<UserEntity> InstanceUserValidator() => _userValidator;

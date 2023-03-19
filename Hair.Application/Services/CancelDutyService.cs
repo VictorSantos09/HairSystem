@@ -12,15 +12,15 @@ namespace Hair.Application.Services
     /// Responsável pelos métodos relacionados a cancelamento de corte.
     /// 
     /// </summary>
-    public class CancelHaircutService
+    public class CancelDutyService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<DutyEntity> _haircutRepository;
+        private readonly IBaseRepository<DutyEntity> _dutyRepository;
 
-        public CancelHaircutService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository)
+        public CancelDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> dutyRepository)
         {
             _userRepository = userRepository;
-            _haircutRepository = haircutRepository;
+            _dutyRepository = dutyRepository;
         }
 
         /// <summary>
@@ -31,31 +31,35 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns> Retorna uma mensagem informando se o cancelamento foi realizado com sucesso ou se ocorreu algum erro.</returns>
-        public BaseDto Cancel(CancelHaircutDto dto)
+        /// <returns>
+        /// 
+        /// Retorna uma mensagem informando se o cancelamento foi realizado com sucesso ou se ocorreu algum erro.
+        /// 
+        /// </returns>
+        public BaseDto Cancel(CancelDutyDto dto)
         {
-            if (Validation.NotEmpty(dto.ClientEmail))
+            if (Validation.NotEmpty(dto.ClientName))
                 return BaseDtoExtension.Invalid("Nome do cliente inválido");
 
             if (Validation.NotEmpty(dto.ClientPhoneNumber))
                 return BaseDtoExtension.Invalid("Telefone do cliente inválido");
 
-            if (Validation.NotEmpty(dto.HaircutTime.ToString()))
-                return BaseDtoExtension.Invalid("Horário de corte inválido");
+            if (Validation.NotEmpty(dto.DutyTime.ToString()))
+                return BaseDtoExtension.Invalid("Horário do serviço inválido");
 
             var user = _userRepository.GetById(dto.UserID);
 
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var haircut = user.Haircuts.Find(x => x.Client.Name == dto.ClientName && x.Client.PhoneNumber == dto.ClientPhoneNumber && x.Date == dto.HaircutTime);
+            var duty = _dutyRepository.GetAll().Find(x => x.UserID == user.Id && x.Client.Name == dto.ClientName && x.Client.PhoneNumber == dto.ClientPhoneNumber);
 
-            if (haircut == null)
-                return BaseDtoExtension.NotFound("Corte");
+            if (duty == null)
+                return BaseDtoExtension.NotFound("Serviços");
 
-            _haircutRepository.Remove(haircut.Id);
+            _dutyRepository.Remove(duty.Id);
 
-            return BaseDtoExtension.Sucess("Corte Cancelado com Sucesso");
+            return BaseDtoExtension.Sucess("tarefa cancelado com sucesso");
         }
     }
 }

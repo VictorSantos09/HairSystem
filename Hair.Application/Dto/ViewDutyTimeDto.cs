@@ -1,10 +1,10 @@
 ﻿namespace Hair.Application.Dto
 {
-    public class ViewHaircutTimeDto
+    public class ViewDutyTimeDto
     {
         public Guid UserID { get; set; }
 
-        public ViewHaircutTimeDto(Guid userID)
+        public ViewDutyTimeDto(Guid userID)
         {
             UserID = userID;
         }

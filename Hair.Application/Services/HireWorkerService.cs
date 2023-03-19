@@ -47,7 +47,6 @@ namespace Hair.Application.Services
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            
             FunctionTypeEntity newFunction = new FunctionTypeEntity();
             
             FunctionDataTypes functions = new FunctionDataTypes();

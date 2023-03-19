@@ -10,6 +10,7 @@
 
         public ServiceEntity(Guid userID, string name, float value, string? description, ServiceTypeEntity type)
         {
+            Id = Guid.NewGuid();
             UserID = userID;
             Name = name;
             Value = value;

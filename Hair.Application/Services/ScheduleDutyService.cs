@@ -36,30 +36,35 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto"></param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha.</returns>
+        /// <returns>
+        /// 
+        /// Retorna <see cref="BaseDto"/> com mensagens e status code de sucesso ou falha.
+        /// 
+        /// </returns>
         public BaseDto Schedule(ScheduleDutyDto dto)
         {
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
 
             var user = _userRepository.GetById(dto.UserID);
+            var duties = _dutyRepository.GetAll().FindAll(x => x.UserID == dto.UserID);
 
             if (user == null)
                 return BaseDtoExtension.NotFound("Usuário");
 
-            foreach (var haircut in user.Haircuts)
+            foreach (DutyEntity duty in duties)
             {
-                if (haircut.Date == dto.HaircuteTime)
-                    return BaseDtoExtension.Create(200, "Horário indisponível");
+                if (duty.Date == dto.DutyDate)
+                    return BaseDtoExtension.Create(406, "Horário indisponível");
             }
 
             ServiceTypeEntity newService = new ServiceTypeEntity();
 
-            FunctionDataTypes duties = new FunctionDataTypes();
+            FunctionDataTypes dutyTypes = new FunctionDataTypes();
             Type typeDuty = duties.GetType();
             foreach (PropertyInfo pInfo in typeDuty.GetProperties())
             {
-                string propertyValue = pInfo.GetValue(duties, null).ToString();
+                string propertyValue = pInfo.GetValue(dutyTypes, null).ToString();
 
                 if (dto.DutyType == propertyValue)
                 {
@@ -68,7 +73,7 @@ namespace Hair.Application.Services
             }
 
             var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber, user.Id, new DutyEntity());
-            var newDuty = new DutyEntity(dto.UserID, dto.HaircuteTime, client, newService);
+            var newDuty = new DutyEntity(dto.UserID, dto.DutyDate, client, newService);
 
             client.Duty = newDuty;
 

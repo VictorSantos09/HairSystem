@@ -37,7 +37,11 @@ namespace Hair.Application.Services
         /// 
         /// <param name="dto">Dados necessários para atualizar</param>
         /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
+        /// <returns>
+        /// 
+        /// Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.
+        /// 
+        /// </returns>
         public BaseDto Update(UpdateWorkerDto dto)
         {
             var user = _userRepository.GetById(dto.UserID);

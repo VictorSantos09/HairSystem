@@ -12,8 +12,8 @@ namespace Hair.Tests.Services
 {
     public class CancelHaircutServiceTests
     {
-        private CancelHaircutDto _sucessDto = new CancelHaircutDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
-        private readonly CancelHaircutService _service;
+        private CancelDutyDto _sucessDto = new CancelDutyDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
+        private readonly CancelDutyService _service;
         private readonly ServiceBuilder _serviceProvider = new ServiceBuilder();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<DutyEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<DutyEntity>>();
@@ -46,7 +46,7 @@ namespace Hair.Tests.Services
         public void Cancel_When_Phone_Number_Is_Invalid()
         {
             // Arrange
-            var dto = new CancelHaircutDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", null, DateTime.Now.AddDays(3));
+            var dto = new CancelDutyDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", null, DateTime.Now.AddDays(3));
 
             // Act
             var actual = _service.Cancel(dto);
@@ -60,7 +60,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             var validTime = DateTime.Now.AddDays(3);
-            var dto = new CancelHaircutDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "47999999999", validTime);
+            var dto = new CancelDutyDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "47999999999", validTime);
 
             var user = new UserEntity
             {
@@ -94,7 +94,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             var validTime = DateTime.Now.AddDays(3);
-            var dto = new CancelHaircutDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "47999999999", validTime);
+            var dto = new CancelDutyDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "47999999999", validTime);
 
             var user = new UserEntity
             {

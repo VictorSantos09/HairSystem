@@ -31,10 +31,10 @@ namespace Hair.Tests.Builders
             return new ManagmentWorkerService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator(), functionTypeRepository.Object);
         }
 
-        public CancelHaircutService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
+        public CancelDutyService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
             Mock<IBaseRepository<DutyEntity>> dutyRepositoryMock)
         {
-            return new CancelHaircutService(userRepositoryMock.Object, dutyRepositoryMock.Object);
+            return new CancelDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object);
         }
 
         public HireWorkerService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock)

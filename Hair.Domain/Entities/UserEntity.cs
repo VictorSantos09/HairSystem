@@ -69,20 +69,11 @@ namespace Hair.Domain.Entities
         /// 
         /// </summary>
         public AddressEntity Address { get; set; }
-        /// <summary>
-        /// 
-        /// Serviços agendados.
-        /// 
-        /// </summary>
-        public List<DutyEntity> Haircuts { get; set; } = new List<DutyEntity>();
-        /// <summary>
-        /// Funcionários cadastrados.
-        /// </summary>
-        public List<WorkerEntity> Workers { get; set; } = new List<WorkerEntity>();
 
         public UserEntity(string saloonName, string ownerName, string phoneNumber, string email, string? cNPJ,
             string password, AddressEntity address, TimeOnly openTime, TimeOnly closeTime, string? googleMapsLocation)
         {
+            Id = Guid.NewGuid();
             SaloonName = saloonName;
             OwnerName = ownerName;
             PhoneNumber = phoneNumber;

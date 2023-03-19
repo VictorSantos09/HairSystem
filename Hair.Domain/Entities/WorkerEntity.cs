@@ -52,6 +52,7 @@ namespace Hair.Domain.Entities
 
         public WorkerEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID, FunctionTypeEntity functionType)
         {
+            Id = Guid.NewGuid();
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;

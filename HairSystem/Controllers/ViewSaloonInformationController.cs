@@ -25,7 +25,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("ViewInformation")]
-        public IActionResult GetInformation([FromBody] ViewSaloonInformationDto dto)
+        public IActionResult GetInformation([FromBody] ViewUsernformationDto dto)
         {
             try
             {

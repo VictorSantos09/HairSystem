@@ -12,21 +12,21 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ViewDataController : ControllerBase
     {
-        private readonly VisualizeEmployeeDataService _viewEmployeeData;
-        private readonly ViewHaircutTimeService _viewHaircutTime;
+        private readonly VisualizeWorkerDataService _viewEmployeeData;
+        private readonly ViewDutyTimeService _viewHaircutTime;
         private readonly IException _exHelper;
 
         public ViewDataController(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository, 
             IException exception, IBaseRepository<DutyEntity> haircutRepository)
         {
             _exHelper = exception;
-            _viewEmployeeData = new VisualizeEmployeeDataService(workerRepository, userRepository);
-            _viewHaircutTime = new ViewHaircutTimeService(haircutRepository);
+            _viewEmployeeData = new VisualizeWorkerDataService(workerRepository, userRepository);
+            _viewHaircutTime = new ViewDutyTimeService(haircutRepository);
         }
 
         [HttpPost]
         [Route("VisualizeEmployeeData")]
-        public IActionResult Visualize([FromBody] VisualizeEmployeeDataDto dataDto)
+        public IActionResult Visualize([FromBody] VisualizeWorkerDataDto dataDto)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("GetScheduledHaircuts")]
-        public IActionResult GetScheduledHaircuts([FromBody] ViewHaircutTimeDto dto)
+        public IActionResult GetScheduledHaircuts([FromBody] ViewDutyTimeDto dto)
         {
             try
             {

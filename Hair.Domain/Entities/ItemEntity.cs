@@ -44,6 +44,7 @@ namespace Hair.Domain.Entities
 
         public ItemEntity(Guid userID, ItemTypeEntity type, string? description, double price, int quantityAvaible)
         {
+            Id = Guid.NewGuid();
             UserID = userID;
             Type = type;
             Description = description;

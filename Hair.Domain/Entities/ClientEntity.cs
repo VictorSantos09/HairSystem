@@ -40,8 +40,8 @@ namespace Hair.Domain.Entities
         public ClientEntity(string name, string? email, string phoneNumber, Guid userID, DutyEntity duty)
         {
             Id = Guid.NewGuid();
-            Name = name.ToUpper();
-            Email = email.ToUpper();
+            Name = name;
+            Email = email;
             PhoneNumber = phoneNumber;
             UserID = userID;
             Duty = duty;

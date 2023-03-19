@@ -1,10 +1,10 @@
 ﻿namespace Hair.Application.Dto
 {
-    public class ViewSaloonInformationDto
+    public class ViewUsernformationDto
     {
         public Guid UserId { get; set; }
 
-        public ViewSaloonInformationDto(Guid userId)
+        public ViewUsernformationDto(Guid userId)
         {
             UserId = userId;
         }

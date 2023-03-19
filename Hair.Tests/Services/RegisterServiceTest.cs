@@ -24,7 +24,7 @@ namespace Hair.Tests.Services
         {
             _registerService = ServiceBuilder.InstanceRegister(_userRepositoryMock);
 
-            _user = new UserEntity(_sucessDto.SaloonName, _sucessDto.Name, _sucessDto.PhoneNumber,
+            _user = new UserEntity(_sucessDto.SaloonName, _sucessDto.UserName, _sucessDto.PhoneNumber,
                 _sucessDto.Email, _sucessDto.Password, null, null, null, TimeOnly.Parse(_sucessDto.OpenTime), null, TimeOnly.Parse(_sucessDto.CloseTime));
         }
 
@@ -82,7 +82,7 @@ namespace Hair.Tests.Services
         public void Execute_WhenTooShortName_ReturnsInvalidError()
         {
             // Arrange
-            _sucessDto.Name = "Ana";
+            _sucessDto.UserName = "Ana";
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act

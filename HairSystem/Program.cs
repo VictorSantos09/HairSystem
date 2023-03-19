@@ -11,7 +11,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-Startup.Inject(builder.Services);
+Startup.Configure(builder.Services);
 
 var root = $"{Directory.GetParent(Directory.GetCurrentDirectory())}";
 var dotenv = Path.Combine(root, "secrets.env");
