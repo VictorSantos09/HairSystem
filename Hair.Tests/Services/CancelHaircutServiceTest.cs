@@ -16,7 +16,7 @@ namespace Hair.Tests.Services
         private readonly CancelDutyService _service;
         private readonly ServiceBuilder _serviceProvider = new ServiceBuilder();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<DutyEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<DutyEntity>>();
+        private readonly Mock<IBaseRepository<ServiceOrderEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<ServiceOrderEntity>>();
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
 
         public CancelHaircutServiceTests()
@@ -30,7 +30,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             UserEntity user = new UserEntity();
-            user.Haircuts.Add(new DutyEntity());
+            user.Haircuts.Add(new ServiceOrderEntity());
             _userRepositoryMock.Setup(x => x.GetById(_sucessDto.UserID)).Returns(user);
             string? clientName = string.Empty;
             _sucessDto.ClientName = clientName;
@@ -65,9 +65,9 @@ namespace Hair.Tests.Services
             var user = new UserEntity
             {
                 Id = dto.UserID,
-                Haircuts = new List<DutyEntity>
+                Haircuts = new List<ServiceOrderEntity>
                 {
-                    new DutyEntity
+                    new ServiceOrderEntity
                     {
                        Client = new ClientEntity
                        {
@@ -99,9 +99,9 @@ namespace Hair.Tests.Services
             var user = new UserEntity
             {
                 Id = dto.UserID,
-                Haircuts = new List<DutyEntity>
+                Haircuts = new List<ServiceOrderEntity>
                 {
-                    new DutyEntity
+                    new ServiceOrderEntity
                     {
                        Client = new ClientEntity
                        {

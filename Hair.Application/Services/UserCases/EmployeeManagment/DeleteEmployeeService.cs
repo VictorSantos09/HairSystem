@@ -13,9 +13,9 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public sealed class DeleteEmployeeService
     {
-        private readonly IBaseRepository<WorkerEntity> _workerRepository;
+        private readonly IBaseRepository<EmployeeEntity> _workerRepository;
 
-        public DeleteEmployeeService(IBaseRepository<WorkerEntity> workerRepository)
+        public DeleteEmployeeService(IBaseRepository<EmployeeEntity> workerRepository)
         {
             _workerRepository = workerRepository;
         }

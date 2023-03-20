@@ -10,10 +10,10 @@ namespace Hair.Tests.Services
 {
     public class FireBarberTest
     {
-        private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
+        private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
         private readonly DeleteEmployeeService _service;
         private FireWorkerDto _dto;
-        private WorkerEntity _barber;
+        private EmployeeEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
         private AddressEntity _address;
@@ -38,7 +38,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _barberRepositoryMock.Reset();
-            _barberRepositoryMock.Setup(x => x.GetById(_barber.Id)).Returns((WorkerEntity)null);
+            _barberRepositoryMock.Setup(x => x.GetById(_barber.Id)).Returns((EmployeeEntity)null);
 
             // Act
             var actual = _service.FireBarber(_dto);

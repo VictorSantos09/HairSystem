@@ -13,10 +13,10 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public class ViewEmployeeDataService
     {
-        private readonly IBaseRepository<WorkerEntity> _workerRepositories;
+        private readonly IBaseRepository<EmployeeEntity> _workerRepositories;
         private readonly IGetByEmail _userRepository;
 
-        public ViewEmployeeDataService(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository)
+        public ViewEmployeeDataService(IBaseRepository<EmployeeEntity> workerRepository, IGetByEmail userRepository)
         {
             _workerRepositories = workerRepository;
             _userRepository = userRepository;

@@ -12,11 +12,11 @@ using System.Linq;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Repositório responsável por gerenciar as operações de Create e Update para a entidade worker contida em <see cref="WorkerEntity"/>.
+    /// Repositório responsável por gerenciar as operações de Create e Update para a entidade worker contida em <see cref="EmployeeEntity"/>.
     /// </summary>
-    public class WorkerRepository : IBaseRepository<WorkerEntity>
+    public class WorkerRepository : IBaseRepository<EmployeeEntity>
     {
-        public void Create(WorkerEntity worker)
+        public void Create(EmployeeEntity worker)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -41,17 +41,17 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public  List<WorkerEntity> GetAll()
+        public  List<EmployeeEntity> GetAll()
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                return conn.Query<WorkerEntity>("dbo.spGetAllWorkers").ToList();
+                return conn.Query<EmployeeEntity>("dbo.spGetAllWorkers").ToList();
             }
         }
 
-        public WorkerEntity? GetById(Guid id)
+        public EmployeeEntity? GetById(Guid id)
         {
-            var output = new WorkerEntity();
+            var output = new EmployeeEntity();
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
                 var workerSql = conn.Query<WorkerEntityFromSql>("dbo.spGetWorkerById", new { ID = id }).FirstOrDefault();
@@ -83,7 +83,7 @@ namespace Hair.Repository.Repositories
             return true;
         }
 
-        public void Update(WorkerEntity worker)
+        public void Update(EmployeeEntity worker)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {

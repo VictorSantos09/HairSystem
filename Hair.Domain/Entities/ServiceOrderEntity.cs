@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração da prestação de serviço para o cliente
     /// 
     /// </summary>
-    public sealed class DutyEntity : BaseEntity
+    public sealed class ServiceOrderEntity : BaseEntity
     {
         /// <summary>
         /// 
@@ -30,7 +30,7 @@ namespace Hair.Domain.Entities
         /// </summary>
         public UserServiceTypeEntity TaskType { get; set; }
 
-        public DutyEntity(Guid userID, DateTime date, ClientEntity client, UserServiceTypeEntity taskType)
+        public ServiceOrderEntity(Guid userID, DateTime date, ClientEntity client, UserServiceTypeEntity taskType)
         {
             Id = Guid.NewGuid();
             UserID = userID;
@@ -39,7 +39,7 @@ namespace Hair.Domain.Entities
             TaskType = taskType;
         }
 
-        public DutyEntity()
+        public ServiceOrderEntity()
         {
 
         }

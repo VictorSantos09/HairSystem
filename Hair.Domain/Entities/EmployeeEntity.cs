@@ -7,7 +7,7 @@ namespace Hair.Domain.Entities
     /// Abstração do funcionário.
     /// 
     /// </summary>
-    public sealed class WorkerEntity : BaseEntity
+    public sealed class EmployeeEntity : BaseEntity
     {
         /// <summary>
         /// 
@@ -50,7 +50,7 @@ namespace Hair.Domain.Entities
         /// </summary>
         public FunctionTypeEntity FunctionType { get; set; }
 
-        public WorkerEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID, FunctionTypeEntity functionType)
+        public EmployeeEntity(string name, string phoneNumber, string? email, float salary, AddressEntity address, Guid userID, FunctionTypeEntity functionType)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -62,7 +62,7 @@ namespace Hair.Domain.Entities
             FunctionType = functionType;
         }
 
-        public WorkerEntity()
+        public EmployeeEntity()
         {
 
         }

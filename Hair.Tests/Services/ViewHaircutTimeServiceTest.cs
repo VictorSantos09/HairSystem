@@ -9,10 +9,10 @@ namespace Hair.Tests.Services
     public class ViewHaircutTimeServiceTests
     {
         private readonly ViewServiceOrderService _service;
-        private readonly Mock<IBaseRepository<DutyEntity>> _repositoryMock;
+        private readonly Mock<IBaseRepository<ServiceOrderEntity>> _repositoryMock;
         public ViewHaircutTimeServiceTests()
         {
-            _repositoryMock = new Mock<IBaseRepository<DutyEntity>>();
+            _repositoryMock = new Mock<IBaseRepository<ServiceOrderEntity>>();
             _service = new ViewServiceOrderService(_repositoryMock.Object);
         }
 
@@ -21,10 +21,10 @@ namespace Hair.Tests.Services
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var expectedHaircuts = new List<DutyEntity>
+            var expectedHaircuts = new List<ServiceOrderEntity>
             {
-                new DutyEntity { Id = Guid.NewGuid(), UserID = userId },
-                new DutyEntity { Id = Guid.NewGuid(), UserID = userId}
+                new ServiceOrderEntity { Id = Guid.NewGuid(), UserID = userId },
+                new ServiceOrderEntity { Id = Guid.NewGuid(), UserID = userId}
             };
 
             var dto = new ViewDutyTimeDto(userId);
@@ -45,9 +45,9 @@ namespace Hair.Tests.Services
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var expectedHaircuts = new List<DutyEntity>
+            var expectedHaircuts = new List<ServiceOrderEntity>
             {
-                new DutyEntity { Id = Guid.NewGuid(), UserID = Guid.NewGuid()}
+                new ServiceOrderEntity { Id = Guid.NewGuid(), UserID = Guid.NewGuid()}
             };
 
             var dto = new ViewDutyTimeDto(userId);

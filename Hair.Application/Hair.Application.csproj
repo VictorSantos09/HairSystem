@@ -17,4 +17,9 @@
     <ProjectReference Include="..\Hair.Repository\Hair.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\UserCases\AddressManagment\" />
+    <Folder Include="Services\UserCases\ProductManagment\" />
+  </ItemGroup>
+
 </Project>

@@ -15,9 +15,9 @@ namespace Hair.Application.Services.ClientCases
     public class CancelDutyService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<DutyEntity> _dutyRepository;
+        private readonly IBaseRepository<ServiceOrderEntity> _dutyRepository;
 
-        public CancelDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> dutyRepository)
+        public CancelDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<ServiceOrderEntity> dutyRepository)
         {
             _userRepository = userRepository;
             _dutyRepository = dutyRepository;

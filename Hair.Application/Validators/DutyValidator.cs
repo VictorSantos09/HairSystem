@@ -5,9 +5,9 @@ using Hair.Domain.Entities;
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="DutyEntity"/>, também testando <see cref="ClientEntity"/>
+    /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="ServiceOrderEntity"/>, também testando <see cref="ClientEntity"/>
     /// </summary>
-    public class DutyValidator : AbstractValidator<DutyEntity>
+    public class DutyValidator : AbstractValidator<ServiceOrderEntity>
     {
         public DutyValidator()
         {

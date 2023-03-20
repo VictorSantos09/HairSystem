@@ -4,9 +4,9 @@ using Hair.Domain.Entities;
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do item do salão, pela classe concreta <see cref="ItemEntity"/>
+    /// Efetua a validação do item do salão, pela classe concreta <see cref="ProductEntity"/>
     /// </summary>
-    public class ItemValidator : AbstractValidator<ItemEntity>
+    public class ItemValidator : AbstractValidator<ProductEntity>
     {
         public ItemValidator()
         {

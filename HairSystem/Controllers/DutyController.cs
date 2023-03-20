@@ -20,8 +20,8 @@ namespace HairSystem.Controllers
         private readonly UpdateUserServiceService _changePrice;
         private readonly IException _exHelper;
 
-        public DutyController(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,
-            IException exception, IValidator<DutyEntity> haircutValidator)
+        public DutyController(IBaseRepository<UserEntity> userRepository, IBaseRepository<ServiceOrderEntity> haircutRepository,
+            IException exception, IValidator<ServiceOrderEntity> haircutValidator)
         {
             _exHelper = exception;
             _schedule = new ScheduleDutyService(userRepository, haircutRepository, haircutValidator);

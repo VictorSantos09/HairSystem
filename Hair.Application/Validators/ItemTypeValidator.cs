@@ -3,7 +3,7 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
-    public class ItemTypeValidator : AbstractValidator<ItemTypeEntity>
+    public class ItemTypeValidator : AbstractValidator<ProductTypeEntity>
     {
         public ItemTypeValidator()
         {

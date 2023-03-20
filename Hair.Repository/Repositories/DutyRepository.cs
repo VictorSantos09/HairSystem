@@ -8,11 +8,11 @@ using System.Data;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="DutyEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="ServiceOrderEntity"/>.
     /// </summary>
-    public class DutyRepository : IBaseRepository<DutyEntity>
+    public class DutyRepository : IBaseRepository<ServiceOrderEntity>
     {
-        public void Create(DutyEntity duty)
+        public void Create(ServiceOrderEntity duty)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -30,7 +30,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public void Update(DutyEntity duty)
+        public void Update(ServiceOrderEntity duty)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -47,18 +47,18 @@ namespace Hair.Repository.Repositories
             
             return true;
         }
-        public List<DutyEntity> GetAll()
+        public List<ServiceOrderEntity> GetAll()
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                return conn.Query<DutyEntity>("dbo.spGetAllDuties").ToList();
+                return conn.Query<ServiceOrderEntity>("dbo.spGetAllDuties").ToList();
             }
         }
-        public DutyEntity? GetById(Guid id)
+        public ServiceOrderEntity? GetById(Guid id)
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                var haircut = conn.Query<DutyEntity>("dbo.spGetDutyById @ID", new { ID = id }).FirstOrDefault();
+                var haircut = conn.Query<ServiceOrderEntity>("dbo.spGetDutyById @ID", new { ID = id }).FirstOrDefault();
                 return haircut == null ? null : haircut;
             }
         }

@@ -4,9 +4,9 @@ using Hair.Domain.Entities;
 namespace Hair.Application.Validators
 {
     /// <summary>
-    /// Efetua a validação do funcionário, pela classe concreta <see cref="WorkerEntity"/>, também testando <see cref="AddressEntity"/>
+    /// Efetua a validação do funcionário, pela classe concreta <see cref="EmployeeEntity"/>, também testando <see cref="AddressEntity"/>
     /// </summary>
-    public class WorkerValidator : AbstractValidator<WorkerEntity>
+    public class WorkerValidator : AbstractValidator<EmployeeEntity>
     {
         public WorkerValidator()
         {

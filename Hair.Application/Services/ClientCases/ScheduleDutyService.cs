@@ -17,11 +17,11 @@ namespace Hair.Application.Services.ClientCases
     public class ScheduleDutyService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<DutyEntity> _dutyRepository;
-        private readonly IValidator<DutyEntity> _dutyValidator;
+        private readonly IBaseRepository<ServiceOrderEntity> _dutyRepository;
+        private readonly IValidator<ServiceOrderEntity> _dutyValidator;
 
-        public ScheduleDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> dutyRepository,
-            IValidator<DutyEntity> dutyValidator)
+        public ScheduleDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<ServiceOrderEntity> dutyRepository,
+            IValidator<ServiceOrderEntity> dutyValidator)
         {
             _dutyValidator = dutyValidator;
             _userRepository = userRepository;
@@ -52,7 +52,7 @@ namespace Hair.Application.Services.ClientCases
             if (user == null)
                 return BaseDtoExtension.NotFound("Usuário");
 
-            foreach (DutyEntity duty in duties)
+            foreach (ServiceOrderEntity duty in duties)
             {
                 if (duty.Date == dto.DutyDate)
                     return BaseDtoExtension.Create(406, "Horário indisponível");
@@ -72,8 +72,8 @@ namespace Hair.Application.Services.ClientCases
                 }
             }
 
-            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber, user.Id, new DutyEntity());
-            var newDuty = new DutyEntity(dto.UserID, dto.DutyDate, client, newService);
+            var client = new ClientEntity(dto.ClientName, dto.ClientEmail, dto.ClientPhoneNumber, user.Id, new ServiceOrderEntity());
+            var newDuty = new ServiceOrderEntity(dto.UserID, dto.DutyDate, client, newService);
 
             client.Duty = newDuty;
 

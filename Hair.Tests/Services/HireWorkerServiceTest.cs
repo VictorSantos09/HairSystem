@@ -14,7 +14,7 @@ namespace Hair.Tests.Services
     {
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
+        private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
         private readonly CreateEmployeeService _service;
         private HireWorkerDto _dto;
         private UserEntity _user;
@@ -59,7 +59,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_user.Id)).Returns(_user);
-            _barberRepositoryMock.Setup(x => x.Create(It.IsAny<WorkerEntity>()));
+            _barberRepositoryMock.Setup(x => x.Create(It.IsAny<EmployeeEntity>()));
 
             // Act
             var actual = _service.HireNewWorker(_dto);

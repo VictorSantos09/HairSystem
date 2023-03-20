@@ -16,12 +16,12 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     public sealed class UpdateEmployeeService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<WorkerEntity> _workerRepository;
+        private readonly IBaseRepository<EmployeeEntity> _workerRepository;
         private readonly IFunctionTypeRequest _functionTypeRepository;
-        private readonly IValidator<WorkerEntity> _workerValidator;
+        private readonly IValidator<EmployeeEntity> _workerValidator;
 
-        public UpdateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> workerRepository,
-            IValidator<WorkerEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
+        public UpdateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> workerRepository,
+            IValidator<EmployeeEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
         {
             _userRepository = userRepository;
             _workerRepository = workerRepository;
@@ -64,7 +64,7 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
             if (function == null)
                 return BaseDtoExtension.NotFound($"Função {dto.NewFunction}");
 
-            var workerUpdated = new WorkerEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, dto.UserID, function);
+            var workerUpdated = new EmployeeEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, dto.UserID, function);
 
             var validationResult = Validation.Verify(_workerValidator.Validate(workerToUpdate));
 

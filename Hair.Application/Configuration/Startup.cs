@@ -30,15 +30,15 @@ namespace Hair.Application.Configuration
         {
             services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
-            services.AddTransient<IValidator<DutyEntity>, DutyValidator>();
+            services.AddTransient<IValidator<ServiceOrderEntity>, DutyValidator>();
             services.AddTransient<IValidator<FunctionTypeEntity>, FunctionTypeValidator>();
             services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
-            services.AddTransient<IValidator<ItemEntity>, ItemValidator>();
-            services.AddTransient<IValidator<ItemTypeEntity>, ItemTypeValidator>();
+            services.AddTransient<IValidator<ProductEntity>, ItemValidator>();
+            services.AddTransient<IValidator<ProductTypeEntity>, ItemTypeValidator>();
             services.AddTransient<IValidator<UserServiceEntity>, TaskValidator>();
             services.AddTransient<IValidator<UserServiceTypeEntity>, TaskTypeValidator>();
             services.AddTransient<IValidator<UserEntity>, UserValidator>();
-            services.AddTransient<IValidator<WorkerEntity>, WorkerValidator>();
+            services.AddTransient<IValidator<EmployeeEntity>, WorkerValidator>();
         }
 
         private static void ConfigureRepositories(IServiceCollection services)
@@ -46,10 +46,10 @@ namespace Hair.Application.Configuration
             services.AddTransient<IGetByEmail, UserRepository>();
             services.AddTransient<IServiceTypeRequest, ServiceTypeRepository>();
             services.AddTransient<IFunctionTypeRequest, FunctionTypeRepository>();
-            services.AddTransient<IBaseRepository<WorkerEntity>, WorkerRepository>();
-            services.AddTransient<IBaseRepository<ItemEntity>, StorageRepository>();
+            services.AddTransient<IBaseRepository<EmployeeEntity>, WorkerRepository>();
+            services.AddTransient<IBaseRepository<ProductEntity>, StorageRepository>();
             services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
-            services.AddTransient<IBaseRepository<DutyEntity>, DutyRepository>();
+            services.AddTransient<IBaseRepository<ServiceOrderEntity>, DutyRepository>();
             services.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
         }
     }

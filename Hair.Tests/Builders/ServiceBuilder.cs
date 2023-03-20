@@ -22,24 +22,24 @@ namespace Hair.Tests.Builders
         }
 
         public ScheduleDutyService InstanceScheduleHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<DutyEntity>> dutyRepositoryMock)
+            Mock<IBaseRepository<ServiceOrderEntity>> dutyRepositoryMock)
         {
             return new ScheduleDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object, _validatorBuilder.InstanceDutyValidator());
         }
 
         public EmployeeManagmentService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock, Mock<IFunctionTypeRequest> functionTypeRepository)
+            Mock<IBaseRepository<EmployeeEntity>> workerRepositoryMock, Mock<IFunctionTypeRequest> functionTypeRepository)
         {
             return new EmployeeManagmentService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator(), functionTypeRepository.Object);
         }
 
         public CancelDutyService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<DutyEntity>> dutyRepositoryMock)
+            Mock<IBaseRepository<ServiceOrderEntity>> dutyRepositoryMock)
         {
             return new CancelDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object);
         }
 
-        public CreateEmployeeService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock)
+        public CreateEmployeeService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<EmployeeEntity>> workerRepositoryMock)
         {
             return new CreateEmployeeService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator());
         }

@@ -17,10 +17,10 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     public sealed class CreateEmployeeService
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<WorkerEntity> _workerRepository;
-        private readonly IValidator<WorkerEntity> _workerValidator;
+        private readonly IBaseRepository<EmployeeEntity> _workerRepository;
+        private readonly IValidator<EmployeeEntity> _workerValidator;
 
-        public CreateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> workerRepository, IValidator<WorkerEntity> workerValidator)
+        public CreateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> workerRepository, IValidator<EmployeeEntity> workerValidator)
         {
             _userRepository = userRepository;
             _workerRepository = workerRepository;
@@ -60,7 +60,7 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
                 }
             }
 
-            var worker = new WorkerEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), user.Id, newFunction);
+            var worker = new EmployeeEntity(dto.Name, dto.PhoneNumber, dto.Email, dto.Salary, new AddressEntity(), user.Id, newFunction);
             var address = new AddressEntity(dto.WorkerStreet, dto.WorkerHouseNumber, dto.WorkerCity, dto.WorkerState, dto.WorkerHouseComplement, dto.CEP, worker.Id);
 
             worker.Address = address;

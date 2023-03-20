@@ -17,8 +17,8 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
         private readonly CreateEmployeeService _hire;
         private readonly DeleteEmployeeService _fire;
 
-        public EmployeeManagmentService(IBaseRepository<UserEntity> userRepository, IBaseRepository<WorkerEntity> workerRepository,
-            IValidator<WorkerEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
+        public EmployeeManagmentService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> workerRepository,
+            IValidator<EmployeeEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
         {
             _update = new(userRepository, workerRepository, workerValidator, functionTypeRepository);
             _hire = new(userRepository, workerRepository, workerValidator);

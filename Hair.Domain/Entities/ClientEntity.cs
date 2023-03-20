@@ -35,9 +35,9 @@ namespace Hair.Domain.Entities
         /// <summary>
         /// Prestação de serviço a ser recebido.
         /// </summary>
-        public DutyEntity Duty { get; set; }
+        public ServiceOrderEntity Duty { get; set; }
 
-        public ClientEntity(string name, string? email, string phoneNumber, Guid userID, DutyEntity duty)
+        public ClientEntity(string name, string? email, string phoneNumber, Guid userID, ServiceOrderEntity duty)
         {
             Id = Guid.NewGuid();
             Name = name;

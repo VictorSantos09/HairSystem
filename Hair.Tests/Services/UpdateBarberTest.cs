@@ -11,10 +11,10 @@ namespace Hair.Tests.Services
     public class UpdateBarberTest
     {
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
+        private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
         private readonly UpdateEmployeeService _service;
         private UpdateWorkerDto _dto;
-        private WorkerEntity _barber;
+        private EmployeeEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;
         private AddressEntity _address;
@@ -51,7 +51,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
-            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<WorkerEntity>());
+            _barberRepositoryMock.Setup(x => x.GetAll()).Returns(new List<EmployeeEntity>());
 
             // Act
             var actual = _service.Update(_dto);
@@ -68,7 +68,7 @@ namespace Hair.Tests.Services
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
 
-            var barbers = new List<WorkerEntity>();
+            var barbers = new List<EmployeeEntity>();
             _barber.Name = "Jose";
             _barber.PhoneNumber = "047994565856";
             _dto.WorkerName = "Maria";
@@ -90,7 +90,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _userRepositoryMock.Setup(x => x.GetById(_dto.UserID)).Returns(_user);
-            var barbers = new List<WorkerEntity>();
+            var barbers = new List<EmployeeEntity>();
             barbers.Add(_barber);
 
             _barberRepositoryMock.Setup(x => x.GetAll()).Returns(barbers);

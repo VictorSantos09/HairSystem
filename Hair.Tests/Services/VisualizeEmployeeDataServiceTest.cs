@@ -8,7 +8,7 @@ namespace Hair.Tests.Services
 {
     public class VisualizeEmployeeDataServiceTest
     {
-        private readonly Mock<IBaseRepository<WorkerEntity>> _employeeRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
+        private readonly Mock<IBaseRepository<EmployeeEntity>> _employeeRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
         private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
         private readonly ViewEmployeeDataService _service;
         private UserEntity _user = new UserEntity { Email = "Carlos@gmail.com", Password = "carlos123" };
@@ -27,7 +27,7 @@ namespace Hair.Tests.Services
             var jobSaloonId = Guid.NewGuid();
             var mockAdress = new AddressEntity("Rua das Palmeiras", "222", "Blumenau", "Santa Catarina", null, "456487895", _user.Id);
 
-            var barbers = new List<WorkerEntity>
+            var barbers = new List<EmployeeEntity>
             {
                 new WorkerEntity("TestName", "TestPhoneNumber", "TestEmail", 200, mockAdress, true, jobSaloonId, "TestSaloon"),
                 new WorkerEntity("TestName", "TestPhoneNumber2", "TestEmail2", 200, mockAdress, true, jobSaloonId, "TestSaloon2"),
@@ -93,7 +93,7 @@ namespace Hair.Tests.Services
         {
             // Arrange
             _userRepositoryMock.Setup(x => x.GetByEmail(_user.Email, _user.Password)).Returns(_user);
-            _employeeRepositoryMock.Setup(x => x.GetAll()).Returns(new List<WorkerEntity>());
+            _employeeRepositoryMock.Setup(x => x.GetAll()).Returns(new List<EmployeeEntity>());
 
             // Act
             var actual = _service.GetWorkerData(_user.Email, _user.Password);

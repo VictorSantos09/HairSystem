@@ -4,10 +4,10 @@ namespace Hair.Domain.Entities
 {
     /// <summary>
     /// 
-    /// Abstração dos itens do salão.
+    /// Abstração dos produtos do salão.
     /// 
     /// </summary>
-    public sealed class ItemEntity : BaseEntity
+    public sealed class ProductEntity : BaseEntity
     {
         /// <summary>
         /// 
@@ -18,19 +18,19 @@ namespace Hair.Domain.Entities
 
         /// <summary>
         /// 
-        /// Tipo do item.
+        /// Tipo do produto.
         /// 
         /// </summary>
-        public ItemTypeEntity Type { get; set; }
+        public ProductTypeEntity Type { get; set; }
 
         /// <summary>
-        /// Descrição do item.
+        /// Descrição do produto.
         /// </summary>
         public string? Description { get; set; }
 
         /// <summary>
         /// 
-        /// Preço do item.
+        /// Preço do produto.
         /// 
         /// </summary>
         public double Price { get; set; }
@@ -42,7 +42,7 @@ namespace Hair.Domain.Entities
         /// </summary>
         public int QuantityAvaible { get; set; }
 
-        public ItemEntity(Guid userID, ItemTypeEntity type, string? description, double price, int quantityAvaible)
+        public ProductEntity(Guid userID, ProductTypeEntity type, string? description, double price, int quantityAvaible)
         {
             Id = Guid.NewGuid();
             UserID = userID;
@@ -52,7 +52,7 @@ namespace Hair.Domain.Entities
             QuantityAvaible = quantityAvaible;
         }
 
-        public ItemEntity()
+        public ProductEntity()
         {
 
         }

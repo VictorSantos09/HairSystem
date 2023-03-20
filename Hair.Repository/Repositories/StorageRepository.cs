@@ -8,21 +8,21 @@ using System.Data;
 namespace Hair.Repository.Repositories
 {
     /// <summary>
-    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ItemEntity"/>.
+    /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ProductEntity"/>.
     /// </summary>
-    public class StorageRepository : IBaseRepository<ItemEntity>
+    public class StorageRepository : IBaseRepository<ProductEntity>
     {
-        public void Create(ItemEntity entity)
+        public void Create(ProductEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public List<ItemEntity> GetAll()
+        public List<ProductEntity> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public ItemEntity? GetById(Guid id)
+        public ProductEntity? GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -32,18 +32,18 @@ namespace Hair.Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(ItemEntity entity)
+        public void Update(ProductEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        private List<ItemEntity> ConvertToEntity(List<SaloonItemEntityFromSql> itensSql)
+        private List<ProductEntity> ConvertToEntity(List<SaloonItemEntityFromSql> itensSql)
         {
-            var output = new List<ItemEntity>();
+            var output = new List<ProductEntity>();
 
             foreach (var item in itensSql)
             {
-                var toAdd = new ItemEntity();
+                var toAdd = new ProductEntity();
                 toAdd.Price = item.Price;
                 toAdd.QuantityAvaible = item.Quantity_Avaible;
                 toAdd.Id = item.Id;
@@ -55,9 +55,9 @@ namespace Hair.Repository.Repositories
             return output;
         }
 
-        private ItemEntity ConvertToEntity(SaloonItemEntityFromSql itemSql)
+        private ProductEntity ConvertToEntity(SaloonItemEntityFromSql itemSql)
         {
-            var output = new ItemEntity();
+            var output = new ProductEntity();
             output.Price = itemSql.Price;
             output.QuantityAvaible = itemSql.Quantity_Avaible;
             output.Id = itemSql.Id;
