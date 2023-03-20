@@ -3,7 +3,7 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
-    public class TaskTypeValidator : AbstractValidator<TaskTypeEntity>
+    public class TaskTypeValidator : AbstractValidator<UserServiceTypeEntity>
     {
         public TaskTypeValidator()
         {

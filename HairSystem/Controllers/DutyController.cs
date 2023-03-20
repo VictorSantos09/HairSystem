@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
 using Hair.Application.Common;
-using Hair.Application.Dto;
+using Hair.Application.Dto.ClientCases;
+using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services.ClientCases;
-using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.UserServiceManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace HairSystem.Controllers
     {
         private readonly ScheduleDutyService _schedule;
         private readonly CancelDutyService _cancel;
-        private readonly UpdateTaskService _changePrice;
+        private readonly UpdateUserServiceService _changePrice;
         private readonly IException _exHelper;
 
         public DutyController(IBaseRepository<UserEntity> userRepository, IBaseRepository<DutyEntity> haircutRepository,

@@ -1,5 +1,5 @@
 ﻿using Hair.Application.Common;
-using Hair.Application.Dto;
+using Hair.Application.Dto.ClientCases;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;

@@ -28,9 +28,9 @@ namespace Hair.Domain.Entities
         /// <summary>
         /// Tipo de tarefa a ser prestado
         /// </summary>
-        public TaskTypeEntity TaskType { get; set; }
+        public UserServiceTypeEntity TaskType { get; set; }
 
-        public DutyEntity(Guid userID, DateTime date, ClientEntity client, TaskTypeEntity taskType)
+        public DutyEntity(Guid userID, DateTime date, ClientEntity client, UserServiceTypeEntity taskType)
         {
             Id = Guid.NewGuid();
             UserID = userID;

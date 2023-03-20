@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Hair.Application.Common;
-using Hair.Application.Dto;
+using Hair.Application.Dto.ClientCases;
 using Hair.Application.Extensions;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
@@ -58,7 +58,7 @@ namespace Hair.Application.Services.ClientCases
                     return BaseDtoExtension.Create(406, "Horário indisponível");
             }
 
-            TaskTypeEntity newService = new TaskTypeEntity();
+            UserServiceTypeEntity newService = new UserServiceTypeEntity();
 
             FunctionDataTypes dutyTypes = new FunctionDataTypes();
             Type typeDuty = duties.GetType();

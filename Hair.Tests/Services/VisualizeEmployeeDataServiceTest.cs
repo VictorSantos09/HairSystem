@@ -1,5 +1,5 @@
 ﻿using Hair.Application.Extensions;
-using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
@@ -10,12 +10,12 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<WorkerEntity>> _employeeRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
         private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
-        private readonly ViewWorkerDataService _service;
+        private readonly ViewEmployeeDataService _service;
         private UserEntity _user = new UserEntity { Email = "Carlos@gmail.com", Password = "carlos123" };
 
         public VisualizeEmployeeDataServiceTest()
         {
-            _service = new ViewWorkerDataService(_employeeRepositoryMock.Object, _userRepositoryMock.Object);
+            _service = new ViewEmployeeDataService(_employeeRepositoryMock.Object, _userRepositoryMock.Object);
         }
 
         [Fact]

@@ -2,7 +2,7 @@
 
 namespace Hair.Repository.Interfaces
 {
-    public interface IServiceTypeRequest : IBaseRepository<TaskTypeEntity>, IGetByName<TaskTypeEntity>
+    public interface IServiceTypeRequest : IBaseRepository<UserServiceTypeEntity>, IGetByName<UserServiceTypeEntity>
     {
     }
 }

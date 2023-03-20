@@ -1,6 +1,6 @@
-﻿using Hair.Application.Dto;
+﻿using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
-using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
@@ -12,7 +12,7 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
-        private readonly UpdateWorkerService _service;
+        private readonly UpdateEmployeeService _service;
         private UpdateWorkerDto _dto;
         private WorkerEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);

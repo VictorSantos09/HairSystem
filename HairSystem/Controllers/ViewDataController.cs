@@ -1,7 +1,8 @@
 ﻿using Hair.Application.Common;
-using Hair.Application.Dto;
+using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
 using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,16 +13,16 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ViewDataController : ControllerBase
     {
-        private readonly ViewWorkerDataService _viewEmployeeData;
-        private readonly ViewDutyTimeService _viewHaircutTime;
+        private readonly ViewEmployeeDataService _viewEmployeeData;
+        private readonly ViewServiceOrderService _viewHaircutTime;
         private readonly IException _exHelper;
 
         public ViewDataController(IBaseRepository<WorkerEntity> workerRepository, IGetByEmail userRepository, 
             IException exception, IBaseRepository<DutyEntity> haircutRepository)
         {
             _exHelper = exception;
-            _viewEmployeeData = new ViewWorkerDataService(workerRepository, userRepository);
-            _viewHaircutTime = new ViewDutyTimeService(haircutRepository);
+            _viewEmployeeData = new ViewEmployeeDataService(workerRepository, userRepository);
+            _viewHaircutTime = new ViewServiceOrderService(haircutRepository);
         }
 
         [HttpPost]

@@ -5,22 +5,22 @@ namespace Hair.Repository.Repositories
 {
     public class ServiceTypeRepository : IServiceTypeRequest
     {
-        public void Create(TaskTypeEntity entity)
+        public void Create(UserServiceTypeEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public List<TaskTypeEntity> GetAll()
+        public List<UserServiceTypeEntity> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public TaskTypeEntity? GetById(Guid id)
+        public UserServiceTypeEntity? GetById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public TaskTypeEntity GetByName(string name)
+        public UserServiceTypeEntity GetByName(string name)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +30,7 @@ namespace Hair.Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(TaskTypeEntity entity)
+        public void Update(UserServiceTypeEntity entity)
         {
             throw new NotImplementedException();
         }

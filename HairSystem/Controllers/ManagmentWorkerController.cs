@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Hair.Application.Common;
-using Hair.Application.Dto;
+using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +13,7 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ManagmentWorkerController : ControllerBase
     {
-        private readonly ManagmentWorkerService _service;
+        private readonly EmployeeManagmentService _service;
         private readonly IException _exHelper;
 
         public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository,

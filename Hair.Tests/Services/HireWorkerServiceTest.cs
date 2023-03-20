@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
-using Hair.Application.Dto;
+using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
-using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Tests.Builders;
@@ -15,7 +15,7 @@ namespace Hair.Tests.Services
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<WorkerEntity>> _barberRepositoryMock = new Mock<IBaseRepository<WorkerEntity>>();
-        private readonly HireWorkerService _service;
+        private readonly CreateEmployeeService _service;
         private HireWorkerDto _dto;
         private UserEntity _user;
         private ServiceBuilder _serviceBuilder = new ServiceBuilder();

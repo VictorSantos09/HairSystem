@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Services.ClientCases;
-using Hair.Application.Services.UserCases;
+using Hair.Application.Services.UserCases.EmployeeManagment;
+using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
@@ -26,10 +27,10 @@ namespace Hair.Tests.Builders
             return new ScheduleDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object, _validatorBuilder.InstanceDutyValidator());
         }
 
-        public ManagmentWorkerService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
+        public EmployeeManagmentService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
             Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock, Mock<IFunctionTypeRequest> functionTypeRepository)
         {
-            return new ManagmentWorkerService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator(), functionTypeRepository.Object);
+            return new EmployeeManagmentService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator(), functionTypeRepository.Object);
         }
 
         public CancelDutyService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
@@ -38,9 +39,9 @@ namespace Hair.Tests.Builders
             return new CancelDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object);
         }
 
-        public HireWorkerService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock)
+        public CreateEmployeeService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<WorkerEntity>> workerRepositoryMock)
         {
-            return new HireWorkerService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator());
+            return new CreateEmployeeService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator());
         }
     }
 }

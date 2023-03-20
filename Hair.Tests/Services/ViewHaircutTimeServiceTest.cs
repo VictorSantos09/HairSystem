@@ -8,12 +8,12 @@ namespace Hair.Tests.Services
 {
     public class ViewHaircutTimeServiceTests
     {
-        private readonly ViewDutyTimeService _service;
+        private readonly ViewServiceOrderService _service;
         private readonly Mock<IBaseRepository<DutyEntity>> _repositoryMock;
         public ViewHaircutTimeServiceTests()
         {
             _repositoryMock = new Mock<IBaseRepository<DutyEntity>>();
-            _service = new ViewDutyTimeService(_repositoryMock.Object);
+            _service = new ViewServiceOrderService(_repositoryMock.Object);
         }
 
         [Fact]
