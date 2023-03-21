@@ -19,7 +19,7 @@ namespace Hair.Repository.Repositories
             {
                 conn.Execute("dbo.spCreateUser", new
                 {
-                   
+
                 }, commandType: CommandType.StoredProcedure);
             }
         }
@@ -30,7 +30,7 @@ namespace Hair.Repository.Repositories
             {
                 conn.Query("dbo.spUpdateUser", new
                 {
-                    
+
                 });
             }
         }

@@ -1,9 +1,6 @@
-﻿using Dapper;
-using Hair.Domain.Entities;
-using Hair.Repository.DataBase;
+﻿using Hair.Domain.Entities;
 using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
-using System.Data;
 
 namespace Hair.Repository.Repositories
 {

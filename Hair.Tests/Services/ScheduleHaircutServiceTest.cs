@@ -1,5 +1,4 @@
-﻿using Hair.Application.Dto;
-using Hair.Application.Extensions;
+﻿using Hair.Application.Extensions;
 using Hair.Application.Services.ClientCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -58,11 +57,11 @@ namespace Hair.Tests.Services
             // Arrange
             var mockPrice = new HaircutPriceEntity(20, 20, 20);
 
-            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", new AddressEntity(), null, 
+            var user = new UserEntity("CarlinHair", "Carlos", "400282738", "carlin@hotmail.com", "guaranajesus", new AddressEntity(), null,
                 mockPrice, TimeOnly.FromDateTime(DateTime.Now), null, TimeOnly.FromDateTime(DateTime.Now).AddHours(4));
             DateTime? haircutTime = null;
 
-            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal", "45213580",user.Id);
+            var mockAdress = new AddressEntity("Rua das Palmeiras", "666", "Blumenau", "Santa Catarina", "Perto do terminal", "45213580", user.Id);
 
             user.Address = mockAdress;
 

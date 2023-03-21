@@ -4,10 +4,7 @@ using Hair.Repository.DataBase;
 using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Security;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace Hair.Repository.Repositories
 {
@@ -41,7 +38,7 @@ namespace Hair.Repository.Repositories
             }
         }
 
-        public  List<EmployeeEntity> GetAll()
+        public List<EmployeeEntity> GetAll()
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
@@ -58,7 +55,7 @@ namespace Hair.Repository.Repositories
 
                 if (workerSql == null)
                     return null;
-                
+
                 var workerAddress = ConvertAddress(conn.Query<AddressEntityFromSql>("dbo.spGetWorkerAddress", new { ID = id }).FirstOrDefault());
 
                 output.PhoneNumber = workerSql.Phone_Number;
@@ -77,7 +74,7 @@ namespace Hair.Repository.Repositories
         {
             using (IDbConnection conn = ConnectionFactory.BaseConnection())
             {
-                conn.Query("dbo.spDeleteWorker", new { ID = id});
+                conn.Query("dbo.spDeleteWorker", new { ID = id });
 
             }
             return true;

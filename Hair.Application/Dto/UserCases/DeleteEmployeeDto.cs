@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hair.Application.Dto.UserCases
+﻿namespace Hair.Application.Dto.UserCases
 {
     public class DeleteEmployeeDto
     {

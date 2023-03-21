@@ -1,10 +1,8 @@
 using Hair.Application.Dto.UserCases;
-using Hair.Application.Extensions;
 using Hair.Application.Services.UserCases.UserServiceManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Moq;
-using static Xunit.Assert;
 
 namespace Hair.Tests.Services
 {
@@ -15,6 +13,6 @@ namespace Hair.Tests.Services
         private UpdateTaskDto _dto;
         private UserEntity _user;
 
-       
+
     }
 }

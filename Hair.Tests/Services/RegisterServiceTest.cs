@@ -1,9 +1,7 @@
-﻿using FluentValidation.Results;
-using Hair.Application.Common;
+﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
 using Hair.Application.Services.UserCases.UserAccountManagment;
-using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Tests.Builders;

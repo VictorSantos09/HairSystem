@@ -19,7 +19,7 @@ namespace Hair.Application.Validators
             {
                 if (type.Contains("."))
                 {
-                    ValidationFailure failure = new ValidationFailure(type.ToString(),"tipo de imagem não deve conter ' . '");
+                    ValidationFailure failure = new ValidationFailure(type.ToString(), "tipo de imagem não deve conter ' . '");
                     context.AddFailure(failure);
                 }
             });

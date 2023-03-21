@@ -15,7 +15,7 @@ namespace Hair.Repository.EntitiesSql
         public string? Google_Maps_Source { get; set; }
         public AddressEntity Address { get; set; } = new AddressEntity();
 
-        public UserEntityFromSql(string saloon_Name, byte[] owner_Name, byte[] phone_Number, 
+        public UserEntityFromSql(string saloon_Name, byte[] owner_Name, byte[] phone_Number,
             byte[] email, byte[]? cNPJ, byte[] password, TimeOnly openTime, TimeOnly closeTime, string? google_Maps_Source, AddressEntity address)
         {
             Saloon_Name = saloon_Name;

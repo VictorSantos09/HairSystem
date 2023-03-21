@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// 

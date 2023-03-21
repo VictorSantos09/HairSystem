@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces
 {
 
     /// <summary>

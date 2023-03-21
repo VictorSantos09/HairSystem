@@ -6,7 +6,6 @@ using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Tests.Builders;
 using Moq;
-using Xunit.Sdk;
 
 namespace Hair.Tests.Services
 {

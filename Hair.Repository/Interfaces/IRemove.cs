@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces
 {
     /// <summary>
     /// Representa a interface que define um método para remover uma entidade pelo seu Id.

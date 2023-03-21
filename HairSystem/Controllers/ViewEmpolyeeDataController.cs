@@ -1,10 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Services.UserCases;
 using Hair.Application.Services.UserCases.EmployeeManagment;
-using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers

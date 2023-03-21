@@ -10,7 +10,7 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ManagmentEmployeeController : ControllerBase
     {
-        private readonly  IEmployeeManagment _service;
+        private readonly IEmployeeManagment _service;
         private readonly IException _exHelper;
 
         public ManagmentEmployeeController(IEmployeeManagment service, IException exHelper)

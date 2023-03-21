@@ -41,7 +41,7 @@
             Data = data;
         }
 
-        public static string GetMessage() => Message; 
+        public static string GetMessage() => Message;
         public static int GetStatusCode() => StatusCode;
     }
 }

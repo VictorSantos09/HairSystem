@@ -44,7 +44,7 @@ namespace Hair.Repository.Repositories
             {
                 conn.Query("dbo.spRemoveDuty @ID", new { ID = id });
             }
-            
+
             return true;
         }
         public List<ServiceOrderEntity> GetAll()

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hair.Application.Dto.ClientCases
+﻿namespace Hair.Application.Dto.ClientCases
 {
     public class ScheduleDutyDto
     {

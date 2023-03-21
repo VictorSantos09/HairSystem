@@ -1,5 +1,4 @@
 ﻿using Hair.Domain.Entities;
-using System;
 
 namespace Hair.Repository.EntitiesSql
 {

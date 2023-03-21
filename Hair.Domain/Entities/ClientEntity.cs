@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hair.Domain.Entities
+﻿namespace Hair.Domain.Entities
 {
     /// <summary>
     /// Abstração do cliente do salão.
