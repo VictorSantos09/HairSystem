@@ -1,16 +1,15 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
+using Hair.Application.Services.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
     /// <summary>
-    /// 
     /// Classe referente para efetuar a remoção da conta.
-    /// 
     /// </summary>
-    public sealed class DeleteAccountService
+    public sealed class DeleteAccountService : IDeleteAccount
     {
         private readonly IGetByEmail _userRepository;
 
@@ -19,15 +18,6 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// 
-        /// Efetua a remoção da conta com as informações passadas em <paramref name="dto"/>.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto"></param>
-        /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
         public BaseDto Delete(DeleteAccountDto dto)
         {
             if (!dto.Confirmed)

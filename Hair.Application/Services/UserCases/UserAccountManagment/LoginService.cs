@@ -1,16 +1,15 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
+using Hair.Application.Services.Interfaces;
 using Hair.Application.Validators;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
     /// <summary>
-    /// 
     /// Define as funções para efetuar o login.
-    /// 
     /// </summary>
-    public class LoginService
+    public class LoginService : ILogin
     {
         private readonly IGetByEmail _userRepository;
 
@@ -19,16 +18,7 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// 
-        /// Efetua o processo de login através do <paramref name="dto"/> fornecido.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto"></param>
-        /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.</returns>
-        public BaseDto CheckLogin(LoginDto dto)
+        public BaseDto Login(LoginDto dto)
         {
             if (Validation.NotEmpty(dto.Password) || Validation.NotEmpty(dto.Email))
                 return new BaseDto(406, "Email ou senha inválidos");

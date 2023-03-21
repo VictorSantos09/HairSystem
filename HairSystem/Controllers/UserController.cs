@@ -32,7 +32,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _registerService.Execute(dto);
+                var result = _registerService.Register(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
 
             }
@@ -54,7 +54,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _loginService.CheckLogin(dto);
+                var result = _loginService.Login(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)

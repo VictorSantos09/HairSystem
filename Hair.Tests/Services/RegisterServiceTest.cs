@@ -34,7 +34,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             // Assert
             Assert.Equal(_Expected, actual._StatusCode);
@@ -47,7 +47,7 @@ namespace Hair.Tests.Services
             _sucessDto.Email = "carlosgmail";
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             // Assert
             Assert.Equal(_Expected, actual._StatusCode);
@@ -60,7 +60,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns(_user);
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             // Assert
             Assert.Equal(_Expected, actual._StatusCode);
@@ -73,7 +73,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             Assert.Equal(_Expected, actual._StatusCode);
         }
@@ -86,7 +86,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns((UserEntity)null);
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             // Assert
             Assert.Equal(_Expected, actual._StatusCode);
@@ -99,7 +99,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(repo => repo.GetByEmail(_sucessDto.Email, _sucessDto.Password)).Returns(_user);
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             // Assert
             Assert.Equal(_Expected, actual._StatusCode);
@@ -112,7 +112,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns(_user);
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
 
             // Assert
             Assert.Equal(_Expected, actual._StatusCode);
@@ -126,7 +126,7 @@ namespace Hair.Tests.Services
             _sucessDto.OpenTime = invalidOpenTime;
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
             var _Expected = BaseDtoExtension.Invalid("Horario de abertura");
 
             // Assert
@@ -142,7 +142,7 @@ namespace Hair.Tests.Services
             _sucessDto.CloseTime = invalidCloseTime;
 
             // Act
-            var actual = _registerService.Execute(_sucessDto);
+            var actual = _registerService.Register(_sucessDto);
             var _Expected = BaseDtoExtension.Invalid("Horario de fechamento");
 
             // Assert

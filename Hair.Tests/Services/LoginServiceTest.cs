@@ -26,7 +26,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>()));
 
             // Act
-            var actual = _service.CheckLogin(_dto);
+            var actual = _service.Login(_dto);
             var expected = new BaseDto(404, "Usuario não encontrado");
 
             // Assert
@@ -42,7 +42,7 @@ namespace Hair.Tests.Services
             var dto = new LoginDto(null, null);
 
             // Act
-            var actual = _service.CheckLogin(dto);
+            var actual = _service.Login(dto);
             var expected = new BaseDto(406, "Email ou senha inválidos");
 
             // Assert
@@ -60,7 +60,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             // Act
-            var actual = _service.CheckLogin(_dto);
+            var actual = _service.Login(_dto);
             var expected = new BaseDto(200, "Login realizado com sucesso!", user.Id);
 
             // Assert

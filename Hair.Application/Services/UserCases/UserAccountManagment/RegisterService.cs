@@ -9,11 +9,9 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
     /// <summary>
-    /// 
-    /// Classe responsavel por executar o cadastro de novos usuários
-    /// 
+    /// Classe responsável por executar o cadastro.
     /// </summary>
-    public class RegisterService
+    public class RegisterService : IRegister
     {
         private readonly IGetByEmail _userRepository;
         private readonly IValidator<UserEntity> _userValidator;
@@ -24,16 +22,7 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
             _userValidator = userValidator;
         }
 
-        /// <summary>
-        /// 
-        /// Efetua a criação de um novo usuário.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto"></param>
-        /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com sucesso quando concluido.</returns>
-        public BaseDto Execute(RegisterDto dto)
+        public BaseDto Register(RegisterDto dto)
         {
             var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
 
