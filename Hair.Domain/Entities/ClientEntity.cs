@@ -3,7 +3,7 @@
 namespace Hair.Domain.Entities
 {
     /// <summary>
-    /// Abstração do cliente do salão
+    /// Abstração do cliente do salão.
     /// </summary>
     public sealed class ClientEntity : BaseEntity
     {
@@ -13,27 +13,21 @@ namespace Hair.Domain.Entities
         public Guid UserID { get; set; }
 
         /// <summary>
-        /// 
         /// Nome do cliente.
-        /// 
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
         /// Email do cliente.
-        /// 
         /// </summary>
         public string? Email { get; set; }
 
         /// <summary>
-        /// 
         /// Telefone do cliente.
-        /// 
         /// </summary>
         public string PhoneNumber { get; set; }
         /// <summary>
-        /// Prestação de serviço a ser recebido.
+        /// Ordem de serviço a ser feita.
         /// </summary>
         public ServiceOrderEntity Duty { get; set; }
 

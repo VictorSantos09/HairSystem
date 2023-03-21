@@ -3,23 +3,17 @@
 namespace Hair.Domain.Entities
 {
     /// <summary>
-    /// 
     /// Abstração da imagem.
-    /// 
     /// </summary>
     public sealed class ImageEntity : BaseEntity
     {
         /// <summary>
-        /// 
         /// Id do salão.
-        /// 
         /// </summary>
         public Guid UserID { get; set; }
 
         /// <summary>
-        /// 
         /// Imagem.
-        /// 
         /// </summary>
         public byte[] Image { get; set; }
 
