@@ -12,7 +12,7 @@ namespace Hair.Tests.Services
     {
         private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
         private readonly DeleteEmployeeService _service;
-        private FireWorkerDto _dto;
+        private DeleteEmployeeDto _dto;
         private EmployeeEntity _barber;
         private HaircutPriceEntity _haircutPrice = new HaircutPriceEntity(20, 20, 20);
         private UserEntity _user;

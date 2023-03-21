@@ -2,7 +2,7 @@
 
 namespace Hair.Application.Dto.UserCases
 {
-    public class HireWorkerDto
+    public class CreateEmployeeDto
     {
         public string Name { get; set; }
         public Guid UserID { get; set; }
@@ -18,7 +18,7 @@ namespace Hair.Application.Dto.UserCases
         public string CEP { get; set; }
         public string WorkerFunction { get; set; }
 
-        public HireWorkerDto(string name, Guid userID, string phoneNumber, string? email, float salary, string workerStreet,
+        public CreateEmployeeDto(string name, Guid userID, string phoneNumber, string? email, float salary, string workerStreet,
             string workerHouseNumber, string? workerHouseComplement, string workerCity, string workerState, bool confirmed, string cEP, string workerFunction)
         {
             Name = name;

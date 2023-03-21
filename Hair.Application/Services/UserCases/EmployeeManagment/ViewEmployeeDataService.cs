@@ -1,5 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Extensions;
+using Hair.Application.Services.Interfaces;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -7,37 +8,20 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
     /// <summary>
-    /// 
     /// Define o método de buscar informações dos funcionários.
-    /// 
     /// </summary>
-    public class ViewEmployeeDataService
+    public class ViewEmployeeDataService : IViewEmployeeData
     {
-        private readonly IBaseRepository<EmployeeEntity> _workerRepositories;
+        private readonly IBaseRepository<EmployeeEntity> _employeeRepository;
         private readonly IGetByEmail _userRepository;
 
-        public ViewEmployeeDataService(IBaseRepository<EmployeeEntity> workerRepository, IGetByEmail userRepository)
+        public ViewEmployeeDataService(IBaseRepository<EmployeeEntity> employeeRepository, IGetByEmail userRepository)
         {
-            _workerRepositories = workerRepository;
+            _employeeRepository = employeeRepository;
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// 
-        /// Efetua a busca dos funcionários do usuário quando paramêtros fornecidos válidos.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="email"></param>
-        /// 
-        /// <param name="password"></param>
-        /// 
-        /// <returns>
-        /// 
-        /// Retorna <see cref="BaseDto"/> com Data sendo os funcionários quando encontrado, também retornando status code e mensagem.
-        /// 
-        /// </returns>
-        public BaseDto GetWorkerData(string email, string password)
+        public BaseDto GetEmployeeData(string email, string password)
         {
             if (Validation.NotEmpty(email))
                 return BaseDtoExtension.Invalid("Email não informado.");

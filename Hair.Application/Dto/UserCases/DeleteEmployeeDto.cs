@@ -2,7 +2,7 @@
 
 namespace Hair.Application.Dto.UserCases
 {
-    public class FireWorkerDto
+    public class DeleteEmployeeDto
     {
         public Guid UserID { get; set; }
         public Guid WorkerID { get; set; }
@@ -10,7 +10,7 @@ namespace Hair.Application.Dto.UserCases
         public string? WorkerEmail { get; set; }
         public string WorkerPhoneNumber { get; set; }
 
-        public FireWorkerDto(Guid userID, Guid workerID, string workerName, string? workerEmail, string workerPhoneNumber)
+        public DeleteEmployeeDto(Guid userID, Guid workerID, string workerName, string? workerEmail, string workerPhoneNumber)
         {
             UserID = userID;
             WorkerID = workerID;

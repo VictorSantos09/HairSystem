@@ -2,6 +2,7 @@
 using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
+using Hair.Application.Services.Interfaces;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -10,34 +11,22 @@ using System.Reflection;
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
     /// <summary>
-    /// 
     /// Define os métodos para a contratação de funcionários.
-    /// 
     /// </summary>
-    public sealed class CreateEmployeeService
+    public sealed class CreateEmployeeService : ICreateEmployee
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<EmployeeEntity> _workerRepository;
-        private readonly IValidator<EmployeeEntity> _workerValidator;
+        private readonly IBaseRepository<EmployeeEntity> _employeeRepository;
+        private readonly IValidator<EmployeeEntity> _employeeValidator;
 
-        public CreateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> workerRepository, IValidator<EmployeeEntity> workerValidator)
+        public CreateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> employeeRepository, IValidator<EmployeeEntity> employeeValidator)
         {
             _userRepository = userRepository;
-            _workerRepository = workerRepository;
-            _workerValidator = workerValidator;
+            _employeeRepository = employeeRepository;
+            _employeeValidator = employeeValidator;
         }
 
-
-        /// <summary>
-        /// 
-        /// Método para contratação de novo funcionário se confirmado <see langword="true"/>.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto"></param>
-        /// 
-        /// <returns>Retorna <see cref="BaseDto"/> com statusCode 200 e 404 caso o usuário não foi encontrado.</returns>
-        public BaseDto HireNewWorker(HireWorkerDto dto)
+        public BaseDto Create(CreateEmployeeDto dto)
         {
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
@@ -65,11 +54,11 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
 
             worker.Address = address;
 
-            var validationResult = Validation.Verify(_workerValidator.Validate(worker));
+            var validationResult = Validation.Verify(_employeeValidator.Validate(worker));
 
             if (validationResult.Condition)
             {
-                _workerRepository.Create(worker);
+                _employeeRepository.Create(worker);
                 return BaseDtoExtension.Create(200, $"{dto.Name} foi registrado");
             }
 

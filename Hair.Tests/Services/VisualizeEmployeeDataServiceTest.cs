@@ -36,7 +36,7 @@ namespace Hair.Tests.Services
             _employeeRepositoryMock.Setup(repo => repo.GetAll()).Returns(barbers);
 
             // Act
-            var result = _service.GetWorkerData(_user.Email, _user.Password);
+            var result = _service.GetEmployeeData(_user.Email, _user.Password);
 
             // Assert
             Assert.Equal("Relação de barbeiros.", result._Message);
@@ -50,7 +50,7 @@ namespace Hair.Tests.Services
             var email = "";
 
             // Act
-            var actual = _service.GetWorkerData(email, "carlos");
+            var actual = _service.GetEmployeeData(email, "carlos");
             var expected = BaseDtoExtension.Invalid("Email não informado.");
 
             // Assert
@@ -65,7 +65,7 @@ namespace Hair.Tests.Services
             var name = "";
 
             // Act
-            var actual = _service.GetWorkerData("carlos@gmail.com", name);
+            var actual = _service.GetEmployeeData("carlos@gmail.com", name);
             var expected = BaseDtoExtension.Invalid("Senha não informada.");
 
             // Assert
@@ -80,7 +80,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(_user);
 
             // Act
-            var actual = _service.GetWorkerData(_user.Email, _user.Password);
+            var actual = _service.GetEmployeeData(_user.Email, _user.Password);
             var expected = BaseDtoExtension.NotFound();
 
             // Assert
@@ -96,7 +96,7 @@ namespace Hair.Tests.Services
             _employeeRepositoryMock.Setup(x => x.GetAll()).Returns(new List<EmployeeEntity>());
 
             // Act
-            var actual = _service.GetWorkerData(_user.Email, _user.Password);
+            var actual = _service.GetEmployeeData(_user.Email, _user.Password);
             var expected = BaseDtoExtension.Sucess("Barbeiros não encontrados.");
 
             // Assert

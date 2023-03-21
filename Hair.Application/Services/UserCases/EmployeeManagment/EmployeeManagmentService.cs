@@ -1,72 +1,27 @@
-﻿using FluentValidation;
-using Hair.Application.Common;
+﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
-using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Application.Services.Interfaces;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
     /// <summary>
-    /// 
     /// Classe para gerenciamento do funcionário, como contratar, demitir e entre outros.
-    /// 
     /// </summary>
-    public class EmployeeManagmentService
+    public class EmployeeManagmentService : IEmployeeManagment
     {
-        private readonly UpdateEmployeeService _update;
-        private readonly CreateEmployeeService _hire;
-        private readonly DeleteEmployeeService _fire;
+        private readonly IUpdateEmployee _updateEmployee;
+        private readonly ICreateEmployee _createEmployee;
+        private readonly IDeleteEmployee _deleteEmployee;
 
-        public EmployeeManagmentService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> workerRepository,
-            IValidator<EmployeeEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
+        public EmployeeManagmentService(IUpdateEmployee update, ICreateEmployee create, IDeleteEmployee fire)
         {
-            _update = new(userRepository, workerRepository, workerValidator, functionTypeRepository);
-            _hire = new(userRepository, workerRepository, workerValidator);
-            _fire = new(workerRepository);
+            _updateEmployee = update;
+            _createEmployee = create;
+            _deleteEmployee = fire;
         }
 
-        /// <summary>
-        /// 
-        /// Método que atualiza as informações de um funcionário existente
-        /// </summary>
-        /// 
-        /// <param name="dto">Objeto do tipo UpdateWorkerDto contendo as informações atualizadas do funcionário.</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Objeto do tipo BaseDto com o resultado da operação de atualização.
-        /// 
-        /// </returns>
-        public BaseDto Update(UpdateWorkerDto dto) => _update.Update(dto);
-
-        /// <summary>
-        /// 
-        /// Método que contrata um novo funcionário.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto">Objeto do tipo HireWorkerDto contendo as informações do novo funcionário a ser contratado.</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Objeto do tipo BaseDto com o resultado da operação de contratação.
-        /// 
-        /// </returns>
-        public BaseDto Hire(HireWorkerDto dto) => _hire.HireNewWorker(dto);
-
-        /// <summary>
-        /// 
-        /// Método que demite um funcionário existente.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto">Objeto do tipo FireWorkerDto contendo as informações do funcionário a ser demitido.</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Objeto do tipo BaseDto com o resultado da operação de demissão.
-        /// 
-        /// </returns>
-        public BaseDto Fire(FireWorkerDto dto) => _fire.FireWorker(dto);
+        public BaseDto Update(UpdateEmployeeDto dto) => _updateEmployee.Update(dto);
+        public BaseDto Hire(CreateEmployeeDto dto) => _createEmployee.Create(dto);
+        public BaseDto Fire(DeleteEmployeeDto dto) => _deleteEmployee.Delete(dto);
     }
 }

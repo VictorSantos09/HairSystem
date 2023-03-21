@@ -16,7 +16,7 @@ namespace Hair.Tests.Services
         private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
         private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
         private readonly CreateEmployeeService _service;
-        private HireWorkerDto _dto;
+        private CreateEmployeeDto _dto;
         private UserEntity _user;
         private ServiceBuilder _serviceBuilder = new ServiceBuilder();
         public HireWorkerServiceTest()
@@ -35,7 +35,7 @@ namespace Hair.Tests.Services
             _userRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
 
             // Act
-            var actual = _service.HireNewWorker(_dto);
+            var actual = _service.Create(_dto);
 
             // Assert
             Equal(_Expected, actual._StatusCode);
@@ -48,7 +48,7 @@ namespace Hair.Tests.Services
             _dto.Confirmed = false;
 
             // Act
-            var actual = _service.HireNewWorker(_dto);
+            var actual = _service.Create(_dto);
 
             // Assert
             Equal(_Expected, actual._StatusCode);
@@ -62,7 +62,7 @@ namespace Hair.Tests.Services
             _barberRepositoryMock.Setup(x => x.Create(It.IsAny<EmployeeEntity>()));
 
             // Act
-            var actual = _service.HireNewWorker(_dto);
+            var actual = _service.Create(_dto);
             var expected = BaseDtoExtension.Create(200, $"{_dto.Name} foi registrado");
 
             // Assert

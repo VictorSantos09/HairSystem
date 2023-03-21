@@ -3,7 +3,7 @@ using System;
 
 namespace Hair.Application.Dto.UserCases
 {
-    public class UpdateWorkerDto
+    public class UpdateEmployeeDto
     {
         public Guid UserID { get; set; }
         public string WorkerName { get; set; }
@@ -17,7 +17,7 @@ namespace Hair.Application.Dto.UserCases
         public float NewSalary { get; set; }
         public string NewFunction { get; set; }
 
-        public UpdateWorkerDto(Guid userID, string workerName, string? workerEmail, string? workerPhoneNumber, double workerSalary,
+        public UpdateEmployeeDto(Guid userID, string workerName, string? workerEmail, string? workerPhoneNumber, double workerSalary,
             AddressEntity newAddress, string? newEmail, string? newPhoneNumber, string newName, float newSalary, string newFunction)
         {
             UserID = userID;

@@ -31,7 +31,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _viewEmployeeData.GetWorkerData(dataDto.Email, dataDto.Password);
+                var result = _viewEmployeeData.GetEmployeeData(dataDto.Email, dataDto.Password);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)

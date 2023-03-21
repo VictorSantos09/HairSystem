@@ -2,6 +2,7 @@
 using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
+using Hair.Application.Services.Interfaces;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -9,47 +10,33 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
     /// <summary>
-    /// 
     /// Define os métodos para atualização de funcionário.
-    /// 
     /// </summary>
-    public sealed class UpdateEmployeeService
+    public sealed class UpdateEmployeeService : IUpdateEmployee
     {
         private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<EmployeeEntity> _workerRepository;
+        private readonly IBaseRepository<EmployeeEntity> _employeeRepository;
         private readonly IFunctionTypeRequest _functionTypeRepository;
-        private readonly IValidator<EmployeeEntity> _workerValidator;
+        private readonly IValidator<EmployeeEntity> _employeeValidator;
 
-        public UpdateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> workerRepository,
-            IValidator<EmployeeEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
+        public UpdateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> employeeRepository,
+            IFunctionTypeRequest functionTypeRepository, IValidator<EmployeeEntity> employeeValidator)
         {
             _userRepository = userRepository;
-            _workerRepository = workerRepository;
-            _workerValidator = workerValidator;
+            _employeeRepository = employeeRepository;
             _functionTypeRepository = functionTypeRepository;
+            _employeeValidator = employeeValidator;
         }
 
-        /// <summary>
-        /// 
-        /// Efetua a atualização de um novo funcionário.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="dto">Dados necessários para atualizar</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.
-        /// 
-        /// </returns>
-        public BaseDto Update(UpdateWorkerDto dto)
+
+        public BaseDto Update(UpdateEmployeeDto dto)
         {
             var user = _userRepository.GetById(dto.UserID);
 
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var allWorkers = _workerRepository.GetAll().FindAll(x => x.UserID == user.Id);
+            var allWorkers = _employeeRepository.GetAll().FindAll(x => x.UserID == user.Id);
 
             if (allWorkers.Count == 0)
                 return BaseDtoExtension.Create(404, "Nenhum funcionário foi encontrado");
@@ -66,12 +53,12 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
 
             var workerUpdated = new EmployeeEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, dto.UserID, function);
 
-            var validationResult = Validation.Verify(_workerValidator.Validate(workerToUpdate));
+            var validationResult = Validation.Verify(_employeeValidator.Validate(workerToUpdate));
 
             if (validationResult.Condition)
             {
                 workerToUpdate = workerUpdated;
-                _workerRepository.Update(workerToUpdate);
+                _employeeRepository.Update(workerToUpdate);
                 return BaseDtoExtension.Sucess($"Dados de {workerToUpdate.Name} atualizados");
             }
 

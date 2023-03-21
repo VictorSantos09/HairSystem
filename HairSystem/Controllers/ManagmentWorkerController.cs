@@ -25,7 +25,7 @@ namespace HairSystem.Controllers
 
         [HttpDelete]
         [Route("FireWorker")]
-        public IActionResult FireWorker([FromBody] FireWorkerDto dto)
+        public IActionResult FireWorker([FromBody] DeleteEmployeeDto dto)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace HairSystem.Controllers
 
         [HttpPost]
         [Route("HireWorker")]
-        public IActionResult HireWorker([FromBody] HireWorkerDto dto)
+        public IActionResult HireWorker([FromBody] CreateEmployeeDto dto)
         {
             try
             {
