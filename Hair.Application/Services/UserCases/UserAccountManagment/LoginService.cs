@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
-using Hair.Application.Services.Interfaces;
+using Hair.Application.Interfaces;
 using Hair.Application.Validators;
 using Hair.Repository.Interfaces;
 

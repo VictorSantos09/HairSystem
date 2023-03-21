@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 
-namespace Hair.Application.Services.Interfaces
+namespace Hair.Application.Interfaces
 {
     public interface IViewEmployeeData
     {

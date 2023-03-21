@@ -1,10 +1,8 @@
-﻿using FluentValidation;
-using Hair.Application.Common;
+﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
+using Hair.Application.Interfaces;
 using Hair.Application.Services.UserCases.UserAccountManagment;
-using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
@@ -13,17 +11,17 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class UserController : ControllerBase
     {
-        private readonly RegisterService _registerService;
-        private readonly LoginService _loginService;
-        private readonly DeleteAccountService _deleteService;
+        private readonly IRegister _register;
+        private readonly ILogin _login;
+        private readonly IDeleteAccount _deleteAccount;
         private readonly IException _exHelper;
 
-        public UserController(IGetByEmail userRepository, IException exception, IValidator<UserEntity> validator)
+        public UserController(IRegister register, ILogin login, IDeleteAccount deleteAccount, IException exHelper)
         {
-            _exHelper = exception;
-            _registerService = new(userRepository, validator);
-            _loginService = new(userRepository);
-            _deleteService = new(userRepository);
+            _register = register;
+            _login = login;
+            _deleteAccount = deleteAccount;
+            _exHelper = exHelper;
         }
 
         [HttpPost]
@@ -32,7 +30,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _registerService.Register(dto);
+                var result = _register.Register(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
 
             }
@@ -54,7 +52,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _loginService.Login(dto);
+                var result = _login.Login(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)
@@ -75,7 +73,7 @@ namespace HairSystem.Controllers
         {
             try
             {
-                var result = _deleteService.Delete(dto);
+                var result = _deleteAccount.Delete(dto);
                 return StatusCode(result._StatusCode, result._Data == null ? new MessageDto(result._Message) : result._Data);
             }
             catch (ArgumentNullException e)

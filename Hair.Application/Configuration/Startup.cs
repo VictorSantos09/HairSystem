@@ -1,6 +1,9 @@
 using FluentValidation;
 using Hair.Application.ApiRequest;
 using Hair.Application.ExceptionHandlling;
+using Hair.Application.Interfaces;
+using Hair.Application.Services.UserCases.EmployeeManagment;
+using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -15,42 +18,65 @@ namespace Hair.Application.Configuration
     public class Startup
     {
         /// <summary>
-        /// Injeta os itns necessarios no <paramref name="services"/> fornecido
+        /// Configura as dependências do projeto.
         /// </summary>
-        /// <param name="services"></param>
-        public static void Configure(IServiceCollection services)
+        /// <param name="collection">Coleção para inserir as dependências.</param>
+        public static void Configure(IServiceCollection collection)
         {
-            services.AddTransient<IException, ExceptionHelper>();
-            services.AddTransient<IApiRequest, ApiHelper>();
-            ConfigureRepositories(services);
-            ConfigueValidators(services);
+            collection.AddTransient<IException, ExceptionHelper>();
+            collection.AddTransient<IApiRequest, ApiHelper>();
+            ConfigureRepositories(collection);
+            ConfigueValidators(collection);
+            ConfigureServices(collection);
         }
 
-        private static void ConfigueValidators(IServiceCollection services)
+        private static void ConfigueValidators(IServiceCollection collection)
         {
-            services.AddTransient<IValidator<AddressEntity>, AddressValidator>();
-            services.AddTransient<IValidator<ClientEntity>, ClientValidator>();
-            services.AddTransient<IValidator<ServiceOrderEntity>, DutyValidator>();
-            services.AddTransient<IValidator<FunctionTypeEntity>, FunctionTypeValidator>();
-            services.AddTransient<IValidator<ImageEntity>, ImageValidator>();
-            services.AddTransient<IValidator<ProductEntity>, ItemValidator>();
-            services.AddTransient<IValidator<ProductTypeEntity>, ItemTypeValidator>();
-            services.AddTransient<IValidator<UserServiceEntity>, TaskValidator>();
-            services.AddTransient<IValidator<UserServiceTypeEntity>, TaskTypeValidator>();
-            services.AddTransient<IValidator<UserEntity>, UserValidator>();
-            services.AddTransient<IValidator<EmployeeEntity>, WorkerValidator>();
+            collection.AddTransient<IValidator<AddressEntity>, AddressValidator>();
+            collection.AddTransient<IValidator<ClientEntity>, ClientValidator>();
+            collection.AddTransient<IValidator<ServiceOrderEntity>, DutyValidator>();
+            collection.AddTransient<IValidator<FunctionTypeEntity>, FunctionTypeValidator>();
+            collection.AddTransient<IValidator<ImageEntity>, ImageValidator>();
+            collection.AddTransient<IValidator<ProductEntity>, ItemValidator>();
+            collection.AddTransient<IValidator<ProductTypeEntity>, ItemTypeValidator>();
+            collection.AddTransient<IValidator<UserServiceEntity>, TaskValidator>();
+            collection.AddTransient<IValidator<UserServiceTypeEntity>, TaskTypeValidator>();
+            collection.AddTransient<IValidator<UserEntity>, UserValidator>();
+            collection.AddTransient<IValidator<EmployeeEntity>, WorkerValidator>();
         }
 
-        private static void ConfigureRepositories(IServiceCollection services)
+        private static void ConfigureRepositories(IServiceCollection collection)
         {
-            services.AddTransient<IGetByEmail, UserRepository>();
-            services.AddTransient<IServiceTypeRequest, ServiceTypeRepository>();
-            services.AddTransient<IFunctionTypeRequest, FunctionTypeRepository>();
-            services.AddTransient<IBaseRepository<EmployeeEntity>, WorkerRepository>();
-            services.AddTransient<IBaseRepository<ProductEntity>, StorageRepository>();
-            services.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
-            services.AddTransient<IBaseRepository<ServiceOrderEntity>, DutyRepository>();
-            services.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
+            collection.AddTransient<IGetByEmail, UserRepository>();
+            collection.AddTransient<IServiceTypeRequest, ServiceTypeRepository>();
+            collection.AddTransient<IFunctionTypeRequest, FunctionTypeRepository>();
+            collection.AddTransient<IBaseRepository<EmployeeEntity>, EmployeeRepository>();
+            collection.AddTransient<IBaseRepository<ProductEntity>, ProductRepository>();
+            collection.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
+            collection.AddTransient<IBaseRepository<ServiceOrderEntity>, ServiceOrderRepository>();
+            collection.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
+        }
+
+        private static void ConfigureServices(IServiceCollection colletion)
+        {
+            ConfigureManagmentEmployee(colletion);
+            ConfigureUserAccountManagment(colletion);
+        }
+
+        private static void ConfigureManagmentEmployee(IServiceCollection colletion)
+        {
+            colletion.AddTransient<IDeleteEmployee, DeleteEmployeeService>();
+            colletion.AddTransient<IUpdateEmployee, UpdateEmployeeService>();
+            colletion.AddTransient<ICreateEmployee, CreateEmployeeService>();
+            colletion.AddTransient<IViewEmployeeData, ViewEmployeeDataService>();
+            colletion.AddTransient<IEmployeeManagment, EmployeeManagmentService>();
+        }
+
+        private static void ConfigureUserAccountManagment(IServiceCollection colletion)
+        {
+            colletion.AddTransient<IDeleteAccount, DeleteAccountService>();
+            colletion.AddTransient<ILogin, LoginService>();
+            colletion.AddTransient<IRegister, RegisterService>();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="ServiceOrderEntity"/>.
     /// </summary>
-    public class DutyRepository : IBaseRepository<ServiceOrderEntity>
+    public class ServiceOrderRepository : IBaseRepository<ServiceOrderEntity>
     {
         public void Create(ServiceOrderEntity duty)
         {

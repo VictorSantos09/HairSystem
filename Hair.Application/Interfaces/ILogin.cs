@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 
-namespace Hair.Application.Services.Interfaces
+namespace Hair.Application.Interfaces
 {
     public interface ILogin
     {

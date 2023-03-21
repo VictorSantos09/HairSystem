@@ -14,7 +14,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Repositório responsável por gerenciar as operações de Create e Update para a entidade worker contida em <see cref="EmployeeEntity"/>.
     /// </summary>
-    public class WorkerRepository : IBaseRepository<EmployeeEntity>
+    public class EmployeeRepository : IBaseRepository<EmployeeEntity>
     {
         public void Create(EmployeeEntity worker)
         {

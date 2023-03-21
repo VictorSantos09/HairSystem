@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
-using Hair.Application.Services.Interfaces;
+using Hair.Application.Interfaces;
 using Hair.Repository.Interfaces;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment

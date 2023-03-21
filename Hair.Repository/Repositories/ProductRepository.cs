@@ -10,7 +10,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ProductEntity"/>.
     /// </summary>
-    public class StorageRepository : IBaseRepository<ProductEntity>
+    public class ProductRepository : IBaseRepository<ProductEntity>
     {
         public void Create(ProductEntity entity)
         {

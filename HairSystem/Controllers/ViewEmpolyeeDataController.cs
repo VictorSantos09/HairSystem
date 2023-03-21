@@ -11,19 +11,12 @@ namespace HairSystem.Controllers
 {
     [ApiController]
     [Route("api/controller")]
-    public class ViewDataController : ControllerBase
+    public class ViewEmpolyeeDataController : ControllerBase
     {
         private readonly ViewEmployeeDataService _viewEmployeeData;
         private readonly ViewServiceOrderService _viewHaircutTime;
         private readonly IException _exHelper;
 
-        public ViewDataController(IBaseRepository<EmployeeEntity> workerRepository, IGetByEmail userRepository, 
-            IException exception, IBaseRepository<ServiceOrderEntity> haircutRepository)
-        {
-            _exHelper = exception;
-            _viewEmployeeData = new ViewEmployeeDataService(workerRepository, userRepository);
-            _viewHaircutTime = new ViewServiceOrderService(haircutRepository);
-        }
 
         [HttpPost]
         [Route("VisualizeEmployeeData")]

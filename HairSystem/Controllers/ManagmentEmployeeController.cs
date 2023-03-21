@@ -1,26 +1,22 @@
-﻿using FluentValidation;
-using Hair.Application.Common;
+﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Services.UserCases.EmployeeManagment;
-using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers
 {
     [ApiController]
     [Route("api/controller")]
-    public class ManagmentWorkerController : ControllerBase
+    public class ManagmentEmployeeController : ControllerBase
     {
-        private readonly EmployeeManagmentService _service;
+        private readonly  IEmployeeManagment _service;
         private readonly IException _exHelper;
 
-        public ManagmentWorkerController(IException exception, IBaseRepository<UserEntity> userRepository,
-            IBaseRepository<EmployeeEntity> workerRepository, IValidator<EmployeeEntity> workerValidator, IFunctionTypeRequest functionTypeRepository)
+        public ManagmentEmployeeController(IEmployeeManagment service, IException exHelper)
         {
-            _exHelper = exception;
-            _service = new(userRepository, workerRepository, workerValidator, functionTypeRepository);
+            _service = service;
+            _exHelper = exHelper;
         }
 
         [HttpDelete]
@@ -57,7 +53,7 @@ namespace HairSystem.Controllers
 
         [HttpPut]
         [Route("UpdateWorker")]
-        public IActionResult UpdateWorker([FromBody] UpdateWorkerDto dto)
+        public IActionResult UpdateWorker([FromBody] UpdateEmployeeDto dto)
         {
             try
             {
