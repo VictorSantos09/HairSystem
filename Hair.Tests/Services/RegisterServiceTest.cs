@@ -3,7 +3,7 @@ using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
 using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.CRUD;
 using Hair.Tests.Builders;
 using Moq;
 

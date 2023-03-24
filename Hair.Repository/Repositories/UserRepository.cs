@@ -3,6 +3,8 @@ using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.CRUD;
+using Hair.Repository.Interfaces.Repositories;
 using Hair.Repository.Security;
 using System.Data;
 
@@ -11,7 +13,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : IApplicationDbContext<UserEntity>, IGetByEmailDbContext
+    public class UserRepository : IUserRepository
     {
         public void Create(UserEntity user)
         {

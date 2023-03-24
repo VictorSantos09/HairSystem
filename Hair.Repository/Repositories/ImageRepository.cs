@@ -2,6 +2,7 @@
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 using System.Data;
 
 namespace Hair.Repository.Repositories
@@ -9,7 +10,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de imagens no banco de dados contidas na <see cref="ImageEntity"/>.
     /// </summary>
-    public class ImageRepository : IApplicationDbContext<ImageEntity>
+    public class ImageRepository : IImageRepository
     {
         public void Create(ImageEntity entity)
         {

@@ -9,6 +9,8 @@ using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.CRUD;
+using Hair.Repository.Interfaces.Repositories;
 using Hair.Repository.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -50,14 +52,10 @@ namespace Hair.Application.Configuration
 
         private static void ConfigureRepositories(IServiceCollection collection)
         {
-            collection.AddTransient<IGetByEmailDbContext, UserRepository>();
-            collection.AddTransient<IServiceTypeRequestDbContext, ServiceTypeRepository>();
-            collection.AddTransient<IFunctionTypeRequestDbContext, FunctionTypeRepository>();
-            collection.AddTransient<IApplicationDbContext<EmployeeEntity>, EmployeeRepository>();
-            collection.AddTransient<IApplicationDbContext<ProductEntity>, ProductRepository>();
-            collection.AddTransient<IApplicationDbContext<ImageEntity>, ImageRepository>();
-            collection.AddTransient<IApplicationDbContext<ServiceOrderEntity>, ServiceOrderRepository>();
-            collection.AddTransient<IApplicationDbContext<UserEntity>, UserRepository>();
+            collection.AddTransient<IUserRepository, UserRepository>();
+            collection.AddTransient<IProductRepository, ProductRepository>();
+            collection.AddTransient<IImageRepository, ImageRepository>();
+            collection.AddTransient<IEmployeeRepository, EmployeeRepository>();
         }
 
         private static void ConfigureServices(IServiceCollection colletion)

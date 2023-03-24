@@ -1,4 +1,4 @@
-﻿namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces.CRUD
 {
     /// <summary>
     /// Representa a interface que fornece um método para recuperar uma entidade com um id especificado.

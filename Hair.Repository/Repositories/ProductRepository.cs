@@ -1,13 +1,14 @@
 ﻿using Hair.Domain.Entities;
 using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Repository.Repositories
 {
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update itens do salão no banco de dados contidos na <see cref="ProductEntity"/>.
     /// </summary>
-    public class ProductRepository : IApplicationDbContext<ProductEntity>
+    public class ProductRepository : IProductRepository
     {
         public void Create(ProductEntity entity)
         {
@@ -20,6 +21,11 @@ namespace Hair.Repository.Repositories
         }
 
         public ProductEntity? GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProductEntity GetByName(string name)
         {
             throw new NotImplementedException();
         }

@@ -34,7 +34,7 @@
         /// </summary>
         public Guid UserID { get; set; }
 
-        public AddressEntity(StreetEntity street, CityEntity city, StateEntity state, CountryEntity country, string? complement, Guid userID)
+        public AddressEntity(StreetEntity street, CityEntity city, StateEntity state, CountryEntity country, string? complement, Guid userID, string fullAddress)
         {
             Street = street;
             City = city;
@@ -42,7 +42,7 @@
             Country = country;
             Complement = complement;
             UserID = userID;
-            // Adicionar FullAddress
+            FullAddress = fullAddress;
         }
 
         public AddressEntity()

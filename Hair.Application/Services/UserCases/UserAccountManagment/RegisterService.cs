@@ -6,7 +6,7 @@ using Hair.Application.Factories.Interfaces;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.CRUD;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {

@@ -1,6 +1,6 @@
 ﻿using Hair.Domain.Entities;
 
-namespace Hair.Repository.Interfaces
+namespace Hair.Repository.Interfaces.CRUD
 {
     /// <summary>
     /// Define a implementação da busca do <see cref="UserEntity"/> pelo email e senha

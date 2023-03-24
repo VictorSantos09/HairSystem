@@ -1,4 +1,4 @@
-﻿namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces.CRUD
 {
 
     /// <summary>

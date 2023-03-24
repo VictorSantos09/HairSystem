@@ -1,4 +1,4 @@
-﻿namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces.CRUD
 {
     /// <summary>
     /// Representa a interface que define um método para atualizar uma entidade do tipo fornecido.

@@ -2,7 +2,7 @@
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.CRUD;
 using Moq;
 using static Xunit.Assert;
 

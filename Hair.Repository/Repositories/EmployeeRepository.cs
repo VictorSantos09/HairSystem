@@ -3,6 +3,7 @@ using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.EntitiesSql;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 using Hair.Repository.Security;
 using System.Data;
 
@@ -11,7 +12,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Repositório responsável por gerenciar as operações de Create e Update para a entidade worker contida em <see cref="EmployeeEntity"/>.
     /// </summary>
-    public class EmployeeRepository : IApplicationDbContext<EmployeeEntity>
+    public class EmployeeRepository : IEmployeeRepository
     {
         public void Create(EmployeeEntity worker)
         {
@@ -68,6 +69,11 @@ namespace Hair.Repository.Repositories
 
             }
             return output;
+        }
+
+        public EmployeeEntity GetByName(string name)
+        {
+            throw new NotImplementedException();
         }
 
         public bool Remove(Guid id)

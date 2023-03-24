@@ -1,4 +1,4 @@
-﻿namespace Hair.Repository.Interfaces
+﻿namespace Hair.Repository.Interfaces.CRUD
 {
     /// <summary>
     /// Representa a interface que permite a criação de uma entidade no banco de dados.
