@@ -13,8 +13,8 @@ namespace Hair.Tests.Services
     public class HireWorkerServiceTest
     {
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
+        private readonly Mock<IApplicationDbContext<UserEntity>> _userRepositoryMock = new Mock<IApplicationDbContext<UserEntity>>();
+        private readonly Mock<IApplicationDbContext<EmployeeEntity>> _barberRepositoryMock = new Mock<IApplicationDbContext<EmployeeEntity>>();
         private readonly CreateEmployeeService _service;
         private CreateEmployeeDto _dto;
         private UserEntity _user;

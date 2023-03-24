@@ -13,9 +13,9 @@ namespace Hair.Application.Functions
     /// </summary>
     public class SearchSaloonFunction
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
 
-        public SearchSaloonFunction(IBaseRepository<UserEntity> userRepository)
+        public SearchSaloonFunction(IApplicationDbContext<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }

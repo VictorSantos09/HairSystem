@@ -29,14 +29,14 @@
         /// </summary>
         public ServiceOrderEntity Duty { get; set; }
 
-        public ClientEntity(string name, string? email, string phoneNumber, Guid userID, ServiceOrderEntity duty)
+        public ClientEntity(string name, string? email, string phoneNumber, Guid userID, ServiceOrderEntity order)
         {
             Id = Guid.NewGuid();
             Name = name;
             Email = email;
             PhoneNumber = phoneNumber;
             UserID = userID;
-            Duty = duty;
+            Duty = order;
         }
 
         public ClientEntity()

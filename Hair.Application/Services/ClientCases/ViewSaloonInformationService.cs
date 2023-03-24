@@ -13,9 +13,9 @@ namespace Hair.Application.Services.ClientCases
     /// </summary>
     public class ViewSaloonInformationService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
 
-        public ViewSaloonInformationService(IBaseRepository<UserEntity> userRepository)
+        public ViewSaloonInformationService(IApplicationDbContext<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }

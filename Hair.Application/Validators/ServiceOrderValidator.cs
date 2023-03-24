@@ -7,14 +7,14 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação do corte de cabelo, pela classe concreta <see cref="ServiceOrderEntity"/>, também testando <see cref="ClientEntity"/>
     /// </summary>
-    public class DutyValidator : AbstractValidator<ServiceOrderEntity>
+    public class ServiceOrderValidator : AbstractValidator<ServiceOrderEntity>
     {
-        public DutyValidator()
+        public ServiceOrderValidator()
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.UserID).NotEmpty().WithName("ID do usuário");
             RuleFor(x => x.Client).SetValidator(new ClientValidator()).WithName("Cliente");
-            RuleFor(x => x.TaskType).SetValidator(new TaskTypeValidator()).WithName("Tipo do serviço");
+            RuleFor(x => x.TaskType).SetValidator(new UserServiceTypeValidator()).WithName("Tipo do serviço");
             RuleFor(x => x.Date).NotEmpty().WithName("Data").Custom((date, context) =>
             {
                 if (date < DateTime.Today)

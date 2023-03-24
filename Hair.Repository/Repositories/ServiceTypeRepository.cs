@@ -3,7 +3,7 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Repository.Repositories
 {
-    public class ServiceTypeRepository : IServiceTypeRequest
+    public class ServiceTypeRepository : IServiceTypeRequestDbContext
     {
         public void Create(UserServiceTypeEntity entity)
         {

@@ -8,19 +8,19 @@
         /// <summary>
         /// Rua.
         /// </summary>
-        public string Street { get; set; }
-        /// <summary>
-        /// Número do estabelecimento.
-        /// </summary>
-        public string Number { get; set; }
+        public StreetEntity Street { get; set; }
         /// <summary>
         /// Cidade.
         /// </summary>
-        public string City { get; set; }
+        public CityEntity City { get; set; }
         /// <summary>
         /// Estado.
         /// </summary>
-        public string State { get; set; }
+        public StateEntity State { get; set; }
+        /// <summary>
+        /// País.
+        /// </summary>
+        public CountryEntity Country { get; set; }
         /// <summary>
         /// Complemento do endereço.
         /// </summary>
@@ -30,24 +30,19 @@
         /// </summary>
         public string FullAddress { get; set; }
         /// <summary>
-        /// CEP.
-        /// </summary>
-        public string CEP { get; set; }
-        /// <summary>
         /// Id do usuário
         /// </summary>
         public Guid UserID { get; set; }
 
-        public AddressEntity(string street, string number, string city, string state, string? complement, string cep, Guid userId)
+        public AddressEntity(StreetEntity street, CityEntity city, StateEntity state, CountryEntity country, string? complement, Guid userID)
         {
-            Id = Guid.NewGuid();
             Street = street;
-            Number = number;
             City = city;
             State = state;
+            Country = country;
             Complement = complement;
-            CEP = cep;
-            UserID = userId;
+            UserID = userID;
+            // Adicionar FullAddress
         }
 
         public AddressEntity()

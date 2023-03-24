@@ -11,35 +11,35 @@ namespace Hair.Tests.Builders
     {
         private static readonly ValidatorBuilder _validatorBuilder = new ValidatorBuilder();
 
-        public static RegisterService InstanceRegister(Mock<IGetByEmail> iGetByEmailMock)
+        public static RegisterService InstanceRegister(Mock<IGetByEmailDbContext> iGetByEmailMock)
         {
             return new RegisterService(iGetByEmailMock.Object, _validatorBuilder.InstanceUserValidator());
         }
 
-        public LoginService InstanceLogin(Mock<IGetByEmail> iGetByEmailMock)
+        public LoginService InstanceLogin(Mock<IGetByEmailDbContext> iGetByEmailMock)
         {
             return new LoginService(iGetByEmailMock.Object);
         }
 
-        public ScheduleDutyService InstanceScheduleHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<ServiceOrderEntity>> dutyRepositoryMock)
+        public ScheduleDutyService InstanceScheduleHaircut(Mock<IApplicationDbContext<UserEntity>> userRepositoryMock,
+            Mock<IApplicationDbContext<ServiceOrderEntity>> dutyRepositoryMock)
         {
             return new ScheduleDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object, _validatorBuilder.InstanceDutyValidator());
         }
 
-        public EmployeeManagmentService InstanceManagmentWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<EmployeeEntity>> workerRepositoryMock, Mock<IFunctionTypeRequest> functionTypeRepository)
+        public EmployeeManagmentService InstanceManagmentWorker(Mock<IApplicationDbContext<UserEntity>> userRepositoryMock,
+            Mock<IApplicationDbContext<EmployeeEntity>> workerRepositoryMock, Mock<IFunctionTypeRequestDbContext> functionTypeRepository)
         {
             return new EmployeeManagmentService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator(), functionTypeRepository.Object);
         }
 
-        public CancelDutyService InstanceCancelHaircut(Mock<IBaseRepository<UserEntity>> userRepositoryMock,
-            Mock<IBaseRepository<ServiceOrderEntity>> dutyRepositoryMock)
+        public CancelDutyService InstanceCancelHaircut(Mock<IApplicationDbContext<UserEntity>> userRepositoryMock,
+            Mock<IApplicationDbContext<ServiceOrderEntity>> dutyRepositoryMock)
         {
             return new CancelDutyService(userRepositoryMock.Object, dutyRepositoryMock.Object);
         }
 
-        public CreateEmployeeService InstanceHireWorker(Mock<IBaseRepository<UserEntity>> userRepositoryMock, Mock<IBaseRepository<EmployeeEntity>> workerRepositoryMock)
+        public CreateEmployeeService InstanceHireWorker(Mock<IApplicationDbContext<UserEntity>> userRepositoryMock, Mock<IApplicationDbContext<EmployeeEntity>> workerRepositoryMock)
         {
             return new CreateEmployeeService(userRepositoryMock.Object, workerRepositoryMock.Object, _validatorBuilder.InstanceWorkerValidator());
         }

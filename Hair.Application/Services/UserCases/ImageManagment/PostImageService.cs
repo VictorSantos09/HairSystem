@@ -15,11 +15,11 @@ namespace Hair.Application.Services.UserCases.ImageManagment
     /// </summary>
     public sealed class PostImageService
     {
-        private readonly IBaseRepository<ImageEntity> _imageRepository;
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<ImageEntity> _imageRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
         private readonly IValidator<ImageEntity> _imageValidator;
 
-        public PostImageService(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository, IValidator<ImageEntity> imageValidator)
+        public PostImageService(IApplicationDbContext<ImageEntity> imageRepository, IApplicationDbContext<UserEntity> userRepository, IValidator<ImageEntity> imageValidator)
         {
             _imageRepository = imageRepository;
             _userRepository = userRepository;

@@ -11,7 +11,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de usuários no banco de dados contidos na <see cref="UserEntity"/>.
     /// </summary>
-    public class UserRepository : IBaseRepository<UserEntity>, IGetByEmail
+    public class UserRepository : IApplicationDbContext<UserEntity>, IGetByEmailDbContext
     {
         public void Create(UserEntity user)
         {

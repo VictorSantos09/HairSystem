@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
-using Hair.Application.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Repository.Interfaces;
 
@@ -11,9 +11,9 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
     /// </summary>
     public class LoginService : ILogin
     {
-        private readonly IGetByEmail _userRepository;
+        private readonly IGetByEmailDbContext _userRepository;
 
-        public LoginService(IGetByEmail userRepository)
+        public LoginService(IGetByEmailDbContext userRepository)
         {
             _userRepository = userRepository;
         }

@@ -1,7 +1,7 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.Controllers

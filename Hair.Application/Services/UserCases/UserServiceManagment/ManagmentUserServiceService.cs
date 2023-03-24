@@ -12,8 +12,8 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
         private readonly UpdateUserServiceService _update;
         private readonly RemoveUserServiceService _remove;
 
-        public ManagmentUserServiceService(IBaseRepository<UserEntity> userRepository, IBaseRepository<UserServiceEntity> taskRepository,
-            IBaseRepository<UserServiceTypeEntity> taskTypeRepository, IValidator<UserServiceEntity> taskValidator)
+        public ManagmentUserServiceService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<UserServiceEntity> taskRepository,
+            IApplicationDbContext<UserServiceTypeEntity> taskTypeRepository, IValidator<UserServiceEntity> taskValidator)
         {
             _create = new CreateUserServiceService(userRepository, taskRepository, taskTypeRepository, taskValidator);
             _update = new UpdateUserServiceService(userRepository, taskRepository, taskTypeRepository);

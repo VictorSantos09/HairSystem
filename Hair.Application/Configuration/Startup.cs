@@ -1,7 +1,9 @@
 using FluentValidation;
 using Hair.Application.ApiRequest;
 using Hair.Application.ExceptionHandlling;
-using Hair.Application.Interfaces;
+using Hair.Application.Factories;
+using Hair.Application.Factories.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Application.Validators;
@@ -28,33 +30,34 @@ namespace Hair.Application.Configuration
             ConfigureRepositories(collection);
             ConfigueValidators(collection);
             ConfigureServices(collection);
+            ConfigureFactory(collection);
         }
 
         private static void ConfigueValidators(IServiceCollection collection)
         {
             collection.AddTransient<IValidator<AddressEntity>, AddressValidator>();
             collection.AddTransient<IValidator<ClientEntity>, ClientValidator>();
-            collection.AddTransient<IValidator<ServiceOrderEntity>, DutyValidator>();
+            collection.AddTransient<IValidator<ServiceOrderEntity>, ServiceOrderValidator>();
             collection.AddTransient<IValidator<FunctionTypeEntity>, FunctionTypeValidator>();
             collection.AddTransient<IValidator<ImageEntity>, ImageValidator>();
-            collection.AddTransient<IValidator<ProductEntity>, ItemValidator>();
-            collection.AddTransient<IValidator<ProductTypeEntity>, ItemTypeValidator>();
-            collection.AddTransient<IValidator<UserServiceEntity>, TaskValidator>();
-            collection.AddTransient<IValidator<UserServiceTypeEntity>, TaskTypeValidator>();
+            collection.AddTransient<IValidator<ProductEntity>, ProductValidator>();
+            collection.AddTransient<IValidator<ProductTypeEntity>, ProductTypeValidator>();
+            collection.AddTransient<IValidator<UserServiceEntity>, UserServiceValidator>();
+            collection.AddTransient<IValidator<UserServiceTypeEntity>, UserServiceTypeValidator>();
             collection.AddTransient<IValidator<UserEntity>, UserValidator>();
-            collection.AddTransient<IValidator<EmployeeEntity>, WorkerValidator>();
+            collection.AddTransient<IValidator<EmployeeEntity>, EmployeeValidator>();
         }
 
         private static void ConfigureRepositories(IServiceCollection collection)
         {
-            collection.AddTransient<IGetByEmail, UserRepository>();
-            collection.AddTransient<IServiceTypeRequest, ServiceTypeRepository>();
-            collection.AddTransient<IFunctionTypeRequest, FunctionTypeRepository>();
-            collection.AddTransient<IBaseRepository<EmployeeEntity>, EmployeeRepository>();
-            collection.AddTransient<IBaseRepository<ProductEntity>, ProductRepository>();
-            collection.AddTransient<IBaseRepository<ImageEntity>, ImageRepository>();
-            collection.AddTransient<IBaseRepository<ServiceOrderEntity>, ServiceOrderRepository>();
-            collection.AddTransient<IBaseRepository<UserEntity>, UserRepository>();
+            collection.AddTransient<IGetByEmailDbContext, UserRepository>();
+            collection.AddTransient<IServiceTypeRequestDbContext, ServiceTypeRepository>();
+            collection.AddTransient<IFunctionTypeRequestDbContext, FunctionTypeRepository>();
+            collection.AddTransient<IApplicationDbContext<EmployeeEntity>, EmployeeRepository>();
+            collection.AddTransient<IApplicationDbContext<ProductEntity>, ProductRepository>();
+            collection.AddTransient<IApplicationDbContext<ImageEntity>, ImageRepository>();
+            collection.AddTransient<IApplicationDbContext<ServiceOrderEntity>, ServiceOrderRepository>();
+            collection.AddTransient<IApplicationDbContext<UserEntity>, UserRepository>();
         }
 
         private static void ConfigureServices(IServiceCollection colletion)
@@ -77,6 +80,11 @@ namespace Hair.Application.Configuration
             colletion.AddTransient<IDeleteAccount, DeleteAccountService>();
             colletion.AddTransient<ILogin, LoginService>();
             colletion.AddTransient<IRegister, RegisterService>();
+        }
+
+        private static void ConfigureFactory(IServiceCollection colletion)
+        {
+            colletion.AddTransient<IFactory, Factory>();
         }
     }
 }

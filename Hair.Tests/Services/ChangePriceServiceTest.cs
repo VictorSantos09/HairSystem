@@ -9,7 +9,7 @@ namespace Hair.Tests.Services
     public class ChangePriceServiceTest
     {
         private readonly UpdateUserServiceService _service;
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
+        private readonly Mock<IApplicationDbContext<UserEntity>> _userRepositoryMock = new Mock<IApplicationDbContext<UserEntity>>();
         private UpdateTaskDto _dto;
         private UserEntity _user;
 

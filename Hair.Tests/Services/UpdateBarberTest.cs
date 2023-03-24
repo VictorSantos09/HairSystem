@@ -10,8 +10,8 @@ namespace Hair.Tests.Services
 {
     public class UpdateBarberTest
     {
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
+        private readonly Mock<IApplicationDbContext<UserEntity>> _userRepositoryMock = new Mock<IApplicationDbContext<UserEntity>>();
+        private readonly Mock<IApplicationDbContext<EmployeeEntity>> _barberRepositoryMock = new Mock<IApplicationDbContext<EmployeeEntity>>();
         private readonly UpdateEmployeeService _service;
         private UpdateEmployeeDto _dto;
         private EmployeeEntity _barber;

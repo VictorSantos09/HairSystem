@@ -3,7 +3,7 @@
     /// <summary>
     /// Representa a interface que define um método para remover uma entidade pelo seu Id.
     /// </summary>
-    public interface IRemove
+    public interface IRemoveDbContext
     {
         /// <summary>
         /// Remove a entidade com o Id especificado.

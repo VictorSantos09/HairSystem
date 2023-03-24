@@ -2,6 +2,8 @@
 using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
+using Hair.Application.Factories.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -13,13 +15,15 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
     /// </summary>
     public class RegisterService : IRegister
     {
-        private readonly IGetByEmail _userRepository;
+        private readonly IGetByEmailDbContext _userRepository;
         private readonly IValidator<UserEntity> _userValidator;
+        private readonly IFactory _factory;
 
-        public RegisterService(IGetByEmail userRepository, IValidator<UserEntity> userValidator)
+        public RegisterService(IGetByEmailDbContext userRepository, IValidator<UserEntity> userValidator, IFactory factory)
         {
             _userRepository = userRepository;
             _userValidator = userValidator;
+            _factory = factory;
         }
 
         public BaseDto Register(RegisterDto dto)
@@ -37,7 +41,7 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
             if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
                 return BaseDtoExtension.Invalid("Horario de fechamento inválido");
 
-            var newUser = new UserEntity(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(),
+            var newUser = _factory.User.Create(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(),
                 resultOpenTime, resultCloseTime, dto.GoogleMapsLocation);
 
             var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);

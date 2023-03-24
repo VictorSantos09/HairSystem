@@ -2,7 +2,7 @@
 using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
-using Hair.Application.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -15,11 +15,11 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public sealed class CreateEmployeeService : ICreateEmployee
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<EmployeeEntity> _employeeRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<EmployeeEntity> _employeeRepository;
         private readonly IValidator<EmployeeEntity> _employeeValidator;
 
-        public CreateEmployeeService(IBaseRepository<UserEntity> userRepository, IBaseRepository<EmployeeEntity> employeeRepository, IValidator<EmployeeEntity> employeeValidator)
+        public CreateEmployeeService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<EmployeeEntity> employeeRepository, IValidator<EmployeeEntity> employeeValidator)
         {
             _userRepository = userRepository;
             _employeeRepository = employeeRepository;

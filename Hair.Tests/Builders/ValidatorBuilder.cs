@@ -17,10 +17,10 @@ namespace Hair.Tests.Builders
         {
             _addressValidator = new AddressValidator();
             _clientValidator = new ClientValidator();
-            _itemValidator = new ItemValidator();
+            _itemValidator = new ProductValidator();
             _imageValidator = new ImageValidator();
-            _workerValidator = new WorkerValidator();
-            _haircutValidator = new DutyValidator();
+            _workerValidator = new EmployeeValidator();
+            _haircutValidator = new ServiceOrderValidator();
             _userValidator = new UserValidator();
         }
 

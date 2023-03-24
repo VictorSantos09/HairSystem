@@ -8,10 +8,10 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
 {
     public sealed class RemoveUserServiceService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<UserServiceEntity> _taskRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<UserServiceEntity> _taskRepository;
 
-        public RemoveUserServiceService(IBaseRepository<UserEntity> userRepository, IBaseRepository<UserServiceEntity> taskRepository)
+        public RemoveUserServiceService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<UserServiceEntity> taskRepository)
         {
             _userRepository = userRepository;
             _taskRepository = taskRepository;

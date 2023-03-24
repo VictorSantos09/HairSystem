@@ -16,11 +16,11 @@ namespace Hair.Application.Services.ClientCases
     /// </summary>
     public class ScheduleDutyService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<ServiceOrderEntity> _dutyRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<ServiceOrderEntity> _dutyRepository;
         private readonly IValidator<ServiceOrderEntity> _dutyValidator;
 
-        public ScheduleDutyService(IBaseRepository<UserEntity> userRepository, IBaseRepository<ServiceOrderEntity> dutyRepository,
+        public ScheduleDutyService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<ServiceOrderEntity> dutyRepository,
             IValidator<ServiceOrderEntity> dutyValidator)
         {
             _dutyValidator = dutyValidator;

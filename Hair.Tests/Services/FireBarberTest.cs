@@ -10,7 +10,7 @@ namespace Hair.Tests.Services
 {
     public class FireBarberTest
     {
-        private readonly Mock<IBaseRepository<EmployeeEntity>> _barberRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
+        private readonly Mock<IApplicationDbContext<EmployeeEntity>> _barberRepositoryMock = new Mock<IApplicationDbContext<EmployeeEntity>>();
         private readonly DeleteEmployeeService _service;
         private DeleteEmployeeDto _dto;
         private EmployeeEntity _barber;

@@ -8,14 +8,14 @@ namespace Hair.Tests.Services
 {
     public class PostImageServiceTests
     {
-        private readonly Mock<IBaseRepository<ImageEntity>> _mockImageRepository;
-        private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
+        private readonly Mock<IApplicationDbContext<ImageEntity>> _mockImageRepository;
+        private readonly Mock<IApplicationDbContext<UserEntity>> _mockUserRepository;
         private readonly PostImageService _postImageService;
 
         public PostImageServiceTests()
         {
-            _mockImageRepository = new Mock<IBaseRepository<ImageEntity>>();
-            _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
+            _mockImageRepository = new Mock<IApplicationDbContext<ImageEntity>>();
+            _mockUserRepository = new Mock<IApplicationDbContext<UserEntity>>();
             _postImageService = new PostImageService(_mockImageRepository.Object, _mockUserRepository.Object, null);
         }
 

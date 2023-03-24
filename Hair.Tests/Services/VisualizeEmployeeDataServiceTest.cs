@@ -8,8 +8,8 @@ namespace Hair.Tests.Services
 {
     public class VisualizeEmployeeDataServiceTest
     {
-        private readonly Mock<IBaseRepository<EmployeeEntity>> _employeeRepositoryMock = new Mock<IBaseRepository<EmployeeEntity>>();
-        private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
+        private readonly Mock<IApplicationDbContext<EmployeeEntity>> _employeeRepositoryMock = new Mock<IApplicationDbContext<EmployeeEntity>>();
+        private readonly Mock<IGetByEmailDbContext> _userRepositoryMock = new Mock<IGetByEmailDbContext>();
         private readonly ViewEmployeeDataService _service;
         private UserEntity _user = new UserEntity { Email = "Carlos@gmail.com", Password = "carlos123" };
 

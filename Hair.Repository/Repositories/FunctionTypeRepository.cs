@@ -3,7 +3,7 @@ using Hair.Repository.Interfaces;
 
 namespace Hair.Repository.Repositories
 {
-    public sealed class FunctionTypeRepository : IFunctionTypeRequest
+    public sealed class FunctionTypeRepository : IFunctionTypeRequestDbContext
     {
         public void Create(FunctionTypeEntity entity)
         {

@@ -12,7 +12,7 @@ namespace Hair.Application.Validators
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.UserID).NotEmpty().WithName("Id do usuário");
-            RuleFor(x => x.Duty).SetValidator(new DutyValidator());
+            RuleFor(x => x.Duty).SetValidator(new ServiceOrderValidator());
             RuleFor(x => x.Name).NotEmpty().MaximumLength(50).WithName("Nome");
             RuleFor(x => x.Email).MaximumLength(50).Custom((email, context) =>
             {

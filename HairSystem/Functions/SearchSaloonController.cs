@@ -15,7 +15,7 @@ namespace HairSystem.Functions
         private readonly SearchSaloonFunction _function;
         private readonly IException _exHelper;
 
-        public SearchSaloonController(IBaseRepository<UserEntity> userRepository, IException exception)
+        public SearchSaloonController(IApplicationDbContext<UserEntity> userRepository, IException exception)
         {
             _exHelper = exception;
             _function = new(userRepository);

@@ -7,10 +7,10 @@ namespace Hair.Tests.Services
     public class ViewHaircutTimeServiceTests
     {
         private readonly ViewServiceOrderService _service;
-        private readonly Mock<IBaseRepository<ServiceOrderEntity>> _repositoryMock;
+        private readonly Mock<IApplicationDbContext<ServiceOrderEntity>> _repositoryMock;
         public ViewHaircutTimeServiceTests()
         {
-            _repositoryMock = new Mock<IBaseRepository<ServiceOrderEntity>>();
+            _repositoryMock = new Mock<IApplicationDbContext<ServiceOrderEntity>>();
             _service = new ViewServiceOrderService(_repositoryMock.Object);
         }
 

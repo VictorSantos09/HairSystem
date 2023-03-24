@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
-using Hair.Application.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {

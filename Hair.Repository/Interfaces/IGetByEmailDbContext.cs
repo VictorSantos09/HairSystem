@@ -5,9 +5,9 @@ namespace Hair.Repository.Interfaces
     /// <summary>
     /// Define a implementação da busca do <see cref="UserEntity"/> pelo email e senha
     /// 
-    /// <para>Tambem implementando <see cref="IBaseRepository{T}"/> com <see cref="{T}"/> sendo <see cref="UserEntity"/></para>
+    /// <para>Tambem implementando <see cref="IApplicationDbContext{T}"/> com <see cref="{T}"/> sendo <see cref="UserEntity"/></para>
     /// </summary>
-    public interface IGetByEmail : IBaseRepository<UserEntity>
+    public interface IGetByEmailDbContext : IApplicationDbContext<UserEntity>
     {
         /// <summary>
         /// Efetua a busca do usuário pelo email e senha

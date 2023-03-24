@@ -13,11 +13,11 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
     /// </summary>
     public sealed class UpdateUserServiceService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<UserServiceEntity> _taskRepository;
-        private readonly IBaseRepository<UserServiceTypeEntity> _taskTypeRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<UserServiceEntity> _taskRepository;
+        private readonly IApplicationDbContext<UserServiceTypeEntity> _taskTypeRepository;
 
-        public UpdateUserServiceService(IBaseRepository<UserEntity> userRepository, IBaseRepository<UserServiceEntity> taskRepository, IBaseRepository<UserServiceTypeEntity> taskTypeRepository)
+        public UpdateUserServiceService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<UserServiceEntity> taskRepository, IApplicationDbContext<UserServiceTypeEntity> taskTypeRepository)
         {
             _userRepository = userRepository;
             _taskRepository = taskRepository;

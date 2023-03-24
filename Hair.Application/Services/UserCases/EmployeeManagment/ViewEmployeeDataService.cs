@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Extensions;
-using Hair.Application.Interfaces;
+using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
@@ -12,10 +12,10 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public class ViewEmployeeDataService : IViewEmployeeData
     {
-        private readonly IBaseRepository<EmployeeEntity> _employeeRepository;
-        private readonly IGetByEmail _userRepository;
+        private readonly IApplicationDbContext<EmployeeEntity> _employeeRepository;
+        private readonly IGetByEmailDbContext _userRepository;
 
-        public ViewEmployeeDataService(IBaseRepository<EmployeeEntity> employeeRepository, IGetByEmail userRepository)
+        public ViewEmployeeDataService(IApplicationDbContext<EmployeeEntity> employeeRepository, IGetByEmailDbContext userRepository)
         {
             _employeeRepository = employeeRepository;
             _userRepository = userRepository;

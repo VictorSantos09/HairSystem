@@ -6,9 +6,9 @@ namespace Hair.Application.Validators
     /// <summary>
     /// Efetua a validação do funcionário, pela classe concreta <see cref="EmployeeEntity"/>, também testando <see cref="AddressEntity"/>
     /// </summary>
-    public class WorkerValidator : AbstractValidator<EmployeeEntity>
+    public class EmployeeValidator : AbstractValidator<EmployeeEntity>
     {
-        public WorkerValidator()
+        public EmployeeValidator()
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.UserID).NotEmpty().WithName("Id do usuário");

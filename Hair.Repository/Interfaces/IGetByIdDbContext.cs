@@ -4,7 +4,7 @@
     /// Representa a interface que fornece um método para recuperar uma entidade com um id especificado.
     /// </summary>
     /// <typeparam name="T">O tipo de entidade que foi fornecida.</typeparam>
-    public interface IGetById<T>
+    public interface IGetByIdDbContext<T>
     {
         /// <summary>
         /// Recupera a entidade com o id especificado a partir da fonte de dados como um objeto do tipo T.

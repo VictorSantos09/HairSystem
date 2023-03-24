@@ -24,13 +24,13 @@
         /// </summary>
         public UserServiceTypeEntity TaskType { get; set; }
 
-        public ServiceOrderEntity(Guid userID, DateTime date, ClientEntity client, UserServiceTypeEntity taskType)
+        public ServiceOrderEntity(Guid userID, DateTime date, ClientEntity client, UserServiceTypeEntity serviceType)
         {
             Id = Guid.NewGuid();
             UserID = userID;
             Date = date;
             Client = client;
-            TaskType = taskType;
+            TaskType = serviceType;
         }
 
         public ServiceOrderEntity()

@@ -16,7 +16,7 @@ namespace HairSystem.Controllers
         private readonly PostImageService _service;
         private readonly IException _exHelper;
 
-        public ImageController(IBaseRepository<ImageEntity> imageRepository, IBaseRepository<UserEntity> userRepository,
+        public ImageController(IApplicationDbContext<ImageEntity> imageRepository, IApplicationDbContext<UserEntity> userRepository,
             IException exception, IValidator<ImageEntity> imageValidator)
         {
             _exHelper = exception;

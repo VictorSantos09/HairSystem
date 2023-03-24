@@ -13,14 +13,14 @@ namespace Hair.Application.Services.UserCases.ServiceOrderManagment
     /// </summary>
     public class ViewDutyTimeService
     {
-        private readonly IBaseRepository<ServiceOrderEntity> _dutyRepository;
+        private readonly IApplicationDbContext<ServiceOrderEntity> _dutyRepository;
 
         /// <summary>
         /// 
         /// <param name="dutyRepository">Repositório de cortes de cabelo.</param>
         /// 
         /// </summary>
-        public ViewDutyTimeService(IBaseRepository<ServiceOrderEntity> dutyRepository)
+        public ViewDutyTimeService(IApplicationDbContext<ServiceOrderEntity> dutyRepository)
         {
             _dutyRepository = dutyRepository;
         }

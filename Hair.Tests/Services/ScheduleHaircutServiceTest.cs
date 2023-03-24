@@ -8,14 +8,14 @@ namespace Hair.Tests.Services
 {
     public class ScheduleHaircutServiceTests
     {
-        private readonly Mock<IBaseRepository<UserEntity>> _mockUserRepository;
-        private readonly Mock<IBaseRepository<ServiceOrderEntity>> _mockHaircutRepository;
+        private readonly Mock<IApplicationDbContext<UserEntity>> _mockUserRepository;
+        private readonly Mock<IApplicationDbContext<ServiceOrderEntity>> _mockHaircutRepository;
         private readonly ScheduleDutyService _scheduleHaircutService;
 
         public ScheduleHaircutServiceTests()
         {
-            _mockUserRepository = new Mock<IBaseRepository<UserEntity>>();
-            _mockHaircutRepository = new Mock<IBaseRepository<ServiceOrderEntity>>();
+            _mockUserRepository = new Mock<IApplicationDbContext<UserEntity>>();
+            _mockHaircutRepository = new Mock<IApplicationDbContext<ServiceOrderEntity>>();
             _scheduleHaircutService = new ScheduleDutyService(_mockUserRepository.Object, _mockHaircutRepository.Object, null);
         }
 

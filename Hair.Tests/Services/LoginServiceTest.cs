@@ -11,7 +11,7 @@ namespace Hair.Tests.Services
     public class LoginServiceTest
     {
         private readonly LoginService _service;
-        private Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
+        private Mock<IGetByEmailDbContext> _userRepositoryMock = new Mock<IGetByEmailDbContext>();
         private LoginDto _dto = new("maria@gmail.com", "maria123");
 
         public LoginServiceTest()

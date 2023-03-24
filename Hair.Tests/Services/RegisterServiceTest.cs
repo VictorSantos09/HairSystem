@@ -12,7 +12,7 @@ namespace Hair.Tests.Services
     public class RegisterServiceTest
     {
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
-        private readonly Mock<IGetByEmail> _userRepositoryMock = new Mock<IGetByEmail>();
+        private readonly Mock<IGetByEmailDbContext> _userRepositoryMock = new Mock<IGetByEmailDbContext>();
         private readonly RegisterService _registerService;
         private RegisterDto _sucessDto = new RegisterDto(20, 20, 20, "Rua das Palmeiras", "234", "Blumenau", "SC", null, "47991548956",
             "carlos@gmail.com", null, "carlos", "Carlos123!", "Carlos's", "14:50", null, "23:50", "78053680");

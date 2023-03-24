@@ -12,11 +12,11 @@ namespace HairSystem.Controllers
     [Route("api/controller")]
     public class ViewSaloonInformationController : ControllerBase
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
         private readonly ViewSaloonInformationService _service;
         private readonly IException _exHelper;
 
-        public ViewSaloonInformationController(IBaseRepository<UserEntity> userRepository, IException exception)
+        public ViewSaloonInformationController(IApplicationDbContext<UserEntity> userRepository, IException exception)
         {
             _exHelper = exception;
             _userRepository = userRepository;

@@ -10,7 +10,7 @@ namespace Hair.Tests.Services
 {
     public class DeleteAccountServiceTest
     {
-        private readonly Mock<IGetByEmail> _repository = new Mock<IGetByEmail>();
+        private readonly Mock<IGetByEmailDbContext> _repository = new Mock<IGetByEmailDbContext>();
         private readonly DeleteAccountService _service;
         private DeleteAccountDto _dto;
         private UserEntity _user;

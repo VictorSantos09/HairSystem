@@ -10,13 +10,13 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
 {
     public sealed class CreateUserServiceService
     {
-        private readonly IBaseRepository<UserEntity> _userRepository;
-        private readonly IBaseRepository<UserServiceEntity> _userServiceRepository;
-        private readonly IBaseRepository<UserServiceTypeEntity> _userServiceTypeRepository;
+        private readonly IApplicationDbContext<UserEntity> _userRepository;
+        private readonly IApplicationDbContext<UserServiceEntity> _userServiceRepository;
+        private readonly IApplicationDbContext<UserServiceTypeEntity> _userServiceTypeRepository;
         private readonly IValidator<UserServiceEntity> _userServiceValidator;
 
-        public CreateUserServiceService(IBaseRepository<UserEntity> userRepository, IBaseRepository<UserServiceEntity> userServiceRepository,
-            IBaseRepository<UserServiceTypeEntity> userServiceTypeRepository, IValidator<UserServiceEntity> userServiceValidator)
+        public CreateUserServiceService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<UserServiceEntity> userServiceRepository,
+            IApplicationDbContext<UserServiceTypeEntity> userServiceTypeRepository, IValidator<UserServiceEntity> userServiceValidator)
         {
             _userRepository = userRepository;
             _userServiceRepository = userServiceRepository;

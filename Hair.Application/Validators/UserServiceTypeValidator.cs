@@ -3,9 +3,9 @@ using Hair.Domain.Entities;
 
 namespace Hair.Application.Validators
 {
-    public class ItemTypeValidator : AbstractValidator<ProductTypeEntity>
+    public class UserServiceTypeValidator : AbstractValidator<UserServiceTypeEntity>
     {
-        public ItemTypeValidator()
+        public UserServiceTypeValidator()
         {
             RuleFor(x => x.Name).NotEmpty().MaximumLength(50).WithName("Nome");
             RuleFor(x => x.Code).NotEmpty().GreaterThan(0).WithName("Código");

@@ -14,8 +14,8 @@ namespace Hair.Tests.Services
         private CancelDutyDto _sucessDto = new CancelDutyDto(Guid.NewGuid(), false, "Carlos", "Carlos@gmail.com", "40588626", DateTime.Now.AddDays(3));
         private readonly CancelDutyService _service;
         private readonly ServiceBuilder _serviceProvider = new ServiceBuilder();
-        private readonly Mock<IBaseRepository<UserEntity>> _userRepositoryMock = new Mock<IBaseRepository<UserEntity>>();
-        private readonly Mock<IBaseRepository<ServiceOrderEntity>> _haircutRepositoryMock = new Mock<IBaseRepository<ServiceOrderEntity>>();
+        private readonly Mock<IApplicationDbContext<UserEntity>> _userRepositoryMock = new Mock<IApplicationDbContext<UserEntity>>();
+        private readonly Mock<IApplicationDbContext<ServiceOrderEntity>> _haircutRepositoryMock = new Mock<IApplicationDbContext<ServiceOrderEntity>>();
         private readonly int _Expected = ValidationResultDto.GetStatusCode();
 
         public CancelHaircutServiceTests()
