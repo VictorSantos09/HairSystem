@@ -4,6 +4,7 @@ using Hair.Application.Extensions;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
@@ -12,9 +13,9 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public sealed class DeleteEmployeeService : IDeleteEmployee
     {
-        private readonly IApplicationDbContext<EmployeeEntity> _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public DeleteEmployeeService(IApplicationDbContext<EmployeeEntity> employeeRepository)
+        public DeleteEmployeeService(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }

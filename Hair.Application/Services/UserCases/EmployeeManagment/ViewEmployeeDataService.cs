@@ -5,6 +5,7 @@ using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
 using Hair.Repository.Interfaces.CRUD;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
@@ -13,10 +14,10 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public class ViewEmployeeDataService : IViewEmployeeData
     {
-        private readonly IApplicationDbContext<EmployeeEntity> _employeeRepository;
-        private readonly IGetByEmailDbContext _userRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ViewEmployeeDataService(IApplicationDbContext<EmployeeEntity> employeeRepository, IGetByEmailDbContext userRepository)
+        public ViewEmployeeDataService(IEmployeeRepository employeeRepository, IUserRepository userRepository)
         {
             _employeeRepository = employeeRepository;
             _userRepository = userRepository;
@@ -35,7 +36,7 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var workers = _workerRepositories.GetAll();
+            var workers = _employeeRepository.GetAll();
 
             workers.FindAll(e => e.UserID == user.Id);
 

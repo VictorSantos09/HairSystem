@@ -1,9 +1,9 @@
 ﻿using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Repository.Repositories
 {
-    public class ServiceTypeRepository : IServiceTypeRequestDbContext
+    public class ServiceTypeRepository : IServiceTypeRepository
     {
         public void Create(UserServiceTypeEntity entity)
         {

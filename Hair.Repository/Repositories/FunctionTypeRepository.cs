@@ -1,9 +1,10 @@
 ﻿using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Repository.Repositories
 {
-    public sealed class FunctionTypeRepository : IFunctionTypeRequestDbContext
+    public sealed class FunctionTypeRepository : IFunctionTypeRepository
     {
         public void Create(FunctionTypeEntity entity)
         {

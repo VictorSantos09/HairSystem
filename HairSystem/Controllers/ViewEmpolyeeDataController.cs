@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
-using Hair.Application.ExceptionHandlling;
+using Hair.Application.ExceptionHandler;
 using Hair.Application.Services.UserCases.EmployeeManagment;
 using Microsoft.AspNetCore.Mvc;
 

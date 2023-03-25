@@ -2,7 +2,7 @@
 using Hair.Application.Common;
 using Hair.Application.Dto.ClientCases;
 using Hair.Application.Dto.UserCases;
-using Hair.Application.ExceptionHandlling;
+using Hair.Application.ExceptionHandler;
 using Hair.Application.Services.ClientCases;
 using Hair.Application.Services.UserCases.UserServiceManagment;
 using Hair.Domain.Entities;

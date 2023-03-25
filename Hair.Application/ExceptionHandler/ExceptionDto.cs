@@ -1,4 +1,4 @@
-﻿namespace Hair.Application.ExceptionHandlling
+﻿namespace Hair.Application.ExceptionHandler
 {
     public class ExceptionDto
     {

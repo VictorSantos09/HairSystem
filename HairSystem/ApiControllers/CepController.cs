@@ -2,7 +2,7 @@
 using Hair.Application.ApiRequest.Processor;
 using Hair.Application.Common;
 using Hair.Application.Dto.ClientCases;
-using Hair.Application.ExceptionHandlling;
+using Hair.Application.ExceptionHandler;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSystem.ApiControllers

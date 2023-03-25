@@ -2,6 +2,7 @@
 using Hair.Domain.Entities;
 using Hair.Repository.DataBase;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 using Hair.Repository.Security;
 using System.Data;
 
@@ -10,7 +11,7 @@ namespace Hair.Repository.Repositories
     /// <summary>
     /// Classe responsável por implementar as operações de Create e Update de informações sobre salões no banco de dados contida em <see cref="ServiceOrderEntity"/>.
     /// </summary>
-    public class ServiceOrderRepository : IApplicationDbContext<ServiceOrderEntity>
+    public class ServiceOrderRepository : IServiceOrderRepository
     {
         public void Create(ServiceOrderEntity duty)
         {

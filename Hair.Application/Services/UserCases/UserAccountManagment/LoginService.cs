@@ -3,6 +3,7 @@ using Hair.Application.Dto.UserCases;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Repository.Interfaces.CRUD;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
@@ -11,9 +12,9 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
     /// </summary>
     public class LoginService : ILogin
     {
-        private readonly IGetByEmailDbContext _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public LoginService(IGetByEmailDbContext userRepository)
+        public LoginService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

@@ -2,7 +2,7 @@
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
 using Hair.Application.Interfaces.UserCases;
-using Hair.Repository.Interfaces.CRUD;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
@@ -11,9 +11,9 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
     /// </summary>
     public sealed class DeleteAccountService : IDeleteAccount
     {
-        private readonly IGetByEmailDbContext _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public DeleteAccountService(IGetByEmailDbContext userRepository)
+        public DeleteAccountService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

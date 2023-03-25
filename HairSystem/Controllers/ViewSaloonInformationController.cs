@@ -1,6 +1,6 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.ClientCases;
-using Hair.Application.ExceptionHandlling;
+using Hair.Application.ExceptionHandler;
 using Hair.Application.Services.ClientCases;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;

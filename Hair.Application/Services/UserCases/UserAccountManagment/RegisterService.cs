@@ -6,7 +6,7 @@ using Hair.Application.Factories.Interfaces;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces.CRUD;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
@@ -15,11 +15,11 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
     /// </summary>
     public class RegisterService : IRegister
     {
-        private readonly IGetByEmailDbContext _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IValidator<UserEntity> _userValidator;
         private readonly IFactory _factory;
 
-        public RegisterService(IGetByEmailDbContext userRepository, IValidator<UserEntity> userValidator, IFactory factory)
+        public RegisterService(IUserRepository userRepository, IValidator<UserEntity> userValidator, IFactory factory)
         {
             _userRepository = userRepository;
             _userValidator = userValidator;
@@ -33,18 +33,18 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
             if (isExistentUser != null)
                 return BaseDtoExtension.Invalid("Usuário já registrado");
 
-            var resultOpenTime = new TimeOnly();
+            TimeOnly resultOpenTime;
             if (TimeOnly.TryParse(dto.OpenTime, out resultOpenTime) == false)
                 return BaseDtoExtension.Invalid("Horario de abertura inválido");
 
-            var resultCloseTime = new TimeOnly();
+            TimeOnly resultCloseTime;
             if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
                 return BaseDtoExtension.Invalid("Horario de fechamento inválido");
 
             var newUser = _factory.User.Create(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(),
                 resultOpenTime, resultCloseTime, dto.GoogleMapsLocation);
 
-            var address = new AddressEntity(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
+            var address = _factory.Address.Create(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
 
             newUser.Address = address;
 

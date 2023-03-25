@@ -1,6 +1,6 @@
 using FluentValidation;
 using Hair.Application.ApiRequest;
-using Hair.Application.ExceptionHandlling;
+using Hair.Application.ExceptionHandler;
 using Hair.Application.Factories;
 using Hair.Application.Factories.Interfaces;
 using Hair.Application.Interfaces.UserCases;
@@ -52,10 +52,14 @@ namespace Hair.Application.Configuration
 
         private static void ConfigureRepositories(IServiceCollection collection)
         {
-            collection.AddTransient<IUserRepository, UserRepository>();
-            collection.AddTransient<IProductRepository, ProductRepository>();
-            collection.AddTransient<IImageRepository, ImageRepository>();
             collection.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            collection.AddTransient<IFunctionTypeRepository, FunctionTypeRepository>();
+            collection.AddTransient<IImageRepository, ImageRepository>();
+            collection.AddTransient<IProductRepository, ProductRepository>();
+            collection.AddTransient<IServiceOrderRepository,ServiceOrderRepository>();
+            collection.AddTransient<IServiceTypeRepository, ServiceTypeRepository>();
+            collection.AddTransient<IUserRepository, UserRepository>();
+
         }
 
         private static void ConfigureServices(IServiceCollection colletion)

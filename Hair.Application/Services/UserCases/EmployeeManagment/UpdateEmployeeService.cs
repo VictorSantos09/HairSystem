@@ -5,7 +5,7 @@ using Hair.Application.Extensions;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
 {
@@ -14,20 +14,19 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     /// </summary>
     public sealed class UpdateEmployeeService : IUpdateEmployee
     {
-        private readonly IApplicationDbContext<UserEntity> _userRepository;
-        private readonly IApplicationDbContext<EmployeeEntity> _employeeRepository;
-        private readonly IFunctionTypeRequestDbContext _functionTypeRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IFunctionTypeRepository _functionTypeRepository;
         private readonly IValidator<EmployeeEntity> _employeeValidator;
 
-        public UpdateEmployeeService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<EmployeeEntity> employeeRepository,
-            IFunctionTypeRequestDbContext functionTypeRepository, IValidator<EmployeeEntity> employeeValidator)
+        public UpdateEmployeeService(IUserRepository userRepository, IEmployeeRepository employeeRepository,
+            IFunctionTypeRepository functionTypeRepository, IValidator<EmployeeEntity> employeeValidator)
         {
             _userRepository = userRepository;
             _employeeRepository = employeeRepository;
             _functionTypeRepository = functionTypeRepository;
             _employeeValidator = employeeValidator;
         }
-
 
         public BaseDto Update(UpdateEmployeeDto dto)
         {

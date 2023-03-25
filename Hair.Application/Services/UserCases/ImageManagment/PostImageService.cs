@@ -2,9 +2,10 @@
 using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
+using Hair.Application.Factories.Interfaces;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.ImageManagment
 {
@@ -15,29 +16,27 @@ namespace Hair.Application.Services.UserCases.ImageManagment
     /// </summary>
     public sealed class PostImageService
     {
-        private readonly IApplicationDbContext<ImageEntity> _imageRepository;
-        private readonly IApplicationDbContext<UserEntity> _userRepository;
+        private readonly IImageRepository _imageRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IValidator<ImageEntity> _imageValidator;
+        private readonly IFactory _factory;
 
-        public PostImageService(IApplicationDbContext<ImageEntity> imageRepository, IApplicationDbContext<UserEntity> userRepository, IValidator<ImageEntity> imageValidator)
+        public PostImageService(IImageRepository imageRepository, IUserRepository userRepository, IValidator<ImageEntity> imageValidator, IFactory factory)
         {
             _imageRepository = imageRepository;
             _userRepository = userRepository;
             _imageValidator = imageValidator;
+            _factory = factory;
         }
 
         /// <summary>
-        /// 
         /// Efetua a postagem de uma nova imagem para o usuário.
-        /// 
         /// </summary>
         /// 
         /// <param name="dto"></param>
         /// 
         /// <returns>
-        /// 
         /// Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.
-        /// 
         /// </returns>
         public BaseDto Post(PostImageDto dto)
         {
@@ -51,11 +50,11 @@ namespace Hair.Application.Services.UserCases.ImageManagment
 
             byte[] imageByte = Convert.FromHexString(dto.Image.ToString());
 
-            var resultDate = new DateOnly();
+            DateOnly resultDate;
             if (DateOnly.TryParse(dto.UploadDate, out resultDate) == false)
                 return BaseDtoExtension.Invalid("Data de postagem");
 
-            var img = new ImageEntity(user.Id, imageByte, resultDate, dto.Type);
+            var img = _factory.Image.Create(user.Id, imageByte, resultDate, dto.Type);
 
             var validationResult = Validation.Verify(_imageValidator.Validate(img));
 

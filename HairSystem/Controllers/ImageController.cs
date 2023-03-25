@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
-using Hair.Application.ExceptionHandlling;
+using Hair.Application.ExceptionHandler;
 using Hair.Application.Services.UserCases.ImageManagment;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
