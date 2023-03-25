@@ -3,18 +3,18 @@
     public class DeleteEmployeeDto
     {
         public Guid UserID { get; set; }
-        public Guid WorkerID { get; set; }
-        public string WorkerName { get; set; }
-        public string? WorkerEmail { get; set; }
-        public string WorkerPhoneNumber { get; set; }
+        public Guid EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+        public string? EmployeeEmail { get; set; }
+        public string EmployeePhoneNumber { get; set; }
 
-        public DeleteEmployeeDto(Guid userID, Guid workerID, string workerName, string? workerEmail, string workerPhoneNumber)
+        public DeleteEmployeeDto(Guid userID, Guid employeeID, string employeeName, string? employeeEmail, string employeePhoneNumber)
         {
             UserID = userID;
-            WorkerID = workerID;
-            WorkerName = workerName;
-            WorkerEmail = workerEmail;
-            WorkerPhoneNumber = workerPhoneNumber;
+            EmployeeID = employeeID;
+            EmployeeName = employeeName;
+            EmployeeEmail = employeeEmail;
+            EmployeePhoneNumber = employeePhoneNumber;
         }
     }
 }

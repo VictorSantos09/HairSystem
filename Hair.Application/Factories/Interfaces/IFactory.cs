@@ -2,11 +2,16 @@
 {
     public interface IFactory
     {
-        UserFactory User { get; }
-        EmployeeFactory Employee { get; }
         AddressFactory Address { get; }
+        ClientFactory Client { get; }
+        EmployeeFactory Employee { get; }
+        FunctionTypeFactory FunctionType { get; }
         ImageFactory Image { get; }
-        ServiceOrderFactory ServiceOrder { get; }
         ProductFactory Product { get; }
+        ProductTypeFactory ProductType { get; }
+        UserFactory User { get; }
+        UserServiceFactory UserService { get; }
+        ServiceOrderFactory ServiceOrder { get; }
+        UserServiceTypeFactory UserServiceType { get; }
     }
 }

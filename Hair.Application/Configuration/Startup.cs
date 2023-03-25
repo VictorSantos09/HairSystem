@@ -8,16 +8,16 @@ using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Application.Services.UserCases.UserAccountManagment;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
-using Hair.Repository.Interfaces.CRUD;
 using Hair.Repository.Interfaces.Repositories;
+using Hair.Repository.Interfaces.Security;
 using Hair.Repository.Repositories;
+using Hair.Repository.Security;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hair.Application.Configuration
 {
     /// <summary>
-    /// Define as configurações do sistema
+    /// Define as configurações do sistema.
     /// </summary>
     public class Startup
     {
@@ -33,6 +33,7 @@ namespace Hair.Application.Configuration
             ConfigueValidators(collection);
             ConfigureServices(collection);
             ConfigureFactory(collection);
+            ConfigureSecurity(collection);
         }
 
         private static void ConfigueValidators(IServiceCollection collection)
@@ -87,6 +88,12 @@ namespace Hair.Application.Configuration
         private static void ConfigureFactory(IServiceCollection colletion)
         {
             colletion.AddTransient<IFactory, Factory>();
+        }
+
+        private static void ConfigureSecurity(IServiceCollection colletion)
+        {
+            colletion.AddTransient<ICryptoSecurity, CryptoSecurity>();
+            colletion.AddTransient<IKeyManagment, KeyManagment>();
         }
     }
 }

@@ -11,7 +11,7 @@ using Hair.Repository.Interfaces.Repositories;
 namespace Hair.Application.Services.UserCases.UserAccountManagment
 {
     /// <summary>
-    /// Classe responsável por executar o cadastro.
+    /// Classe responsável por executar o cadastro de um novo usuário.
     /// </summary>
     public class RegisterService : IRegister
     {
@@ -28,27 +28,27 @@ namespace Hair.Application.Services.UserCases.UserAccountManagment
 
         public BaseDto Register(RegisterDto dto)
         {
-            var isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
+            UserEntity? isExistentUser = _userRepository.GetByEmail(dto.Email, dto.Password);
 
             if (isExistentUser != null)
                 return BaseDtoExtension.Invalid("Usuário já registrado");
 
-            TimeOnly resultOpenTime;
-            if (TimeOnly.TryParse(dto.OpenTime, out resultOpenTime) == false)
+            if (TimeOnly.TryParse(dto.OpenTime, out TimeOnly resultOpenTime) == false)
                 return BaseDtoExtension.Invalid("Horario de abertura inválido");
 
-            TimeOnly resultCloseTime;
-            if (TimeOnly.TryParse(dto.CloseTime, out resultCloseTime) == false)
+            if (TimeOnly.TryParse(dto.CloseTime, out TimeOnly resultCloseTime) == false)
                 return BaseDtoExtension.Invalid("Horario de fechamento inválido");
 
-            var newUser = _factory.User.Create(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, new AddressEntity(),
+            AddressEntity emptyAddress = _factory.Address.Create();
+
+            UserEntity newUser = _factory.User.Create(dto.SaloonName, dto.UserName, dto.PhoneNumber, dto.Email, dto.CNPJ, dto.Password, emptyAddress,
                 resultOpenTime, resultCloseTime, dto.GoogleMapsLocation);
 
-            var address = _factory.Address.Create(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
+            AddressEntity address = _factory.Address.Create(dto.StreetName, dto.SaloonNumber, dto.City, dto.State, dto.Complement, dto.CEP, newUser.Id);
 
             newUser.Address = address;
 
-            var validationResult = Validation.Verify(_userValidator.Validate(newUser));
+            ValidationResultDto validationResult = Validation.Verify(_userValidator.Validate(newUser));
 
             if (validationResult.Condition)
             {

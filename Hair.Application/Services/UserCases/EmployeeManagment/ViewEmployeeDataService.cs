@@ -3,8 +3,6 @@ using Hair.Application.Extensions;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
-using Hair.Repository.Interfaces.CRUD;
 using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
@@ -23,27 +21,25 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
             _userRepository = userRepository;
         }
 
-        public BaseDto GetEmployeeData(string email, string password)
+        public BaseDto GetEmployeeData(string userEmail, string userPassword)
         {
-            if (Validation.NotEmpty(email))
+            if (Validation.NotEmpty(userEmail))
                 return BaseDtoExtension.Invalid("Email não informado.");
 
-            if (Validation.NotEmpty(password))
+            if (Validation.NotEmpty(userPassword))
                 return BaseDtoExtension.Invalid("Senha não informada.");
 
-            var user = _userRepository.GetByEmail(email, password);
+            var user = _userRepository.GetByEmail(userEmail, userPassword);
 
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var workers = _employeeRepository.GetAll();
+            List<EmployeeEntity> employees = _employeeRepository.GetAllByUserId(user.Id);
 
-            workers.FindAll(e => e.UserID == user.Id);
+            if (employees.Count == 0)
+                return BaseDtoExtension.Sucess("Nenhum funcionário registrado.");
 
-            if (workers.Count == 0)
-                return BaseDtoExtension.Sucess("funcionários não encontrados.");
-
-            return BaseDtoExtension.Create(200, "Relação de funcionários.", workers);
+            return BaseDtoExtension.Create(200, "Relação de funcionários.", employees);
         }
     }
 }

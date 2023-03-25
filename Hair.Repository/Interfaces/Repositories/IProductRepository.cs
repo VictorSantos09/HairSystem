@@ -3,7 +3,7 @@ using Hair.Repository.Interfaces.CRUD;
 
 namespace Hair.Repository.Interfaces.Repositories
 {
-    public interface IProductRepository : IApplicationDbContext<ProductEntity>, IGetByNameDbContext<ProductEntity>
+    public interface IProductRepository : IApplicationDbContext<ProductEntity>, IGetByNameDbContext<ProductEntity>, IGetAllByUserIdDbContext<ProductEntity>
     {
     }
 }

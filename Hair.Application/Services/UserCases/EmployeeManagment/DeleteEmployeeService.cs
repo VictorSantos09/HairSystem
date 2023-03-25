@@ -2,8 +2,6 @@
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
 using Hair.Application.Interfaces.UserCases;
-using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
 using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.EmployeeManagment
@@ -14,27 +12,30 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
     public sealed class DeleteEmployeeService : IDeleteEmployee
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public DeleteEmployeeService(IEmployeeRepository employeeRepository)
+        public DeleteEmployeeService(IEmployeeRepository employeeRepository, IUserRepository userRepository)
         {
             _employeeRepository = employeeRepository;
+            _userRepository = userRepository;
         }
 
         public BaseDto Delete(DeleteEmployeeDto dto)
         {
-            var worker = _employeeRepository.GetByName(dto.WorkerName);
+            var user = _userRepository.GetById(dto.UserID);
+
+            if (user == null)
+                return BaseDtoExtension.NotFound();
+
+            var worker = _employeeRepository.GetAllByUserId(dto.UserID).Find(x => x.Name == dto.EmployeeName && x.Id == dto.EmployeeID);
 
             if (worker == null)
-                return BaseDtoExtension.NotFound("Funcionário");
+                return BaseDtoExtension.Create(406, "Não foi possivel encontrar o funcionário no salão");
 
-            if (dto.UserID == worker.UserID && dto.WorkerName.ToUpper() == worker.Name && dto.WorkerPhoneNumber == worker.PhoneNumber)
-            {
-                _employeeRepository.Remove(worker.Id);
+            _employeeRepository.Remove(worker.Id);
 
-                return BaseDtoExtension.Sucess($"{worker.Name} foi desligado");
-            }
+            return BaseDtoExtension.Sucess($"{worker.Name} foi desligado");
 
-            return BaseDtoExtension.Create(406, "Não foi possivel encontrar o funcionário no salão");
         }
     }
 }

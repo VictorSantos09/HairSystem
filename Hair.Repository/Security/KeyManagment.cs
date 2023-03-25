@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Hair.Repository.Interfaces.Security;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Hair.Repository.Security
@@ -6,10 +7,17 @@ namespace Hair.Repository.Security
     /// <summary>
     /// Controla o gerenciamento das chaves
     /// </summary>
-    internal class KeyManagment
+    public class KeyManagment : IKeyManagment
     {
-        private static readonly int _byteSize = 16;
-        private static byte[] GenerateRandomBytes()
+        private readonly ICryptoSecurity _cryptoSecurity;
+        private readonly int _byteSize = 16;
+
+        public KeyManagment(ICryptoSecurity cryptoSecurity)
+        {
+            _cryptoSecurity = cryptoSecurity;
+        }
+
+        private byte[] GenerateRandomBytes()
         {
             byte[] key = new byte[_byteSize];
 
@@ -33,15 +41,15 @@ namespace Hair.Repository.Security
         /// Retorna o <paramref name="text"/> criptografado 
         /// 
         /// </returns>
-        public static byte[] Create(string text)
+        public byte[] Create(string text)
         {
             var key = GenerateRandomBytes();
             var iv = GenerateRandomBytes();
 
-            return CryptoSecurity.Encrypt(text, key, iv);
+            return _cryptoSecurity.Encrypt(text, key, iv);
         }
 
-        private static void Remove(string name)
+        private void Remove(string name)
         {
             Environment.SetEnvironmentVariable(name, null);
 
@@ -49,7 +57,7 @@ namespace Hair.Repository.Security
                 Console.WriteLine($"variável de ambiente nome {name} foi deletada."); // confirmar remoção
         }
 
-        public static byte[] Get(string name)
+        public byte[] Get(string name)
         {
             return Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable(name));
         }

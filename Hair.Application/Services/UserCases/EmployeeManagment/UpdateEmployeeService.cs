@@ -35,33 +35,34 @@ namespace Hair.Application.Services.UserCases.EmployeeManagment
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            var allWorkers = _employeeRepository.GetAll().FindAll(x => x.UserID == user.Id);
+            List<EmployeeEntity> employees = _employeeRepository.GetAllByUserId(dto.UserID);
 
-            if (allWorkers.Count == 0)
+            if (employees.Count == 0)
                 return BaseDtoExtension.Create(404, "Nenhum funcionário foi encontrado");
 
-            var workerToUpdate = allWorkers.Find(x => x.Name == dto.WorkerName || x.PhoneNumber == dto.WorkerPhoneNumber || x.Email == dto.WorkerEmail);
+            var employeeToUpdate = employees.Find(x => x.Name == dto.WorkerName && x.Email == dto.WorkerEmail && x.PhoneNumber == dto.WorkerPhoneNumber);
 
-            if (workerToUpdate == null)
+            if (employeeToUpdate == null)
                 return BaseDtoExtension.NotFound("Funcionário para atualizar");
 
-            var function = _functionTypeRepository.GetByName(dto.NewFunction);
+            FunctionTypeEntity function = _functionTypeRepository.GetByName(dto.NewFunction);
 
             if (function == null)
                 return BaseDtoExtension.NotFound($"Função {dto.NewFunction}");
 
-            var workerUpdated = new EmployeeEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, dto.UserID, function);
+            var workerUpdated = new EmployeeEntity(dto.NewName, dto.NewPhoneNumber, dto.NewEmail, dto.NewSalary, dto.NewAddress, dto.UserID, function); // aplicar autoMapper
 
-            var validationResult = Validation.Verify(_employeeValidator.Validate(workerToUpdate));
+            ValidationResultDto validationResult = Validation.Verify(_employeeValidator.Validate(employeeToUpdate));
 
             if (validationResult.Condition)
             {
-                workerToUpdate = workerUpdated;
-                _employeeRepository.Update(workerToUpdate);
-                return BaseDtoExtension.Sucess($"Dados de {workerToUpdate.Name} atualizados");
+                employeeToUpdate = workerUpdated;
+                _employeeRepository.Update(employeeToUpdate);
+                return BaseDtoExtension.Sucess($"Dados de {employeeToUpdate.Name} atualizados");
             }
 
             return Validation.ToBaseDto(validationResult);
+
         }
     }
 }

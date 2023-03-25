@@ -83,7 +83,7 @@ namespace Hair.Application.Extensions
         /// </summary>
         /// 
         /// <returns>Retorna <see cref="BaseDto"/> com status code 200 e mensagem "Solicitação cancelada".</returns>
-        public static BaseDto RequestCanceled() => new BaseDto(200, "Solicitação cancelada");
+        public static BaseDto RequestCanceled() => new BaseDto(200, "Solicitação cancelada com sucesso");
 
         /// <summary>
         /// 

@@ -1,29 +1,14 @@
 ﻿using System.Security.Cryptography;
+using Hair.Repository.Interfaces.Security;
 
 namespace Hair.Repository.Security
 {
     /// <summary>
     /// Responsável pela efetuação de métodos referentes a criptografia
     /// </summary>
-    public class CryptoSecurity
+    public class CryptoSecurity : ICryptoSecurity
     {
-        /// <summary>
-        /// 
-        /// Efetua o processo de encripitação de texto
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="simpletext">Texto a ser criptografado</param>
-        /// 
-        /// <param name="key">Chave de refência</param>
-        /// <param name="iv">Vector de refência</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Retorna o <paramref name="simpletext"/> criptografado, podendo apenas ser descriptografado com a mesma <paramref name="key"/> e <paramref name="iv"/>
-        /// 
-        /// </returns>
-        public static byte[] Encrypt(string simpletext, byte[] key, byte[] iv)
+        public byte[] Encrypt(string simpletext, byte[] key, byte[] iv)
         {
             byte[] cipheredtext;
             using (Aes aes = Aes.Create())
@@ -45,22 +30,7 @@ namespace Hair.Repository.Security
             return cipheredtext;
         }
 
-        /// <summary>
-        /// 
-        /// Efetua a descriptografia do texto
-        /// 
-        /// </summary>
-        /// <param name="cipheredtext">Texto criptografado a ser descriptografado</param>
-        /// 
-        /// <param name="key">Chave de refência</param>
-        /// <param name="iv">Vector de refêrencia</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Retorna <paramref name="cipheredtext"/> como texto se <paramref name="key"/> e <paramref name="iv"/> forem a mesma utilizada para criptografar
-        /// 
-        /// </returns>
-        public static string Decrypt(byte[] cipheredtext, byte[] key, byte[] iv)
+        public string Decrypt(byte[] cipheredtext, byte[] key, byte[] iv)
         {
             string simpletext = string.Empty;
             using (Aes aes = Aes.Create())
@@ -80,7 +50,7 @@ namespace Hair.Repository.Security
             return simpletext;
         }
 
-        public static byte[] Encrypt(string plainText)
+        public byte[] Encrypt(string plainText)
         {
             var key = KeyManagment.Get(IKeyOrganizator.Key);
             var iv = KeyManagment.Get(IKeyOrganizator.IV);
@@ -88,7 +58,7 @@ namespace Hair.Repository.Security
             return Encrypt(plainText, key, iv);
         }
 
-        public static string Decrypt(byte[] cipheredText)
+        public string Decrypt(byte[] cipheredText)
         {
             var key = KeyManagment.Get(IKeyOrganizator.Key);
             var iv = KeyManagment.Get(IKeyOrganizator.IV);
