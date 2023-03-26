@@ -6,6 +6,7 @@ using Hair.Application.Factories.Interfaces;
 using Hair.Application.Interfaces.UserCases;
 using Hair.Application.Services.UserCases.EmployeeManagment;
 using Hair.Application.Services.UserCases.UserAccountManagment;
+using Hair.Application.Services.UserCases.UserServiceManagment;
 using Hair.Application.Validators;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces.Repositories;
@@ -60,13 +61,14 @@ namespace Hair.Application.Configuration
             collection.AddTransient<IServiceOrderRepository,ServiceOrderRepository>();
             collection.AddTransient<IServiceTypeRepository, ServiceTypeRepository>();
             collection.AddTransient<IUserRepository, UserRepository>();
-
+            collection.AddTransient<IUserServiceRepository, UserServiceRepository>();
         }
 
         private static void ConfigureServices(IServiceCollection colletion)
         {
             ConfigureManagmentEmployee(colletion);
             ConfigureUserAccountManagment(colletion);
+            ConfigureUserServiceManagment(colletion);
         }
 
         private static void ConfigureManagmentEmployee(IServiceCollection colletion)
@@ -94,6 +96,12 @@ namespace Hair.Application.Configuration
         {
             colletion.AddTransient<ICryptoSecurity, CryptoSecurity>();
             colletion.AddTransient<IKeyManagment, KeyManagment>();
+        }
+        
+        private static void ConfigureUserServiceManagment(IServiceCollection colletion)
+        {
+            colletion.AddTransient<ICreateUserService, CreateUserServiceService>();
+            colletion.AddTransient<IDeleteUserService, DeleteUserServiceService>();
         }
     }
 }

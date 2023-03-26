@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public float Value { get; set; }
         public string? Description { get; set; }
-        public string TaskType { get; set; }
+        public string ServiceType { get; set; }
 
         public CreateUserServiceDto(Guid userID, string name, float value, string? description, string taskType)
         {
@@ -14,7 +14,7 @@
             Name = name;
             Value = value;
             Description = description;
-            TaskType = taskType;
+            ServiceType = taskType;
         }
     }
 }

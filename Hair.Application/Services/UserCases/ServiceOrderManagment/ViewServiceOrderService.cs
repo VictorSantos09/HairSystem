@@ -1,52 +1,33 @@
 ﻿using Hair.Application.Common;
 using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
-using Hair.Domain.Entities;
-using Hair.Repository.Interfaces;
+using Hair.Application.Interfaces.UserCases;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.ServiceOrderManagment
 {
     /// <summary>
-    /// 
-    /// O serviço efetua a busca de todos os cortes agendados para o usuário.
-    /// 
+    /// Efetua a busca de todos as ordens de serviço agendadas para o usuário.
     /// </summary>
-    public class ViewDutyTimeService
+    public class ViewServiceOrderService : IViewServiceOrder
     {
-        private readonly IApplicationDbContext<ServiceOrderEntity> _dutyRepository;
+        private readonly IServiceOrderRepository _serviceOrderRepository;
 
-        /// <summary>
-        /// 
-        /// <param name="dutyRepository">Repositório de cortes de cabelo.</param>
-        /// 
-        /// </summary>
-        public ViewDutyTimeService(IApplicationDbContext<ServiceOrderEntity> dutyRepository)
+        public ViewServiceOrderService(IServiceOrderRepository serviceOrderRepository)
         {
-            _dutyRepository = dutyRepository;
+            _serviceOrderRepository = serviceOrderRepository;
         }
 
-        /// <summary>
-        /// 
-        /// Obtém os cortes de cabelo agendados por um usuário.
-        /// 
-        /// </summary>
-        /// <param name="dto">DTO com o ID do usuário.</param>
-        /// 
-        /// <returns>
-        /// 
-        /// Objeto BaseDto com a lista de cortes de cabelo agendados.
-        /// 
-        /// </returns>
-        public BaseDto GetScheduledHaircuts(ViewDutyTimeDto dto)
+        public BaseDto GetActivatedOrders(ViewDutyTimeDto dto)
         {
-            var userDuties = _dutyRepository.GetAll().FindAll(x => x.UserID == dto.UserID);
+            var userOrders = _serviceOrderRepository.GetAllByUserId(dto.UserID);
 
-            if (userDuties.Count == 0)
+            if (userOrders.Count == 0)
             {
-                return BaseDtoExtension.Create(200, "Não foram encontrados tarefas agendadas para este usuário.");
+                return BaseDtoExtension.Create(200, "Não foram encontrados ordens de serviços agendadas.");
             }
 
-            return BaseDtoExtension.Create(200, "Lista de tarefas agendados encontrados.", userDuties);
+            return BaseDtoExtension.Create(200, "Lista de ordens de serviços encontradas.", userOrders);
         }
     }
 }

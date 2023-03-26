@@ -7,9 +7,7 @@ using Hair.Repository.Interfaces;
 namespace Hair.Application.Services.UserCases.UserServiceManagment
 {
     /// <summary>
-    /// 
-    /// Conteém a efetuação da mudança de preços do corte de cabelo, barba e bigode.
-    /// 
+    /// Contém a efetuação da mudança de preços do corte de cabelo, barba e bigode.
     /// </summary>
     public sealed class UpdateUserServiceService
     {
@@ -25,17 +23,13 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
         }
 
         /// <summary>
-        /// 
         /// Verifica a confirmação e efetua a alteração dos valores de cortes de cabelo, barba e bigode.
-        /// 
         /// </summary>
         /// 
         /// <param name="dto"></param>
         /// 
         /// <returns>
-        /// 
         /// Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.
-        /// 
         /// </returns>
         public BaseDto Update(UpdateTaskDto dto)
         {
