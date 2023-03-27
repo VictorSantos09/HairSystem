@@ -73,7 +73,7 @@ namespace HairSystem.Controllers
 
         [HttpPut]
         [Route("ChangeServicePrice")]
-        public IActionResult ChangePrice(UpdateTaskDto dto)
+        public IActionResult ChangePrice(UpdateUserServiceDto dto)
         {
             try
             {

@@ -22,7 +22,7 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
         }
 
         public BaseDto Create(CreateUserServiceDto dto) => _create.Create(dto);
-        public BaseDto Update(UpdateTaskDto dto) => _update.Update(dto);
+        public BaseDto Update(UpdateUserServiceDto dto) => _update.Update(dto);
         public BaseDto Delete(DeleteUserServiceDto dto) => _delete.Delete(dto);
     }
 }

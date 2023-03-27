@@ -10,7 +10,7 @@ namespace Hair.Tests.Services
     {
         private readonly UpdateUserServiceService _service;
         private readonly Mock<IApplicationDbContext<UserEntity>> _userRepositoryMock = new Mock<IApplicationDbContext<UserEntity>>();
-        private UpdateTaskDto _dto;
+        private UpdateUserServiceDto _dto;
         private UserEntity _user;
 
 

@@ -3,6 +3,7 @@ using Hair.Application.Dto.UserCases;
 using Hair.Application.Extensions;
 using Hair.Domain.Entities;
 using Hair.Repository.Interfaces;
+using Hair.Repository.Interfaces.Repositories;
 
 namespace Hair.Application.Services.UserCases.UserServiceManagment
 {
@@ -11,15 +12,15 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
     /// </summary>
     public sealed class UpdateUserServiceService
     {
-        private readonly IApplicationDbContext<UserEntity> _userRepository;
-        private readonly IApplicationDbContext<UserServiceEntity> _taskRepository;
-        private readonly IApplicationDbContext<UserServiceTypeEntity> _taskTypeRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserServiceRepository _serviceRepository;
+        private readonly IServiceTypeRepository _serviceTypeRepository;
 
-        public UpdateUserServiceService(IApplicationDbContext<UserEntity> userRepository, IApplicationDbContext<UserServiceEntity> taskRepository, IApplicationDbContext<UserServiceTypeEntity> taskTypeRepository)
+        public UpdateUserServiceService(IUserRepository userRepository, IUserServiceRepository serviceRepository, IServiceTypeRepository serviceTypeRepository)
         {
             _userRepository = userRepository;
-            _taskRepository = taskRepository;
-            _taskTypeRepository = taskTypeRepository;
+            _serviceRepository = serviceRepository;
+            _serviceTypeRepository = serviceTypeRepository;
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
         /// <returns>
         /// Retorna <see cref="BaseDto"/> com mensagem e status code dependendo da condição encontrada.
         /// </returns>
-        public BaseDto Update(UpdateTaskDto dto)
+        public BaseDto Update(UpdateUserServiceDto dto)
         {
             if (!dto.Confirmed)
                 return BaseDtoExtension.RequestCanceled();
@@ -41,21 +42,23 @@ namespace Hair.Application.Services.UserCases.UserServiceManagment
             if (user == null)
                 return BaseDtoExtension.NotFound();
 
-            UserServiceEntity? oldTask = _taskRepository.GetAll().Find(x => x.UserID == dto.UserID && x.Name == dto.OldName && x.Value == dto.OldValue);
+            UserServiceEntity? oldService = _serviceRepository.GetAllByUserId(dto.UserID).Find(x => x.Name == dto.OldName && x.Value == dto.OldValue);
 
-            if (oldTask == null)
-                return BaseDtoExtension.NotFound("Tarefa");
+            if (oldService == null)
+                return BaseDtoExtension.NotFound("Serviço");
 
-            UserServiceTypeEntity newTaskType = _taskTypeRepository.GetByName(dto.NewType);
+            UserServiceTypeEntity newServiceType = _serviceTypeRepository.GetByName(dto.NewType);
 
-            if (newTaskType == null)
-                return BaseDtoExtension.Invalid("Tipo de tarefa inválido");
+            if (newServiceType == null)
+                return BaseDtoExtension.Invalid("Tipo de serviço inválido");
 
-            UserServiceEntity taskUpdated = new UserServiceEntity();
+            UserServiceEntity taskUpdated = oldService;
             taskUpdated.Name = dto.NewName;
             taskUpdated.Value = dto.NewValue;
-            taskUpdated.Type = newTaskType;
+            taskUpdated.Type = newServiceType;
             taskUpdated.Description = dto.NewDescription;
+
+            _serviceRepository.Update(taskUpdated);
 
             return BaseDtoExtension.Sucess();
         }
